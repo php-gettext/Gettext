@@ -10,9 +10,7 @@ Gettext is a PHP library to import/export/edit gettext from PO, MO, PHP, JS file
 Features:
 
 * Written in php 5.3
-* Includes the @import files (only for files with relative path)
 * Extensible with plugins
-* Easy to use
 * Uses the PSR-0 autoloader standard
 
 Contains the following classes:
