@@ -1,0 +1,356 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Apalabro!\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-07 13:03+0100\n"
+"PO-Revision-Date: 2012-08-07 13:06+0100\n"
+"Last-Translator: Lito <lito@eordes.com>\n"
+"Language-Team: Lito <lito@eordes.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;__e\n"
+"X-Poedit-Basepath: /home/lito/www/apalabro/\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: Spain\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: search-words.php:18
+#: themes/default/game.php:113
+#, php-format
+msgid "%s point"
+msgid_plural "%s points"
+msgstr[0] "%s punto"
+msgstr[1] "%s puntos"
+
+#: search-words.php:22
+#: themes/default/game.php:116
+#, php-format
+msgid "%s letters"
+msgstr "%s letras"
+
+#: game-check.php:5
+msgid "No game ID was received"
+msgstr "Non se recibiu o ID da partida"
+
+#: game-check.php:15
+msgid "This game does not exists"
+msgstr "Esta partida non existe"
+
+#: game.php:13
+msgid "Your tiles were set successfully"
+msgstr "As fichas colocáronse correctamente"
+
+#: game.php:17
+msgid "Sorry but these word is no valid"
+msgstr "Recoiros, a palabra que escolleches non parece valer"
+
+#: game.php:25
+msgid "Your tiles were swapped successfully"
+msgstr "O cambio de fichas fíxose correctamente"
+
+#: game.php:29
+msgid "Sorry but yours tiles can not be swapped"
+msgstr "Sinto, pero non se poideron cambiar as túas fichas"
+
+#: new.php:12
+msgid "Sorry but I can't create a new game... Please try it again in some minutes"
+msgstr "Sentímolo pero non se puido crear unha nova partida... Por favor, inténtao de novo nuns intres."
+
+#: themes/default/base.php:7
+#: themes/default/base.php:11
+#: themes/default/base.php:12
+#: themes/default/base.php:61
+msgid "Apalabro!"
+msgstr "Apalabro!"
+
+#: themes/default/base.php:13
+#: themes/default/base.php:14
+msgid "Play to Apalabrados/Angry Words online!"
+msgstr "Xoga a Apalabrados en liña!"
+
+#: themes/default/base.php:65
+msgid "Home"
+msgstr "Comezo"
+
+#: themes/default/base.php:68
+msgid "Game"
+msgstr "Partida"
+
+#: themes/default/base.php:71
+msgid "About"
+msgstr "Sobre"
+
+#: themes/default/base.php:77
+#: themes/default/new.php:4
+msgid "New Game"
+msgstr "Nova Partida"
+
+#: themes/default/base.php:78
+msgid "Logout"
+msgstr "Saír"
+
+#: themes/default/base.php:84
+#: themes/default/base.php:89
+#: themes/default/new.php:15
+msgid "language_"
+msgstr ""
+
+#: themes/default/sub-games-list.php:37
+#: themes/default/game.php:32
+#, php-format
+msgid "%s tiles to remaining"
+msgstr "%s fichas para rematar"
+
+#: themes/default/game.php:13
+msgid "Your turn"
+msgstr "O teu turno"
+
+#: themes/default/game.php:13
+msgid "Opponent turn"
+msgstr "Turno do oponente"
+
+#: themes/default/game.php:29
+#, php-format
+msgid "Last words: %s"
+msgstr "Últimas palabras: %s"
+
+#: themes/default/game.php:43
+msgid "Swapping Tiles"
+msgstr "Cambiando Fichas"
+
+#: themes/default/game.php:47
+msgid "Swap"
+msgstr "Cambiar"
+
+#: themes/default/game.php:48
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: themes/default/game.php:53
+msgid "Move here yours tiles"
+msgstr "Move aquí as túas fichas"
+
+#: themes/default/game.php:77
+msgid "Play!"
+msgstr "Xogar!"
+
+#: themes/default/game.php:78
+msgid "Swap Tiles"
+msgstr "Cambiar Fichas"
+
+#: themes/default/game.php:87
+msgid "Do you need help?"
+msgstr "Precisas axuda?"
+
+#: themes/default/game.php:88
+msgid "I can give you some suggestions ;)"
+msgstr "Se o precisas podo darche algunhas suxerencias ;)"
+
+#: themes/default/game.php:89
+msgid "Yes, please!"
+msgstr "Sí, por favor!"
+
+#: themes/default/game.php:95
+msgid "Suggested words"
+msgstr "Palabras suxeridas"
+
+#: themes/default/game.php:99
+msgid "Regular expression"
+msgstr "Expresión regular"
+
+#: themes/default/game.php:106
+msgid "Filter suggested words"
+msgstr "Filtrar as palabras suxeridas"
+
+#: themes/default/game.php:129
+msgid "Filter with regular expression"
+msgstr "Filtrar con expresión regular"
+
+#: themes/default/game.php:131
+msgid "Search"
+msgstr "Buscar"
+
+#: themes/default/game.php:133
+msgid "Help"
+msgstr "Axuda"
+
+#: themes/default/about.php:4
+msgid "About Apalabro!"
+msgstr "Sobre Apalabro!"
+
+#: themes/default/login.php:11
+msgid "Your username"
+msgstr "O teu usuario"
+
+#: themes/default/login.php:14
+msgid "Your password"
+msgstr "O teu contrasinal"
+
+#: themes/default/login.php:18
+msgid "Login"
+msgstr "Entrar"
+
+#: themes/default/index.php:18
+msgid "No games here :)"
+msgstr "Ningunha partida aquí :)"
+
+#: themes/default/new.php:22
+msgid "Start a new game with random opponent"
+msgstr "Comezar unha nova partida cun rival aleatorio"
+
+#: themes/default/js/js-strings.php:9
+msgid "Which letter use?"
+msgstr "Que letras queres usar?"
+
+#: themes/default/js/js-strings.php:10
+msgid "Play this tiles?"
+msgstr "Xogar estas fichas?"
+
+#: themes/default/js/js-strings.php:11
+msgid "Waiting for reply..."
+msgstr "Agardando resposta..."
+
+#: themes/default/js/js-strings.php:12
+msgid "No results for your query"
+msgstr "Sen resultados para a túa consulta"
+
+#: themes/default/js/js-strings.php:13
+msgid "Are you sure do you want to swap this tiles?"
+msgstr "Estas seguro de querer cambiar estas fichas?"
+
+#: themes/default/js/js-strings.php:14
+msgid "You must select some tile to swap"
+msgstr "Debes seleccionar algunha ficha para ser cambiada"
+
+#: libs/Lito/Apalabro/Theme.php:44
+#, php-format
+msgid "Theme path \"%s\" does not exists."
+msgstr "O directorio \"%s\" para este tema non existe."
+
+#: libs/Lito/Apalabro/functions.php:59
+#: libs/Lito/Apalabro/functions.php:66
+msgid "just now"
+msgstr "xusto agora"
+
+#: libs/Lito/Apalabro/functions.php:68
+msgid "one minute ago"
+msgstr "hai un minuto"
+
+#: libs/Lito/Apalabro/functions.php:70
+#, php-format
+msgid "%s minutes ago"
+msgstr "hai %s minutos"
+
+#: libs/Lito/Apalabro/functions.php:72
+msgid "one hour ago"
+msgstr "hai unha hora"
+
+#: libs/Lito/Apalabro/functions.php:74
+#, php-format
+msgid "%s hours ago"
+msgstr "hai %s horas"
+
+#: libs/Lito/Apalabro/functions.php:76
+msgid "yesterday"
+msgstr "onte"
+
+#: libs/Lito/Apalabro/functions.php:78
+#, php-format
+msgid "%s days ago"
+msgstr "hai %s días"
+
+#: libs/Lito/Apalabro/functions.php:88
+msgid "in a minute"
+msgstr "nun minuto"
+
+#: libs/Lito/Apalabro/functions.php:90
+#, php-format
+msgid "in %s minutes"
+msgstr "en %s minutos"
+
+#: libs/Lito/Apalabro/functions.php:92
+msgid "in an hour"
+msgstr "nunha hora"
+
+#: libs/Lito/Apalabro/functions.php:94
+#, php-format
+msgid "in %s hours"
+msgstr "en %s horas"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:4
+msgid "language_en"
+msgstr "US English"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:5
+msgid "language_en-uk"
+msgstr "UK English"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:6
+msgid "language_es"
+msgstr "Castellano"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:7
+msgid "language_gl"
+msgstr "Galego"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:9
+msgid "Turn"
+msgstr "Turno"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:10
+msgid "Waiting"
+msgstr "Agardando"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:11
+msgid "Ended"
+msgstr "Rematadas"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:12
+msgid "Pending"
+msgstr "Pentente"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:13
+msgid "Active"
+msgstr "Activo"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:14
+msgid "ACTIVE"
+msgstr "ACTIVO"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:15
+msgid "ENDED"
+msgstr "REMATADA"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:16
+msgid "RESIGN"
+msgstr "RENDICIÓN"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:17
+msgid "REJECT"
+msgstr "REXEITADA"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:18
+msgid "PENDING_MY_APPROVAL"
+msgstr "PENDIENTE DA MIÑA APROBACIÓN"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:19
+msgid "PENDING_FIRST_MOVE"
+msgstr "PENDIENTE DO PRIMEIRO MOVEMENTO"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:20
+msgid "PENDING_FRIENDS_APPROVAL"
+msgstr "PENDIENTE DE APROBACIÓN DO RIVAL"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:21
+msgid "PLACE_TILE"
+msgstr "COLOCAR FICHA"
+
+#: libs/Lito/Apalabro/dynamic-strings.php:22
+msgid "PASS"
+msgstr "PASA"
+
+#~ msgid "Reload Cache"
+#~ msgstr "Actualizar Caché"
