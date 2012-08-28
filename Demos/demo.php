@@ -11,5 +11,5 @@ $translations = Gettext\Extractors\Po::extract('gettext.po');
 header('Content-Type: text/plain; charset=UTF-8');
 
 //echo(Gettext\Generators\Mo::generate($translations));
-echo(Gettext\Generators\Po::generate($translations));
+echo(Gettext\Generators\Json::generate($translations));
 ?>

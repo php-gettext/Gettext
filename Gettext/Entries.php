@@ -21,10 +21,14 @@ class Entries extends \ArrayObject {
 
 	public function setDomain ($domain) {
 		$this->domain = $domain;
+	}
 
-		foreach ($this as $t) {
-			$t->setDomain($domain);
-		}
+	public function getDomain () {
+		return $this->domain;
+	}
+
+	public function hasDomain () {
+		return (isset($this->domain) && $this->domain !== '') ? true : false;
 	}
 
 	public function find ($original, $translation = null, $context = null, $domain = null) {

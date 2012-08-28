@@ -2,7 +2,6 @@
 namespace Gettext;
 
 class Translation {
-	public $domain;
 	public $context;
 	public $original;
 	public $translation;
@@ -11,15 +10,14 @@ class Translation {
 	public $references = array();
 	public $comments = array();
 
-	public function __construct ($original = null, $translation = null, $context = null, $domain = null) {
+	public function __construct ($original = null, $translation = null, $context = null) {
 		$this->setOriginal($original);
 		$this->setTranslation($translation);
 		$this->setContext($context);
-		$this->setDomain($domain);
 	}
 
-	public function is ($original, $translation = null, $context = null, $domain = null) {
-		return ($this->original === $original && $this->translation === $translation && $this->context === $context && $this->domain === $domain) ? true : false;
+	public function is ($original, $translation = null, $context = null) {
+		return (($this->original === $original) && ($this->translation === $translation) && ($this->context === $context)) ? true : false;
 	}
 
 	//ORIGINAL STRING
@@ -32,7 +30,7 @@ class Translation {
 	}
 
 	public function hasOriginal () {
-		return (isset($this->original) && $this->original !== '') ? true : false;
+		return (isset($this->original) && ($this->original !== '')) ? true : false;
 	}
 
 	//TRANSLATED STRING
@@ -45,7 +43,7 @@ class Translation {
 	}
 
 	public function hasTranslation () {
-		return (isset($this->translation) && $this->translation !== '') ? true : false;
+		return (isset($this->translation) && ($this->translation !== '')) ? true : false;
 	}
 
 	//PLURAL STRING
@@ -58,7 +56,7 @@ class Translation {
 	}
 
 	public function hasPlural () {
-		return (isset($this->plural) && $this->plural !== '') ? true : false;
+		return (isset($this->plural) && ($this->plural !== '')) ? true : false;
 	}
 
 	//PLURAL TRANSLATED STRINGS
@@ -82,19 +80,6 @@ class Translation {
 		return isset($this->pluralTranslation[0]);
 	}
 
-	//DOMAIN
-	public function setDomain ($domain) {
-		$this->domain = $domain;
-	}
-
-	public function getDomain () {
-		return $this->domain;
-	}
-
-	public function hasDomain () {
-		return (isset($this->domain) && $this->domain !== '') ? true : false;
-	}
-
 	//CONTEXT
 	public function setContext ($context) {
 		$this->context = $context;
@@ -105,7 +90,7 @@ class Translation {
 	}
 
 	public function hasContext () {
-		return (isset($this->context) && $this->context !== '') ? true : false;
+		return (isset($this->context) && ($this->context !== '')) ? true : false;
 	}
 
 	//REFERENCES
