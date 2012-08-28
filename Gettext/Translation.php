@@ -10,14 +10,14 @@ class Translation {
 	public $references = array();
 	public $comments = array();
 
-	public function __construct ($original = null, $translation = null, $context = null) {
+	public function __construct ($context = null, $original = null, $translation = null) {
+		$this->setContext($context);
 		$this->setOriginal($original);
 		$this->setTranslation($translation);
-		$this->setContext($context);
 	}
 
-	public function is ($original, $translation = null, $context = null) {
-		return (($this->original === $original) && ($this->translation === $translation) && ($this->context === $context)) ? true : false;
+	public function is ($context, $original = null, $plural = null) {
+		return (($this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
 	}
 
 	//ORIGINAL STRING
