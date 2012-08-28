@@ -23,7 +23,6 @@ Extractors
 ----------
 
 The extrators are static classes that extract the gettext values from any source and return a Gettext\Entries instance with them.
-These are the available extractors until now:
 
 * Gettext\Extractors\File - Scan a file and search for __() and __e() functions to collect all gettext strings
 * Gettext\Extractors\Po - Parse a PO file
@@ -33,10 +32,10 @@ Generators
 ----------
 
 Generators take a Gettext\Entries instance and export the data in any format.
-The available generator until now are:
 
 * Gettext\Generators\Mo - Generate a Mo file
 * Gettext\Generators\Po - Generate a Mo file
+* Gettext\Generators\Php - Generate a Php file (that returns an array with all values)
 
 HOW TO USE?
 ===========
