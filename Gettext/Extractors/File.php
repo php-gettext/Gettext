@@ -17,7 +17,7 @@ class File extends Extractor {
 			foreach ($matches[3] as $msgid) {
 				$msgid = str_replace('\\', '', $msgid);
 
-				$translation = $entries->find($msgid) ?: $entries->append($msgid);
+				$translation = $entries->find(null, $msgid) ?: $entries->append(null, $msgid);
 				$translation->addReference($file, $num + 1);
 			}
 		}

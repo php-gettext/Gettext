@@ -17,12 +17,12 @@ Contains the following classes:
 
 * Gettext\Translation - Contains a translation definition
 * Gettext\Entries - A translations collection
+* Gettext\Translator - A gettext implementation for PHP
 
 Extractors
 ----------
 
 The extrators are static classes that extract the gettext values from any source and return a Gettext\Entries instance with them.
-These are the available extractors until now:
 
 * Gettext\Extractors\File - Scan a file and search for __() and __e() functions to collect all gettext strings
 * Gettext\Extractors\Po - Parse a PO file
@@ -32,10 +32,59 @@ Generators
 ----------
 
 Generators take a Gettext\Entries instance and export the data in any format.
-The available generator until now are:
 
 * Gettext\Generators\Mo - Generate a Mo file
 * Gettext\Generators\Po - Generate a Mo file
+* Gettext\Generators\Php - Generate a Php file (that returns an array with all values)
+
+HOW TO USE?
+===========
+
+First, lets scan a Po file:
+
+```php
+use Gettext\Extractors\Po as PoExtractor;
+
+$translations = PoExtractor::extract('my-file.po');
+```
+
+Now, we can edit some translations:
+
+```php
+$translation = $translations->find(null, 'apples');
+
+if ($translation) {
+	$translation->setTranslation('Mazáns');
+}
+```
+
+And export to a php file:
+
+```php
+use Gettext\Generators\Php as PhpGenerator;
+
+$result = PhpGenerator::generate($translations);
+
+file_put_contents('locate.php', $result);
+```
+
+Now we can use this translations into our code:
+
+```php
+use Gettext\Translator as Gt;
+
+Gt::loadTranslations('locate.php');
+
+echo Gt::gettext('apples'); //Returns Mazás
+```
+
+You can use the translator functions, a short version of Gettext\Translator for more confort:
+
+```php
+echo __('apples'); //Returns Mazás
+
+__e('apples'); //echo Mazás
+```
 
 TO-DO
 =====
