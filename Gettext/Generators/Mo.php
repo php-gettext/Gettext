@@ -3,7 +3,7 @@ namespace Gettext\Generators;
 
 use Gettext\Entries;
 
-class Mo {
+class Mo extends Generator {
 	static public function generate (Entries $entries) {
 		$translations = array();
 

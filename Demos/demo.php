@@ -12,9 +12,10 @@ $translations = Gettext\Extractors\Po::extract('gettext.po');
 header('Content-Type: text/plain; charset=UTF-8');
 
 //echo(Gettext\Generators\Mo::generate($translations));
-$dictionary = Gettext\Generators\Php::generate($translations);
+Gettext\Generators\Php::generateFile($translations, 'gettext.php');
+Gettext\Generators\Jed::generateFile($translations, 'translation.json');
 
-Gettext\Translator::addTranslations($dictionary);
+Gettext\Translator::loadTranslations('gettext.php');
 
 echo __n('%s point', '%s points', 4, 4);
 ?>
