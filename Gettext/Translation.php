@@ -26,7 +26,7 @@ class Translation {
 	}
 
 	public function getOriginal () {
-		return $this->original;
+		return (string)$this->original;
 	}
 
 	public function hasOriginal () {
@@ -39,7 +39,7 @@ class Translation {
 	}
 
 	public function getTranslation () {
-		return $this->translation;
+		return (string)$this->translation;
 	}
 
 	public function hasTranslation () {
@@ -52,7 +52,7 @@ class Translation {
 	}
 
 	public function getPlural () {
-		return $this->plural;
+		return (string)$this->plural;
 	}
 
 	public function hasPlural () {
@@ -70,7 +70,7 @@ class Translation {
 
 	public function getPluralTranslation ($key = null) {
 		if (isset($key)) {
-			return isset($this->pluralTranslation[$key]) ? $this->pluralTranslation[$key] : null;
+			return isset($this->pluralTranslation[$key]) ? (string)$this->pluralTranslation[$key] : null;
 		}
 
 		return $this->pluralTranslation;
