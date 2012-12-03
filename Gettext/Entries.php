@@ -48,6 +48,6 @@ class Entries extends \ArrayObject {
 	}
 
 	public function append ($original, $translation = null, $context = null) {
-		return $this[] = new Translation($original, $translation, $context, $domain);
+		return $this[] = new Translation($original, $translation, $context);
 	}
 }

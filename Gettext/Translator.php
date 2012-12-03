@@ -57,11 +57,11 @@ class Translator {
 	public static function dpgettext ($domain, $context, $original) {
 		$translation = self::getTranslation($domain, $context, $original);
 
-		if (isset($translation[$key]) && $translation[$key] !== '') {
+		if (isset($translation[0]) && $translation[0] !== '') {
 			return $translation[$key];
 		}
 
-		return ($key === 1) ? $original : $plural;
+		return $original;
 	}
 
 	public static function dnpgettext ($domain, $context, $original, $plural, $value) {
