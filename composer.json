@@ -23,6 +23,9 @@
 	"autoload": {
 		"psr-0": {
 			"Gettext": ""
-		}
+		},
+		"files": [
+			"Gettext/translator_functions.php"
+		]
 	}
 }
