@@ -3,8 +3,8 @@ namespace Gettext\Generators;
 
 use Gettext\Entries;
 
-class Php {
-	static public function generate (Entries $entries) {
+class Php extends Generator {
+	static public function generate (Entries $entries, $string = false) {
 		$array = array();
 
 		$context_glue = '\u0004';
@@ -33,6 +33,10 @@ class Php {
 		);
 
 		$translations[$domain] = array_merge($translations[$domain], $array);
+
+		if ($string) {
+			return '<?php return '.var_export($translations, true).'; ?>';
+		}
 
 		return $translations;
 	}

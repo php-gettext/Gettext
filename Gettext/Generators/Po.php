@@ -3,7 +3,7 @@ namespace Gettext\Generators;
 
 use Gettext\Entries;
 
-class Po {
+class Po extends Generator {
 	static public function generate (Entries $entries) {
 		$lines = array('msgid ""', 'msgstr ""');
 

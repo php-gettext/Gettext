@@ -58,14 +58,14 @@ if ($translation) {
 }
 ```
 
-And export to a php file:
+And export to a php file and a json file for use with Jed library (http://slexaxton.github.com/Jed/:
 
 ```php
 use Gettext\Generators\Php as PhpGenerator;
+use Gettext\Generators\Jed as JedGenerator;
 
-$result = PhpGenerator::generate($translations);
-
-file_put_contents('locate.php', $result);
+PhpGenerator::generateFile($translations, 'locate.php');
+JedGenerator::generateFile($translations, 'locate.json');
 ```
 
 Now we can use this translations into our code:
@@ -86,9 +86,23 @@ echo __('apples'); //Returns Mazás
 __e('apples'); //echo Mazás
 ```
 
+And you can use the same translations in javascript with the Jed library (http://slexaxton.github.com/Jed/)
+
+```javascript
+$.getJSON('locate.json', function (locale) {
+	i18n = new Jed({
+		locale_data: locale
+	});
+
+	alert(i18n.gettext('apples')); //alerts "Mazás"
+});
+```
+
+
 TO-DO
 =====
 
-* Extractor/Generator for php arrays
-* Create a Translator class to implement all gettext functions in php using php array as source
-* Extractor/Generator for json compatible with http://slexaxton.github.com/Jed/
+* Jed and Php Extractors
+* Create a generic autoextractor and autogenerator
+* Complete the File extractor
+* Custom plural parser
