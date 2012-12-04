@@ -47,7 +47,7 @@ class Mo extends Extractor {
 
 			if ($original) {
 				$stream->seekto($table_translations[$i * 2 + 2]);
-				$entries->append(null, $original, $stream->read($table_translations[$i * 2 + 1]));
+				$entries->insert(null, $original)->setTranslation($stream->read($table_translations[$i * 2 + 1]));
 			}
 		}
 	}

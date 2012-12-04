@@ -31,11 +31,15 @@ class Entries extends \ArrayObject {
 		return (isset($this->domain) && $this->domain !== '') ? true : false;
 	}
 
-	public function find ($context, $original = null, $plural = null) {
+	public function find ($context, $original, $plural = '') {
 		if (is_object($original) && $original instanceof Translation) {
 			$context = $original->getContext();
 			$original = $original->getOriginal();
 			$plural = $original->getPlural();
+		} else {
+			$context = (string)$context;
+			$original = (string)$original;
+			$plural = (string)$plural;
 		}
 
 		foreach ($this as $t) {
@@ -47,7 +51,7 @@ class Entries extends \ArrayObject {
 		return false;
 	}
 
-	public function append ($original, $translation = null, $context = null) {
-		return $this[] = new Translation($original, $translation, $context);
+	public function insert ($context, $original, $plural = '') {
+		return $this[] = new Translation($context, $original, $plural);
 	}
 }

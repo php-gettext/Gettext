@@ -11,13 +11,23 @@ class Translator {
 			$dictionary = include($file);
 
 			if (is_array($dictionary)) {
-				self::addTranslations($dictionary);
+				$domain = isset($dictionary['messages']['']['domain']) ? $dictionary['messages']['']['domain'] : null;
+				unset($dictionary['messages']['']);
+				self::addTranslations($dictionary['messages'], $domain);
 			}
 		}
 	}
 
-	public static function addTranslations (array $dictionary) {
-		self::$dictionary = array_replace_recursive(self::$dictionary, $dictionary);
+	public static function addTranslations (array $dictionary, $domain = null) {
+		if ($domain === null) {
+			$domain = self::$domain;
+		}
+
+		if (!isset(self::$dictionary[$domain])) {
+			self::$dictionary[$domain] = array();
+		}
+
+		self::$dictionary[$domain] = array_replace_recursive(self::$dictionary[$domain], $dictionary);
 	}
 
 	public static function clearTranslations () {
@@ -57,8 +67,8 @@ class Translator {
 	public static function dpgettext ($domain, $context, $original) {
 		$translation = self::getTranslation($domain, $context, $original);
 
-		if (isset($translation[0]) && $translation[0] !== '') {
-			return $translation[$key];
+		if (isset($translation[1]) && $translation[1] !== '') {
+			return $translation[1];
 		}
 
 		return $original;
