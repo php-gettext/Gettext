@@ -13,7 +13,7 @@ function __ ($original) {
 	return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-function __n ($original, $plural, $value) {
+function n__ ($original, $plural, $value) {
 	$text = Translator::ngettext($original, $plural, $value);
 
 	if (func_num_args() === 3) {
@@ -25,7 +25,7 @@ function __n ($original, $plural, $value) {
 	return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-function __p ($context, $original) {
+function p__ ($context, $original) {
 	$text = Translator::pgettext($context, $original);
 
 	if (func_num_args() === 2) {
@@ -36,6 +36,9 @@ function __p ($context, $original) {
 
 	return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
+/*
+
+Not implemented yet...
 
 function __d ($domain, $original) {
 	$text = Translator::dgettext($domain, $original);
@@ -72,8 +75,14 @@ function __dnp ($domain, $context, $original, $plural, $value) {
 
 	return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
-
+*/
 
 function __e ($original) {
 	echo (func_num_args() === 1) ? __($original) : __($original, array_slice(func_get_args(), 1));
+}
+function n__e ($original, $plural, $value) {
+	echo (func_num_args() === 3) ? n__($original, $plural, $value) : n__($original, $plural, $value, array_slice(func_get_args(), 3));
+}
+function p__e ($context, $original) {
+	echo (func_num_args() === 2) ? p__($context, $original) : p__($context, $original, array_slice(func_get_args(), 2));
 }
