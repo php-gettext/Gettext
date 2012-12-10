@@ -22,20 +22,23 @@ Contains the following classes:
 Extractors
 ----------
 
-The extrators are static classes that extract the gettext values from any source and return a Gettext\Entries instance with them.
+The extrators are classes that extract the gettext values from any source and return a Gettext\Entries instance with them.
 
-* Gettext\Extractors\File - Scan a file and search for __() and __e() functions to collect all gettext strings
-* Gettext\Extractors\Po - Parse a PO file
-* Gettext\Extractors\Mo - Parse a MO file
+* Gettext\Extractors\PhpCode - Scan a php file looking for all gettext functions to collect their strings
+* Gettext\Extractors\JsCode - Scan a javascript file looking for all gettext functions to collect their strings
+* Gettext\Extractors\PhpArray - Gets the strings from a php file that returns an array of values (complement of PhpArray generator)
+* Gettext\Extractors\Po - Gets the strings from PO files
+* Gettext\Extractors\Mo - Gets the strings from MO files
 
 Generators
 ----------
 
-Generators take a Gettext\Entries instance and export the data in any format.
+Generators take a Gettext\Entries instance and export the data in any of the following format.
 
 * Gettext\Generators\Mo - Generate a Mo file
-* Gettext\Generators\Po - Generate a Mo file
-* Gettext\Generators\Php - Generate a Php file (that returns an array with all values)
+* Gettext\Generators\Po - Generate a Po file
+* Gettext\Generators\Jed - Generate a json file compatible with Jed library
+* Gettext\Generators\PhpArray - Generate a Php file that returns an array with all values
 
 HOW TO USE?
 ===========
@@ -61,10 +64,10 @@ if ($translation) {
 And export to a php file and a json file for use with Jed library (http://slexaxton.github.com/Jed/:
 
 ```php
-use Gettext\Generators\Php as PhpGenerator;
+use Gettext\Generators\PhpArray as PhpArrayGenerator;
 use Gettext\Generators\Jed as JedGenerator;
 
-PhpGenerator::generateFile($translations, 'locate.php');
+PhpArrayGenerator::generateFile($translations, 'locate.php');
 JedGenerator::generateFile($translations, 'locate.json');
 ```
 
@@ -102,7 +105,5 @@ $.getJSON('locate.json', function (locale) {
 TO-DO
 =====
 
-* Jed and Php Extractors
-* Create a generic autoextractor and autogenerator
-* Complete the File extractor
 * Custom plural parser
+* Working with domains

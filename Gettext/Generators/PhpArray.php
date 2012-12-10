@@ -3,7 +3,7 @@ namespace Gettext\Generators;
 
 use Gettext\Entries;
 
-class Php extends Generator {
+class PhpArray extends Generator {
 	static public function generate (Entries $entries, $string = false) {
 		$array = array();
 

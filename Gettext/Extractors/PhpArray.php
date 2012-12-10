@@ -3,7 +3,7 @@ namespace Gettext\Extractors;
 
 use Gettext\Entries;
 
-class Php extends Extractor {
+class PhpArray extends Extractor {
 	static public function parse ($file, Entries $entries) {
 		$content = include($file);
 		$content = $content['messages'];
