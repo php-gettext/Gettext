@@ -3,7 +3,16 @@ namespace Gettext\Extractors;
 
 use Gettext\Entries;
 
-class File extends Extractor {
+class PhpCode extends Extractor {
+	static public $functions = array(
+		'__' => '__',
+		'__e' => '__',
+		'n__' => 'n__',
+		'n__e' => 'n__',
+		'p__' => 'p__',
+		'p__e' => 'p__'
+	);
+
 	static public function parse ($file, Entries $entries) {
 		$tokens = token_get_all(file_get_contents($file));
 		$functions = array();
@@ -40,31 +49,29 @@ class File extends Extractor {
 
 		foreach ($functions as $args) {
 			$function = array_shift($args);
+
+			if (!isset(self::$functions[$function])) {
+				continue;
+			}
+
 			$line = array_shift($args);
 
-			switch ($function) {
+			switch (self::$functions[$function]) {
 				case '__':
-				case '__e':
 					$original = $args[0];
 					$translation = $entries->find('', $original) ?: $entries->insert('', $original);
 					break;
 
 				case 'n__':
-				case 'n__e':
 					$original = $args[0];
 					$plural = $args[1];
 					$translation = $entries->find('', $original, $plural) ?: $entries->insert('', $original, $plural);
 					break;
 
 				case 'p__':
-				case 'p__e':
 					$context = $args[0];
 					$original = $args[1];
 					$translation = $entries->find($context, $original) ?: $entries->insert($context, $original);
-					break;
-				
-				default:
-					continue 2;
 					break;
 			}
 
