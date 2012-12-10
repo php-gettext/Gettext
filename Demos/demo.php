@@ -37,7 +37,7 @@ $translations = Gettext\Extractors\Po::extract('gettext.po');
 header('Content-Type: text/plain; charset=UTF-8');
 
 //echo(Gettext\Generators\Mo::generate($translations));
-Gettext\Generators\Php::generateFile($translations, 'gettext.php');
+Gettext\Generators\PhpArray::generateFile($translations, 'gettext.php');
 Gettext\Generators\Jed::generateFile($translations, 'gettext.json');
 
 Gettext\Translator::loadTranslations('gettext.php');

@@ -19,7 +19,7 @@ class Po extends Generator {
 		$headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');
 
 		foreach ($headers as $name => $value) {
-			$lines[] = '"'.$name.': '.$value.'"';
+			$lines[] = '"'.$name.': '.$value.'\\n"';
 		}
 
 		$lines[] = '';
