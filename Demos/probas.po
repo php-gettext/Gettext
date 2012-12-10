@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-12-10T23:17:10+01:00\n"
+"POT-Creation-Date: 2012-12-10T23:17:10+01:00\n"
+
+msgid "Hello world, testing jsgettext"
+msgstr ""
+
+msgid "string 2: double quotes"
+msgstr ""
+
+msgid "/* comment in string */"
+msgstr ""
+
+msgid "regexp in string: /[a-z]+/"
+msgstr ""
+
+msgid "string 2: \"escaped double quotes\""
+msgstr ""
+
+msgid "Test string"
+msgstr ""
+
+msgid "string 1: single quotes"
+msgstr ""
+
+msgid "string 2: 'escaped single quotes'"
+msgstr ""
+
+msgid "¡¡¿¿Texto con açentos, eñes, etcétera??!!"
+msgstr ""
