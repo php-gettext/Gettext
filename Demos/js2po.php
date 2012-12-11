@@ -49,10 +49,10 @@ Gettext\Extractors\JsCode::$functions = array(
 	'T_' => '__'
 );
 
-if (!strpos($input, ':\\') && $input[0] !== '/') {
+if (!strpos($input, ':\\') && $input[0] !== DIRECTORY_SEPARATOR) {
 	$input = __DIR__.DIRECTORY_SEPARATOR.$input;
 }
-if (!strpos($output, ':\\') && $output[0] !== '/') {
+if (!strpos($output, ':\\') && $output[0] !== DIRECTORY_SEPARATOR) {
 	$output = __DIR__.DIRECTORY_SEPARATOR.$output;
 }
 
