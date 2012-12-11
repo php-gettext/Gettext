@@ -1,7 +1,7 @@
 <?php
 function autoload ($className) {
 	$className = ltrim($className, '\\');
-	$fileName  = '../';
+	$fileName  = dirname(__DIR__).DIRECTORY_SEPARATOR;
 	$namespace = '';
 	
 	if ($lastNsPos = strripos($className, '\\')) {
@@ -43,6 +43,18 @@ spl_autoload_register('autoload');
 $options = buildOptions($argv);
 $input = $options['-i'];
 $output = $options['-o'];
+
+//Custom functions
+Gettext\Extractors\JsCode::$functions = array(
+	'T_' => '__'
+);
+
+if (!strpos($input, ':\\') && $input[0] !== '/') {
+	$input = __DIR__.DIRECTORY_SEPARATOR.$input;
+}
+if (!strpos($output, ':\\') && $output[0] !== '/') {
+	$output = __DIR__.DIRECTORY_SEPARATOR.$output;
+}
 
 $Entries = Gettext\Extractors\JsCode::extract($input);
 Gettext\Generators\Po::generateFile($Entries, $output);

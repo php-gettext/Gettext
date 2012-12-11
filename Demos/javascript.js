@@ -12,9 +12,9 @@ function test(param) {
 	var s4 = __("regexp in string: /[a-z]+/i");
 	var s5 = jsgettext( "another function" );
 	var s6 = avoidme("should not see me!");
-	var s7 = __("string 2: \"escaped double quotes\"");
+	var s7 = T_("string 2: \"escaped double quotes\"");
 	var s8 = __('string 2: \'escaped single quotes\'');
-	var s9 = __('¡¡¿¿Texto con açentos, eñes, etcétera??!!');
+	var s9 = T_('¡¡¿¿Texto con açentos, eñes, etcétera??!!');
 
 	// "string in comment"
 	//;
