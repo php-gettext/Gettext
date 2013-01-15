@@ -77,12 +77,12 @@ function __dnp ($domain, $context, $original, $plural, $value) {
 }
 */
 
-function __e ($original) {
-	echo (func_num_args() === 1) ? __($original) : __($original, array_slice(func_get_args(), 1));
+function __e () {
+	echo call_user_func_array('__', func_get_args());
 }
-function n__e ($original, $plural, $value) {
-	echo (func_num_args() === 3) ? n__($original, $plural, $value) : n__($original, $plural, $value, array_slice(func_get_args(), 3));
+function n__e () {
+	echo call_user_func_array('n__', func_get_args());
 }
-function p__e ($context, $original) {
-	echo (func_num_args() === 2) ? p__($context, $original) : p__($context, $original, array_slice(func_get_args(), 2));
+function p__e () {
+	echo call_user_func_array('p__', func_get_args());
 }
