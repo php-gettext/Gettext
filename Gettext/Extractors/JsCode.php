@@ -49,7 +49,7 @@ class JsCode extends Extractor {
 			return $strings[$match[1]];
 		}, $content);
 
-		$keywords = implode('|', self::$functions);
+		$keywords = implode('|', array_keys(self::$functions));
 		$strings = array();
 
 		preg_match_all('# (?:('.$keywords.')) \(\\ *" ( (?: (?>[^"\\\\]++) | \\\\\\\\ | (?<!\\\\)\\\\(?!\\\\) | \\\\" )* ) (?<!\\\\)"\\ *\) #ix', $content, $matches1, PREG_SET_ORDER);
@@ -59,6 +59,10 @@ class JsCode extends Extractor {
 		$matches2 = self::stripQuotes($matches2, "'");
 
 		foreach (array_merge($matches1, $matches2) as $match) {
+			if (!isset(self::$functions[$match[1]])) {
+				continue;
+			}
+
 			switch (self::$functions[$match[1]]) {
 				case '__':
 					$original = $match[2];
