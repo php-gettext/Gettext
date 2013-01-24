@@ -2,11 +2,11 @@
 namespace Gettext\Generators;
 
 use Gettext\Entries;
-use Gettext\Generators\Php;
+use Gettext\Generators\PhpArray;
 
 class Jed extends Generator {
 	static public function generate (Entries $entries, $encoded = true) {
-		$translations = Php::generate($entries);
+		$translations = PhpArray::generate($entries);
 		
 		return $encoded ? json_encode($translations) : $translations;
 	}
