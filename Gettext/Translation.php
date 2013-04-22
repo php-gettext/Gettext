@@ -16,8 +16,10 @@ class Translation {
 		$this->setPlural($plural);
 	}
 
-	public function is ($context, $original = null, $plural = null) {
-		return (($this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
+	public function is ($context = false, $original = null, $plural = null) {
+		return (($context === false || $this->context === $context)
+			&& ($this->original === $original)
+			&& ($this->plural === $plural)) ? true : false;
 	}
 
 	//ORIGINAL STRING
