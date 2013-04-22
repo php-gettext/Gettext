@@ -101,7 +101,9 @@ class Translation {
 	public function hasReferences () {
 		return isset($this->references[0]);
 	}
-
+    public function wipeReferences () {
+    	$this->references = array();
+    }
 	public function getReferences () {
 		return $this->references;
 	}
