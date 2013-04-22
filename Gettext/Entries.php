@@ -37,7 +37,7 @@ class Entries extends \ArrayObject {
 			$original = $original->getOriginal();
 			$plural = $original->getPlural();
 		} else {
-			$context = (string)$context;
+			$context = ($context === null) ? null : (string)$context;
 			$original = (string)$original;
 			$plural = (string)$plural;
 		}
