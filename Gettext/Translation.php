@@ -17,7 +17,7 @@ class Translation {
 	}
 
 	public function is ($context = false, $original = null, $plural = null) {
-		return ((!$context || $this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
+		return (($context === false || $this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
 	}
 
 	//ORIGINAL STRING
