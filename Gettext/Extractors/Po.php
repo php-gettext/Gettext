@@ -11,6 +11,8 @@ class Po extends Extractor {
 		$i = 2;
 
 		while (($line = trim($lines[$i++])) !== '') {
+
+			$line = self::fixMultiLines($line,$lines,$i);
 			$line = self::clean($line);
 
 			if (strpos($line, ':')) {
@@ -24,13 +26,14 @@ class Po extends Extractor {
 		for ($n = count($lines); $i < $n; $i++) {
 			$line = trim($lines[$i]);
 
+			$line = self::fixMultiLines($line,$lines,$i);
+
 			if ($line === '' && $translation->hasOriginal()) {
 				$entries[] = $translation;
 
 				$translation = new Translation;
 				continue;
 			}
-
 			list($key, $data) = preg_split('/\s/', $line, 2);
 			$append = null;
 
@@ -97,7 +100,6 @@ class Po extends Extractor {
 					break;
 			}
 		}
-
 		return $entries;
 	}
 
@@ -107,5 +109,20 @@ class Po extends Extractor {
 		}
 
 		return str_replace(array('\\n', '\\"'), array("\n", '"'), $str);
+	}
+
+	static private function fixMultiLines ($line, Array $lines, &$i) {
+		for ($j = $i; $j<count($lines); $j++) {
+			if ( substr($line, -1, 1) == '"'
+				&& isset($lines[$j+1])
+				&& substr(trim($lines[$j+1]), 0, 1) == '"'
+			) {
+				$line = substr($line, 0, -1) . substr(trim($lines[$j+1]), 1);
+			} else {
+				$i = $j;
+				break;
+			}
+		}
+		return $line;
 	}
 }
