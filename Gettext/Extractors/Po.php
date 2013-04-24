@@ -12,7 +12,6 @@ class Po extends Extractor {
 
 		while (($line = trim($lines[$i++])) !== '') {
 
-			$line = self::fixMultiLines($line,$lines,$i);
 			$line = self::clean($line);
 
 			if (strpos($line, ':')) {
