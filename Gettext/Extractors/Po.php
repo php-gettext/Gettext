@@ -35,7 +35,6 @@ class Po extends Extractor {
 			}
 			list($key, $data) = preg_split('/\s/', $line, 2);
 			$append = null;
-
 			switch ($key) {
 				case '#,':
 				case '#':
@@ -98,6 +97,9 @@ class Po extends Extractor {
 					}
 					break;
 			}
+		}
+		if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($entries))) {
+			$entries[] = $translation;
 		}
 		return $entries;
 	}
