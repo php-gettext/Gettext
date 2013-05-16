@@ -28,10 +28,12 @@ include('../Gettext/translator_functions.php');
 //Demo
 
 $translations = Gettext\Extractors\JsCode::extract('javascript.js');
-print_r($translations);
+$translations = Gettext\Extractors\Po::extract('gettext.po');
+$translation = $translations->find(null, 'Your tiles were set successfully');
+var_dump($translation);
+var_dump($translation->is(null, 'Your tiles were set successfully'));
 die();
 //$translations = Gettext\Extractors\PhpCode::extract('gettext.html.php');
-$translations = Gettext\Extractors\Po::extract('gettext.po');
 //$translations = Gettext\Extractors\Mo::extract('gettext.mo');
 
 header('Content-Type: text/plain; charset=UTF-8');

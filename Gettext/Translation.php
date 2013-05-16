@@ -2,21 +2,21 @@
 namespace Gettext;
 
 class Translation {
-	public $context = '';
-	public $original = '';
+	public $context;
+	public $original;
 	public $translation = '';
-	public $plural = '';
+	public $plural;
 	public $pluralTranslation = array();
 	public $references = array();
 	public $comments = array();
 
-	public function __construct ($context = null, $original = null, $plural = null) {
+	public function __construct ($context = null, $original = '', $plural = '') {
 		$this->setContext($context);
 		$this->setOriginal($original);
 		$this->setPlural($plural);
 	}
 
-	public function is ($context, $original = null, $plural = null) {
+	public function is ($context, $original = '', $plural = '') {
 		return (($this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
 	}
 
