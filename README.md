@@ -11,7 +11,6 @@ Features:
 
 * Written in php 5.3
 * Extensible with plugins
-* Uses the PSR-0 autoloader standard
 
 Contains the following classes:
 
@@ -46,6 +45,9 @@ HOW TO USE?
 First, lets scan a Po file:
 
 ```php
+//Include the autoloader if you don't use composer or PSR-0 loader
+include('myLibsFolder/Gettext/autoloader.php');
+
 use Gettext\Extractors\Po as PoExtractor;
 
 $translations = PoExtractor::extract('my-file.po');
