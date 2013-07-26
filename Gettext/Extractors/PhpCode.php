@@ -41,7 +41,7 @@ class PhpCode extends Extractor {
 				continue;
 			}
 
-			if (!$currentFunction && ($value[0] === T_STRING) && is_string($tokens[$k + 1]) && ($tokens[$k + 1] === '(')) {
+			if (($value[0] === T_STRING) && is_string($tokens[$k + 1]) && ($tokens[$k + 1] === '(')) {
 				$currentFunction = array($value[1], $value[2]);
 				continue;
 			}
