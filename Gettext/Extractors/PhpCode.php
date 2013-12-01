@@ -46,6 +46,7 @@ class PhpCode extends Extractor {
 			if (($value[0] === T_STRING) && is_string($tokens[$k + 1]) && ($tokens[$k + 1] === '(')) {
 				array_unshift($bufferFunctions, array($value[1], $value[2]));
 				$k++;
+
 				continue;
 			}
 		}
