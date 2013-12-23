@@ -8,9 +8,9 @@ class Po extends Extractor {
 	static public function parse ($file, Entries $entries) {
 		$lines = file($file, FILE_IGNORE_NEW_LINES);
 
-		$i = 2;
+		$i = 1;
 
-		while (($line = trim($lines[$i++])) !== '') {
+		while ((isset($lines[++$i]) && ($line = trim($lines[$i])) !== '')) {
 
 			$line = self::clean($line);
 
