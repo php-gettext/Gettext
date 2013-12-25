@@ -34,8 +34,8 @@ class Entries extends \ArrayObject {
 	public function find ($context, $original, $plural = '') {
 		if (is_object($original) && $original instanceof Translation) {
 			$context = $original->getContext();
-			$original = $original->getOriginal();
 			$plural = $original->getPlural();
+			$original = $original->getOriginal();
 		} else {
 			$context = ($context === null) ? null : (string)$context;
 			$original = (string)$original;
