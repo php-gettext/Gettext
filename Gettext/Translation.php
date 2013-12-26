@@ -10,7 +10,7 @@ class Translation {
 	public $references = array();
 	public $comments = array();
 
-	public function __construct ($context = null, $original = '', $plural = '') {
+	public function __construct ($context = '', $original = '', $plural = '') {
 		$this->setContext($context);
 		$this->setOriginal($original);
 		$this->setPlural($plural);
@@ -82,7 +82,7 @@ class Translation {
 
 	//CONTEXT
 	public function setContext ($context) {
-		$this->context = $context;
+		$this->context = (string)$context;
 	}
 
 	public function getContext () {

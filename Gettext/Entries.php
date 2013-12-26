@@ -31,13 +31,13 @@ class Entries extends \ArrayObject {
 		return (isset($this->domain) && $this->domain !== '') ? true : false;
 	}
 
-	public function find ($context, $original, $plural = '') {
-		if (is_object($original) && $original instanceof Translation) {
-			$context = $original->getContext();
-			$plural = $original->getPlural();
-			$original = $original->getOriginal();
+	public function find ($context, $original = '', $plural = '') {
+		if ($context instanceof Translation) {
+			$original = $context->getOriginal();
+			$plural = $context->getPlural();
+			$context = $context->getContext();
 		} else {
-			$context = ($context === null) ? null : (string)$context;
+			$context = (string)$context;
 			$original = (string)$original;
 			$plural = (string)$plural;
 		}
