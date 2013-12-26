@@ -27,10 +27,11 @@ class Po extends Extractor {
 
 			$line = self::fixMultiLines($line,$lines,$i);
 
-			if ($line === '' && $translation->hasOriginal()) {
-				$entries[] = $translation;
-
-				$translation = new Translation;
+			if ($line === '') {
+				if($translation->hasOriginal()) {
+					$entries[] = $translation;
+					$translation = new Translation;
+				}
 				continue;
 			}
 			list($key, $data) = preg_split('/\s/', $line, 2);
