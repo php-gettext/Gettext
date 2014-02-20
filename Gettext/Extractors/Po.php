@@ -80,7 +80,7 @@ class Po extends Extractor {
 
 				default:
 					if (strpos($key, 'msgstr[') === 0) {
-						$translation->addPluralTranslation(self::clean($data));
+						$translation->setPluralTranslation(self::clean($data));
 						$append = 'PluralTranslation';
 						break;
 					}
