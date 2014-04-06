@@ -7,7 +7,6 @@ abstract class Extractor {
 	static public function extract ($file, Entries $entries = null) {
 		if (empty($file)) {
 			throw new \InvalidArgumentException('There is not a file defined');
-			return false;
 		}
 
 		if ($entries === null) {
@@ -28,7 +27,6 @@ abstract class Extractor {
 
 		if (!is_readable($file)) {
 			throw new \InvalidArgumentException("'$file' is not a readable file");
-			return false;
 		}
 
 		static::parse($file, $entries);
@@ -60,14 +58,13 @@ abstract class Extractor {
 			}
 
 			throw new \InvalidArgumentException("'$path' is not a valid file or folder");
-			return false;
 		}
 
 		if (is_array($path)) {
 			$files = array();
 
 			foreach ($path as $file) {
-				$file = static::resolve($file);
+				$file = self::resolve($file);
 
 				if (is_array($file)) {
 					$files = array_merge($files, $file);
@@ -80,6 +77,5 @@ abstract class Extractor {
 		}
 
 		throw new \InvalidArgumentException('The first argumet must be string or array');
-		return false;
 	}
 }

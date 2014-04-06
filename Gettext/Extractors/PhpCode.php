@@ -77,6 +77,9 @@ class PhpCode extends Extractor {
 					$original = $args[1];
 					$translation = $entries->find($context, $original) ?: $entries->insert($context, $original);
 					break;
+
+				default:
+					throw new \Exception('Not valid functions');
 			}
 
 			$translation->addReference($file, $line);

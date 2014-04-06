@@ -87,8 +87,8 @@ class Po extends Extractor {
 
 					if (isset($append)) {
 						if ($append === 'PluralTranslation') {
-							$key = count($this->getPluralTranslation()) - 1;
-							$this->setPluralTranslation($this->getPluralTranslation($key).self::clean("\n".$data), $key);
+							$key = count($translation->getPluralTranslation()) - 1;
+							$translation->setPluralTranslation($translation->getPluralTranslation($key).self::clean("\n".$data), $key);
 							break;
 						}
 

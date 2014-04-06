@@ -5,8 +5,6 @@ use Gettext\Entries;
 use Gettext\Translation;
 
 class Mo extends Extractor {
-	public $error = 0;
-
 	const MAGIC1 = -1794895138;
 	const MAGIC2 = -569244523;
 	const MAGIC3 = 2500072158;
@@ -25,9 +23,7 @@ class Mo extends Extractor {
 		} elseif ($magic === (self::MAGIC2 & 0xFFFFFFFF)) {
 			$byteOrder = 'N'; //big endian
 		} else {
-			$this->error = 1; //not MO file
-
-			return false;
+			throw new \Exception('Not MO file');
 		}
 
 		self::readInt($stream, $byteOrder);
@@ -79,9 +75,7 @@ class CachedFileReader {
 			$fd = fopen($filename,'rb');
 
 			if (!$fd) {
-				$this->error = 3; // Cannot read file, probably permissions
-
-				return false;
+				throw new \Exception("Cannot read the file '$filename', probably permissions");
 			}
 
 			$this->str = fread($fd, $length);
@@ -89,9 +83,7 @@ class CachedFileReader {
 
 			fclose($fd);
 		} else {
-			$this->error = 2; // File doesn't exist
-
-			return false;
+			throw new \Exception("The file '$filename' does not exists");
 		}
 	}
 

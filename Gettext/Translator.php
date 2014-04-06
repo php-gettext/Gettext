@@ -35,7 +35,7 @@ class Translator {
 	}
 
 	public static function getTranslation ($domain, $context, $original) {
-		$key = isset($context) ? $context.$context_glue.$original : $original;
+		$key = isset($context) ? $context.self::$context_glue.$original : $original;
 
 		return isset(self::$dictionary[$domain][$key]) ? self::$dictionary[$domain][$key] : false;
 	}
