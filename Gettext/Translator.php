@@ -4,17 +4,34 @@ namespace Gettext;
 class Translator {
 	static private $dictionary = array();
 	static private $domain = 'messages';
+	static private $pluralCount = 2;
+	static private $pluralCode = 'return ($n != 1);';
 	static private $context_glue = '\u0004';
 
 	public static function loadTranslations ($file) {
 		if (is_file($file)) {
 			$dictionary = include($file);
+			self::loadTranslationsArray($dictionary);
+		}
+	}
 
-			if (is_array($dictionary)) {
-				$domain = isset($dictionary['messages']['']['domain']) ? $dictionary['messages']['']['domain'] : null;
-				unset($dictionary['messages']['']);
-				self::addTranslations($dictionary['messages'], $domain);
+	public static function loadTranslationsArray($dictionary)
+	{
+		if (is_array($dictionary)) {
+			$domain = isset($dictionary['messages']['']['domain']) ? $dictionary['messages']['']['domain'] : null;
+
+			// If a plural form is set we extrac those values
+			if (isset($dictionary['messages']['']['plural-forms'])) {
+				list($count, $code) = explode(';', $dictionary['messages']['']['plural-forms']);
+				self::$pluralCount = (int)end(explode('=', $count));
+
+				// extract just the expression turn 'n' into a php variable '$n'.
+				// Slap on a return keyword and semicolon at the end.
+				self::$pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)) . ';';
 			}
+
+			unset($dictionary['messages']['']);
+			self::addTranslations($dictionary['messages'], $domain);
 		}
 	}
 
@@ -85,7 +102,69 @@ class Translator {
 		return ($key === 1) ? $original : $plural;
 	}
 
-	public static function isPlural ($n) {
-		return ($n === 1) ? 1 : 2;
+	/**
+	 * Executes the plural decision code given the number to decide which
+	 * plural version to take.
+	 *
+	 * @param $n
+	 * @return int
+	 */
+	public static function isPlural ($n)
+	{
+		$pluralFunc = create_function('$n', self::fixTerseIfs(self::$pluralCode));
+
+		if (self::$pluralCount <= 2) {
+			return ($pluralFunc($n)) ? 2 : 1;
+		} else {
+			// We need to +1 because while (GNU) gettext codes assume 0 based,
+			// this gettext actually stores 1 based.
+			return ($pluralFunc($n)) + 1;
+		}
+	}
+
+	/**
+	 * This function will recursively wrap failure states in brackets if they contain a nested terse if
+	 *
+	 * This because PHP can not handle nested terse if's unless they are wrapped in brackets.
+	 *
+	 * This code probably only works for the gettext plural decision codes.
+	 *
+	 * return ($n==1 ? 0 : $n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2);
+	 * becomes
+	 * return ($n==1 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2));
+	 *
+	 * @param string $code    the terse if string
+	 * @param bool   $inner   If inner is true we wrap it in brackets
+	 * @return string         A formatted terse If that PHP can work with.
+	 */
+	public static function fixTerseIfs($code, $inner=false)
+	{
+		/**
+		 * (?P<expression>[^?]+)   Capture everything up to ? as 'expression'
+		 * \?                      ?
+		 * (?P<success>[^:]+)      Capture everything up to : as 'success'
+		 * :                       :
+		 * (?P<failure>[^;]+)      Capture everything up to ; as 'failure'
+		 */
+		preg_match('/(?P<expression>[^?]+)\?(?P<success>[^:]+):(?P<failure>[^;]+)/', $code, $matches);
+
+		// If no match was found then no terse if was present
+		if (!isset($matches[0]))
+			return $code;
+
+		$expression = $matches['expression'];
+		$success    = $matches['success'];
+		$failure    = $matches['failure'];
+
+		// Go look for another terse if in the failure state.
+		$failure = self::fixTerseIfs($failure, true);
+		$code = $expression . ' ? ' . $success . ' : ' . $failure;
+
+		if ($inner) {
+			return "($code)";
+		} else {
+			// note the semicolon. We need that for executing the code.
+			return "$code;";
+		}
 	}
 }

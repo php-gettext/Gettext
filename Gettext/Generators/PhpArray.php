@@ -32,6 +32,10 @@ class PhpArray extends Generator {
 			)
 		);
 
+        if ($entries->getHeader('Plural-Forms') !== null) {
+            $translations[$domain]['']['plural-forms'] = $entries->getHeader('Plural-Forms');
+        }
+
 		$translations[$domain] = array_merge($translations[$domain], $array);
 
 		if ($string) {
