@@ -20,10 +20,10 @@ class Translator {
 		if (is_array($dictionary)) {
 			$domain = isset($dictionary['messages']['']['domain']) ? $dictionary['messages']['']['domain'] : null;
 
-			// If a plural form is set we extrac those values
+			// If a plural form is set we extract those values
 			if (isset($dictionary['messages']['']['plural-forms'])) {
 				list($count, $code) = explode(';', $dictionary['messages']['']['plural-forms']);
-				self::$pluralCount = (int)end(explode('=', $count));
+				self::$pluralCount = (int)str_replace('nplurals=','', $count);
 
 				// extract just the expression turn 'n' into a php variable '$n'.
 				// Slap on a return keyword and semicolon at the end.
