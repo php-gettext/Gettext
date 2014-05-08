@@ -2,7 +2,7 @@
 include dirname(__DIR__).'/Gettext/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(__DIR__ . DIRECTORY_SEPARATOR.  implode(DIRECTORY_SEPARATOR, array('..','Gettext')).DIRECTORY_SEPARATOR . 'translator_functions.php');
+    require_once(__DIR__ . '/../Gettext/translator_functions.php');
 }
 
 
