@@ -78,16 +78,21 @@ JedGenerator::generateFile($translations, 'locate.json');
 Now we can use this translations into our code:
 
 ```php
-use Gettext\Translator as Gt;
+use Gettext\Translator;
 
-Gt::loadTranslations('locate.php');
+$t = new Translator();
 
-echo Gt::gettext('apples'); //Returns Mazás
+$t->loadTranslations('locate.php');
+
+echo $t->gettext('apples'); //Returns Mazás
 ```
 
 You can use the translator functions, a short version of Gettext\Translator for more confort:
 
 ```php
+//First set the translator instance as current translator:
+__currentTranslator($t);
+
 echo __('apples'); //Returns Mazás
 
 __e('apples'); //echo Mazás
@@ -105,9 +110,13 @@ $.getJSON('locate.json', function (locale) {
 });
 ```
 
+Contributors
+============
+
+* oscarotero (Creator and maintainer)
+* esnoeijs (Contributed with the plural parser)
 
 TO-DO
 =====
 
-* Custom plural parser
 * Working with domains
