@@ -5,6 +5,13 @@ use Gettext\Entries;
 
 class Po extends Generator
 {
+    /**
+     * Generates a string with the entries ready to save in a file
+     * 
+     * @param Entries $entries
+     * 
+     * @return array|string
+     */
     public static function generate(Entries $entries)
     {
         $lines = array('msgid ""', 'msgstr ""');
@@ -64,6 +71,13 @@ class Po extends Generator
         return implode("\n", $lines);
     }
 
+    /**
+     * Escapes and adds double quotes to a string
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
     private static function quote($string)
     {
         return '"'.str_replace(array("\r", "\n", '"'), array('', '\n', '\\"'), $string).'"';

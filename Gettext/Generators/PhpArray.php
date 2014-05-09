@@ -5,6 +5,14 @@ use Gettext\Entries;
 
 class PhpArray extends Generator
 {
+    /**
+     * Generates a string with the entries ready to save in a file
+     * 
+     * @param Entries $entries
+     * @param boolean $string True to return as a string, false to return an array
+     * 
+     * @return array|string
+     */
     public static function generate(Entries $entries, $string = false)
     {
         $array = array();

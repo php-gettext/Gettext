@@ -5,6 +5,14 @@ use Gettext\Entries;
 
 abstract class Generator
 {
+	/**
+	 * Saves the entries in a file
+	 * 
+	 * @param Entries $entries
+	 * @param string  $file
+	 * 
+	 * @return boolean
+	 */
     public static function generateFile(Entries $entries, $file)
     {
         $content = static::generate($entries, true);

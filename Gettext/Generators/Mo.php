@@ -5,6 +5,13 @@ use Gettext\Entries;
 
 class Mo extends Generator
 {
+    /**
+     * Generates a string with the entries ready to save in a file
+     * 
+     * @param Entries $entries
+     * 
+     * @return string
+     */
     public static function generate(Entries $entries)
     {
         $translations = array();

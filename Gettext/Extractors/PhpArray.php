@@ -3,8 +3,17 @@ namespace Gettext\Extractors;
 
 use Gettext\Entries;
 
+/**
+ * Class to get gettext strings from php files returning arrays
+ */
 class PhpArray extends Extractor
 {
+    /**
+     * Includes a .php file with an array of translations and append to the Entries instance
+     * 
+     * @param string  $file
+     * @param Entries $entries
+     */
     public static function parse($file, Entries $entries)
     {
         $content = include($file);

@@ -3,6 +3,9 @@ namespace Gettext\Extractors;
 
 use Gettext\Entries;
 
+/**
+ * Class to get gettext strings from php files returning arrays
+ */
 class PhpCode extends Extractor
 {
     public static $functions = array(
@@ -14,6 +17,13 @@ class PhpCode extends Extractor
         'p__e' => 'p__'
     );
 
+
+    /**
+     * Parses a .php file and append the translations found in the Entries instance
+     * 
+     * @param string  $file
+     * @param Entries $entries
+     */
     public static function parse($file, Entries $entries)
     {
         $tokens = token_get_all(file_get_contents($file));

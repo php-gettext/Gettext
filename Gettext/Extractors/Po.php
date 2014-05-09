@@ -4,8 +4,17 @@ namespace Gettext\Extractors;
 use Gettext\Entries;
 use Gettext\Translation;
 
+/**
+ * Class to get gettext strings from php files returning arrays
+ */
 class Po extends Extractor
 {
+    /**
+     * Parses a .po file and append the translations found in the Entries instance
+     * 
+     * @param string  $file
+     * @param Entries $entries
+     */
     public static function parse($file, Entries $entries)
     {
         $lines = file($file, FILE_IGNORE_NEW_LINES);
@@ -108,6 +117,14 @@ class Po extends Extractor
         return $entries;
     }
 
+
+    /**
+     * Cleans the strings. Removes quotes and "\n", etc
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     private static function clean($str)
     {
         if ($str[0] === '"') {
@@ -117,6 +134,16 @@ class Po extends Extractor
         return str_replace(array('\\n', '\\"'), array("\n", '"'), $str);
     }
 
+
+    /**
+     * Gets one strings from multiline strings
+     * 
+     * @param string  $line
+     * @param array   $lines
+     * @param integer &$i
+     * 
+     * @return string
+     */
     private static function fixMultiLines($line, Array $lines, &$i)
     {
         for ($j = $i; $j<count($lines); $j++) {

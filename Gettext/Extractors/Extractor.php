@@ -5,6 +5,14 @@ use Gettext\Entries;
 
 abstract class Extractor
 {
+    /**
+     * Extract the entries from a file
+     * 
+     * @param array|string $file    A path of a file or folder
+     * @param null|Entries $entries The entries instance to append the new translations.
+     * 
+     * @return Entries
+     */
     public static function extract($file, Entries $entries = null)
     {
         if (empty($file)) {
@@ -36,6 +44,14 @@ abstract class Extractor
         return $entries;
     }
 
+
+    /**
+     * Search the files in a folder
+     * 
+     * @param string $path The file/folder path
+     * 
+     * @return string|array The file path or an array of file paths
+     */
     private static function resolve($path)
     {
         if (is_string($path)) {

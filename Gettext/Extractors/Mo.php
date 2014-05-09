@@ -4,12 +4,23 @@ namespace Gettext\Extractors;
 use Gettext\Entries;
 use Gettext\Translation;
 
+/**
+ * Class to get gettext strings from mo files
+ */
+
 class Mo extends Extractor
 {
     const MAGIC1 = -1794895138;
     const MAGIC2 = -569244523;
     const MAGIC3 = 2500072158;
 
+
+    /**
+     * Parses a .mo file and append the translations found in the Entries instance
+     * 
+     * @param string  $file
+     * @param Entries $entries
+     */
     public static function parse($file, Entries $entries)
     {
         $stream = new CachedFileReader($file);

@@ -3,14 +3,25 @@ namespace Gettext\Extractors;
 
 use Gettext\Entries;
 
+/**
+ * Class to get gettext strings from javascript files
+ */
 class JsCode extends Extractor
 {
+    // Javascript function names to search
     public static $functions = array(
         '__' => '__',
         'n__' => 'n__',
         'p__' => 'p__'
     );
 
+
+    /**
+     * Parses a javascript file and append the translations found in the Entries instance
+     * 
+     * @param string  $file
+     * @param Entries $entries
+     */
     public static function parse($file, Entries $entries)
     {
         $strings = $regs = array();
@@ -86,6 +97,15 @@ class JsCode extends Extractor
         }
     }
 
+
+    /**
+     * Removes the quotes of a string ("hello" => hello)
+     * 
+     * @param array|string $match The string to strip quotes
+     * @param string       $quote The quote type (single or double)
+     * 
+     * @return string
+     */
     private static function stripQuotes($match, $quote)
     {
         if (is_array($match)) {
