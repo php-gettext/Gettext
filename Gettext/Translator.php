@@ -4,98 +4,198 @@ namespace Gettext;
 
 class Translator
 {
-    private static $dictionary = array();
-    private static $domain = 'messages';
-    private static $pluralCount = 2;
-    private static $pluralCode = 'return ($n != 1);';
-    private static $context_glue = '\u0004';
+    private $dictionary = array();
+    private $domain = 'messages';
+    private $context_glue = '\u0004';
+    private $pluralCount = 2;
+    private $pluralCode = 'return ($n != 1);';
+    private $pluralFunction;
 
-    public static function loadTranslations($file)
+
+    /**
+     * Loads translation from a file
+     * 
+     * @param string $file
+     */
+    public function loadTranslations($file)
     {
         if (is_file($file)) {
-            $dictionary = include($file);
-            self::loadTranslationsArray($dictionary);
+            $translations = include($file);
+            $this->loadTranslationsArray($translations);
         }
     }
 
-    public static function loadTranslationsArray($dictionary)
+
+    /**
+     * Loads translations from an array
+     * 
+     * @param array $translations
+     */
+    public function loadTranslationsArray(array $translations)
     {
-        if (is_array($dictionary)) {
-            $domain = isset($dictionary['messages']['']['domain']) ? $dictionary['messages']['']['domain'] : null;
+        $domain = isset($translations['messages']['']['domain']) ? $translations['messages']['']['domain'] : null;
 
-            // If a plural form is set we extract those values
-            if (isset($dictionary['messages']['']['plural-forms'])) {
-                list($count, $code) = explode(';', $dictionary['messages']['']['plural-forms']);
-                self::$pluralCount = (int) str_replace('nplurals=','', $count);
+        // If a plural form is set we extract those values
+        if (isset($translations['messages']['']['plural-forms'])) {
+            list($count, $code) = explode(';', $translations['messages']['']['plural-forms']);
+            $this->pluralCount = (int) str_replace('nplurals=','', $count);
 
-                // extract just the expression turn 'n' into a php variable '$n'.
-                // Slap on a return keyword and semicolon at the end.
-                self::$pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)) . ';';
-            }
-
-            unset($dictionary['messages']['']);
-            self::addTranslations($dictionary['messages'], $domain);
+            // extract just the expression turn 'n' into a php variable '$n'.
+            // Slap on a return keyword and semicolon at the end.
+            $this->pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)) . ';';
         }
+
+        unset($translations['messages']['']);
+        $this->addTranslations($translations['messages'], $domain);
     }
 
-    public static function addTranslations(array $dictionary, $domain = null)
+
+    /**
+     * Set new translations to the dictionary
+     * 
+     * @param array       $translations
+     * @param null|string $domain
+     */
+    public function addTranslations(array $translations, $domain = null)
     {
         if ($domain === null) {
-            $domain = self::$domain;
+            $domain = $this->domain;
         }
 
-        if (!isset(self::$dictionary[$domain])) {
-            self::$dictionary[$domain] = array();
+        if (!isset($this->dictionary[$domain])) {
+            $this->dictionary[$domain] = $translations;
+        } else {
+            $this->dictionary[$domain] = array_replace_recursive($this->dictionary[$domain], $translations);
         }
-
-        self::$dictionary[$domain] = array_replace_recursive(self::$dictionary[$domain], $dictionary);
     }
 
-    public static function clearTranslations()
+
+    /**
+     * Clear all translations
+     */
+    public function clearTranslations()
     {
-        self::$dictionary = array();
+        $this->dictionary = array();
     }
 
-    public static function getTranslation($domain, $context, $original)
-    {
-        $key = isset($context) ? $context.self::$context_glue.$original : $original;
 
-        return isset(self::$dictionary[$domain][$key]) ? self::$dictionary[$domain][$key] : false;
+    /**
+     * Search and returns a translation
+     * 
+     * @param string $domain
+     * @param string $context
+     * @param string $original
+     * 
+     * @return array
+     */
+    public function getTranslation($domain, $context, $original)
+    {
+        $key = isset($context) ? $context.$this->context_glue.$original : $original;
+
+        return isset($this->dictionary[$domain][$key]) ? $this->dictionary[$domain][$key] : false;
     }
 
-    public static function gettext($original)
+
+    /**
+     * Gets a translation using the original string
+     * 
+     * @param string $original
+     * 
+     * @return string
+     */
+    public function gettext($original)
     {
-        return self::dpgettext(self::$domain, null, $original);
+        return $this->dpgettext($this->domain, null, $original);
     }
 
-    public static function ngettext($original, $plural, $value)
+
+    /**
+     * Gets a translation checking the plural form
+     * 
+     * @param string $original
+     * @param string $plural
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function ngettext($original, $plural, $value)
     {
-        return self::dnpgettext(self::$domain, null, $original, $plural, $value);
+        return $this->dnpgettext($this->domain, null, $original, $plural, $value);
     }
 
-    public static function dngettext($domain, $original, $plural, $value)
+
+    /**
+     * Gets a translation checking the domain and the plural form
+     * 
+     * @param string $domain
+     * @param string $original
+     * @param string $plural
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function dngettext($domain, $original, $plural, $value)
     {
-        return self::dnpgettext($domain, null, $original, $plural, $value);
+        return $this->dnpgettext($domain, null, $original, $plural, $value);
     }
 
-    public static function npgettext($context, $original, $plural, $value)
+
+    /**
+     * Gets a translation checking the context and the plural form
+     * 
+     * @param string $context
+     * @param string $original
+     * @param string $plural
+     * @param string $value
+     * 
+     * @return string
+     */
+    public function npgettext($context, $original, $plural, $value)
     {
-        return self::dnpgettext(self::$domain, $context, $original, $plural, $value);
+        return $this->dnpgettext($this->domain, $context, $original, $plural, $value);
     }
 
-    public static function pgettext($context, $original)
+
+    /**
+     * Gets a translation checking the context
+     * 
+     * @param string $context
+     * @param string $original
+     * 
+     * @return string
+     */
+    public function pgettext($context, $original)
     {
-        return self::dpgettext(self::$domain, $context, $original);
+        return $this->dpgettext($this->domain, $context, $original);
     }
 
-    public static function dgettext($domain, $original)
+
+    /**
+     * Gets a translation checking the domain
+     * 
+     * @param string $domain
+     * @param string $original
+     * 
+     * @return string
+     */
+    public function dgettext($domain, $original)
     {
-        return self::dpgettext($domain, null, $original);
+        return $this->dpgettext($domain, null, $original);
     }
 
-    public static function dpgettext($domain, $context, $original)
+
+    /**
+     * Gets a translation checking the domain and context
+     * 
+     * @param string $domain
+     * @param string $context
+     * @param string $original
+     * 
+     * @return string
+     */
+    public function dpgettext($domain, $context, $original)
     {
-        $translation = self::getTranslation($domain, $context, $original);
+        $translation = $this->getTranslation($domain, $context, $original);
 
         if (isset($translation[1]) && $translation[1] !== '') {
             return $translation[1];
@@ -104,10 +204,20 @@ class Translator
         return $original;
     }
 
-    public static function dnpgettext($domain, $context, $original, $plural, $value)
+
+    /**
+     * Gets a translation checking the domain, the context and the plural form
+     * 
+     * @param string $domain
+     * @param string $context
+     * @param string $original
+     * @param string $plural
+     * @param string $value
+     */
+    public function dnpgettext($domain, $context, $original, $plural, $value)
     {
-        $key = self::isPlural($value);
-        $translation = self::getTranslation($domain, $context, $original);
+        $key = $this->isPlural($value);
+        $translation = $this->getTranslation($domain, $context, $original);
 
         if (isset($translation[$key]) && $translation[$key] !== '') {
             return $translation[$key];
@@ -116,6 +226,7 @@ class Translator
         return ($key === 1) ? $original : $plural;
     }
 
+
     /**
      * Executes the plural decision code given the number to decide which
      * plural version to take.
@@ -123,18 +234,23 @@ class Translator
      * @param $n
      * @return int
      */
-    public static function isPlural($n)
+    public function isPlural($n)
     {
-        $pluralFunc = create_function('$n', self::fixTerseIfs(self::$pluralCode));
-
-        if (self::$pluralCount <= 2) {
-            return ($pluralFunc($n)) ? 2 : 1;
+        if (!$this->pluralFunction) {
+            $this->pluralFunction = $pluralFunction = create_function('$n', self::fixTerseIfs($this->pluralCode));
         } else {
-            // We need to +1 because while (GNU) gettext codes assume 0 based,
-            // this gettext actually stores 1 based.
-            return ($pluralFunc($n)) + 1;
+            $pluralFunction = $this->pluralFunction;
         }
+
+        if ($this->pluralCount <= 2) {
+            return ($pluralFunction($n)) ? 2 : 1;
+        }
+
+        // We need to +1 because while (GNU) gettext codes assume 0 based,
+        // this gettext actually stores 1 based.
+        return ($pluralFunction($n)) + 1;
     }
+
 
     /**
      * This function will recursively wrap failure states in brackets if they contain a nested terse if
@@ -151,7 +267,7 @@ class Translator
      * @param  bool   $inner If inner is true we wrap it in brackets
      * @return string A formatted terse If that PHP can work with.
      */
-    public static function fixTerseIfs($code, $inner=false)
+    private static function fixTerseIfs($code, $inner = false)
     {
         /**
          * (?P<expression>[^?]+)   Capture everything up to ? as 'expression'
@@ -163,8 +279,9 @@ class Translator
         preg_match('/(?P<expression>[^?]+)\?(?P<success>[^:]+):(?P<failure>[^;]+)/', $code, $matches);
 
         // If no match was found then no terse if was present
-        if (!isset($matches[0]))
+        if (!isset($matches[0])) {
             return $code;
+        }
 
         $expression = $matches['expression'];
         $success    = $matches['success'];
@@ -176,9 +293,9 @@ class Translator
 
         if ($inner) {
             return "($code)";
-        } else {
-            // note the semicolon. We need that for executing the code.
-            return "$code;";
         }
+
+        // note the semicolon. We need that for executing the code.
+        return "$code;";
     }
 }

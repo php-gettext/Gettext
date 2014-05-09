@@ -151,7 +151,11 @@ class GettextTest extends PHPUnit_Framework_TestCase
     public function testMultiPlural($entries)
     {
         $translationArray = \Gettext\Generators\PhpArray::generate($entries);
-        \Gettext\Translator::loadTranslationsArray($translationArray);
+        $translator = new \Gettext\Translator;
+        $translator->loadTranslationsArray($translationArray);
+
+        //Set the current translator before execute the functions
+        __currentTranslator($translator);
 
         /**
          * Test that nplural=3 plural translation check comes up with the correct translation key.
