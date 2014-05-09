@@ -1,6 +1,7 @@
 <?php
 namespace Gettext;
 
+
 class Translator
 {
     private static $dictionary = array();
