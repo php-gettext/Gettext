@@ -1,6 +1,11 @@
 <?php
 include dirname(__DIR__).'/Gettext/autoloader.php';
 
+if (!function_exists('n__')) {
+    require_once(__DIR__ . '/../Gettext/translator_functions.php');
+}
+
+
 class GettextTest extends PHPUnit_Framework_TestCase {
 	
 	public function testPhpCodeExtractor () {
@@ -12,6 +17,16 @@ class GettextTest extends PHPUnit_Framework_TestCase {
 		return $entries;
 	}
 
+    public function testPoFileExtractor () {
+        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_plural.po');
+
+        $this->assertInstanceOf('Gettext\\Entries', $entries);
+
+        $pluralHeader = "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
+        $this->assertEquals($pluralHeader, $entries->getHeader('Plural-Forms'), "Plural form did not get extracted correctly");
+
+        return $entries;
+    }
 
 	/**
 	 * @depends testPhpCodeExtractor
@@ -126,4 +141,37 @@ class GettextTest extends PHPUnit_Framework_TestCase {
 
 		unlink($filename);
 	}
+
+    /**
+     * @depends testPoFileExtractor
+     */
+    public function testMultiPlural ($entries) {
+
+        $translationArray = \Gettext\Generators\PhpArray::generate($entries);
+        \Gettext\Translator::loadTranslationsArray($translationArray);
+
+        /**
+         * Test that nplural=3 plural translation check comes up with the correct translation key.
+         */
+        $this->assertEquals('1 plik',      n__ ("one file", "multiple files", 1), "plural calculation result bad");
+        $this->assertEquals('2,3,4 pliki', n__ ("one file", "multiple files", 2), "plural calculation result bad");
+        $this->assertEquals('2,3,4 pliki', n__ ("one file", "multiple files", 3), "plural calculation result bad");
+        $this->assertEquals('2,3,4 pliki', n__ ("one file", "multiple files", 4), "plural calculation result bad");
+        $this->assertEquals('5-21 plików', n__ ("one file", "multiple files", 5), "plural calculation result bad");
+        $this->assertEquals('5-21 plików', n__ ("one file", "multiple files", 6), "plural calculation result bad");
+
+
+        /**
+         * Test that when less then the nplural translations are available it still works.
+         */
+        $this->assertEquals('1', n__ ("one", "more", 1), "non-plural fallback failed");
+        $this->assertEquals('*', n__ ("one", "more", 2), "non-plural fallback failed");
+        $this->assertEquals('*', n__ ("one", "more", 3), "non-plural fallback failed");
+
+        /**
+         * Test that non-plural translations the fallback still works.
+         */
+        $this->assertEquals('more', n__ ("single", "more", 3), "non-plural fallback failed");
+
+    }
 }
