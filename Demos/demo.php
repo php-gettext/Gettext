@@ -3,8 +3,8 @@
 
 ini_set('display_errors', 'On');
 
-include('../Gettext/autoloader.php');
-include('../Gettext/translator_functions.php');
+include '../Gettext/autoloader.php';
+include '../Gettext/translator_functions.php';
 
 //Demo
 
@@ -26,4 +26,3 @@ Gettext\Generators\Jed::generateFile($translations, 'gettext.json');
 Gettext\Translator::loadTranslations('gettext.php');
 
 echo __n('%s point', '%s points', 4, 4);
-?>

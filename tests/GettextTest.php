@@ -5,19 +5,20 @@ if (!function_exists('n__')) {
     require_once(__DIR__ . '/../Gettext/translator_functions.php');
 }
 
+class GettextTest extends PHPUnit_Framework_TestCase
+{
+    public function testPhpCodeExtractor()
+    {
+        //Extract entries
+        $entries = Gettext\Extractors\PhpCode::extract(__DIR__.'/files/phpCode-example.php');
 
-class GettextTest extends PHPUnit_Framework_TestCase {
-	
-	public function testPhpCodeExtractor () {
-		//Extract entries
-		$entries = Gettext\Extractors\PhpCode::extract(__DIR__.'/files/phpCode-example.php');
+        $this->assertInstanceOf('Gettext\\Entries', $entries);
 
-		$this->assertInstanceOf('Gettext\\Entries', $entries);
+        return $entries;
+    }
 
-		return $entries;
-	}
-
-    public function testPoFileExtractor () {
+    public function testPoFileExtractor()
+    {
         $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_plural.po');
 
         $this->assertInstanceOf('Gettext\\Entries', $entries);
@@ -28,125 +29,127 @@ class GettextTest extends PHPUnit_Framework_TestCase {
         return $entries;
     }
 
-	/**
-	 * @depends testPhpCodeExtractor
-	 */
-	public function testEntries ($entries) {
-		//Find by text
-		$translation = $entries->find(null, 'text 1');
+    /**
+     * @depends testPhpCodeExtractor
+     */
+    public function testEntries($entries)
+    {
+        //Find by text
+        $translation = $entries->find(null, 'text 1');
 
-		$this->assertInstanceOf('Gettext\\Translation', $translation);
+        $this->assertInstanceOf('Gettext\\Translation', $translation);
 
-		//Find by translation object
-		$translation2 = $entries->find($translation);
+        //Find by translation object
+        $translation2 = $entries->find($translation);
 
-		$this->assertEquals($translation, $translation2);
+        $this->assertEquals($translation, $translation2);
 
-		//Insert a new translation
-		$entries->insert('my context', 'comment', 'comments');
+        //Insert a new translation
+        $entries->insert('my context', 'comment', 'comments');
 
-		$commentTranslation = $entries->find('my context', 'comment', 'comments');
+        $commentTranslation = $entries->find('my context', 'comment', 'comments');
 
-		$this->assertInstanceOf('Gettext\\Translation', $commentTranslation);
+        $this->assertInstanceOf('Gettext\\Translation', $commentTranslation);
 
-		$this->assertEquals('comment', $commentTranslation->getOriginal());
-		$this->assertEquals('', $commentTranslation->getTranslation());
-		$this->assertEquals('my context', $commentTranslation->getContext());
-		$this->assertEquals('comments', $commentTranslation->getPlural());
-		$this->assertTrue($commentTranslation->hasPlural());
+        $this->assertEquals('comment', $commentTranslation->getOriginal());
+        $this->assertEquals('', $commentTranslation->getTranslation());
+        $this->assertEquals('my context', $commentTranslation->getContext());
+        $this->assertEquals('comments', $commentTranslation->getPlural());
+        $this->assertTrue($commentTranslation->hasPlural());
 
-		//Headers
-		$entries->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
-		$this->assertEquals('2012-08-07 13:03+0100', $entries->getHeader('POT-Creation-Date'));
+        //Headers
+        $entries->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
+        $this->assertEquals('2012-08-07 13:03+0100', $entries->getHeader('POT-Creation-Date'));
 
-		return $entries;
-	}
+        return $entries;
+    }
 
-	/**
-	 * @depends testEntries
-	 */
-	public function testTranslation ($entries) {
-		$translation = $entries->find(null, 'text 1');
+    /**
+     * @depends testEntries
+     */
+    public function testTranslation($entries)
+    {
+        $translation = $entries->find(null, 'text 1');
 
-		$this->assertEquals('text 1', $translation->getOriginal());
-		$this->assertEquals('', $translation->getTranslation());
-		$this->assertEquals('', $translation->getContext());
-		$this->assertEquals('', $translation->getPlural());
-		$this->assertFalse($translation->hasPlural());
+        $this->assertEquals('text 1', $translation->getOriginal());
+        $this->assertEquals('', $translation->getTranslation());
+        $this->assertEquals('', $translation->getContext());
+        $this->assertEquals('', $translation->getPlural());
+        $this->assertFalse($translation->hasPlural());
 
-		//References
-		$references = $translation->getReferences();
-		$this->assertCount(1, $references);
-		$this->assertTrue($translation->hasReferences());
-		
-		list($filename, $line) = $references[0];
+        //References
+        $references = $translation->getReferences();
+        $this->assertCount(1, $references);
+        $this->assertTrue($translation->hasReferences());
 
-		$this->assertEquals(2, $line);
-		$this->assertEquals(__DIR__.'/files/phpCode-example.php', $filename);
+        list($filename, $line) = $references[0];
 
-		$translation->wipeReferences();
-		$this->assertCount(0, $translation->getReferences());
+        $this->assertEquals(2, $line);
+        $this->assertEquals(__DIR__.'/files/phpCode-example.php', $filename);
 
-		//Comments
-		$this->assertFalse($translation->hasComments());
-		
-		$translation->addComment('This is a comment');
-		
-		$this->assertTrue($translation->hasComments());
-		$this->assertCount(1, $translation->getComments());
-		
-		$comments = $translation->getComments();
-		$this->assertEquals('This is a comment', $comments[0]);
+        $translation->wipeReferences();
+        $this->assertCount(0, $translation->getReferences());
 
-		//Plurals
-		$this->assertFalse($translation->hasPlural());
-		
-		$translation->setPlural('texts 1');
-		$this->assertTrue($translation->hasPlural());
+        //Comments
+        $this->assertFalse($translation->hasComments());
 
-		$this->assertTrue($translation->is('', 'text 1', 'texts 1'));
+        $translation->addComment('This is a comment');
 
-		$translation->setPluralTranslation('textos 1');
+        $this->assertTrue($translation->hasComments());
+        $this->assertCount(1, $translation->getComments());
 
-		$this->assertCount(1, $translation->getPluralTranslation());
-		$this->assertEquals('textos 1', $translation->getPluralTranslation(0));
+        $comments = $translation->getComments();
+        $this->assertEquals('This is a comment', $comments[0]);
 
-		return $entries;
-	}
+        //Plurals
+        $this->assertFalse($translation->hasPlural());
 
+        $translation->setPlural('texts 1');
+        $this->assertTrue($translation->hasPlural());
 
-	/**
-	 * @depends testTranslation
-	 */
-	public function testPhpArrayGenerator ($entries) {
-		//Export to a file
-		$filename = __DIR__.'/files/tmp-phparray.php';
+        $this->assertTrue($translation->is('', 'text 1', 'texts 1'));
 
-		$result = Gettext\Generators\PhpArray::generateFile($entries, $filename);
+        $translation->setPluralTranslation('textos 1');
 
-		$this->assertTrue($result);
-		$this->assertTrue(is_file($filename));
+        $this->assertCount(1, $translation->getPluralTranslation());
+        $this->assertEquals('textos 1', $translation->getPluralTranslation(0));
 
-		//Load the data as an array
-		$array = include $filename;
+        return $entries;
+    }
 
-		$this->assertTrue(is_array($array));
-		$this->assertArrayHasKey('messages', $array);
+    /**
+     * @depends testTranslation
+     */
+    public function testPhpArrayGenerator($entries)
+    {
+        //Export to a file
+        $filename = __DIR__.'/files/tmp-phparray.php';
 
-		//Load the data as entries object
-		$entries2 = Gettext\Extractors\PhpArray::extract($filename);
+        $result = Gettext\Generators\PhpArray::generateFile($entries, $filename);
 
-		//Compare the length of the translations in the array an in the entries (the array always has one more message)
-		$this->assertEquals(count($array['messages']) - 1, count($entries2));
+        $this->assertTrue($result);
+        $this->assertTrue(is_file($filename));
 
-		unlink($filename);
-	}
+        //Load the data as an array
+        $array = include $filename;
+
+        $this->assertTrue(is_array($array));
+        $this->assertArrayHasKey('messages', $array);
+
+        //Load the data as entries object
+        $entries2 = Gettext\Extractors\PhpArray::extract($filename);
+
+        //Compare the length of the translations in the array an in the entries (the array always has one more message)
+        $this->assertEquals(count($array['messages']) - 1, count($entries2));
+
+        unlink($filename);
+    }
 
     /**
      * @depends testPoFileExtractor
      */
-    public function testMultiPlural ($entries) {
-
+    public function testMultiPlural($entries)
+    {
         $translationArray = \Gettext\Generators\PhpArray::generate($entries);
         \Gettext\Translator::loadTranslationsArray($translationArray);
 
@@ -159,7 +162,6 @@ class GettextTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('2,3,4 pliki', n__ ("one file", "multiple files", 4), "plural calculation result bad");
         $this->assertEquals('5-21 plików', n__ ("one file", "multiple files", 5), "plural calculation result bad");
         $this->assertEquals('5-21 plików', n__ ("one file", "multiple files", 6), "plural calculation result bad");
-
 
         /**
          * Test that when less then the nplural translations are available it still works.
