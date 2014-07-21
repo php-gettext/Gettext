@@ -51,7 +51,11 @@ class Po extends Extractor
                 }
                 continue;
             }
-            list($key, $data) = preg_split('/\s/', $line, 2);
+
+            $splitLine = preg_split('/\s/', $line, 2);
+            $key = $splitLine[0];
+            if(isset($splitLine[1])) $data = $splitLine[1];
+            
             $append = null;
             switch ($key) {
                 case '#,':

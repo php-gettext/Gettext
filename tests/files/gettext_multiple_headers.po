@@ -46,5 +46,7 @@ msgstr "Ovo polje ne može biti prazno."
 msgid "Field of type: %ss"
 msgstr "Polje tipa: %ss"
 
+#:
+# a simple line comment is above
 msgid "Integer"
 msgstr "Cijeo broj"
