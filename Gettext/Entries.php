@@ -12,28 +12,14 @@ class Entries extends \ArrayObject
 
 
     /**
-     * Set a new header. There are two special headers which will automatically set their
-     * related value in the object.
-     *
-     *  X-domain: When found, automatically sets the domain for this object
-     *  Language: When found, automatically sets the language for this object
+     * Set a new header.
      *
      * @param string $name
      * @param string $value
      */
     public function setHeader($name, $value)
     {
-        $name = trim($name);
-        $value = trim($value);
-        if(strcasecmp($name, 'x-domain') == 0) {
-            $this->setDomain($value);
-        }
-
-        if(strcasecmp($name, 'language') == 0) {
-            $this->setLanguage($value);
-        }
-
-        $this->headers[$name] = $value;
+        $this->headers[trim($name)] = trim($value);
     }
 
 

@@ -13,6 +13,12 @@ class Po extends Extractor
     /**
      * Parses a .po file and append the translations found in the Entries instance
      * 
+     * There are two special headers which will automatically set their
+     * related value in the object.
+     * 
+     *  X-domain: When found, automatically sets the domain for this object
+     *  Language: When found, automatically sets the language for this object
+     * 
      * @param string  $file
      * @param Entries $entries
      */
@@ -23,6 +29,7 @@ class Po extends Extractor
         $i = 1;
 
         $currentHeader = null;
+
         while ((isset($lines[++$i]) && ($line = trim($lines[$i])) !== '')) {
             $line = self::clean($line);
 
@@ -30,8 +37,18 @@ class Po extends Extractor
                 $header = explode(':', $line, 2);
                 $currentHeader = $header[0];
                 $entries->setHeader($currentHeader, $header[1]);
+
+                switch ($name) {
+                    case 'x-domain':
+                        $entries->setDomain($header[1]);
+                        break;
+
+                    case 'language':
+                        $entries->setLanguage($header[1]);
+                        break;
+                }
             }
-            else { 
+            else {
                 $entry = $entries->getHeader($currentHeader);
                 $entries->setHeader($currentHeader, trim($entry . $line));
             }

@@ -29,7 +29,7 @@ class Jed extends Generator
      * @param boolean $encoded True to encode to javascript, false to return array 
      *      (this must alwasy be the last param given!)
      **/
-    public static function generateMultipleDomains() {
+    public static function generateMultipleDomains(Entries $entries) {
         $argList = func_get_args();
         if(count($argList) < 2) {
             throw new Exception('Jed::generateMultipleDomains expects at least 2 arguments');
