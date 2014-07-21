@@ -9,6 +9,7 @@ use Gettext\Translation;
  */
 class Po extends Extractor
 {
+
     /**
      * Parses a .po file and append the translations found in the Entries instance
      * 
@@ -21,13 +22,18 @@ class Po extends Extractor
 
         $i = 1;
 
+        $currentHeader = null;
         while ((isset($lines[++$i]) && ($line = trim($lines[$i])) !== '')) {
-
             $line = self::clean($line);
 
-            if (strpos($line, ':')) {
+            if (self::isHeaderDefinition($line)) {
                 $header = explode(':', $line, 2);
-                $entries->setHeader($header[0], $header[1]);
+                $currentHeader = $header[0];
+                $entries->setHeader($currentHeader, $header[1]);
+            }
+            else { 
+                $entry = $entries->getHeader($currentHeader);
+                $entries->setHeader($currentHeader, trim($entry . $line));
             }
         }
 
@@ -117,6 +123,28 @@ class Po extends Extractor
         return $entries;
     }
 
+
+    /**
+     * Checks if it is a header definition line. Useful for distguishing between header definitions
+     * and possible continuations of a header entry
+     *
+     * @param string $line Line to parse
+     * @return boolean
+     */
+    private static function isHeaderDefinition($line) {
+        if(!strpos($line, ':')) {
+            return false;
+        }
+
+        $definedHeaders = array(
+            'Project-Id-Version', 'Report-Msgid-Bugs-To', 'POT-Creation-Date', 'PO-Revision-Date', 
+            'Last-Translator', 'Language-Team', 'Language', 'Content-Type', 'Content-Transfer-Encoding', 'Plural-Forms'
+        );
+        $header = explode(':', $line, 2);
+
+        $ret = in_array($header[0], $definedHeaders) || (strpos($header[0], 'X-') === 0);
+        return $ret;
+    }
 
     /**
      * Cleans the strings. Removes quotes and "\n", etc

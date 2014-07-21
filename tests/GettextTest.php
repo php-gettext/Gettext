@@ -29,6 +29,30 @@ class GettextTest extends PHPUnit_Framework_TestCase
         return $entries;
     }
 
+    public function testAutomaticHeaders() 
+    {
+        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_multiple_headers.po');
+        $language = 'bs';
+        $this->assertEquals($language, $entries->getLanguage(), 'Language was not extracted correctly');
+
+        $domain = 'testingdomain';
+        $this->assertEquals($domain, $entries->getDomain(), 'Domain was not extracted correctly');
+
+        $entries2 = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_plural.po');
+        $this->assertNull($entries2->getLanguage(), 'Something erroneously set for language');
+        $this->assertNull($entries2->getDomain(), 'Something erroneously set for domain');
+
+        return $entries;
+    }
+
+    public function testSplitHeader() 
+    {
+        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_multiple_headers.po');
+        $pluralHeader = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
+        $this->assertEquals($pluralHeader, $entries->getHeader('Plural-Forms'), 'header split over 2 lines not extracted correctly');
+        return $entries;
+    }
+
     /**
      * @depends testPhpCodeExtractor
      */
@@ -57,7 +81,6 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('comments', $commentTranslation->getPlural());
         $this->assertTrue($commentTranslation->hasPlural());
 
-        //Headers
         $entries->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
         $this->assertEquals('2012-08-07 13:03+0100', $entries->getHeader('POT-Creation-Date'));
 

@@ -6,19 +6,34 @@ namespace Gettext;
  */
 class Entries extends \ArrayObject
 {
-    public $domain = null;
-    public $headers = array();
+    private $domain = null;
+    private $language = null;
+    private $headers = array();
 
 
     /**
-     * Set a new header
-     * 
+     * Set a new header. There are two special headers which will automatically set their
+     * related value in the object.
+     *
+     *  X-domain: When found, automatically sets the domain for this object
+     *  Language: When found, automatically sets the language for this object
+     *
      * @param string $name
      * @param string $value
      */
     public function setHeader($name, $value)
     {
-        $this->headers[trim($name)] = trim($value);
+        $name = trim($name);
+        $value = trim($value);
+        if(strcasecmp($name, 'x-domain') == 0) {
+            $this->setDomain($value);
+        }
+
+        if(strcasecmp($name, 'language') == 0) {
+            $this->setLanguage($value);
+        }
+
+        $this->headers[$name] = $value;
     }
 
 
@@ -45,6 +60,22 @@ class Entries extends \ArrayObject
         return $this->headers;
     }
 
+
+    /**
+     * Returns the language value
+     *
+     * @return string $language
+     */
+    public function getLanguage() {
+        return $this->language;
+    }
+
+    /**
+     * Sets the language value
+     */
+    public function setLanguage($language) {
+        $this->language = $language;
+    }
 
     /**
      * Set a new domain for this entries

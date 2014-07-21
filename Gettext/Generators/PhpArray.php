@@ -31,12 +31,13 @@ class PhpArray extends Generator
         }
 
         $domain = $entries->getDomain() ?: 'messages';
+        $lang = $entries->getLanguage() ?: 'en';
 
         $translations = array(
             $domain => array(
                 '' => array(
                     'domain' => $domain,
-                    'lang' => 'en',
+                    'lang' => $lang,
                     'plural-forms' => 'nplurals=2; plural=(n != 1);'
                 )
             )
