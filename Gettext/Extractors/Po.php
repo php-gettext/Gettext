@@ -38,7 +38,7 @@ class Po extends Extractor
                 $currentHeader = $header[0];
                 $entries->setHeader($currentHeader, $header[1]);
 
-                switch ($name) {
+                switch ($currentHeader) {
                     case 'x-domain':
                         $entries->setDomain($header[1]);
                         break;
