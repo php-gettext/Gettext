@@ -237,18 +237,16 @@ class Translator
     public function isPlural($n)
     {
         if (!$this->pluralFunction) {
-            $this->pluralFunction = $pluralFunction = create_function('$n', self::fixTerseIfs($this->pluralCode));
-        } else {
-            $pluralFunction = $this->pluralFunction;
+            $this->pluralFunction = create_function('$n', self::fixTerseIfs($this->pluralCode));
         }
 
         if ($this->pluralCount <= 2) {
-            return ($pluralFunction($n)) ? 2 : 1;
+            return (call_user_func($this->pluralFunction, $n)) ? 2 : 1;
         }
 
         // We need to +1 because while (GNU) gettext codes assume 0 based,
         // this gettext actually stores 1 based.
-        return ($pluralFunction($n)) + 1;
+        return (call_user_func($this->pluralFunction, $n)) + 1;
     }
 
 
