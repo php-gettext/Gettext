@@ -229,7 +229,8 @@ class Translation
      */ 
     public function addReference($filename, $line)
     {
-        $this->references[] = array($filename, $line);
+        $key = "{$filename}:{$line}";
+        $this->references[$key] = array($filename, $line);
     }
 
 
@@ -240,7 +241,7 @@ class Translation
      */
     public function hasReferences()
     {
-        return isset($this->references[0]);
+        return !empty($this->references);
     }
 
 
@@ -293,5 +294,28 @@ class Translation
     public function getComments()
     {
         return $this->comments;
+    }
+
+
+    /** 
+     * Merges this translation with other translation
+     *
+     * @param Translation $translation The translation to merge with
+     */
+    public function mergeWith(Translation $translation)
+    {
+        if (!$this->hasTranslation()) {
+            $this->setTranslation($translation->getTranslation());
+        }
+
+        if (!$this->hasPluralTranslation() && $translation->hasPluralTranslation()) {
+            $this->pluralTranslation = $translation->getPluralTranslation();
+        }
+
+        foreach ($translation->getReferences() as $reference) {
+            $this->addReference($reference[0], $reference[1]);
+        }
+
+        $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
     }
 }

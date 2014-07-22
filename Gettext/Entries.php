@@ -151,4 +151,33 @@ class Entries extends \ArrayObject
     {
         return $this[] = new Translation($context, $original, $plural);
     }
+
+
+    /**
+     * Merges this entries with other entries
+     * 
+     * @param Entries $entries  The entries instance to merge with
+     */
+    public function mergeWith(Entries $entries)
+    {
+        if (!$this->getLanguage()) {
+            $this->setLanguage($entries->getLanguage());
+        }
+
+        if (!$this->getDomain()) {
+            $this->setDomain($entries->getDomain());
+        }
+
+        $this->headers = array_merge($entries->getHeaders(), $this->getHeaders());
+
+        foreach ($entries as $entry) {
+            $existing = $this->find($entry);
+
+            if ($existing) {
+                $existing->mergeWith($entry);
+            } else {
+                $this[] = clone $entry;
+            }
+        }
+    }
 }
