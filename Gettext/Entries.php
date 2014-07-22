@@ -171,12 +171,29 @@ class Entries extends \ArrayObject
         $this->headers = array_merge($entries->getHeaders(), $this->getHeaders());
 
         foreach ($entries as $entry) {
-            $existing = $this->find($entry);
-
-            if ($existing) {
+            if (($existing = $this->find($entry))) {
                 $existing->mergeWith($entry);
             } else {
                 $this[] = clone $entry;
+            }
+        }
+    }
+
+
+    /**
+     * Edit all translations using other entries
+     * 
+     * @param Entries $entries  The entries instance to merge with
+     */
+    public function editWith(Entries $entries)
+    {
+        $this->language = $entries->getLanguage();
+        $this->domain = $entries->getDomain();
+        $this->headers = $entries->getHeaders();
+
+        foreach ($entries as $entry) {
+            if (($existing = $this->find($entry))) {
+                $existing->editWith($entry);
             }
         }
     }

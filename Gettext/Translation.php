@@ -159,7 +159,7 @@ class Translation
         }
     }
 
-
+    
     /**
      * Gets one or all plural translations
      * 
@@ -317,5 +317,19 @@ class Translation
         }
 
         $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
+    }
+
+
+    /** 
+     * Edit this translation with other translation (but not merge)
+     *
+     * @param Translation $translation The translation to edit with
+     */
+    public function editWith(Translation $translation)
+    {
+        $this->translation = $translation->getTranslation();
+        $this->pluralTranslation = $translation->getPluralTranslation();
+        $this->references = $translation->getReferences();
+        $this->comments = $translation->getComments();
     }
 }
