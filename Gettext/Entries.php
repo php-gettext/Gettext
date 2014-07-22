@@ -12,6 +12,17 @@ class Entries extends \ArrayObject
 
 
     /**
+     * Magic method to clone each translation on clone the entries object
+     */
+    public function __clone()
+    {
+        foreach ($this as $key => $translation) {
+            $this[$key] = clone $translation;
+        }
+    }
+
+
+    /**
      * Set a new header.
      *
      * @param string $name
