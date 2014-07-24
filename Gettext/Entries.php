@@ -6,6 +6,12 @@ namespace Gettext;
  */
 class Entries extends \ArrayObject
 {
+    const MERGE_ADD = 1;
+    const MERGE_REMOVE = 2;
+    const MERGE_HEADERS = 4;
+    const MERGE_REFERENCES = 8;
+    const MERGE_COMMENTS = 16;
+
     private $domain = null;
     private $language = null;
     private $headers = array();
@@ -156,10 +162,15 @@ class Entries extends \ArrayObject
     /**
      * Merges this entries with other entries
      * 
-     * @param Entries $entries  The entries instance to merge with
+     * @param Entries      $entries The entries instance to merge with
+     * @param integer|null $method  One or various Entries::MERGE_* constants to define how to merge the entries
      */
-    public function mergeWith(Entries $entries)
+    public function mergeWith(Entries $entries, $method = null)
     {
+        if ($method === null) {
+            $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS;
+        }
+
         if (!$this->getLanguage()) {
             $this->setLanguage($entries->getLanguage());
         }
@@ -168,32 +179,31 @@ class Entries extends \ArrayObject
             $this->setDomain($entries->getDomain());
         }
 
-        $this->headers = array_merge($entries->getHeaders(), $this->getHeaders());
+        if ($method & self::MERGE_HEADERS) {
+            foreach ($entries->getHeaders() as $name => $value) {
+                if (!$this->getHeader($name)) {
+                    $this->setHeader($name, $value);
+                }
+            }
+        }
+
+        $add = $method & self::MERGE_ADD;
+        $references = $method & self::MERGE_REFERENCES;
+        $comments = $method & self::MERGE_COMMENTS;
 
         foreach ($entries as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry);
-            } else {
+                $existing->mergeWith($entry, $references, $comments);
+            } else if ($add) {
                 $this[] = clone $entry;
             }
         }
-    }
 
-
-    /**
-     * Edit all translations using other entries
-     * 
-     * @param Entries $entries  The entries instance to merge with
-     */
-    public function editWith(Entries $entries)
-    {
-        $this->language = $entries->getLanguage();
-        $this->domain = $entries->getDomain();
-        $this->headers = $entries->getHeaders();
-
-        foreach ($entries as $entry) {
-            if (($existing = $this->find($entry))) {
-                $existing->editWith($entry);
+        if ($method & self::MERGE_REMOVE) {
+            foreach ($this as $k => $entry) {
+                if (!($existing = $entries->find($entry))) {
+                    unset($this[$k]);
+                }
             }
         }
     }

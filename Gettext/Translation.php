@@ -301,8 +301,10 @@ class Translation
      * Merges this translation with other translation
      *
      * @param Translation $translation The translation to merge with
+     * @param boolean     $references  Merge references?
+     * @param boolean     $comments    Merge comments?
      */
-    public function mergeWith(Translation $translation)
+    public function mergeWith(Translation $translation, $method = true, $comments = true)
     {
         if (!$this->hasTranslation()) {
             $this->setTranslation($translation->getTranslation());
@@ -312,24 +314,14 @@ class Translation
             $this->pluralTranslation = $translation->getPluralTranslation();
         }
 
-        foreach ($translation->getReferences() as $reference) {
-            $this->addReference($reference[0], $reference[1]);
+        if ($references) {
+            foreach ($translation->getReferences() as $reference) {
+                $this->addReference($reference[0], $reference[1]);
+            }
         }
 
-        $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
-    }
-
-
-    /** 
-     * Edit this translation with other translation (but not merge)
-     *
-     * @param Translation $translation The translation to edit with
-     */
-    public function editWith(Translation $translation)
-    {
-        $this->translation = $translation->getTranslation();
-        $this->pluralTranslation = $translation->getPluralTranslation();
-        $this->references = $translation->getReferences();
-        $this->comments = $translation->getComments();
+        if ($comments) {
+            $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
+        }
     }
 }
