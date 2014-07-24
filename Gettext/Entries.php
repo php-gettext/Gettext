@@ -187,9 +187,9 @@ class Entries extends \ArrayObject
             }
         }
 
-        $add = $method & self::MERGE_ADD;
-        $references = $method & self::MERGE_REFERENCES;
-        $comments = $method & self::MERGE_COMMENTS;
+        $add = (boolean) $method & self::MERGE_ADD;
+        $references = (boolean) $method & self::MERGE_REFERENCES;
+        $comments = (boolean) $method & self::MERGE_COMMENTS;
 
         foreach ($entries as $entry) {
             if (($existing = $this->find($entry))) {

@@ -231,7 +231,7 @@ class Translator
      * Executes the plural decision code given the number to decide which
      * plural version to take.
      *
-     * @param $n
+     * @param  string $n
      * @return int
      */
     public function isPlural($n)

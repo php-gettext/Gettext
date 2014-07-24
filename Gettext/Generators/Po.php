@@ -10,7 +10,7 @@ class Po extends Generator
      * 
      * @param Entries $entries
      * 
-     * @return array|string
+     * @return string
      */
     public static function generate(Entries $entries)
     {

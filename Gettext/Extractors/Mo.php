@@ -2,7 +2,6 @@
 namespace Gettext\Extractors;
 
 use Gettext\Entries;
-use Gettext\Translation;
 
 /**
  * Class to get gettext strings from mo files
@@ -61,6 +60,10 @@ class Mo extends Extractor
         }
     }
 
+    /**
+     * @param CachedFileReader $stream
+     * @param string           $byteOrder
+     */
     private static function readInt($stream, $byteOrder)
     {
         if (($read = $stream->read(4)) === false) {
@@ -72,6 +75,11 @@ class Mo extends Extractor
         return array_shift($read);
     }
 
+    /**
+     * @param CachedFileReader $stream
+     * @param string           $byteOrder
+     * @param int              $count
+     */
     private static function readIntArray($stream, $byteOrder, $count)
     {
         return unpack($byteOrder.$count, $stream->read(4 * $count));
@@ -84,6 +92,9 @@ class CachedFileReader
     public $str;
     public $strlen;
 
+    /**
+     * @param string  $filename
+     */
     public function __construct($filename)
     {
         if (is_file($filename)) {
