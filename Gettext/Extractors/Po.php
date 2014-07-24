@@ -153,19 +153,9 @@ class Po extends Extractor
      * @return boolean
      */
     private static function isHeaderDefinition($line) {
-        if(!strpos($line, ':')) {
-            return false;
-        }
-
-        $definedHeaders = array(
-            'Project-Id-Version', 'Report-Msgid-Bugs-To', 'POT-Creation-Date', 'PO-Revision-Date', 
-            'Last-Translator', 'Language-Team', 'Language', 'Content-Type', 'Content-Transfer-Encoding', 'Plural-Forms'
-        );
-        $header = explode(':', $line, 2);
-
-        $ret = in_array($header[0], $definedHeaders) || (strpos($header[0], 'X-') === 0);
-        return $ret;
+        return (bool) preg_match('/^[\w-]+:/', $line);
     }
+
 
     /**
      * Cleans the strings. Removes quotes and "\n", etc

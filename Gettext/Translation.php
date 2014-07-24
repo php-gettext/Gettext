@@ -304,7 +304,7 @@ class Translation
      * @param boolean     $references  Merge references?
      * @param boolean     $comments    Merge comments?
      */
-    public function mergeWith(Translation $translation, $method = true, $comments = true)
+    public function mergeWith(Translation $translation, $references = true, $comments = true)
     {
         if (!$this->hasTranslation()) {
             $this->setTranslation($translation->getTranslation());
