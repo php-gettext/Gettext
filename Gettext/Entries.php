@@ -77,7 +77,7 @@ class Entries extends \ArrayObject
      * Sets the language value
      */
     public function setLanguage($language) {
-        $this->language = $language;
+        $this->language = trim($language);
     }
 
     /**
@@ -87,7 +87,7 @@ class Entries extends \ArrayObject
      */
     public function setDomain($domain)
     {
-        $this->domain = $domain;
+        $this->domain = trim($domain);
     }
 
 

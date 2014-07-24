@@ -1,5 +1,5 @@
 <?php
-include dirname(__DIR__).'/Gettext/autoloader.php';
+include_once dirname(__DIR__).'/Gettext/autoloader.php';
 
 if (!function_exists('n__')) {
     require_once(__DIR__ . '/../Gettext/translator_functions.php');

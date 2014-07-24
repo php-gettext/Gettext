@@ -261,7 +261,7 @@ class Translation
      */
     public function getReferences()
     {
-        return $this->references;
+        return array_values($this->references);
     }
 
     /**

@@ -34,11 +34,11 @@ class Po extends Extractor
             $line = self::clean($line);
 
             if (self::isHeaderDefinition($line)) {
-                $header = explode(':', $line, 2);
+                $header = array_map('trim', explode(':', $line, 2));
                 $currentHeader = $header[0];
                 $entries->setHeader($currentHeader, $header[1]);
 
-                switch ($currentHeader) {
+                switch (strtolower($currentHeader)) {
                     case 'x-domain':
                         $entries->setDomain($header[1]);
                         break;
@@ -50,7 +50,7 @@ class Po extends Extractor
             }
             else {
                 $entry = $entries->getHeader($currentHeader);
-                $entries->setHeader($currentHeader, trim($entry . $line));
+                $entries->setHeader($currentHeader, $entry.$line);
             }
         }
 
@@ -71,9 +71,9 @@ class Po extends Extractor
 
             $splitLine = preg_split('/\s/', $line, 2);
             $key = $splitLine[0];
-            if(isset($splitLine[1])) $data = $splitLine[1];
-            
+            $data = isset($splitLine[1]) ? $splitLine[1] : '';
             $append = null;
+
             switch ($key) {
                 case '#,':
                 case '#':
@@ -126,13 +126,13 @@ class Po extends Extractor
                     if (isset($append)) {
                         if ($append === 'PluralTranslation') {
                             $key = count($translation->getPluralTranslation()) - 1;
-                            $translation->setPluralTranslation($translation->getPluralTranslation($key).self::clean("\n".$data), $key);
+                            $translation->setPluralTranslation($translation->getPluralTranslation($key)."\n".self::clean($data), $key);
                             break;
                         }
 
                         $getMethod = 'get'.$append;
                         $setMethod = 'set'.$append;
-                        $translation->$setMethod($translation->$getMethod().self::clean("\n".$data));
+                        $translation->$setMethod($translation->$getMethod()."\n".self::clean($data));
                     }
                     break;
             }
