@@ -3,6 +3,7 @@
 </header>
 
 <div>
+    <p><?php __($var); ?></p>
     <p><?php __('text 2'); ?></p>
     <p><?php __('text 3 (with parenthesis)'); ?></p>
     <p><?php __('text 4 "with double quotes"'); ?></p>
