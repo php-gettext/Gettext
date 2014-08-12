@@ -71,6 +71,10 @@ class PhpCode extends Extractor
             }
 
             $line = array_shift($args);
+            
+            if (!isset($args[0])) {
+                continue;
+            }
 
             switch (self::$functions[$function]) {
                 case '__':
