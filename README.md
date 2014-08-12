@@ -2,7 +2,7 @@ Gettext
 =======
 
 [![Build Status](https://travis-ci.org/oscarotero/Gettext.png?branch=master)](https://travis-ci.org/oscarotero/Gettext)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?s=6c201a07f86ef7ba0b2e746a435bdbc1bf02d878)](https://scrutinizer-ci.com/g/oscarotero/Gettext/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oscarotero/Gettext/?branch=master)
 
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com>
 
