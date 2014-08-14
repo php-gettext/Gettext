@@ -75,6 +75,9 @@ class PhpCode extends Extractor
             if (!isset($args[0])) {
                 continue;
             }
+            if (in_array(self::$functions[$function], array('p__', 'n__')) && !isset($args[1])) {
+                continue;
+            }
 
             switch (self::$functions[$function]) {
                 case '__':
