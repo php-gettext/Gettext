@@ -72,23 +72,28 @@ class PhpCode extends Extractor
 
             $line = array_shift($args);
             
-            if (!isset($args[0])) {
-                continue;
-            }
-
             switch (self::$functions[$function]) {
                 case '__':
+                    if (!isset($args[0])) {
+                        continue 2;
+                    }
                     $original = $args[0];
                     $translation = $entries->find('', $original) ?: $entries->insert('', $original);
                     break;
 
                 case 'n__':
+                    if (!isset($args[1])) {
+                        continue 2;
+                    }
                     $original = $args[0];
                     $plural = $args[1];
                     $translation = $entries->find('', $original, $plural) ?: $entries->insert('', $original, $plural);
                     break;
 
                 case 'p__':
+                    if (!isset($args[1])) {
+                        continue 2;
+                    }
                     $context = $args[0];
                     $original = $args[1];
                     $translation = $entries->find($context, $original) ?: $entries->insert($context, $original);
