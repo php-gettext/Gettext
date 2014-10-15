@@ -6,7 +6,7 @@ class Translator
 {
     private $dictionary = array();
     private $domain = 'messages';
-    private $context_glue = '\u0004';
+    private $context_glue = "\004";
     private $pluralCount = 2;
     private $pluralCode = 'return ($n != 1);';
     private $pluralFunction;
