@@ -17,7 +17,7 @@ class PhpArray extends Generator
     {
         $array = array();
 
-        $context_glue = '\u0004';
+        $context_glue = "\004";
 
         foreach ($entries as $translation) {
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
