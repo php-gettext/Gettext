@@ -200,9 +200,11 @@ class Entries extends \ArrayObject
         }
 
         if ($method & self::MERGE_REMOVE) {
-            foreach ($this as $k => $entry) {
+            $iterator = $this->getIterator();
+            
+            foreach ($iterator as $k => $entry) {
                 if (!($existing = $entries->find($entry))) {
-                    unset($this[$k]);
+                    $iterator->offsetUnset($k);
                 }
             }
         }
