@@ -55,7 +55,17 @@ class Mo extends Extractor
 
             if ($original) {
                 $stream->seekto($table_translations[$i * 2 + 2]);
-                $entries->insert(null, $original)->setTranslation($stream->read($table_translations[$i * 2 + 1]));
+                $original = explode("\000", $original, 2);
+                $translated = explode("\000",$stream->read($table_translations[$i * 2 + 1]), 2);
+
+                $plural = isset($original[1]) ? $original[1] : '';
+                $pluralTranslation = isset($translated[1]) ? $translated[1] : '';
+
+                $translation = $entries->insert(null, $original[0], $plural)->setTranslation($translated[0]);
+
+                if ($plural && $pluralTranslation) {
+                    $translation->setPluralTranslation($pluralTranslation);
+                }
             }
         }
     }
