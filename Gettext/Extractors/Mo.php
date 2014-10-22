@@ -61,7 +61,8 @@ class Mo extends Extractor
                 $plural = isset($original[1]) ? $original[1] : '';
                 $pluralTranslation = isset($translated[1]) ? $translated[1] : '';
 
-                $translation = $entries->insert(null, $original[0], $plural)->setTranslation($translated[0]);
+                $translation = $entries->insert(null, $original[0], $plural);
+                $translation->setTranslation($translated[0]);
 
                 if ($plural && $pluralTranslation) {
                     $translation->setPluralTranslation($pluralTranslation);
