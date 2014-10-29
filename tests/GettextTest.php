@@ -203,4 +203,22 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('more', n__ ("single", "more", 3), "non-plural fallback failed");
 
     }
+
+    public function testWordpress()
+    {
+        //Extract entries
+        $entries = Gettext\Extractors\PhpCode::extract(__DIR__.'/files/wordpress-template.php');
+
+        $this->assertInstanceOf('Gettext\\Entries', $entries);
+
+        $po = Gettext\Generators\Po::generate($entries);
+        $assert = file_get_contents(__DIR__.'/files/wordpress-template.po');
+
+        $po = preg_replace('/"Date: ([\dT:\+\\n-]+)"/', "", $po);
+        $assert = preg_replace('/"Date: ([\dT:\+\\n-]+)"/', "", $assert);
+
+        $this->assertEquals(substr($po, 313), substr($assert, 313));
+
+        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/wordpress-template.po');
+    }
 }

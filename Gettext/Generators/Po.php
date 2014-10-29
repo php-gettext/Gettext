@@ -52,8 +52,16 @@ class Po extends Generator
                 $lines[] = 'msgctxt '.self::quote($translation->getContext());
             }
 
+            $msgid = self::multilineQuote($translation->getOriginal());
+
+            if (count($msgid) === 1) {
+                $lines[] = 'msgid '.$msgid[0];
+            } else {
+                $lines[] = 'msgid ""';
+                $lines = array_merge($lines, $msgid);
+            }
+
             if ($translation->hasPlural()) {
-                $lines[] = 'msgid '.self::quote($translation->getOriginal());
                 $lines[] = 'msgid_plural '.self::quote($translation->getPlural());
                 $lines[] = 'msgstr[0] '.self::quote($translation->getTranslation());
 
@@ -61,7 +69,6 @@ class Po extends Generator
                     $lines[] = 'msgstr['.($k + 1).'] '.self::quote($v);
                 }
             } else {
-                $lines[] = 'msgid '.self::quote($translation->getOriginal());
                 $lines[] = 'msgstr '.self::quote($translation->getTranslation());
             }
 
@@ -81,5 +88,23 @@ class Po extends Generator
     private static function quote($string)
     {
         return '"'.str_replace(array("\r", "\n", '"'), array('', '\n', '\\"'), $string).'"';
+    }
+
+    /**
+     * Escapes and adds double quotes to a string
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
+    private static function multilineQuote($string)
+    {
+        $lines = array();
+
+        foreach (explode("\n", $string) as $line) {
+            $lines[] = self::quote($line."\n");
+        }
+
+        return $lines;
     }
 }
