@@ -99,10 +99,15 @@ class Po extends Generator
      */
     private static function multilineQuote($string)
     {
-        $lines = array();
+        $lines = explode("\n", $string);
+        $last = count($lines) - 1;
 
-        foreach (explode("\n", $string) as $line) {
-            $lines[] = self::quote($line."\n");
+        foreach ($lines as $k => $line) {
+            if ($k === $last) {
+                $lines[$k] = self::quote($line);
+            } else {
+                $lines[$k] = self::quote($line."\n");
+            }
         }
 
         return $lines;
