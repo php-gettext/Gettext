@@ -214,6 +214,10 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $po = Gettext\Generators\Po::generate($entries);
         $assert = file_get_contents(__DIR__.'/files/wordpress-template.po');
 
-        $this->assertEquals(substr($po, 313), substr($assert, 313));
+        //remove the first 13 lines with temp info
+        $po = implode("\n", array_splice(explode("\n", $po), 13));
+        $assert = implode("\n", array_splice(explode("\n", $assert), 13));
+
+        $this->assertEquals($po, $assert);
     }
 }
