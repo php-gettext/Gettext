@@ -13,9 +13,9 @@ abstract class Generator
 	 * 
 	 * @return boolean
 	 */
-    public static function generateFile(Entries $entries, $file)
+    public static function toFile(Entries $entries, $file)
     {
-        $content = static::generate($entries, true);
+        $content = static::toString($entries);
 
         if (file_put_contents($file, $content) === false) {
             return false;
@@ -23,4 +23,13 @@ abstract class Generator
 
         return true;
     }
+
+    /**
+	 * Generates a string with the entries ready to save in a file
+	 * 
+	 * @param Entries $entries
+	 * 
+	 * @return string
+	 */
+    abstract static function toString(Entries $entries);
 }

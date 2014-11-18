@@ -8,88 +8,66 @@ abstract class Extractor
     /**
      * Extract the entries from a file
      * 
-     * @param array|string $file    A path of a file or folder
+     * @param array|string $file    A path of a file or files
      * @param null|Entries $entries The entries instance to append the new translations.
      * 
      * @return Entries
      */
-    public static function extract($file, Entries $entries = null)
+    public static function fromFile($file, Entries $entries = null)
     {
-        if (empty($file)) {
-            throw new \InvalidArgumentException('There is not a file defined');
-        }
-
         if ($entries === null) {
             $entries = new Entries;
         }
 
-        if (($file = self::resolve($file)) === false) {
-            return false;
+        foreach (self::getFiles($file) as $file) {
+            self::fromString(file_get_contents($file), $entries);
         }
-
-        if (is_array($file)) {
-            foreach ($file as $f) {
-                static::extract($f, $entries);
-            }
-
-            return $entries;
-        }
-
-        if (!is_readable($file)) {
-            throw new \InvalidArgumentException("'$file' is not a readable file");
-        }
-
-        static::parse($file, $entries);
 
         return $entries;
     }
 
 
     /**
-     * Search the files in a folder
+     * Parses a string and append the translations found in the Entries instance
      * 
-     * @param string $path The file/folder path
-     * 
-     * @return string|array The file path or an array of file paths
+     * @param string       $string
+     * @param Entries|null $entries
+     *
+     * @return Entries
      */
-    private static function resolve($path)
+    abstract public static function fromString($string, Entries $entries = null);
+
+
+    /**
+     * Checks and returns all files
+     * 
+     * @param string|array $file The file/s
+     * 
+     * @return array The file paths
+     */
+    protected static function getFiles($file)
     {
-        if (is_string($path)) {
-            if (is_file($path)) {
-                return $path;
-            }
-
-            if (is_dir($path)) {
-                $files = array();
-
-                $directory = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS);
-                $iterator = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::LEAVES_ONLY);
-
-                foreach ($iterator as $fileinfo) {
-                    $name = $fileinfo->getPathname();
-
-                    if (strpos($name, '/.') === false) {
-                        $files[] = $name;
-                    }
-                }
-
-                return $files;
-            }
-
-            throw new \InvalidArgumentException("'$path' is not a valid file or folder");
+        if (empty($file)) {
+            throw new \InvalidArgumentException('There is not any file defined');
         }
 
-        if (is_array($path)) {
+        if (is_string($file)) {
+            if (!is_file($file)) {
+                throw new \InvalidArgumentException("'$file' is not a valid file");
+            }
+
+            if (!is_readable($file)) {
+                throw new \InvalidArgumentException("'$file' is not a readable file");
+            }
+
+            return array($file);
+        }
+
+        if (is_array($file)) {
             $files = array();
 
-            foreach ($path as $file) {
-                $file = self::resolve($file);
-
-                if (is_array($file)) {
-                    $files = array_merge($files, $file);
-                } else {
-                    $files[] = $file;
-                }
+            foreach ($file as $f) {
+                $files = array_merge($files, self::getFiles($f));
             }
 
             return $files;

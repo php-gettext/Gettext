@@ -19,12 +19,9 @@ class PhpCode extends Extractor
 
 
     /**
-     * Parses a .php file and append the translations found in the Entries instance
-     * 
-     * @param string  $file
-     * @param Entries $entries
+     * {@inheritDoc}
      */
-    public static function parse($file, Entries $entries)
+    public static function fromString($file, Entries $entries = null)
     {
         $tokens = token_get_all(file_get_contents($file));
         $count = count($tokens);

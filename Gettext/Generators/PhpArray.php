@@ -6,14 +6,24 @@ use Gettext\Entries;
 class PhpArray extends Generator
 {
     /**
-     * Generates a string with the entries ready to save in a file
+     * {@inheritDoc}
+     */
+    public static function toString(Entries $entries)
+    {
+        $array = self::toArray($entries);
+
+        return '<?php return '.var_export($array, true).'; ?>';
+    }
+
+
+    /**
+     * Generates an array with the entries
      * 
      * @param Entries $entries
-     * @param boolean $string True to return as a string, false to return an array
      * 
-     * @return array|string
+     * @return array
      */
-    public static function generate(Entries $entries, $string = false)
+    public static function toArray(Entries $entries)
     {
         $array = array();
 
@@ -48,10 +58,6 @@ class PhpArray extends Generator
         }
 
         $translations[$domain] = array_merge($translations[$domain], $array);
-
-        if ($string) {
-            return '<?php return '.var_export($translations, true).'; ?>';
-        }
 
         return $translations;
     }

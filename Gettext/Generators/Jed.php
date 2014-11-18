@@ -6,17 +6,12 @@ use Gettext\Entries;
 class Jed extends Generator
 {
 	/**
-	 * Generates a string with the entries ready to save in a file
-	 * 
-	 * @param Entries $entries
-	 * @param boolean $encoded True to encode to javascript, false to return an array
-	 * 
-	 * @return array|string
+	 * {@parentDoc}
 	 */
-    public static function generate(Entries $entries, $encoded = true)
+    public static function toString(Entries $entries)
     {
-        $translations = PhpArray::generate($entries);
+        $array = PhpArray::generateArray($entries);
 
-        return $encoded ? json_encode($translations) : $translations;
+        return json_encode($array);
     }
 }
