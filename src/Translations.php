@@ -18,6 +18,40 @@ class Translations extends \ArrayObject
 
 
     /**
+     * Magic method to create new instances using extractors
+     * For example: Translations::fromMoFile($filename);
+     * 
+     * @return Translations
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        if (!preg_match('/^from(\w+)(File|String)$/i', $name, $matches)) {
+            throw new \Exception("The method $name does not exists");
+        }
+
+        return call_user_func_array('Gettext\\Extractors\\'.$matches[1].'::from'.$matches[2], $arguments);
+    }
+
+
+    /**
+     * Magic method to export the translations to a specific format
+     * For example: $translations->toMoFile($filename);
+     * 
+     * @return bool|string
+     */
+    public function __call($name, $arguments)
+    {
+        if (!preg_match('/^to(\w+)(File|String)$/i', $name, $matches)) {
+            throw new \Exception("The method $name does not exists");
+        }
+
+        array_unshift($arguments, $this);
+
+        return call_user_func_array('Gettext\\Generators\\'.$matches[1].'::to'.$matches[2], $arguments);
+    }
+
+
+    /**
      * Magic method to clone each translation on clone the translations object
      */
     public function __clone()
