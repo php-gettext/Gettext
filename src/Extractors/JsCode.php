@@ -1,12 +1,12 @@
 <?php
 namespace Gettext\Extractors;
 
-use Gettext\Entries;
+use Gettext\Translations;
 
 /**
  * Class to get gettext strings from javascript files
  */
-class JsCode extends Extractor
+class JsCode extends Extractor implements ExtractorInterface
 {
     // Javascript function names to search
     public static $functions = array(
@@ -17,12 +17,12 @@ class JsCode extends Extractor
 
 
     /**
-     * Parses a javascript file and append the translations found in the Entries instance
+     * Parses a javascript file and append the translations found in the Translations instance
      * 
      * @param string  $file
-     * @param Entries $entries
+     * @param Translations $translations
      */
-    public static function parse($file, Entries $entries)
+    public static function parse($file, Translations $translations)
     {
         $strings = $regs = array();
 
@@ -79,19 +79,19 @@ class JsCode extends Extractor
             switch (self::$functions[$match[1]]) {
                 case '__':
                     $original = $match[2];
-                    $translation = $entries->find('', $original) ?: $entries->insert('', $original);
+                    $translation = $translations->find('', $original) ?: $translations->insert('', $original);
                     break;
 
                 case 'n__':
                     $original = $match[2];
                     $plural = $match[3];
-                    $translation = $entries->find('', $original, $plural) ?: $entries->insert('', $original, $plural);
+                    $translation = $translations->find('', $original, $plural) ?: $translations->insert('', $original, $plural);
                     break;
 
                 case 'p__':
                     $context = $match[2];
                     $original = $match[3];
-                    $translation = $entries->find($context, $original) ?: $entries->insert($context, $original);
+                    $translation = $translations->find($context, $original) ?: $translations->insert($context, $original);
                     break;
             }
         }

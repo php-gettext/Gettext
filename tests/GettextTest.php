@@ -1,77 +1,77 @@
 <?php
-include_once dirname(__DIR__).'/Gettext/autoloader.php';
+include_once dirname(__DIR__).'/src/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(__DIR__ . '/../Gettext/translator_functions.php');
+    require_once(dirname(__DIR__).'/src/translator_functions.php');
 }
 
 class GettextTest extends PHPUnit_Framework_TestCase
 {
     public function testPhpCodeExtractor()
     {
-        //Extract entries
-        $entries = Gettext\Extractors\PhpCode::extract(__DIR__.'/files/phpCode-example.php');
+        //Extract translations
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpCode-example.php');
 
-        $this->assertInstanceOf('Gettext\\Entries', $entries);
+        $this->assertInstanceOf('Gettext\\Translations', $translations);
 
-        return $entries;
+        return $translations;
     }
 
     public function testPoFileExtractor()
     {
-        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_plural.po');
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_plural.po');
 
-        $this->assertInstanceOf('Gettext\\Entries', $entries);
+        $this->assertInstanceOf('Gettext\\Translations', $translations);
 
         $pluralHeader = "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
-        $this->assertEquals($pluralHeader, $entries->getHeader('Plural-Forms'), "Plural form did not get extracted correctly");
+        $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), "Plural form did not get extracted correctly");
 
-        return $entries;
+        return $translations;
     }
 
     public function testAutomaticHeaders() 
     {
-        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_multiple_headers.po');
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $language = 'bs';
-        $this->assertEquals($language, $entries->getLanguage(), 'Language was not extracted correctly');
+        $this->assertEquals($language, $translations->getLanguage(), 'Language was not extracted correctly');
 
         $domain = 'testingdomain';
-        $this->assertEquals($domain, $entries->getDomain(), 'Domain was not extracted correctly');
+        $this->assertEquals($domain, $translations->getDomain(), 'Domain was not extracted correctly');
 
-        $entries2 = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_plural.po');
-        $this->assertNull($entries2->getLanguage(), 'Something erroneously set for language');
-        $this->assertNull($entries2->getDomain(), 'Something erroneously set for domain');
+        $translations2 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_plural.po');
+        $this->assertNull($translations2->getLanguage(), 'Something erroneously set for language');
+        $this->assertNull($translations2->getDomain(), 'Something erroneously set for domain');
 
-        return $entries;
+        return $translations;
     }
 
     public function testSplitHeader() 
     {
-        $entries = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_multiple_headers.po');
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $pluralHeader = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
-        $this->assertEquals($pluralHeader, $entries->getHeader('Plural-Forms'), 'header split over 2 lines not extracted correctly');
-        return $entries;
+        $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), 'header split over 2 lines not extracted correctly');
+        return $translations;
     }
 
     /**
      * @depends testPhpCodeExtractor
      */
-    public function testEntries($entries)
+    public function testTranslations($translations)
     {
         //Find by text
-        $translation = $entries->find(null, 'text 1');
+        $translation = $translations->find(null, 'text 1');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
 
         //Find by translation object
-        $translation2 = $entries->find($translation);
+        $translation2 = $translations->find($translation);
 
         $this->assertEquals($translation, $translation2);
 
         //Insert a new translation
-        $entries->insert('my context', 'comment', 'comments');
+        $translations->insert('my context', 'comment', 'comments');
 
-        $commentTranslation = $entries->find('my context', 'comment', 'comments');
+        $commentTranslation = $translations->find('my context', 'comment', 'comments');
 
         $this->assertInstanceOf('Gettext\\Translation', $commentTranslation);
 
@@ -81,18 +81,18 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('comments', $commentTranslation->getPlural());
         $this->assertTrue($commentTranslation->hasPlural());
 
-        $entries->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
-        $this->assertEquals('2012-08-07 13:03+0100', $entries->getHeader('POT-Creation-Date'));
+        $translations->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
+        $this->assertEquals('2012-08-07 13:03+0100', $translations->getHeader('POT-Creation-Date'));
 
-        return $entries;
+        return $translations;
     }
 
     /**
-     * @depends testEntries
+     * @depends testTranslations
      */
-    public function testTranslation($entries)
+    public function testTranslation($translations)
     {
-        $translation = $entries->find(null, 'text 1');
+        $translation = $translations->find(null, 'text 1');
 
         $this->assertEquals('text 1', $translation->getOriginal());
         $this->assertEquals('', $translation->getTranslation());
@@ -137,18 +137,18 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $translation->getPluralTranslation());
         $this->assertEquals('textos 1', $translation->getPluralTranslation(0));
 
-        return $entries;
+        return $translations;
     }
 
     /**
      * @depends testTranslation
      */
-    public function testPhpArrayGenerator($entries)
+    public function testPhpArrayGenerator($translations)
     {
         //Export to a file
         $filename = __DIR__.'/files/tmp-phparray.php';
 
-        $result = Gettext\Generators\PhpArray::generateFile($entries, $filename);
+        $result = Gettext\Generators\PhpArray::toFile($translations, $filename);
 
         $this->assertTrue($result);
         $this->assertTrue(is_file($filename));
@@ -159,11 +159,11 @@ class GettextTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($array));
         $this->assertArrayHasKey('messages', $array);
 
-        //Load the data as entries object
-        $entries2 = Gettext\Extractors\PhpArray::extract($filename);
+        //Load the data as translations object
+        $translations2 = Gettext\Extractors\PhpArray::fromFile($filename);
 
-        //Compare the length of the translations in the array an in the entries (the array always has one more message)
-        $this->assertEquals(count($array['messages']) - 1, count($entries2));
+        //Compare the length of the translations in the array an in the translations (the array always has one more message)
+        $this->assertEquals(count($array['messages']) - 1, count($translations2));
 
         unlink($filename);
     }
@@ -171,9 +171,9 @@ class GettextTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testPoFileExtractor
      */
-    public function testMultiPlural($entries)
+    public function testMultiPlural($translations)
     {
-        $translationArray = \Gettext\Generators\PhpArray::generate($entries);
+        $translationArray = \Gettext\Generators\PhpArray::toArray($translations);
         $translator = new \Gettext\Translator;
         $translator->loadTranslationsArray($translationArray);
 
@@ -206,17 +206,19 @@ class GettextTest extends PHPUnit_Framework_TestCase
 
     public function testWordpress()
     {
-        //Extract entries
-        $entries = Gettext\Extractors\PhpCode::extract(__DIR__.'/files/wordpress-template.php');
+        //Extract translations
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/wordpress-template.php');
 
-        $this->assertInstanceOf('Gettext\\Entries', $entries);
+        $this->assertInstanceOf('Gettext\\Translations', $translations);
 
-        $po = Gettext\Generators\Po::generate($entries);
+        $po = Gettext\Generators\Po::toString($translations);
         $assert = file_get_contents(__DIR__.'/files/wordpress-template.po');
 
         //remove the first 13 lines with temp info
-        $po = implode("\n", array_splice(explode("\n", $po), 13));
-        $assert = implode("\n", array_splice(explode("\n", $assert), 13));
+        $po = explode("\n", $po);
+        $assert = explode("\n", $assert);
+        $po = implode("\n", array_splice($po, 13));
+        $assert = implode("\n", array_splice($assert, 13));
 
         $this->assertEquals($po, $assert);
     }

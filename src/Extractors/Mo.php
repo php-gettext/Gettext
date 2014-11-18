@@ -1,13 +1,14 @@
 <?php
 namespace Gettext\Extractors;
 
-use Gettext\Entries;
+use Gettext\Translations;
+use Gettext\Utils\StringReader;
 
 /**
- * Class to get gettext strings from mo files
+ * Class to get gettext strings from .mo files
  */
 
-class Mo extends Extractor
+class Mo extends Extractor implements ExtractorInterface
 {
     const MAGIC1 = -1794895138;
     const MAGIC2 = -569244523;
@@ -15,14 +16,11 @@ class Mo extends Extractor
 
 
     /**
-     * Parses a .mo file and append the translations found in the Entries instance
-     * 
-     * @param string  $file
-     * @param Entries $entries
+     * {@inheritDoc}
      */
-    public static function parse($file, Entries $entries)
+    public static function fromString($string, Translations $translations = null, $file = '')
     {
-        $stream = new CachedFileReader($file);
+        $stream = new StringReader($string);
 
         if (!$stream || isset($stream->error)) {
             return false;
@@ -42,11 +40,11 @@ class Mo extends Extractor
 
         $total = self::readInt($stream, $byteOrder); //total string count
         $originals = self::readInt($stream, $byteOrder); //offset of original table
-        $translations = self::readInt($stream, $byteOrder); //offset of translation table
+        $tran = self::readInt($stream, $byteOrder); //offset of translation table
 
         $stream->seekto($originals);
         $table_originals = self::readIntArray($stream, $byteOrder, $total * 2);
-        $stream->seekto($translations);
+        $stream->seekto($tran);
         $table_translations = self::readIntArray($stream, $byteOrder, $total * 2);
 
         for ($i = 0; $i < $total; $i++) {
@@ -61,7 +59,7 @@ class Mo extends Extractor
                 $plural = isset($original[1]) ? $original[1] : '';
                 $pluralTranslation = isset($translated[1]) ? $translated[1] : '';
 
-                $translation = $entries->insert(null, $original[0], $plural);
+                $translation = $translations->insert(null, $original[0], $plural);
                 $translation->setTranslation($translated[0]);
 
                 if ($plural && $pluralTranslation) {
@@ -94,50 +92,5 @@ class Mo extends Extractor
     private static function readIntArray($stream, $byteOrder, $count)
     {
         return unpack($byteOrder.$count, $stream->read(4 * $count));
-    }
-}
-
-class CachedFileReader
-{
-    public $pos;
-    public $str;
-    public $strlen;
-
-    /**
-     * @param string  $filename
-     */
-    public function __construct($filename)
-    {
-        if (is_file($filename)) {
-            $length = filesize($filename);
-            $fd = fopen($filename,'rb');
-
-            if (!$fd) {
-                throw new \Exception("Cannot read the file '$filename', probably permissions");
-            }
-
-            $this->str = fread($fd, $length);
-            $this->strlen = strlen($this->str);
-
-            fclose($fd);
-        } else {
-            throw new \Exception("The file '$filename' does not exists");
-        }
-    }
-
-    public function read($bytes)
-    {
-        $data = substr($this->str, $this->pos, $bytes);
-
-        $this->seekto($this->pos + $bytes);
-
-        return $data;
-    }
-
-    public function seekto($pos)
-    {
-        $this->pos = ($this->strlen < $pos) ? $this->strlen : $pos;
-
-        return $this->pos;
     }
 }

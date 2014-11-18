@@ -1,14 +1,14 @@
 <?php
 namespace Gettext\Generators;
 
-use Gettext\Entries;
+use Gettext\Translations;
 
-class Po extends Generator
+class Po extends Generator implements GeneratorInterface
 {
     /**
      * {@parentDoc}
      */
-    public static function toString(Entries $entries)
+    public static function toString(Translations $translations)
     {
         $lines = array('msgid ""', 'msgstr ""');
 
@@ -20,7 +20,7 @@ class Po extends Generator
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit'
-        ), $entries->getHeaders());
+        ), $translations->getHeaders());
 
         $headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');
 
@@ -30,8 +30,8 @@ class Po extends Generator
 
         $lines[] = '';
 
-        //Entries
-        foreach ($entries as $translation) {
+        //Translations
+        foreach ($translations as $translation) {
             if ($translation->hasComments()) {
                 foreach ($translation->getComments() as $comment) {
                     $lines[] = '# '.$comment;

@@ -18,13 +18,13 @@ Features:
 Contains the following classes:
 
 * Gettext\Translation - Contains a translation definition
-* Gettext\Entries - A translations collection
+* Gettext\Translations - A translations collection
 * Gettext\Translator - A gettext implementation for PHP
 
 Extractors
 ----------
 
-The extrators are classes that extract the gettext values from any source and return a Gettext\Entries instance with them.
+The extrators are classes that extract the gettext values from any source and return a Gettext\Translations instance with them.
 
 * Gettext\Extractors\PhpCode - Scan a php file looking for all gettext functions to collect their strings
 * Gettext\Extractors\JsCode - Scan a javascript file looking for all gettext functions to collect their strings
@@ -35,7 +35,7 @@ The extrators are classes that extract the gettext values from any source and re
 Generators
 ----------
 
-Generators take a Gettext\Entries instance and export the data in any of the following format.
+Generators take a Gettext\Translations instance and export the data in any of the following format.
 
 * Gettext\Generators\Mo - Generate a Mo file
 * Gettext\Generators\Po - Generate a Po file
@@ -111,19 +111,19 @@ Using these short functions, you can scan the php files to find your gettext val
 </html>
 ```
 ```
-$entries = Gettext\Extractors\PhpCode::extract('index.php');
+$translations = Gettext\Extractors\PhpCode::extract('index.php');
 
 //Search for the value
-$translation = $entries->find(null, 'Hello world');
+$translation = $translations->find(null, 'Hello world');
 
 //Translate to other language
 $translation->setTranslation('Ola mundo');
 
-//Exports the entries to .po file (for example)
-Gettext\Generators\Po::generateFile($entries, 'index.gl.po');
+//Exports the translations to .po file (for example)
+Gettext\Generators\Po::generateFile($translations, 'index.gl.po');
 
-//And exports again the entries to .json file
-Gettext\Generators\Po::generateFile($entries, 'index.gl.json');
+//And exports again the translations to .json file
+Gettext\Generators\Po::generateFile($translations, 'index.gl.json');
 ```
 
 And you can use the translations exported to json in javascript with the Jed library (http://slexaxton.github.com/Jed/)
@@ -144,41 +144,41 @@ Merge translations
 To work with different translations you may want merge them in an unique file. There is a way to do this:
 
 ```php
-//Create a new Entries instances with our translations.
+//Create a new Translations instances with our translations.
 
-$entries1 = Gettext\Extractors\Po::extract('my-file1.po');
-$entries2 = Gettext\Extractors\Po::extract('my-file2.po');
+$translations1 = Gettext\Extractors\Po::extract('my-file1.po');
+$translations2 = Gettext\Extractors\Po::extract('my-file2.po');
 
 //Merge one inside other:
-$entries1->mergeWith($entries2);
+$translations1->mergeWith($translations2);
 
-//Now entries1 has all values
+//Now translations1 has all values
 ```
 
 The second argument of `mergeWith` defines how the merge will be done. You can pass one or various of the following predefined constants:
 
-* MERGE_ADD: Adds the translations from entries2 to entries1 if they not exists
-* MERGE_REMOVE: Removes the translations in entries1 if they are not in entries2
-* MERGE_HEADERS: Merges the headers from entries2 to entries 1
-* MERGE_REFERENCES: Merges the references from entries2 to entries1
-* MERGE_COMMENTS: Merges the comments from entries2 to entries1
+* MERGE_ADD: Adds the translations from translations2 to translations1 if they not exists
+* MERGE_REMOVE: Removes the translations in translations1 if they are not in translations2
+* MERGE_HEADERS: Merges the headers from translations2 to translations 1
+* MERGE_REFERENCES: Merges the references from translations2 to translations1
+* MERGE_COMMENTS: Merges the comments from translations2 to translations1
 
 Example:
 
 ```php
-use Gettext\Entries;
+use Gettext\Translations;
 
-//Scan the php code to find the latest gettext entries
-$entries = Gettext\Extractors\PhpCode::extract('my-templates.php');
+//Scan the php code to find the latest gettext translations
+$translations = Gettext\Extractors\PhpCode::extract('my-templates.php');
 
 //Get the translations of the code that are stored in a po file
-$poEntries = Gettext\Extractors\Po::extract('locale.po');
+$poTranslations = Gettext\Extractors\Po::extract('locale.po');
 
-//Apply the translations from the po file to the entries, and merges header and comments but not references and without add or remove entries:
-$entries->mergeWith($poEntries, Entries::MERGE_HEADERS | Entries::MERGE_COMMENTS);
+//Apply the translations from the po file to the translations, and merges header and comments but not references and without add or remove translations:
+$translations->mergeWith($poTranslations, Translations::MERGE_HEADERS | Translations::MERGE_COMMENTS);
 
 //Now save a po file with the result
-Gettext\Generators\Po::generateFile($entries, 'locale.po');
+Gettext\Generators\Po::generateFile($translations, 'locale.po');
 ```
 
 Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS`

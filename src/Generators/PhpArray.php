@@ -1,35 +1,35 @@
 <?php
 namespace Gettext\Generators;
 
-use Gettext\Entries;
+use Gettext\Translations;
 
-class PhpArray extends Generator
+class PhpArray extends Generator implements GeneratorInterface
 {
     /**
      * {@inheritDoc}
      */
-    public static function toString(Entries $entries)
+    public static function toString(Translations $translations)
     {
-        $array = self::toArray($entries);
+        $array = self::toArray($translations);
 
         return '<?php return '.var_export($array, true).'; ?>';
     }
 
 
     /**
-     * Generates an array with the entries
+     * Generates an array with the translations
      * 
-     * @param Entries $entries
+     * @param Translations $translations
      * 
      * @return array
      */
-    public static function toArray(Entries $entries)
+    public static function toArray(Translations $translations)
     {
         $array = array();
 
         $context_glue = "\004";
 
-        foreach ($entries as $translation) {
+        foreach ($translations as $translation) {
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
             $entry = array($translation->getPlural(), $translation->getTranslation());
 
@@ -40,10 +40,10 @@ class PhpArray extends Generator
             $array[$key] = $entry;
         }
 
-        $domain = $entries->getDomain() ?: 'messages';
-        $lang = $entries->getLanguage() ?: 'en';
+        $domain = $translations->getDomain() ?: 'messages';
+        $lang = $translations->getLanguage() ?: 'en';
 
-        $translations = array(
+        $fullArray = array(
             $domain => array(
                 '' => array(
                     'domain' => $domain,
@@ -53,12 +53,12 @@ class PhpArray extends Generator
             )
         );
 
-        if ($entries->getHeader('Plural-Forms') !== null) {
-            $translations[$domain]['']['plural-forms'] = $entries->getHeader('Plural-Forms');
+        if ($translations->getHeader('Plural-Forms') !== null) {
+            $fullArray[$domain]['']['plural-forms'] = $translations->getHeader('Plural-Forms');
         }
 
-        $translations[$domain] = array_merge($translations[$domain], $array);
+        $fullArray[$domain] = array_merge($fullArray[$domain], $array);
 
-        return $translations;
+        return $fullArray;
     }
 }

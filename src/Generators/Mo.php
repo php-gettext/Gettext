@@ -1,30 +1,30 @@
 <?php
 namespace Gettext\Generators;
 
-use Gettext\Entries;
+use Gettext\Translations;
 
-class Mo extends Generator
+class Mo extends Generator implements GeneratorInterface
 {
     /**
      * {@parentDoc}
      */
-    public static function toString(Entries $entries)
+    public static function toString(Translations $translations)
     {
-        $translations = array();
+        $array = array();
 
-        foreach ($entries as $translation) {
+        foreach ($translations as $translation) {
             if ($translation->hasTranslation()) {
-                $translations[$translation->getOriginal()] = $translation;
+                $array[$translation->getOriginal()] = $translation;
             }
         }
 
-        ksort($translations, SORT_STRING);
+        ksort($array, SORT_STRING);
 
         $offsets = array();
         $ids = '';
         $strings = '';
 
-        foreach ($translations as $translation) {
+        foreach ($array as $translation) {
             $id = $translation->getOriginal();
 
             if ($translation->hasPlural()) {
@@ -46,7 +46,7 @@ class Mo extends Generator
             $strings .= $str . "\x00";
         }
 
-        $key_start = 7 * 4 + count($translations) * 4 * 4;
+        $key_start = 7 * 4 + count($array) * 4 * 4;
         $value_start = $key_start + strlen($ids);
         $key_offsets = array();
         $value_offsets = array();
@@ -64,7 +64,7 @@ class Mo extends Generator
         $offsets = array_merge($key_offsets, $value_offsets);
 
         //Generate binary data
-        $mo = pack('Iiiiiii', 0x950412de, 0, count($translations), 7 * 4, 7 * 4 + count($translations) * 8, 0, $key_start);
+        $mo = pack('Iiiiiii', 0x950412de, 0, count($array), 7 * 4, 7 * 4 + count($array) * 8, 0, $key_start);
 
         foreach ($offsets as $offset) {
             $mo .= pack('i', $offset);

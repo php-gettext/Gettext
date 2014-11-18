@@ -1,15 +1,15 @@
 <?php
-include_once dirname(__DIR__).'/Gettext/autoloader.php';
+include_once dirname(__DIR__).'/src/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(__DIR__ . '/../Gettext/translator_functions.php');
+    require_once(dirname(__DIR__).'/src/translator_functions.php');
 }
 
 class JedTest extends PHPUnit_Framework_TestCase
 {
     public function testDynamicHeaders() {
-        $translations = Gettext\Extractors\Po::extract(__DIR__.'/files/gettext_multiple_headers.po');
-        $jsonString = Gettext\Generators\Jed::generate($translations, __DIR__.'/files/gettext_multiple_headers.json', true);
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
+        $jsonString = Gettext\Generators\Jed::toString($translations, __DIR__.'/files/gettext_multiple_headers.json', true);
 
         $domain = 'testingdomain';
         $jedJson = json_decode($jsonString, true);

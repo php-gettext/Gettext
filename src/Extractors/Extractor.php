@@ -1,41 +1,30 @@
 <?php
 namespace Gettext\Extractors;
 
-use Gettext\Entries;
+use Gettext\Translations;
 
 abstract class Extractor
 {
     /**
-     * Extract the entries from a file
+     * Extract the translations from a file
      * 
      * @param array|string $file    A path of a file or files
-     * @param null|Entries $entries The entries instance to append the new translations.
+     * @param null|Translations $translations The translations instance to append the new translations.
      * 
-     * @return Entries
+     * @return Translations
      */
-    public static function fromFile($file, Entries $entries = null)
+    public static function fromFile($file, Translations $translations = null)
     {
-        if ($entries === null) {
-            $entries = new Entries;
+        if ($translations === null) {
+            $translations = new Translations;
         }
 
         foreach (self::getFiles($file) as $file) {
-            self::fromString(file_get_contents($file), $entries);
+            static::fromString(self::readFile($file), $translations, $file);
         }
 
-        return $entries;
+        return $translations;
     }
-
-
-    /**
-     * Parses a string and append the translations found in the Entries instance
-     * 
-     * @param string       $string
-     * @param Entries|null $entries
-     *
-     * @return Entries
-     */
-    abstract public static function fromString($string, Entries $entries = null);
 
 
     /**
@@ -74,5 +63,27 @@ abstract class Extractor
         }
 
         throw new \InvalidArgumentException('The first argumet must be string or array');
+    }
+
+
+    /**
+     * Reads and returns the content of a file
+     * 
+     * @param string $file
+     * 
+     * @return string
+     */
+    protected static function readFile($file)
+    {
+        $length = filesize($file);
+
+        if (!($fd = fopen($file,'rb'))) {
+            throw new \Exception("Cannot read the file '$file', probably permissions");
+        }
+
+        $content = fread($fd, $length);
+        fclose($fd);
+
+        return $content;
     }
 }

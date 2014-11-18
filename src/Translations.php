@@ -4,7 +4,7 @@ namespace Gettext;
 /**
  * Class to manage a collection of translations
  */
-class Entries extends \ArrayObject
+class Translations extends \ArrayObject
 {
     const MERGE_ADD = 1;
     const MERGE_REMOVE = 2;
@@ -18,7 +18,7 @@ class Entries extends \ArrayObject
 
 
     /**
-     * Magic method to clone each translation on clone the entries object
+     * Magic method to clone each translation on clone the translations object
      */
     public function __clone()
     {
@@ -54,7 +54,7 @@ class Entries extends \ArrayObject
 
 
     /**
-     * Returns all header for this entries
+     * Returns all header for this translations
      * 
      * @return array
      */
@@ -81,7 +81,7 @@ class Entries extends \ArrayObject
     }
 
     /**
-     * Set a new domain for this entries
+     * Set a new domain for this translations
      * 
      * @param string $domain
      */
@@ -160,27 +160,27 @@ class Entries extends \ArrayObject
 
 
     /**
-     * Merges this entries with other entries
+     * Merges this translations with other translations
      * 
-     * @param Entries      $entries The entries instance to merge with
-     * @param integer|null $method  One or various Entries::MERGE_* constants to define how to merge the entries
+     * @param Translations      $translations The translations instance to merge with
+     * @param integer|null $method  One or various Translations::MERGE_* constants to define how to merge the translations
      */
-    public function mergeWith(Entries $entries, $method = null)
+    public function mergeWith(Translations $translations, $method = null)
     {
         if ($method === null) {
             $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS;
         }
 
         if (!$this->getLanguage()) {
-            $this->setLanguage($entries->getLanguage());
+            $this->setLanguage($translations->getLanguage());
         }
 
         if (!$this->getDomain()) {
-            $this->setDomain($entries->getDomain());
+            $this->setDomain($translations->getDomain());
         }
 
         if ($method & self::MERGE_HEADERS) {
-            foreach ($entries->getHeaders() as $name => $value) {
+            foreach ($translations->getHeaders() as $name => $value) {
                 if (!$this->getHeader($name)) {
                     $this->setHeader($name, $value);
                 }
@@ -191,7 +191,7 @@ class Entries extends \ArrayObject
         $references = (boolean) $method & self::MERGE_REFERENCES;
         $comments = (boolean) $method & self::MERGE_COMMENTS;
 
-        foreach ($entries as $entry) {
+        foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
                 $existing->mergeWith($entry, $references, $comments);
             } else if ($add) {
@@ -203,7 +203,7 @@ class Entries extends \ArrayObject
             $iterator = $this->getIterator();
             
             foreach ($iterator as $k => $entry) {
-                if (!($existing = $entries->find($entry))) {
+                if (!($existing = $translations->find($entry))) {
                     $iterator->offsetUnset($k);
                 }
             }

@@ -1,17 +1,17 @@
 <?php
 namespace Gettext\Extractors;
 
-use Gettext\Entries;
+use Gettext\Translations;
 use Gettext\Translation;
 
 /**
  * Class to get gettext strings from php files returning arrays
  */
-class Po extends Extractor
+class Po extends Extractor implements ExtractorInterface
 {
 
     /**
-     * Parses a .po file and append the translations found in the Entries instance
+     * Parses a .po file and append the translations found in the Translations instance
      * 
      * There are two special headers which will automatically set their
      * related value in the object.
@@ -19,15 +19,12 @@ class Po extends Extractor
      *  X-domain: When found, automatically sets the domain for this object
      *  Language: When found, automatically sets the language for this object
      * 
-     * @param string  $file
-     * @param Entries $entries
+     * {@inheritDoc}
      */
-    public static function parse($file, Entries $entries)
+    public static function fromString($string, Translations $translations = null, $file = '')
     {
-        $lines = file($file, FILE_IGNORE_NEW_LINES);
-
+        $lines = explode("\n", $string);
         $i = 1;
-
         $currentHeader = null;
 
         while ((isset($lines[++$i]) && ($line = trim($lines[$i])) !== '')) {
@@ -36,21 +33,21 @@ class Po extends Extractor
             if (self::isHeaderDefinition($line)) {
                 $header = array_map('trim', explode(':', $line, 2));
                 $currentHeader = $header[0];
-                $entries->setHeader($currentHeader, $header[1]);
+                $translations->setHeader($currentHeader, $header[1]);
 
                 switch (strtolower($currentHeader)) {
                     case 'x-domain':
-                        $entries->setDomain($header[1]);
+                        $translations->setDomain($header[1]);
                         break;
 
                     case 'language':
-                        $entries->setLanguage($header[1]);
+                        $translations->setLanguage($header[1]);
                         break;
                 }
             }
             else {
-                $entry = $entries->getHeader($currentHeader);
-                $entries->setHeader($currentHeader, $entry.$line);
+                $entry = $translations->getHeader($currentHeader);
+                $translations->setHeader($currentHeader, $entry.$line);
             }
         }
 
@@ -63,7 +60,7 @@ class Po extends Extractor
 
             if ($line === '') {
                 if ($translation->hasOriginal()) {
-                    $entries[] = $translation;
+                    $translations[] = $translation;
                     $translation = new Translation;
                 }
                 continue;
@@ -137,11 +134,12 @@ class Po extends Extractor
                     break;
             }
         }
-        if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($entries))) {
-            $entries[] = $translation;
+
+        if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($translations))) {
+            $translations[] = $translation;
         }
 
-        return $entries;
+        return $translations;
     }
 
 

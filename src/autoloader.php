@@ -5,7 +5,8 @@ function GettextLoader($className)
         return;
     }
 
-    $fileName = dirname(__DIR__).'/';
+    $className = substr($className, 8);
+    $fileName = dirname(__DIR__).'/src/';
 
     if ($lastNsPos = strripos($className, '\\')) {
         $namespace = substr($className, 0, $lastNsPos);
