@@ -19,7 +19,7 @@ class Po extends Generator implements GeneratorInterface
             'Language-Team' => '',
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding' => '8bit'
+            'Content-Transfer-Encoding' => '8bit',
         ), $translations->getHeaders());
 
         $headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');
@@ -76,9 +76,9 @@ class Po extends Generator implements GeneratorInterface
 
     /**
      * Escapes and adds double quotes to a string
-     * 
+     *
      * @param string $string
-     * 
+     *
      * @return string
      */
     private static function quote($string)
@@ -88,9 +88,9 @@ class Po extends Generator implements GeneratorInterface
 
     /**
      * Escapes and adds double quotes to a string
-     * 
+     *
      * @param string $string
-     * 
+     *
      * @return string
      */
     private static function multilineQuote($string)

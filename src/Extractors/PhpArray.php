@@ -10,16 +10,16 @@ class PhpArray extends Extractor implements ExtractorInterface
 {
     /**
      * Extract the translations from a file
-     * 
-     * @param array|string $file    A path of a file or files
+     *
+     * @param array|string      $file         A path of a file or files
      * @param null|Translations $translations The translations instance to append the new translations.
-     * 
+     *
      * @return Translations
      */
     public static function fromFile($file, Translations $translations = null)
     {
         if ($translations === null) {
-            $translations = new Translations;
+            $translations = new Translations();
         }
 
         foreach (self::getFiles($file) as $file) {
@@ -39,8 +39,8 @@ class PhpArray extends Extractor implements ExtractorInterface
 
     /**
      * Handle an array of translations and append to the Translations instance
-     * 
-     * @param array  $content
+     *
+     * @param array        $content
      * @param Translations $translations
      */
     public static function handleArray(array $content, Translations $translations)

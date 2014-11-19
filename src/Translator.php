@@ -1,7 +1,6 @@
 <?php
 namespace Gettext;
 
-
 class Translator
 {
     private $dictionary = array();
@@ -11,24 +10,22 @@ class Translator
     private $pluralCode = 'return ($n != 1);';
     private $pluralFunction;
 
-
     /**
      * Loads translation from a file
-     * 
+     *
      * @param string $file
      */
     public function loadTranslations($file)
     {
         if (is_file($file)) {
-            $translations = include($file);
+            $translations = include $file;
             $this->loadTranslationsArray($translations);
         }
     }
 
-
     /**
      * Loads translations from an array
-     * 
+     *
      * @param array $translations
      */
     public function loadTranslationsArray(array $translations)
@@ -38,21 +35,20 @@ class Translator
         // If a plural form is set we extract those values
         if (isset($translations['messages']['']['plural-forms'])) {
             list($count, $code) = explode(';', $translations['messages']['']['plural-forms']);
-            $this->pluralCount = (int) str_replace('nplurals=','', $count);
+            $this->pluralCount = (int) str_replace('nplurals=', '', $count);
 
             // extract just the expression turn 'n' into a php variable '$n'.
             // Slap on a return keyword and semicolon at the end.
-            $this->pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)) . ';';
+            $this->pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';';
         }
 
         unset($translations['messages']['']);
         $this->addTranslations($translations['messages'], $domain);
     }
 
-
     /**
      * Set new translations to the dictionary
-     * 
+     *
      * @param array       $translations
      * @param null|string $domain
      */
@@ -69,7 +65,6 @@ class Translator
         }
     }
 
-
     /**
      * Clear all translations
      */
@@ -78,14 +73,13 @@ class Translator
         $this->dictionary = array();
     }
 
-
     /**
      * Search and returns a translation
-     * 
+     *
      * @param string $domain
      * @param string $context
      * @param string $original
-     * 
+     *
      * @return array
      */
     public function getTranslation($domain, $context, $original)
@@ -95,12 +89,11 @@ class Translator
         return isset($this->dictionary[$domain][$key]) ? $this->dictionary[$domain][$key] : false;
     }
 
-
     /**
      * Gets a translation using the original string
-     * 
+     *
      * @param string $original
-     * 
+     *
      * @return string
      */
     public function gettext($original)
@@ -108,14 +101,13 @@ class Translator
         return $this->dpgettext($this->domain, null, $original);
     }
 
-
     /**
      * Gets a translation checking the plural form
-     * 
+     *
      * @param string $original
      * @param string $plural
      * @param string $value
-     * 
+     *
      * @return string
      */
     public function ngettext($original, $plural, $value)
@@ -123,15 +115,14 @@ class Translator
         return $this->dnpgettext($this->domain, null, $original, $plural, $value);
     }
 
-
     /**
      * Gets a translation checking the domain and the plural form
-     * 
+     *
      * @param string $domain
      * @param string $original
      * @param string $plural
      * @param string $value
-     * 
+     *
      * @return string
      */
     public function dngettext($domain, $original, $plural, $value)
@@ -139,15 +130,14 @@ class Translator
         return $this->dnpgettext($domain, null, $original, $plural, $value);
     }
 
-
     /**
      * Gets a translation checking the context and the plural form
-     * 
+     *
      * @param string $context
      * @param string $original
      * @param string $plural
      * @param string $value
-     * 
+     *
      * @return string
      */
     public function npgettext($context, $original, $plural, $value)
@@ -155,13 +145,12 @@ class Translator
         return $this->dnpgettext($this->domain, $context, $original, $plural, $value);
     }
 
-
     /**
      * Gets a translation checking the context
-     * 
+     *
      * @param string $context
      * @param string $original
-     * 
+     *
      * @return string
      */
     public function pgettext($context, $original)
@@ -169,13 +158,12 @@ class Translator
         return $this->dpgettext($this->domain, $context, $original);
     }
 
-
     /**
      * Gets a translation checking the domain
-     * 
+     *
      * @param string $domain
      * @param string $original
-     * 
+     *
      * @return string
      */
     public function dgettext($domain, $original)
@@ -183,14 +171,13 @@ class Translator
         return $this->dpgettext($domain, null, $original);
     }
 
-
     /**
      * Gets a translation checking the domain and context
-     * 
+     *
      * @param string $domain
      * @param string $context
      * @param string $original
-     * 
+     *
      * @return string
      */
     public function dpgettext($domain, $context, $original)
@@ -204,10 +191,9 @@ class Translator
         return $original;
     }
 
-
     /**
      * Gets a translation checking the domain, the context and the plural form
-     * 
+     *
      * @param string $domain
      * @param string $context
      * @param string $original
@@ -225,7 +211,6 @@ class Translator
 
         return ($key === 1) ? $original : $plural;
     }
-
 
     /**
      * Executes the plural decision code given the number to decide which
@@ -248,7 +233,6 @@ class Translator
         // this gettext actually stores 1 based.
         return (call_user_func($this->pluralFunction, $n)) + 1;
     }
-
 
     /**
      * This function will recursively wrap failure states in brackets if they contain a nested terse if
@@ -287,7 +271,7 @@ class Translator
 
         // Go look for another terse if in the failure state.
         $failure = self::fixTerseIfs($failure, true);
-        $code = $expression . ' ? ' . $success . ' : ' . $failure;
+        $code = $expression.' ? '.$success.' : '.$failure;
 
         if ($inner) {
             return "($code)";

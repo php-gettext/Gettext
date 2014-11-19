@@ -12,14 +12,13 @@ class JsCode extends Extractor implements ExtractorInterface
     public static $functions = array(
         '__' => '__',
         'n__' => 'n__',
-        'p__' => 'p__'
+        'p__' => 'p__',
     );
-
 
     /**
      * Parses a javascript file and append the translations found in the Translations instance
-     * 
-     * @param string  $file
+     *
+     * @param string       $file
      * @param Translations $translations
      */
     public static function parse($file, Translations $translations)
@@ -44,7 +43,7 @@ class JsCode extends Extractor implements ExtractorInterface
 
         $content = preg_replace_callback(array(
             '# " ( (?: (?>[^"\\\\]++) | \\\\\\\\ | (?<!\\\\)\\\\(?!\\\\) | \\\\" )* ) (?<!\\\\)" #ix',
-            "# ' ( (?: (?>[^'\\\\]++) | \\\\\\\\ | (?<!\\\\)\\\\(?!\\\\) | \\\\' )* ) (?<!\\\\)' #ix"
+            "# ' ( (?: (?>[^'\\\\]++) | \\\\\\\\ | (?<!\\\\)\\\\(?!\\\\) | \\\\' )* ) (?<!\\\\)' #ix",
         ), function ($match) use (&$regs, &$strings) {
             $counter = count($strings);
 
@@ -97,13 +96,12 @@ class JsCode extends Extractor implements ExtractorInterface
         }
     }
 
-
     /**
      * Removes the quotes of a string ("hello" => hello)
-     * 
+     *
      * @param array|string $match The string to strip quotes
      * @param string       $quote The quote type (single or double)
-     * 
+     *
      * @return string
      */
     private static function stripQuotes($match, $quote)

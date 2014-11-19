@@ -16,11 +16,10 @@ class Translations extends \ArrayObject
     private $language = null;
     private $headers = array();
 
-
     /**
      * Magic method to create new instances using extractors
      * For example: Translations::fromMoFile($filename);
-     * 
+     *
      * @return Translations
      */
     public static function __callStatic($name, $arguments)
@@ -32,11 +31,10 @@ class Translations extends \ArrayObject
         return call_user_func_array('Gettext\\Extractors\\'.$matches[1].'::from'.$matches[2], $arguments);
     }
 
-
     /**
      * Magic method to export the translations to a specific format
      * For example: $translations->toMoFile($filename);
-     * 
+     *
      * @return bool|string
      */
     public function __call($name, $arguments)
@@ -50,7 +48,6 @@ class Translations extends \ArrayObject
         return call_user_func_array('Gettext\\Generators\\'.$matches[1].'::to'.$matches[2], $arguments);
     }
 
-
     /**
      * Magic method to clone each translation on clone the translations object
      */
@@ -60,7 +57,6 @@ class Translations extends \ArrayObject
             $this[$key] = clone $translation;
         }
     }
-
 
     /**
      * Set a new header.
@@ -73,12 +69,11 @@ class Translations extends \ArrayObject
         $this->headers[trim($name)] = trim($value);
     }
 
-
     /**
      * Returns a header value
-     * 
+     *
      * @param string $name
-     * 
+     *
      * @return null|string
      */
     public function getHeader($name)
@@ -86,10 +81,9 @@ class Translations extends \ArrayObject
         return isset($this->headers[$name]) ? $this->headers[$name] : null;
     }
 
-
     /**
      * Returns all header for this translations
-     * 
+     *
      * @return array
      */
     public function getHeaders()
@@ -97,26 +91,27 @@ class Translations extends \ArrayObject
         return $this->headers;
     }
 
-
     /**
      * Returns the language value
      *
      * @return string $language
      */
-    public function getLanguage() {
+    public function getLanguage()
+    {
         return $this->language;
     }
 
     /**
      * Sets the language value
      */
-    public function setLanguage($language) {
+    public function setLanguage($language)
+    {
         $this->language = trim($language);
     }
 
     /**
      * Set a new domain for this translations
-     * 
+     *
      * @param string $domain
      */
     public function setDomain($domain)
@@ -124,10 +119,9 @@ class Translations extends \ArrayObject
         $this->domain = trim($domain);
     }
 
-
     /**
      * Returns the domain
-     * 
+     *
      * @return string
      */
     public function getDomain()
@@ -135,10 +129,9 @@ class Translations extends \ArrayObject
         return $this->domain;
     }
 
-
     /**
      * Checks whether the domain is empty or not
-     * 
+     *
      * @return boolean
      */
     public function hasDomain()
@@ -146,14 +139,13 @@ class Translations extends \ArrayObject
         return (isset($this->domain) && $this->domain !== '') ? true : false;
     }
 
-
     /**
      * Search for a specific translation
-     * 
+     *
      * @param string|Translation $context  The context of the translation or a translation instance
      * @param string             $original The original string
      * @param string             $plural   The original plural string
-     * 
+     *
      * @return Translation|false
      */
     public function find($context, $original = '', $plural = '')
@@ -177,14 +169,13 @@ class Translations extends \ArrayObject
         return false;
     }
 
-
     /**
      * Creates and insert a new translation
-     * 
+     *
      * @param string $context  The translation context
      * @param string $original The translation original string
      * @param string $plural   The translation original plural string
-     * 
+     *
      * @return Translation The translation created
      */
     public function insert($context, $original, $plural = '')
@@ -192,12 +183,11 @@ class Translations extends \ArrayObject
         return $this[] = new Translation($context, $original, $plural);
     }
 
-
     /**
      * Merges this translations with other translations
-     * 
-     * @param Translations      $translations The translations instance to merge with
-     * @param integer|null $method  One or various Translations::MERGE_* constants to define how to merge the translations
+     *
+     * @param Translations $translations The translations instance to merge with
+     * @param integer|null $method       One or various Translations::MERGE_* constants to define how to merge the translations
      */
     public function mergeWith(Translations $translations, $method = null)
     {
@@ -228,14 +218,14 @@ class Translations extends \ArrayObject
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
                 $existing->mergeWith($entry, $references, $comments);
-            } else if ($add) {
+            } elseif ($add) {
                 $this[] = clone $entry;
             }
         }
 
         if ($method & self::MERGE_REMOVE) {
             $iterator = $this->getIterator();
-            
+
             foreach ($iterator as $k => $entry) {
                 if (!($existing = $translations->find($entry))) {
                     $iterator->offsetUnset($k);

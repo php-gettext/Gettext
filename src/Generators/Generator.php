@@ -5,14 +5,14 @@ use Gettext\Translations;
 
 abstract class Generator
 {
-	/**
-	 * Saves the translations in a file
-	 * 
-	 * @param Translations $translations
-	 * @param string  $file
-	 * 
-	 * @return boolean
-	 */
+    /**
+     * Saves the translations in a file
+     *
+     * @param Translations $translations
+     * @param string       $file
+     *
+     * @return boolean
+     */
     public static function toFile(Translations $translations, $file)
     {
         $content = static::toString($translations);

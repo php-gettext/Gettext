@@ -1,12 +1,11 @@
 <?php
 use Gettext\Translator;
 
-
 /**
  * Get/set a new current translator
- * 
+ *
  * @param Translator $translator
- * 
+ *
  * @return null|Translator
  */
 function __currentTranslator(Translator $translator = null)
@@ -24,12 +23,11 @@ function __currentTranslator(Translator $translator = null)
     $currentTranslator = $translator;
 }
 
-
 /**
  * Returns the translation of a string
- * 
+ *
  * @param string $original
- * 
+ *
  * @return string
  */
 function __($original)
@@ -45,14 +43,13 @@ function __($original)
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-
 /**
  * Returns the singular/plural translation of a string
- * 
+ *
  * @param string $original
  * @param string $plural
  * @param string $value
- * 
+ *
  * @return string
  */
 function n__($original, $plural, $value)
@@ -68,13 +65,12 @@ function n__($original, $plural, $value)
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-
 /**
  * Returns the translation of a string in a specific context
- * 
+ *
  * @param string $context
  * @param string $original
- * 
+ *
  * @return string
  */
 function p__($context, $original)
@@ -135,7 +131,7 @@ function __dnp($domain, $context, $original, $plural, $value)
 
 /**
  * Prints function result
- * 
+ *
  * @see __
  */
 function __e()
@@ -143,10 +139,9 @@ function __e()
     echo call_user_func_array('__', func_get_args());
 }
 
-
 /**
  * Prints function result
- * 
+ *
  * @see n__
  */
 function n__e()
@@ -154,10 +149,9 @@ function n__e()
     echo call_user_func_array('n__', func_get_args());
 }
 
-
 /**
  * Prints function result
- * 
+ *
  * @see p__
  */
 function p__e()

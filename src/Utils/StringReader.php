@@ -9,7 +9,7 @@ class StringReader
 
     /**
      * Constructor
-     * 
+     *
      * @param string $str The string to read
      */
     public function __construct($str)
@@ -20,9 +20,9 @@ class StringReader
 
     /**
      * Read and returns a part of the string
-     * 
+     *
      * @param int $bytes The number of bytes to read
-     * 
+     *
      * @return string
      */
     public function read($bytes)
@@ -36,9 +36,9 @@ class StringReader
 
     /**
      * Move the cursor to a specific position
-     * 
+     *
      * @param int $pos The amount of bytes to move
-     * 
+     *
      * @return int The new position
      */
     public function seekto($pos)

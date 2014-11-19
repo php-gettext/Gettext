@@ -14,10 +14,9 @@ class Translation
     public $references = array();
     public $comments = array();
 
-
     /**
      * Construct
-     * 
+     *
      * @param string $context  The context of the translation
      * @param string $original The original string
      * @param string $plural   The original plural string
@@ -29,14 +28,13 @@ class Translation
         $this->setPlural($plural);
     }
 
-
     /**
      * Checks whether the translation matches with the arguments
-     * 
+     *
      * @param string $context
      * @param string $original
      * @param string $plural
-     * 
+     *
      * @return boolean
      */
     public function is($context, $original = '', $plural = '')
@@ -44,10 +42,9 @@ class Translation
         return (($this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
     }
 
-
     /**
      * Sets the original string
-     * 
+     *
      * @param string $original
      */
     public function setOriginal($original)
@@ -55,10 +52,9 @@ class Translation
         $this->original = (string) $original;
     }
 
-
     /**
      * Gets the original string
-     * 
+     *
      * @return string
      */
     public function getOriginal()
@@ -66,10 +62,9 @@ class Translation
         return $this->original;
     }
 
-
     /**
      * Checks if the original string is empty or not
-     * 
+     *
      * @return boolean
      */
     public function hasOriginal()
@@ -77,10 +72,9 @@ class Translation
         return ($this->original !== '') ? true : false;
     }
 
-
     /**
      * Sets the translation string
-     * 
+     *
      * @param string $translation
      */
     public function setTranslation($translation)
@@ -88,10 +82,9 @@ class Translation
         $this->translation = (string) $translation;
     }
 
-
     /**
      * Gets the translation string
-     * 
+     *
      * @return string
      */
     public function getTranslation()
@@ -99,10 +92,9 @@ class Translation
         return $this->translation;
     }
 
-
     /**
      * Checks if the translation string is empty or not
-     * 
+     *
      * @return boolean
      */
     public function hasTranslation()
@@ -110,10 +102,9 @@ class Translation
         return ($this->translation !== '') ? true : false;
     }
 
-
     /**
      * Sets the plural translation string
-     * 
+     *
      * @param string $plural
      */
     public function setPlural($plural)
@@ -121,10 +112,9 @@ class Translation
         $this->plural = (string) $plural;
     }
 
-
     /**
      * Gets the plural translation string
-     * 
+     *
      * @return string
      */
     public function getPlural()
@@ -132,10 +122,9 @@ class Translation
         return $this->plural;
     }
 
-
     /**
      * Checks if the plural translation string is empty or not
-     * 
+     *
      * @return boolean
      */
     public function hasPlural()
@@ -143,10 +132,9 @@ class Translation
         return ($this->plural !== '') ? true : false;
     }
 
-    
     /**
      * Set a new plural translation
-     * 
+     *
      * @param string       $plural The plural string to add
      * @param null|integer $key    The key of the plural translation.
      */
@@ -159,12 +147,11 @@ class Translation
         }
     }
 
-    
     /**
      * Gets one or all plural translations
-     * 
+     *
      * @param integer|null $key The key to return. If is null, return all translations
-     * 
+     *
      * @return string|array
      */
     public function getPluralTranslation($key = null)
@@ -176,10 +163,9 @@ class Translation
         return isset($this->pluralTranslation[$key]) ? (string) $this->pluralTranslation[$key] : '';
     }
 
-
     /**
      * Checks if there any plural translation
-     * 
+     *
      * @return boolean
      */
     public function hasPluralTranslation()
@@ -187,10 +173,9 @@ class Translation
         return isset($this->pluralTranslation[0]);
     }
 
-    
     /**
      * Sets the context of this translation
-     * 
+     *
      * @param string $context
      */
     public function setContext($context)
@@ -198,10 +183,9 @@ class Translation
         $this->context = (string) $context;
     }
 
-
     /**
      * Gets the context of this translation
-     * 
+     *
      * @return string
      */
     public function getContext()
@@ -209,10 +193,9 @@ class Translation
         return $this->context;
     }
 
-
     /**
      * Checks if the context is empty or not
-     * 
+     *
      * @return boolean
      */
     public function hasContext()
@@ -220,30 +203,27 @@ class Translation
         return (isset($this->context) && ($this->context !== '')) ? true : false;
     }
 
-    
     /**
      * Adds a new reference for this translation
-     * 
+     *
      * @param string  $filename The file path where the translation has been found
      * @param integer $line     The line number where the translation has been found
-     */ 
+     */
     public function addReference($filename, $line)
     {
         $key = "{$filename}:{$line}";
         $this->references[$key] = array($filename, $line);
     }
 
-
     /**
      * Checks if the translation has any reference
-     * 
+     *
      * @return boolean
      */
     public function hasReferences()
     {
         return !empty($this->references);
     }
-
 
     /**
      * Clear all references
@@ -253,10 +233,9 @@ class Translation
         $this->references = array();
     }
 
-
     /**
      * Return all references for this translation
-     * 
+     *
      * @return array
      */
     public function getReferences()
@@ -266,7 +245,7 @@ class Translation
 
     /**
      * Adds a new comment for this translation
-     * 
+     *
      * @param string $comment
      */
     public function addComment($comment)
@@ -274,10 +253,9 @@ class Translation
         $this->comments[] = $comment;
     }
 
-
     /**
      * Checks if the translation has any comment
-     * 
+     *
      * @return boolean
      */
     public function hasComments()
@@ -285,10 +263,9 @@ class Translation
         return isset($this->comments[0]);
     }
 
-
-    /** 
+    /**
      * Returns all comments for this translation
-     * 
+     *
      * @return array
      */
     public function getComments()
@@ -296,8 +273,7 @@ class Translation
         return $this->comments;
     }
 
-
-    /** 
+    /**
      * Merges this translation with other translation
      *
      * @param Translation $translation The translation to merge with

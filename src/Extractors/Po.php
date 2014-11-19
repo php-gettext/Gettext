@@ -9,16 +9,15 @@ use Gettext\Translation;
  */
 class Po extends Extractor implements ExtractorInterface
 {
-
     /**
      * Parses a .po file and append the translations found in the Translations instance
-     * 
+     *
      * There are two special headers which will automatically set their
      * related value in the object.
-     * 
+     *
      *  X-domain: When found, automatically sets the domain for this object
      *  Language: When found, automatically sets the language for this object
-     * 
+     *
      * {@inheritDoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
@@ -44,24 +43,23 @@ class Po extends Extractor implements ExtractorInterface
                         $translations->setLanguage($header[1]);
                         break;
                 }
-            }
-            else {
+            } else {
                 $entry = $translations->getHeader($currentHeader);
                 $translations->setHeader($currentHeader, $entry.$line);
             }
         }
 
-        $translation = new Translation;
+        $translation = new Translation();
 
         for ($n = count($lines); $i < $n; $i++) {
             $line = trim($lines[$i]);
 
-            $line = self::fixMultiLines($line,$lines,$i);
+            $line = self::fixMultiLines($line, $lines, $i);
 
             if ($line === '') {
                 if ($translation->hasOriginal()) {
                     $translations[] = $translation;
-                    $translation = new Translation;
+                    $translation = new Translation();
                 }
                 continue;
             }
@@ -142,24 +140,23 @@ class Po extends Extractor implements ExtractorInterface
         return $translations;
     }
 
-
     /**
      * Checks if it is a header definition line. Useful for distguishing between header definitions
      * and possible continuations of a header entry
      *
-     * @param string $line Line to parse
+     * @param  string  $line Line to parse
      * @return boolean
      */
-    private static function isHeaderDefinition($line) {
+    private static function isHeaderDefinition($line)
+    {
         return (bool) preg_match('/^[\w-]+:/', $line);
     }
 
-
     /**
      * Cleans the strings. Removes quotes and "\n", etc
-     * 
+     *
      * @param string $str
-     * 
+     *
      * @return string
      */
     private static function clean($str)
@@ -171,24 +168,23 @@ class Po extends Extractor implements ExtractorInterface
         return str_replace(array('\\n', '\\"'), array("\n", '"'), $str);
     }
 
-
     /**
      * Gets one strings from multiline strings
-     * 
+     *
      * @param string  $line
      * @param array   $lines
      * @param integer &$i
-     * 
+     *
      * @return string
      */
     private static function fixMultiLines($line, Array $lines, &$i)
     {
         for ($j = $i; $j<count($lines); $j++) {
-            if ( substr($line, -1, 1) == '"'
+            if (substr($line, -1, 1) == '"'
                 && isset($lines[$j+1])
                 && substr(trim($lines[$j+1]), 0, 1) == '"'
             ) {
-                $line = substr($line, 0, -1) . substr(trim($lines[$j+1]), 1);
+                $line = substr($line, 0, -1).substr(trim($lines[$j+1]), 1);
             } else {
                 $i = $j;
                 break;

@@ -7,16 +7,16 @@ abstract class Extractor
 {
     /**
      * Extract the translations from a file
-     * 
-     * @param array|string $file    A path of a file or files
+     *
+     * @param array|string      $file         A path of a file or files
      * @param null|Translations $translations The translations instance to append the new translations.
-     * 
+     *
      * @return Translations
      */
     public static function fromFile($file, Translations $translations = null)
     {
         if ($translations === null) {
-            $translations = new Translations;
+            $translations = new Translations();
         }
 
         foreach (self::getFiles($file) as $file) {
@@ -26,12 +26,11 @@ abstract class Extractor
         return $translations;
     }
 
-
     /**
      * Checks and returns all files
-     * 
+     *
      * @param string|array $file The file/s
-     * 
+     *
      * @return array The file paths
      */
     protected static function getFiles($file)
@@ -65,19 +64,18 @@ abstract class Extractor
         throw new \InvalidArgumentException('The first argumet must be string or array');
     }
 
-
     /**
      * Reads and returns the content of a file
-     * 
+     *
      * @param string $file
-     * 
+     *
      * @return string
      */
     protected static function readFile($file)
     {
         $length = filesize($file);
 
-        if (!($fd = fopen($file,'rb'))) {
+        if (!($fd = fopen($file, 'rb'))) {
             throw new \Exception("Cannot read the file '$file', probably permissions");
         }
 

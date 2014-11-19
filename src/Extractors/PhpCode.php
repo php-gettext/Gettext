@@ -15,9 +15,8 @@ class PhpCode extends Extractor implements ExtractorInterface
         'n__' => 'n__',
         'n__e' => 'n__',
         'p__' => 'p__',
-        'p__e' => 'p__'
+        'p__e' => 'p__',
     );
-
 
     /**
      * {@inheritDoc}

@@ -42,8 +42,8 @@ class Mo extends Generator implements GeneratorInterface
             $offsets[] = array(strlen($ids), strlen($id), strlen($strings), strlen($str));
 
             //plural msgids are not stored (?)
-            $ids .= $id . "\x00";
-            $strings .= $str . "\x00";
+            $ids .= $id."\x00";
+            $strings .= $str."\x00";
         }
 
         $key_start = 7 * 4 + count($array) * 4 * 4;
@@ -53,7 +53,7 @@ class Mo extends Generator implements GeneratorInterface
 
         //Calculate
         foreach ($offsets as $v) {
-            list ($o1, $l1, $o2, $l2) = $v;
+            list($o1, $l1, $o2, $l2) = $v;
 
             $key_offsets[] = $l1;
             $key_offsets[] = $o1 + $key_start;

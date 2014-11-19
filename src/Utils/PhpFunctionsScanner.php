@@ -6,10 +6,9 @@ class PhpFunctionsScanner
     protected $tokens;
     protected $functions = array();
 
-
     /**
      * Constructor
-     * 
+     *
      * @param string $code The php code to scan
      */
     public function __construct($code)
@@ -20,7 +19,7 @@ class PhpFunctionsScanner
 
     /**
      * Scan and save the functions and the arguments
-     * 
+     *
      * @return void
      */
     protected function scan()
@@ -66,7 +65,7 @@ class PhpFunctionsScanner
 
     /**
      * Returns the functions found
-     * 
+     *
      * @return array
      */
     public function getFunctions()

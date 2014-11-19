@@ -14,7 +14,6 @@ class Mo extends Extractor implements ExtractorInterface
     const MAGIC2 = -569244523;
     const MAGIC3 = 2500072158;
 
-
     /**
      * {@inheritDoc}
      */
@@ -54,7 +53,7 @@ class Mo extends Extractor implements ExtractorInterface
             if ($original) {
                 $stream->seekto($table_translations[$i * 2 + 2]);
                 $original = explode("\000", $original, 2);
-                $translated = explode("\000",$stream->read($table_translations[$i * 2 + 1]), 2);
+                $translated = explode("\000", $stream->read($table_translations[$i * 2 + 1]), 2);
 
                 $plural = isset($original[1]) ? $original[1] : '';
                 $pluralTranslation = isset($translated[1]) ? $translated[1] : '';

@@ -8,7 +8,6 @@ use Gettext\Translations;
  */
 class Jed extends PhpArray implements ExtractorInterface
 {
-
     /**
      * {@inheritDoc}
      */
