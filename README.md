@@ -195,8 +195,8 @@ To work with different translations you may want merge them in an unique file. T
 ```php
 //Create a new Translations instances with our translations.
 
-$translations1 = Gettext\Extractors\Po::extract('my-file1.po');
-$translations2 = Gettext\Extractors\Po::extract('my-file2.po');
+$translations1 = Gettext\Extractors\Po::fromFile('my-file1.po');
+$translations2 = Gettext\Extractors\Po::fromFile('my-file2.po');
 
 //Merge one inside other:
 $translations1->mergeWith($translations2);
@@ -218,10 +218,10 @@ Example:
 use Gettext\Translations;
 
 //Scan the php code to find the latest gettext translations
-$translations = Gettext\Extractors\PhpCode::extract('my-templates.php');
+$translations = Gettext\Extractors\PhpCode::fromFile('my-templates.php');
 
 //Get the translations of the code that are stored in a po file
-$poTranslations = Gettext\Extractors\Po::extract('locale.po');
+$poTranslations = Gettext\Extractors\Po::fromFile('locale.po');
 
 //Apply the translations from the po file to the translations, and merges header and comments but not references and without add or remove translations:
 $translations->mergeWith($poTranslations, Translations::MERGE_HEADERS | Translations::MERGE_COMMENTS);
