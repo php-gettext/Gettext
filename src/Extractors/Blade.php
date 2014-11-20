@@ -15,7 +15,7 @@ class Blade extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
-        $string = (new BladeCompiler(new Filesystem, null))->compileString($string);
+        $string = (new BladeCompiler(new Filesystem(), null))->compileString($string);
 
         return PhpCode::fromString($string, $translations, $file);
     }

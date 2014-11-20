@@ -24,46 +24,6 @@ class PhpCode extends Extractor implements ExtractorInterface
     public static function fromString($string, Translations $translations = null, $file = '')
     {
         $functions = new PhpFunctionsScanner($string);
-
-        foreach ($functions->getFunctions() as $function) {
-            list($name, $line, $args) = $function;
-
-            if (!isset(self::$functions[$name])) {
-                continue;
-            }
-
-            switch (self::$functions[$name]) {
-                case '__':
-                    if (!isset($args[0])) {
-                        continue 2;
-                    }
-                    $original = $args[0];
-                    $translation = $translations->find('', $original) ?: $translations->insert('', $original);
-                    break;
-
-                case 'n__':
-                    if (!isset($args[1])) {
-                        continue 2;
-                    }
-                    $original = $args[0];
-                    $plural = $args[1];
-                    $translation = $translations->find('', $original, $plural) ?: $translations->insert('', $original, $plural);
-                    break;
-
-                case 'p__':
-                    if (!isset($args[1])) {
-                        continue 2;
-                    }
-                    $context = $args[0];
-                    $original = $args[1];
-                    $translation = $translations->find($context, $original) ?: $translations->insert($context, $original);
-                    break;
-
-                default:
-                    throw new \Exception('Not valid functions');
-            }
-
-            $translation->addReference($file, $line);
-        }
+        $functions->saveGettextFunctions(self::$functions, $translations, $file);
     }
 }

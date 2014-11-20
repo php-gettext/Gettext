@@ -1,10 +1,9 @@
 <?php
 namespace Gettext\Utils;
 
-class PhpFunctionsScanner
+class PhpFunctionsScanner extends FunctionsScanner
 {
     protected $tokens;
-    protected $functions = array();
 
     /**
      * Constructor
@@ -14,18 +13,16 @@ class PhpFunctionsScanner
     public function __construct($code)
     {
         $this->tokens = token_get_all($code);
-        $this->scan();
     }
 
     /**
-     * Scan and save the functions and the arguments
-     *
-     * @return void
+     * {@inheritDoc}
      */
-    protected function scan()
+    public function getFunctions()
     {
         $count = count($this->tokens);
         $bufferFunctions = array();
+        $functions = array();
 
         for ($k = 0; $k < $count; $k++) {
             $value = $this->tokens[$k];
@@ -33,7 +30,7 @@ class PhpFunctionsScanner
             //close the current function
             if (is_string($value)) {
                 if ($value === ')' && isset($bufferFunctions[0])) {
-                    $this->functions[] = array_shift($bufferFunctions);
+                    $functions[] = array_shift($bufferFunctions);
                 }
 
                 continue;
@@ -61,15 +58,7 @@ class PhpFunctionsScanner
                 continue;
             }
         }
-    }
 
-    /**
-     * Returns the functions found
-     *
-     * @return array
-     */
-    public function getFunctions()
-    {
-        return $this->functions;
+        return $functions;
     }
 }
