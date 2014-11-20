@@ -4,23 +4,17 @@ Gettext
 [![Build Status](https://travis-ci.org/oscarotero/Gettext.png?branch=master)](https://travis-ci.org/oscarotero/Gettext)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oscarotero/Gettext/?branch=master)
 
-Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com>
+Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
-MIT License
-
-Gettext is a PHP library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
-
-Features:
-
-* Written in php 5.3
-* Easily extensible
+Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
 Contains the following classes:
 
 * `Gettext\Translation` - A translation definition
 * `Gettext\Translations` - A collection of translations
-
-There are also two groups of clases: Extractors and Generators.
+* `Gettext\Translator` - Emulate gettext functions in your php templates
+* `Gettext\Extractors\*` - Extract gettext values from various sources
+* `Gettext\Generators\*` - Generate gettext formats
 
 
 Extractors
@@ -39,17 +33,18 @@ $translations = Gettext\Extractors\Po::fromString($string);
 
 The available extractors are the following:
 
-* `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions
-* `Gettext\Extractors\Jed` - To scan a json file compatible with the Jed library
-* `Gettext\Extractors\JsCode` - To scan a javascript file looking for all gettext functions
-* `Gettext\Extractors\PhpArray` - To get the translations from a php file that returns an array
 * `Gettext\Extractors\Po` - Gets the strings from PO
 * `Gettext\Extractors\Mo` - Gets the strings from MO
+* `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions
+* `Gettext\Extractors\JsCode` - To scan a javascript file looking for all gettext functions
+* `Gettext\Extractors\PhpArray` - To get the translations from a php file that returns an array
+* `Gettext\Extractors\Jed` - To scan a json file compatible with the Jed library
+* `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks @eusonlito)
 
 Generators
 ----------
 
-Generators take a `Gettext\Translations` instance and export the data in any format.
+The generators export a `Gettext\Translations` instance in any format (po, mo, array, etc).
 
 ```php
 //Save to a file
@@ -64,8 +59,8 @@ The available generators are:
 
 * `Gettext\Generators\Mo` - Exports to Mo format
 * `Gettext\Generators\Po` - Exports to Po format
-* `Gettext\Generators\Jed` - Exports to json format compatible with Jed library
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
+* `Gettext\Generators\Jed` - Exports to json format compatible with Jed library
 
 HOW TO USE?
 ===========
@@ -76,33 +71,28 @@ First, lets scan a Po file:
 //Include the autoloader if you don't use composer or PSR-4 loader
 include('myLibsFolder/Gettext/autoloader.php');
 
-use Gettext\Extractors\Po as PoExtractor;
-
-$translations = PoExtractor::fromFile('my-file.po');
+$translations = Gettext\Extractors\Po::fromFile('locales/gl.po');
 ```
 
 Now, we can edit some translations:
 
 ```php
 // find($context, $original, $plural)
-$translation = $translations->find(null, 'apples');
+$translation = $translations->find(null, 'apple');
 
 if ($translation) {
-	$translation->setTranslation('Mazáns');
+	$translation->setTranslation('Mazá');
 }
 ```
 
 And use the Generators to export this entry to other formats like php array or json file (for use with Jed library: http://slexaxton.github.com/Jed/):
 
 ```php
-use Gettext\Generators\PhpArray as PhpArrayGenerator;
-use Gettext\Generators\Jed as JedGenerator;
-
-PhpArrayGenerator::toFile($translations, 'locale.php');
-JedGenerator::toFile($translations, 'locale.json');
+Gettext\Generators\PhpArray::toFile($translations, 'locales/gl.php');
+Gettext\Generators\Jed::toFile($translations, 'locales/gl.json');
 ```
 
-A simpler and easier way to extract/generate translations is using the magic methods:
+A simpler and easier way to extract/generate translations is using the magic methods `from(Extractor)[String|File]` and `to[Generator](String|File)`:
 
 ```php
 use Gettext\Translations;
@@ -117,10 +107,11 @@ $locales->toMoFile('locale.mo');
 var_dump($locales->toMoString());
 ```
 
+
 TRANSLATOR
 ==========
 
-There is the class `Gettext\Translator` to implement some simple gettext functions in php without install the native gettext extension in php. We only have to save the translations using the `Gettext\Generators\PhpArray` generator.
+The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. The translations are loaded from an array, so you have to use the `Gettext\Generators\PhpArray` generator.
 
 ```php
 use Gettext\Translator;
@@ -128,25 +119,25 @@ use Gettext\Translator;
 //Create a new instance of the translator
 $t = new Translator();
 
-//Load some translations from php files
-$t->loadTranslations('locales.php');
+//Load the translations from php files exported with PhpArray generator
+$t->loadTranslations('locales/gl.php');
 
 //Now you can use it in your templates
-echo $t->gettext('apples'); //Returns Mazás
+echo $t->gettext('apple'); //Returns Mazá
 ```
 
-Use the translator functions, a short version of Gettext\Translator for more confort:
+The translator functions, ease the use of Gettext\Translator:
 
 ```php
 //First set the translator instance as current translator:
 __currentTranslator($t);
 
-echo __('apples'); //Returns Mazás
+echo __('apple'); //Returns Mazá
 
-__e('apples'); //echoes Mazás
+__e('apple'); //echo Mazá
 ```
 
-Using these short functions, you can scan the php files to find your gettext values inside the php code:
+You can scan the php files that uses these functions and extract the values with the PhpCode extractor:
 
 ```html
 <!-- index.php -->
@@ -169,16 +160,16 @@ $t = $translations->find(null, 'Hello world');
 $t->setTranslation('Ola mundo');
 
 //Exports the translations to .po file (for example)
-$translations->toPoFile('locales.gl.po');
+$translations->toPoFile('locales/gl.po');
 
 //And exports again the translations to .json file
-$translations->toJedFile('locales.gl.json');
+$translations->toJedFile('locales/gl.json');
 ```
 
-And you can use the translations exported to json in javascript with the Jed library (http://slexaxton.github.com/Jed/)
+And use the translations exported to json in javascript with the Jed library (http://slexaxton.github.com/Jed/)
 
 ```javascript
-$.getJSON('locales.gl.json', function (locale) {
+$.getJSON('locales/gl.json', function (locale) {
 	i18n = new Jed({
 		locale_data: locale
 	});
@@ -239,6 +230,7 @@ Contributors
 * oscarotero (Creator and maintainer)
 * esnoeijs (Contributed with the plural parser)
 * leom (Contributed with some Jed fixes)
+* eusonlito (Contributed with Blade extractor)
 
 TO-DO
 =====
