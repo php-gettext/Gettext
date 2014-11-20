@@ -7,6 +7,15 @@ if (!function_exists('n__')) {
 
 class JedTest extends PHPUnit_Framework_TestCase
 {
+    public function testScript() {
+        $translations = Gettext\Extractors\JsCode::fromFile(__DIR__.'/files/script.js');
+
+        $string1 = $translations->toJedString();
+        $string2 = file_get_contents(__DIR__.'/files/jed.json');
+
+        $this->assertEquals($string1, $string2);
+    }
+
     public function testDynamicHeaders() {
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $jsonString = Gettext\Generators\Jed::toString($translations, __DIR__.'/files/gettext_multiple_headers.json', true);

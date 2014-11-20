@@ -166,6 +166,8 @@ class JsFunctionsScanner extends FunctionsScanner
                     break;
             }
         }
+
+        return $functions;
     }
 
     protected function status($match = null)
