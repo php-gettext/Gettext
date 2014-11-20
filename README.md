@@ -8,6 +8,12 @@ Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License
 
 Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
+## v.2.0
+
+The 2.0 version has some changes in the API. See the changelog for more information:
+https://github.com/oscarotero/Gettext/releases/tag/v2.0
+
+
 Contains the following classes:
 
 * `Gettext\Translation` - A translation definition
@@ -17,8 +23,7 @@ Contains the following classes:
 * `Gettext\Generators\*` - Generate gettext formats
 
 
-Extractors
-----------
+## Extractors
 
 The extrators are classes that extract the gettext values from any source and return a `Gettext\Translations` instance with them. For example, to scan a .po file:
 
@@ -41,8 +46,7 @@ The available extractors are the following:
 * `Gettext\Extractors\Jed` - To scan a json file compatible with the Jed library
 * `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks @eusonlito)
 
-Generators
-----------
+## Generators
 
 The generators export a `Gettext\Translations` instance in any format (po, mo, array, etc).
 
@@ -62,8 +66,7 @@ The available generators are:
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
 * `Gettext\Generators\Jed` - Exports to json format compatible with Jed library
 
-HOW TO USE?
-===========
+## Usage example
 
 First, lets scan a Po file:
 
@@ -108,8 +111,7 @@ var_dump($locales->toMoString());
 ```
 
 
-TRANSLATOR
-==========
+## Translator
 
 The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. The translations are loaded from an array, so you have to use the `Gettext\Generators\PhpArray` generator.
 
@@ -178,8 +180,7 @@ $.getJSON('locales/gl.json', function (locale) {
 });
 ```
 
-Merge translations
-------------------
+# Merging translations
 
 To work with different translations you may want merge them in an unique file. There is a way to do this:
 
@@ -224,15 +225,13 @@ Gettext\Generators\Po::generateFile($translations, 'locale.po');
 Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS`
 
 
-Contributors
-============
+## Contributors
 
 * oscarotero (Creator and maintainer)
 * esnoeijs (Contributed with the plural parser)
 * leom (Contributed with some Jed fixes)
 * eusonlito (Contributed with Blade extractor)
 
-TO-DO
-=====
+## TO-DO
 
 * Working with domains
