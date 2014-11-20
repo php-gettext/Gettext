@@ -14,13 +14,17 @@ The 2.0 version has some changes in the API. See the changelog for more informat
 https://github.com/oscarotero/Gettext/releases/tag/v2.0
 
 
-Contains the following classes:
+## Classes and functions
+
+This package contains the following classes:
 
 * `Gettext\Translation` - A translation definition
 * `Gettext\Translations` - A collection of translations
 * `Gettext\Translator` - Emulate gettext functions in your php templates
 * `Gettext\Extractors\*` - Extract gettext values from various sources
 * `Gettext\Generators\*` - Generate gettext formats
+
+And the file `translator_functions.php` that provide the gettext functions to use in your templates.
 
 
 ## Extractors
