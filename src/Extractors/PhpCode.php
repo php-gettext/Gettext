@@ -23,6 +23,10 @@ class PhpCode extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
+        if ($translations === null) {
+            $translations = new Translations();
+        }
+
         $functions = new PhpFunctionsScanner($string);
         $functions->saveGettextFunctions(self::$functions, $translations, $file);
     }

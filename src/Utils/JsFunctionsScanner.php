@@ -22,8 +22,6 @@ class JsFunctionsScanner extends FunctionsScanner
     public function getFunctions()
     {
         $length = strlen($this->code);
-        $status = array();
-        $index = 0;
         $line = 1;
         $buffer = '';
         $functions = array();

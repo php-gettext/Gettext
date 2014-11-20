@@ -19,12 +19,11 @@ class Mo extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
-        $stream = new StringReader($string);
-
-        if (!$stream || isset($stream->error)) {
-            return false;
+        if ($translations === null) {
+            $translations = new Translations();
         }
 
+        $stream = new StringReader($string);
         $magic = self::readInt($stream, 'V');
 
         if (($magic === self::MAGIC1) || ($magic === self::MAGIC3)) { //to make sure it works for 64-bit platforms
@@ -69,10 +68,10 @@ class Mo extends Extractor implements ExtractorInterface
     }
 
     /**
-     * @param CachedFileReader $stream
-     * @param string           $byteOrder
+     * @param StringReader $stream
+     * @param string       $byteOrder
      */
-    private static function readInt($stream, $byteOrder)
+    private static function readInt(StringReader $stream, $byteOrder)
     {
         if (($read = $stream->read(4)) === false) {
             return false;
@@ -84,11 +83,11 @@ class Mo extends Extractor implements ExtractorInterface
     }
 
     /**
-     * @param CachedFileReader $stream
-     * @param string           $byteOrder
-     * @param int              $count
+     * @param StringReader $stream
+     * @param string       $byteOrder
+     * @param int          $count
      */
-    private static function readIntArray($stream, $byteOrder, $count)
+    private static function readIntArray(StringReader $stream, $byteOrder, $count)
     {
         return unpack($byteOrder.$count, $stream->read(4 * $count));
     }

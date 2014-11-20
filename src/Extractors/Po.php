@@ -22,6 +22,10 @@ class Po extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
+        if ($translations === null) {
+            $translations = new Translations();
+        }
+
         $lines = explode("\n", $string);
         $i = 1;
         $currentHeader = null;
