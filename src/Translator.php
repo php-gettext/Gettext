@@ -14,26 +14,21 @@ class Translator
     private $pluralFunction;
 
     /**
-     * Loads translation from a file
+     * Loads translation from a Translations instance, a file on an array
      *
-     * @param string $file
+     * @param Translations|string $translations
      */
-    public function loadFromFile($file)
+    public function loadTranslations($translations)
     {
-        if (is_file($file)) {
-            $translations = include $file;
+        if ($translations instanceof Translations) {
+            $this->loadFromArray(PhpArray::toArray($translations));
+        } else if (is_string($translations) && is_file($translations)) {
+            $this->loadFromArray(include $translations);
+        } else if (is_array($translations)) {
             $this->loadFromArray($translations);
+        } else {
+            throw new \InvalidArgumentException('Invalid Translator: only arrays, files or instance of Translations are allowed');
         }
-    }
-
-    /**
-     * Loads translation from a Translations instance
-     *
-     * @param Translations $translations
-     */
-    public function loadTranslations(Translations $translations)
-    {
-        $this->loadFromArray(PhpArray::toArray($translations));
     }
 
     /**

@@ -126,13 +126,13 @@ use Gettext\Translator;
 $t = new Translator();
 
 //Load the translations from php files (generated with PhpArray)
-$t->loadFromFile('locales/gl.php');
+$t->loadTranslations('locales/gl.php');
 
 //Now you can use it in your templates
 echo $t->gettext('apple'); //Returns Mazá
 ```
 
-There is other two ways to load translations into the translator:
+The `loadTranslations` method accepts also arrays and `Gettext\Translations` instances:
 
 ```
 //If you have your array already loaded:
@@ -140,8 +140,7 @@ $arrayTranslations = include 'my-translations.php';
 $t->loadFromArray($arrayTranslations);
 
 
-//If you have your translations in any other format (such .po) and don't want to export them to arrays
-//you can pass a Gettext\Translations instance directly:
+//If you have your translations in any other format (such .po) and don't want to export them to arrays:
 $poTranslations = Gettext\Tranlations::fromPoFile('locales/gl.po');
 $t->loadTranslations($poTranslations);
 ```
