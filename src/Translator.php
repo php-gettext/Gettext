@@ -21,11 +21,11 @@ class Translator
     public function loadTranslations($translations)
     {
         if ($translations instanceof Translations) {
-            $this->loadFromArray(PhpArray::toArray($translations));
+            $this->loadArray(PhpArray::toArray($translations));
         } else if (is_string($translations) && is_file($translations)) {
-            $this->loadFromArray(include $translations);
+            $this->loadArray(include $translations);
         } else if (is_array($translations)) {
-            $this->loadFromArray($translations);
+            $this->loadArray($translations);
         } else {
             throw new \InvalidArgumentException('Invalid Translator: only arrays, files or instance of Translations are allowed');
         }
@@ -36,7 +36,7 @@ class Translator
      *
      * @param array $translations
      */
-    public function loadFromArray(array $translations)
+    protected function loadArray(array $translations)
     {
         $domain = isset($translations['messages']['']['domain']) ? $translations['messages']['']['domain'] : null;
 

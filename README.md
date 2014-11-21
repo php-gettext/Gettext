@@ -137,7 +137,7 @@ The `loadTranslations` method accepts also arrays and `Gettext\Translations` ins
 ```
 //If you have your array already loaded:
 $arrayTranslations = include 'my-translations.php';
-$t->loadFromArray($arrayTranslations);
+$t->loadTranslations($arrayTranslations);
 
 
 //If you have your translations in any other format (such .po) and don't want to export them to arrays:
