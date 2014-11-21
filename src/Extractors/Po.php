@@ -181,7 +181,7 @@ class Po extends Extractor implements ExtractorInterface
      *
      * @return string
      */
-    private static function fixMultiLines($line, Array $lines, &$i)
+    private static function fixMultiLines($line, array $lines, &$i)
     {
         for ($j = $i; $j<count($lines); $j++) {
             if (substr($line, -1, 1) == '"'

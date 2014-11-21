@@ -1,6 +1,7 @@
 <?php
 namespace Gettext\Utils;
 
+use Exception;
 use Gettext\Translations;
 
 abstract class FunctionsScanner
@@ -56,7 +57,7 @@ abstract class FunctionsScanner
                     break;
 
                 default:
-                    throw new \Exception('Not valid functions');
+                    throw new Exception('Not valid functions');
             }
 
             $translation->addReference($file, $line);
