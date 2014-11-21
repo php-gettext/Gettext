@@ -49,20 +49,22 @@ class Mo extends Extractor implements ExtractorInterface
             $stream->seekto($table_originals[$i * 2 + 2]);
             $original = $stream->read($table_originals[$i * 2 + 1]);
 
-            if ($original) {
-                $stream->seekto($table_translations[$i * 2 + 2]);
-                $original = explode("\000", $original, 2);
-                $translated = explode("\000", $stream->read($table_translations[$i * 2 + 1]), 2);
+            if (empty($original)) {
+                continue;
+            }
 
-                $plural = isset($original[1]) ? $original[1] : '';
-                $pluralTranslation = isset($translated[1]) ? $translated[1] : '';
+            $stream->seekto($table_translations[$i * 2 + 2]);
+            $original = explode("\000", $original, 2);
+            $translated = explode("\000", $stream->read($table_translations[$i * 2 + 1]), 2);
 
-                $translation = $translations->insert(null, $original[0], $plural);
-                $translation->setTranslation($translated[0]);
+            $plural = isset($original[1]) ? $original[1] : '';
+            $pluralTranslation = isset($translated[1]) ? $translated[1] : '';
 
-                if ($plural && $pluralTranslation) {
-                    $translation->setPluralTranslation($pluralTranslation);
-                }
+            $translation = $translations->insert(null, $original[0], $plural);
+            $translation->setTranslation($translated[0]);
+
+            if ($plural && $pluralTranslation) {
+                $translation->setPluralTranslation($pluralTranslation);
             }
         }
     }

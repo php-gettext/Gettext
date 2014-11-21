@@ -1,6 +1,7 @@
 <?php
 namespace Gettext\Extractors;
 
+use Exception, InvalidArgumentException;
 use Gettext\Translations;
 
 abstract class Extractor
@@ -36,16 +37,16 @@ abstract class Extractor
     protected static function getFiles($file)
     {
         if (empty($file)) {
-            throw new \InvalidArgumentException('There is not any file defined');
+            throw new InvalidArgumentException('There is not any file defined');
         }
 
         if (is_string($file)) {
             if (!is_file($file)) {
-                throw new \InvalidArgumentException("'$file' is not a valid file");
+                throw new InvalidArgumentException("'$file' is not a valid file");
             }
 
             if (!is_readable($file)) {
-                throw new \InvalidArgumentException("'$file' is not a readable file");
+                throw new InvalidArgumentException("'$file' is not a readable file");
             }
 
             return array($file);
@@ -61,7 +62,7 @@ abstract class Extractor
             return $files;
         }
 
-        throw new \InvalidArgumentException('The first argumet must be string or array');
+        throw new InvalidArgumentException('The first argumet must be string or array');
     }
 
     /**
@@ -76,7 +77,7 @@ abstract class Extractor
         $length = filesize($file);
 
         if (!($fd = fopen($file, 'rb'))) {
-            throw new \Exception("Cannot read the file '$file', probably permissions");
+            throw new Exception("Cannot read the file '$file', probably permissions");
         }
 
         $content = fread($fd, $length);
