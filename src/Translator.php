@@ -1,7 +1,7 @@
 <?php
 namespace Gettext;
 
-use Gettext\Translations;
+use Exception;
 use Gettext\Generators\PhpArray;
 
 class Translator
@@ -22,13 +22,15 @@ class Translator
     {
         if ($translations instanceof Translations) {
             $this->loadArray(PhpArray::toArray($translations));
-        } else if (is_string($translations) && is_file($translations)) {
+        } elseif (is_string($translations) && is_file($translations)) {
             $this->loadArray(include $translations);
-        } else if (is_array($translations)) {
+        } elseif (is_array($translations)) {
             $this->loadArray($translations);
         } else {
             throw new \InvalidArgumentException('Invalid Translator: only arrays, files or instance of Translations are allowed');
         }
+
+        return $this;
     }
 
     /**
@@ -60,7 +62,7 @@ class Translator
      * @param array       $translations
      * @param null|string $domain
      */
-    protected function addTranslations(array $translations, $domain = null)
+    public function addTranslations(array $translations, $domain = null)
     {
         if ($domain === null) {
             $domain = $this->domain;
@@ -74,6 +76,14 @@ class Translator
     }
 
     /**
+     * Clear all translations
+     */
+    public function clearTranslations()
+    {
+        $this->dictionary = array();
+    }
+
+    /**
      * Search and returns a translation
      *
      * @param string $domain
@@ -82,7 +92,7 @@ class Translator
      *
      * @return array
      */
-    protected function getTranslation($domain, $context, $original)
+    public function getTranslation($domain, $context, $original)
     {
         $key = isset($context) ? $context.$this->context_glue.$original : $original;
 
@@ -219,7 +229,7 @@ class Translator
      * @param  string $n
      * @return int
      */
-    protected function isPlural($n)
+    public function isPlural($n)
     {
         if (!$this->pluralFunction) {
             $this->pluralFunction = create_function('$n', self::fixTerseIfs($this->pluralCode));

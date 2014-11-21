@@ -2,12 +2,13 @@
 include_once dirname(__DIR__).'/src/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(dirname(__DIR__).'/src/translator_functions.php');
+    require_once dirname(__DIR__).'/src/translator_functions.php';
 }
 
 class JedTest extends PHPUnit_Framework_TestCase
 {
-    public function testScript() {
+    public function testScript()
+    {
         $translations = Gettext\Extractors\JsCode::fromFile(__DIR__.'/files/script.js');
 
         $string1 = $translations->toJedString();
@@ -16,7 +17,8 @@ class JedTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($string1, $string2);
     }
 
-    public function testDynamicHeaders() {
+    public function testDynamicHeaders()
+    {
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $jsonString = Gettext\Generators\Jed::toString($translations, __DIR__.'/files/gettext_multiple_headers.json', true);
 

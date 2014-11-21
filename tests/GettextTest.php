@@ -2,7 +2,7 @@
 include_once dirname(__DIR__).'/src/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(dirname(__DIR__).'/src/translator_functions.php');
+    require_once dirname(__DIR__).'/src/translator_functions.php';
 }
 
 class GettextTest extends PHPUnit_Framework_TestCase
@@ -29,7 +29,7 @@ class GettextTest extends PHPUnit_Framework_TestCase
         return $translations;
     }
 
-    public function testAutomaticHeaders() 
+    public function testAutomaticHeaders()
     {
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $language = 'bs';
@@ -45,11 +45,12 @@ class GettextTest extends PHPUnit_Framework_TestCase
         return $translations;
     }
 
-    public function testSplitHeader() 
+    public function testSplitHeader()
     {
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/gettext_multiple_headers.po');
         $pluralHeader = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
         $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), 'header split over 2 lines not extracted correctly');
+
         return $translations;
     }
 
@@ -173,7 +174,7 @@ class GettextTest extends PHPUnit_Framework_TestCase
      */
     public function testMultiPlural($translations)
     {
-        $translator = new \Gettext\Translator;
+        $translator = new \Gettext\Translator();
         $translator->loadTranslations($translations);
 
         //Set the current translator before execute the functions

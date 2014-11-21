@@ -2,7 +2,7 @@
 include_once dirname(__DIR__).'/src/autoloader.php';
 
 if (!function_exists('n__')) {
-    require_once(dirname(__DIR__).'/src/translator_functions.php');
+    require_once dirname(__DIR__).'/src/translator_functions.php';
 }
 
 class MagicMethodsTest extends PHPUnit_Framework_TestCase
