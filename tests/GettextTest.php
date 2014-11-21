@@ -173,9 +173,8 @@ class GettextTest extends PHPUnit_Framework_TestCase
      */
     public function testMultiPlural($translations)
     {
-        $translationArray = \Gettext\Generators\PhpArray::toArray($translations);
         $translator = new \Gettext\Translator;
-        $translator->loadTranslationsArray($translationArray);
+        $translator->loadTranslations($translations);
 
         //Set the current translator before execute the functions
         __currentTranslator($translator);

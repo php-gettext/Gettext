@@ -117,7 +117,7 @@ var_dump($locales->toMoString());
 
 ## Translator
 
-The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. The translations are loaded from an array, so you have to use the `Gettext\Generators\PhpArray` generator.
+The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. The fastest way to use it is loading the translations from an array, so you have to use the `Gettext\Generators\PhpArray` generator.
 
 ```php
 use Gettext\Translator;
@@ -125,14 +125,28 @@ use Gettext\Translator;
 //Create a new instance of the translator
 $t = new Translator();
 
-//Load the translations from php files exported with PhpArray generator
-$t->loadTranslations('locales/gl.php');
+//Load the translations from php files (generated with PhpArray)
+$t->loadFromFile('locales/gl.php');
 
 //Now you can use it in your templates
 echo $t->gettext('apple'); //Returns Mazá
 ```
 
-The translator functions, ease the use of Gettext\Translator:
+There is other two ways to load translations into the translator:
+
+```
+//If you have your array already loaded:
+$arrayTranslations = include 'my-translations.php';
+$t->loadFromArray($arrayTranslations);
+
+
+//If you have your translations in any other format (such .po) and don't want to export them to arrays
+//you can pass a Gettext\Translations instance directly:
+$poTranslations = Gettext\Tranlations::fromPoFile('locales/gl.po');
+$t->loadTranslations($poTranslations);
+```
+
+The translator functions ease the use of Gettext\Translator:
 
 ```php
 //First set the translator instance as current translator:

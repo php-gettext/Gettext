@@ -1,6 +1,9 @@
 <?php
 namespace Gettext;
 
+use Gettext\Translations;
+use Gettext\Generators\PhpArray;
+
 class Translator
 {
     private $dictionary = array();
@@ -15,12 +18,22 @@ class Translator
      *
      * @param string $file
      */
-    public function loadTranslations($file)
+    public function loadFromFile($file)
     {
         if (is_file($file)) {
             $translations = include $file;
-            $this->loadTranslationsArray($translations);
+            $this->loadFromArray($translations);
         }
+    }
+
+    /**
+     * Loads translation from a Translations instance
+     *
+     * @param Translations $translations
+     */
+    public function loadTranslations(Translations $translations)
+    {
+        $this->loadFromArray(PhpArray::toArray($translations));
     }
 
     /**
@@ -28,7 +41,7 @@ class Translator
      *
      * @param array $translations
      */
-    public function loadTranslationsArray(array $translations)
+    public function loadFromArray(array $translations)
     {
         $domain = isset($translations['messages']['']['domain']) ? $translations['messages']['']['domain'] : null;
 
@@ -52,7 +65,7 @@ class Translator
      * @param array       $translations
      * @param null|string $domain
      */
-    public function addTranslations(array $translations, $domain = null)
+    protected function addTranslations(array $translations, $domain = null)
     {
         if ($domain === null) {
             $domain = $this->domain;
@@ -66,14 +79,6 @@ class Translator
     }
 
     /**
-     * Clear all translations
-     */
-    public function clearTranslations()
-    {
-        $this->dictionary = array();
-    }
-
-    /**
      * Search and returns a translation
      *
      * @param string $domain
@@ -82,7 +87,7 @@ class Translator
      *
      * @return array
      */
-    public function getTranslation($domain, $context, $original)
+    protected function getTranslation($domain, $context, $original)
     {
         $key = isset($context) ? $context.$this->context_glue.$original : $original;
 
@@ -219,7 +224,7 @@ class Translator
      * @param  string $n
      * @return int
      */
-    public function isPlural($n)
+    protected function isPlural($n)
     {
         if (!$this->pluralFunction) {
             $this->pluralFunction = create_function('$n', self::fixTerseIfs($this->pluralCode));
