@@ -16,11 +16,13 @@ class Translator
     /**
      * Loads translation from a Translations instance, a file on an array
      *
-     * @param Translations|string $translations
+     * @param Translations|string|array $translations
+     *
+     * @return Translator
      */
     public function loadTranslations($translations)
     {
-        if ($translations instanceof Translations) {
+        if (is_object($translations) && $translations instanceof Translations) {
             $this->loadArray(PhpArray::toArray($translations));
         } elseif (is_string($translations) && is_file($translations)) {
             $this->loadArray(include $translations);
