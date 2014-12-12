@@ -76,7 +76,7 @@ First, lets scan a Po file:
 
 ```php
 //Include the autoloader if you don't use composer or PSR-4 loader
-include('myLibsFolder/Gettext/autoloader.php');
+include('src/autoloader.php');
 
 $translations = Gettext\Extractors\Po::fromFile('locales/gl.po');
 ```
