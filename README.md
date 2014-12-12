@@ -134,7 +134,7 @@ echo $t->gettext('apple'); //Returns Mazá
 
 The `loadTranslations` method accepts also arrays and `Gettext\Translations` instances:
 
-```
+```php
 //If you have your array already loaded:
 $arrayTranslations = include 'my-translations.php';
 $t->loadTranslations($arrayTranslations);
