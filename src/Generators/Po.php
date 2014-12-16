@@ -40,7 +40,7 @@ class Po extends Generator implements GeneratorInterface
 
             if ($translation->hasReferences()) {
                 foreach ($translation->getReferences() as $reference) {
-                    $lines[] = '#: '.$reference[0].':'.$reference[1];
+                    $lines[] = '#: '.$reference[0].(!is_null($reference[1]) ? ':'.$reference[1] : null);
                 }
             }
 
