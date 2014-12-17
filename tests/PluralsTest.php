@@ -3,15 +3,15 @@ include_once dirname(__DIR__).'/src/autoloader.php';
 
 class PluralsTest extends PHPUnit_Framework_TestCase
 {
-	public function testMultiPlural()
-	{
-		//Extract translations
-	    $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
+    public function testMultiPlural()
+    {
+        //Extract translations
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
 
-	    $translator = new \Gettext\Translator();
-	    $translator->loadTranslations($translations);
+        $translator = new \Gettext\Translator();
+        $translator->loadTranslations($translations);
 
-	    /**
+        /**
          * Test that nplural=3 plural translation check comes up with the correct translation key.
          */
         $this->assertEquals('1 plik',      $translator->ngettext("one file", "multiple files", 1), "plural calculation result bad");
@@ -32,5 +32,5 @@ class PluralsTest extends PHPUnit_Framework_TestCase
          * Test that non-plural translations the fallback still works.
          */
         $this->assertEquals('more', $translator->ngettext("single", "more", 3), "non-plural fallback failed");
-	}
+    }
 }

@@ -1,7 +1,8 @@
 <?php
 namespace Gettext\Extractors;
 
-use Exception, InvalidArgumentException;
+use Exception;
+use InvalidArgumentException;
 use Gettext\Translations;
 
 abstract class Extractor

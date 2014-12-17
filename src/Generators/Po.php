@@ -20,7 +20,7 @@ class Po extends Generator implements GeneratorInterface
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
-            'Language' => $translations->getLanguage()
+            'Language' => $translations->getLanguage(),
         ), $translations->getHeaders());
 
         $headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');

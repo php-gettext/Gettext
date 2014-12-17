@@ -1,7 +1,6 @@
 <?php
 namespace Gettext;
 
-use Exception;
 use Gettext\Generators\PhpArray;
 
 class Translator

@@ -3,12 +3,12 @@ include_once dirname(__DIR__).'/src/autoloader.php';
 
 class TranslationsTest extends PHPUnit_Framework_TestCase
 {
-	public function testFind()
-	{
-		//Extract translations
-	    $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
+    public function testFind()
+    {
+        //Extract translations
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
 
-	    //Find by original
+        //Find by original
         $translation = $translations->find(null, 'text 2');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
@@ -44,16 +44,16 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
 
         $translation = $translations->find(null, 'text 10 with plural');
         $this->assertFalse($translation);
-	}
+    }
 
-	public function testGettersSetters()
-	{
-	    //Extract translations
-	    $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+    public function testGettersSetters()
+    {
+        //Extract translations
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
 
         $this->assertEquals('gettext generator test', $translations->getHeader('Project-Id-Version'));
 
-	    $translations->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
+        $translations->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
         $this->assertEquals('2012-08-07 13:03+0100', $translations->getHeader('POT-Creation-Date'));
-	}
+    }
 }
