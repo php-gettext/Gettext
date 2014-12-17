@@ -43,9 +43,8 @@ $t->loadTranslations('locales/gl.php');
 echo $t->gettext('apple'); //echoes "Mazá"
 
 //Use the global functions:
-__currentTranslator($t);
+Gettext\Translator::initGettextFunctions($t);
 
-//Use it:
 echo __('apple'); //echoes "Mazá"
 
 __e('apple'); //echoes "Mazá"
@@ -193,8 +192,8 @@ echo $t->gettext('apple');
 To ease the use of translations in your php templates, you can use the provided functions:
 
 ```php
-//First set the translator instance as current translator:
-__currentTranslator($t);
+//First load the gettext functions and passing the instance
+Translator::initGettextFunctions($t);
 
 echo __('apple'); //Returns Mazá
 
@@ -265,7 +264,3 @@ Note, if the second argument is not defined, the default is `self::MERGE_ADD | s
 * [leom](https://github.com/leom) (Jed fixes)
 * [eusonlito](https://github.com/eusonlito) (Blade extractor)
 * [vvh-empora](https://github.com/vvh-empora) (fixes)
-
-## TO-DO
-
-* Working with domains

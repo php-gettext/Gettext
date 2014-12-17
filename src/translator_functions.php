@@ -63,11 +63,16 @@ function p__($context, $original)
 
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
-/*
 
-Not implemented yet...
-
-function __d($domain, $original)
+/**
+ * Returns the translation of a string in a specific domain
+ *
+ * @param string $domain
+ * @param string $original
+ *
+ * @return string
+ */
+function d__($domain, $original)
 {
     $text = Translator::dgettext($domain, $original);
 
@@ -80,7 +85,16 @@ function __d($domain, $original)
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-function __dp($domain, $context, $original)
+/**
+ * Returns the translation of a string in a specific domain and context
+ *
+ * @param string $domain
+ * @param string $context
+ * @param string $original
+ *
+ * @return string
+ */
+function dp__($domain, $context, $original)
 {
     $text = Translator::dpgettext($domain, $context, $original);
 
@@ -93,7 +107,18 @@ function __dp($domain, $context, $original)
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
 
-function __dnp($domain, $context, $original, $plural, $value)
+/**
+ * Returns the singular/plural translation of a string in a specific domain and context
+ *
+ * @param string $domain
+ * @param string $context
+ * @param string $original
+ * @param string $plural
+ * @param string $value
+ *
+ * @return string
+ */
+function dnp__($domain, $context, $original, $plural, $value)
 {
     $text = Translator::dnpgettext($domain, $context, $original, $plural, $value);
 
@@ -105,7 +130,6 @@ function __dnp($domain, $context, $original, $plural, $value)
 
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
-*/
 
 /**
  * Prints function result
@@ -135,4 +159,34 @@ function n__e()
 function p__e()
 {
     echo call_user_func_array('p__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see d__
+ */
+function d__e()
+{
+    echo call_user_func_array('d__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see dp__
+ */
+function dp__e()
+{
+    echo call_user_func_array('dp__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see dnp__
+ */
+function dnp__e()
+{
+    echo call_user_func_array('dnp__', func_get_args());
 }
