@@ -206,10 +206,10 @@ class Translation
     /**
      * Adds a new reference for this translation
      *
-     * @param string  $filename The file path where the translation has been found
-     * @param integer $line     The line number where the translation has been found
+     * @param string       $filename The file path where the translation has been found
+     * @param null|integer $line     The line number where the translation has been found
      */
-    public function addReference($filename, $line)
+    public function addReference($filename, $line = null)
     {
         $key = "{$filename}:{$line}";
         $this->references[$key] = array($filename, $line);
