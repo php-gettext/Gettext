@@ -20,6 +20,7 @@ class Po extends Generator implements GeneratorInterface
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
+            'Language' => $translations->getLanguage()
         ), $translations->getHeaders());
 
         $headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');
@@ -40,7 +41,7 @@ class Po extends Generator implements GeneratorInterface
 
             if ($translation->hasReferences()) {
                 foreach ($translation->getReferences() as $reference) {
-                    $lines[] = '#: '.$reference[0].':'.$reference[1];
+                    $lines[] = '#: '.$reference[0].(!is_null($reference[1]) ? ':'.$reference[1] : null);
                 }
             }
 
