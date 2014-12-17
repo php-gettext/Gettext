@@ -5,12 +5,28 @@ use Gettext\Generators\PhpArray;
 
 class Translator
 {
+    public static $current;
+
     private $dictionary = array();
-    private $domain = 'messages';
+    private $domain;
     private $context_glue = "\004";
     private $pluralCount = 2;
     private $pluralCode = 'return ($n != 1);';
     private $pluralFunction;
+
+
+    /**
+     * Set a translation instance as global, to use it with the gettext functions
+     * 
+     * @param Translator $translator
+     */
+    public static function initGettextFunctions(Translator $translator)
+    {
+        self::$current = $translator;
+
+        include_once __DIR__.'/translator_functions.php';
+    }
+
 
     /**
      * Loads translation from a Translations instance, a file on an array
@@ -41,20 +57,27 @@ class Translator
      */
     protected function loadArray(array $translations)
     {
-        $domain = isset($translations['messages']['']['domain']) ? $translations['messages']['']['domain'] : null;
+        foreach ($translations as &$translation) {
+            $domain = isset($translation['']['domain']) ? $translation['']['domain'] : 'messages';
 
-        // If a plural form is set we extract those values
-        if (isset($translations['messages']['']['plural-forms'])) {
-            list($count, $code) = explode(';', $translations['messages']['']['plural-forms']);
-            $this->pluralCount = (int) str_replace('nplurals=', '', $count);
+            //Set the first domain loaded as default domain
+            if (!$this->domain) {
+                $this->domain = $domain;
+            }
 
-            // extract just the expression turn 'n' into a php variable '$n'.
-            // Slap on a return keyword and semicolon at the end.
-            $this->pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';';
+            // If a plural form is set we extract those values
+            if (isset($translation['']['plural-forms'])) {
+                list($count, $code) = explode(';', $translation['']['plural-forms']);
+                $this->pluralCount = (int) str_replace('nplurals=', '', $count);
+
+                // extract just the expression turn 'n' into a php variable '$n'.
+                // Slap on a return keyword and semicolon at the end.
+                $this->pluralCode = str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';';
+            }
+
+            unset($translation['']);
+            $this->addTranslations($translation, $domain);
         }
-
-        unset($translations['messages']['']);
-        $this->addTranslations($translations['messages'], $domain);
     }
 
     /**

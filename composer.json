@@ -26,9 +26,6 @@
 	"autoload": {
 		"psr-4": {
 			"Gettext\\": "src"
-		},
-		"files": [
-			"src/translator_functions.php"
-		]
+		}
 	}
 }

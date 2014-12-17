@@ -2,28 +2,6 @@
 use Gettext\Translator;
 
 /**
- * Get/set a new current translator
- *
- * @param Translator $translator
- *
- * @return null|Translator
- */
-function __currentTranslator(Translator $translator = null)
-{
-    static $currentTranslator;
-
-    if ($translator === null) {
-        if (!$currentTranslator) {
-            throw new Exception("You must specify a translator instance before use the Gettext functions");
-        }
-
-        return $currentTranslator;
-    }
-
-    $currentTranslator = $translator;
-}
-
-/**
  * Returns the translation of a string
  *
  * @param string $original
@@ -32,7 +10,7 @@ function __currentTranslator(Translator $translator = null)
  */
 function __($original)
 {
-    $text = __currentTranslator()->gettext($original);
+    $text = Translator::$current->gettext($original);
 
     if (func_num_args() === 1) {
         return $text;
@@ -54,7 +32,7 @@ function __($original)
  */
 function n__($original, $plural, $value)
 {
-    $text = __currentTranslator()->ngettext($original, $plural, $value);
+    $text = Translator::$current->ngettext($original, $plural, $value);
 
     if (func_num_args() === 3) {
         return $text;
@@ -75,7 +53,7 @@ function n__($original, $plural, $value)
  */
 function p__($context, $original)
 {
-    $text = __currentTranslator()->pgettext($context, $original);
+    $text = Translator::$current->pgettext($context, $original);
 
     if (func_num_args() === 2) {
         return $text;
