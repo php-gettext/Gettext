@@ -14,6 +14,44 @@ The 2.0 version has some changes in the API. See the changelog for more informat
 https://github.com/oscarotero/Gettext/releases/tag/2.0
 
 
+## Usage example
+
+```php
+//Include the autoloader if you don't use composer or PSR-4 loader
+include('src/autoloader.php');
+
+//scan a Po file:
+$translations = Gettext\Translations::fromPoFile('locales/gl.po');
+
+//edit some translations:
+$translation = $translations->find(null, 'apple');
+
+if ($translation) {
+	$translation->setTranslation('Mazá');
+}
+
+//Export to Jed and PhpArray:
+$translations->toJedFile('locales/gl.json');
+$translations->toPhpArrayFile('locales/gl.php');
+
+//Create a translator for your php templates
+$t = new Gettext\Translator();
+
+//Load your translations:
+$t->loadTranslations('locales/gl.php');
+
+//Use it:
+echo $t->gettext('apple'); //echoes "Mazá"
+
+//Use the global functions:
+__currentTranslator($t);
+
+//Use it:
+echo __('apple'); //echoes "Mazá"
+
+__e('apple'); //echoes "Mazá"
+```
+
 ## Classes and functions
 
 This package contains the following classes:
@@ -43,6 +81,7 @@ $translation->addComment('To display the amount of comments in a post');
 
 echo $translation->getContext(); // comments
 echo $translation->getOriginal(); // One comment
+echo $translation->getTranslation(); // Un comentario
 
 // etc...
 ```
@@ -57,7 +96,7 @@ $translations = new Gettext\Translations();
 //You can add new tranlations using the array syntax
 $tranlations[] = new Gettext\Translation('comments', 'One comment', '%s comments');
 
-//Or insert new values
+//Or using the "insert" method
 $insertedTranslation = $translations->insert('comments', 'One comments', '%s comments');
 
 //Find a specific translation
@@ -65,7 +104,7 @@ $translation = $translations->find('comments', 'One comments', '%s comments');
 
 //Edit headers, the domain value, etc
 $translations->setHeader('Last-Translator', 'Oscar Otero');
-$tranlations->setDomain('my-blog');
+$translations->setDomain('my-blog');
 ```
 
 ## Extractors
@@ -85,10 +124,10 @@ The available extractors are the following:
 
 * `Gettext\Extractors\Po` - Gets the strings from PO
 * `Gettext\Extractors\Mo` - Gets the strings from MO
-* `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions
-* `Gettext\Extractors\JsCode` - To scan a javascript file looking for all gettext functions
+* `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions (see `translator_functions.php`)
+* `Gettext\Extractors\JsCode` - To scan a javascript file looking for all gettext functions (the same than PhpCode but for javascript)
 * `Gettext\Extractors\PhpArray` - To get the translations from a php file that returns an array
-* `Gettext\Extractors\Jed` - To scan a json file compatible with the Jed library
+* `Gettext\Extractors\Jed` - To scan a json file compatible with the [Jed library](http://slexaxton.github.com/Jed/)
 * `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks @eusonlito)
 
 ## Generators
@@ -111,9 +150,9 @@ The available generators are:
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
 * `Gettext\Generators\Jed` - Exports to json format compatible with [Jed library](http://slexaxton.github.com/Jed/)
 
-To ease the work with generators and extractors you can use the magic methods availables in `Gettext\Translations` to import and export the translations in all these formats:
+To ease the work with generators and extractors you can use the magic methods availables in `Gettext\Translations` that import and export the translations in all these formats:
 
-```
+```php
 use Gettext\Translations;
 
 //Import the translations from a .po file
@@ -123,29 +162,7 @@ $translations = Translations::fromPoFile('locales/en.po');
 $translations->toMoFile('locales/en.mo');
 ```
 
-The extractors magic methods are static classes named `from + [Extractor] + [File/String]`, for example `fromPhpArrayFile` or `fromJsCodeString`. The generators magic methods use the names `to + [Generator] + [File/String]` for example `toPhpArrayFile` or `toPoString`.
-
-
-## Usage example
-
-```php
-//Include the autoloader if you don't use composer or PSR-4 loader
-include('src/autoloader.php');
-
-//scan a Po file:
-$translations = Gettext\Translations::fromPoFile('locales/gl.po');
-
-//edit some translations:
-$translation = $translations->find(null, 'apple');
-
-if ($translation) {
-	$translation->setTranslation('Mazá');
-}
-
-//Export to Jed and PhpArray:
-$translations->toJedFile('locales/gl.json');
-$translations->toPhpArrayFile('locales/gl.php');
-```
+To import translations, the methods are static and named `from + [Extractor] + [File/String]`, for example `fromPhpArrayFile` or `fromJsCodeString`. To export use the methods named `to + [Generator] + [File/String]` for example `toPhpArrayFile` or `toPoString`.
 
 ## Translator
 
