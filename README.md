@@ -30,8 +30,7 @@ if ($translation) {
 	$translation->setTranslation('Mazá');
 }
 
-//Export to Jed and PhpArray:
-$translations->toJedFile('locales/gl.json');
+//Export to PhpArray:
 $translations->toPhpArrayFile('locales/gl.php');
 
 //Create a translator for your php templates
