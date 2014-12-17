@@ -82,10 +82,8 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case '#:':
-                    if (strpos($data, ':')) {
-                        $data = explode(':', $data);
-                        $translation->addReference($data[0], $data[1]);
-                    }
+                    $data = explode(':', $data);
+                    $translation->addReference($data[0], isset($data[1]) ? $data[1] : null);
                     $append = null;
                     break;
 
