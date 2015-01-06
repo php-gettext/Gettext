@@ -76,10 +76,10 @@ class Translator
 
             // extract just the expression turn 'n' into a php variable '$n'.
             // Slap on a return keyword and semicolon at the end.
-            $this->plurals[$domain] = [
+            $this->plurals[$domain] = array(
                 'count' => (int) str_replace('nplurals=', '', $count),
                 'code' => str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';',
-            ];
+            );
 
             $this->dictionary[$domain] = $translations;
         } else {
