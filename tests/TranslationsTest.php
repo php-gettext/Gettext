@@ -56,4 +56,37 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $translations->setHeader('POT-Creation-Date', '2012-08-07 13:03+0100');
         $this->assertEquals('2012-08-07 13:03+0100', $translations->getHeader('POT-Creation-Date'));
     }
+
+    public function testMergeDefault()
+    {
+        $translations1 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+        $translations2 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
+
+        $this->assertCount(9, $translations1);
+        $this->assertCount(3, $translations2);
+
+        $translations1->mergeWith($translations2);
+
+        $this->assertCount(12, $translations1);
+    }
+
+    public function testMergeAddRemove()
+    {
+        $translations1 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+        $translations2 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
+
+        $translations1->mergeWith($translations2, Gettext\Translations::MERGE_REMOVE |  Gettext\Translations::MERGE_ADD);
+
+        $this->assertCount(3, $translations1);
+    }
+
+    public function testMergeRemove()
+    {
+        $translations1 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+        $translations2 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
+
+        $translations1->mergeWith($translations2, Gettext\Translations::MERGE_REMOVE);
+
+        $this->assertCount(0, $translations1);
+    }
 }
