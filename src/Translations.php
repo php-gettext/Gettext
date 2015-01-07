@@ -212,7 +212,7 @@ class Translations extends \ArrayObject
         }
 
         $add = (boolean) ($method & self::MERGE_ADD);
-        $references = (boolean) $method & (self::MERGE_REFERENCES);
+        $references = (boolean) ($method & self::MERGE_REFERENCES);
         $comments = (boolean) ($method & self::MERGE_COMMENTS);
 
         foreach ($translations as $entry) {
