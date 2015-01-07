@@ -244,8 +244,9 @@ class Translator
      */
     public function isPlural($domain, $n)
     {
+        //Not loaded domain, use a fallback
         if (!isset($this->plurals[$domain])) {
-            throw new \InvalidArgumentException("The gettext domain '$domain' is not loaded");
+            return $n == 1 ? 1 : 2;
         }
 
         if (!isset($this->plurals[$domain]['function'])) {
