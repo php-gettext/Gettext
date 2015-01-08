@@ -89,4 +89,38 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount(0, $translations1);
     }
+
+    public function testMergeReferences()
+    {
+        $translations1 =  new Gettext\Translations();
+        $translation1 = new Gettext\Translation(null, 'apple');
+        $translation1->addReference($comment = 'templates/hello.php', $line = 34);
+        $translations1[] = $translation1;
+
+        $this->assertTrue($translation1->hasReferences());
+        $this->assertCount(1, $actualRef = $translation1->getReferences());
+        $expectedRef1 = array($comment, $line);
+        $this->assertEquals($expectedRef1, current($actualRef));
+
+        $translation2 = new Gettext\Translation(null, 'apple');
+        $translation2->addReference($comment = 'templates/world.php', $line = 134);
+        $translations2 = new Gettext\Translations(array($translation2, new Gettext\Translation(null, 'orange')));
+
+        $this->assertTrue($translation2->hasReferences());
+        $this->assertCount(1, $actualRef = $translation2->getReferences());
+        $expectedRef2 = array($comment, $line); 
+        $this->assertEquals($expectedRef2, current($actualRef));
+
+        //merge with references
+        $translations1->mergeWith($translations2, Gettext\Translations::MERGE_ADD | Gettext\Translations::MERGE_REFERENCES);
+
+        //translation merged (orange)
+        $this->assertInstanceOf('Gettext\\Translation', $translations1->find(null, 'orange'));
+
+        //references merged (apple)
+        $this->assertInstanceOf('Gettext\\Translation', $translations1->find(null, 'apple'));
+        $this->assertTrue($translation1->hasReferences());
+        $this->assertCount(2, $actualRef = $translation1->getReferences());
+        $this->assertEquals(array($expectedRef1, $expectedRef2), $actualRef);
+    }
 }
