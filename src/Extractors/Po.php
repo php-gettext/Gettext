@@ -68,7 +68,7 @@ class Po extends Extractor implements ExtractorInterface
                 continue;
             }
 
-            $splitLine = preg_split('/\s/', $line, 2);
+            $splitLine = preg_split('/\s+/', $line, 2);
             $key = $splitLine[0];
             $data = isset($splitLine[1]) ? $splitLine[1] : '';
             $append = null;

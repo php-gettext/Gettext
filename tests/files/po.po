@@ -28,7 +28,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-msgid "%ss must be unique for %ss %ss."
+msgid  "%ss must be unique for %ss %ss."
 msgstr "%ss mora da bude jedinstven za %ss %ss."
 
 msgid "and"
