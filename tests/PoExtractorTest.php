@@ -39,4 +39,32 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $this->assertNull($translations->getLanguage(), 'Something erroneously set for language');
         $this->assertNull($translations->getDomain(), 'Something erroneously set for domain');
     }
+
+    public function testReferences()
+    {
+        //Extract translations
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+
+        $this->assertEquals(
+            $translations->find(null, 'This field cannot be null.')->getReferences(),
+            [
+                ['C:/Users/Me/Documents/foo2.php', '1']
+            ]
+        );
+
+        $this->assertEquals(
+            $translations->find(null, 'This field cannot be blank.')->getReferences(),
+            [
+                ['C:/Users/Me/Documents/foo1.php', null]
+            ]
+        );
+
+        $this->assertEquals(
+            $translations->find(null, 'Field of type: %ss')->getReferences(),
+            [
+                ['attributes/address/composer.php', '8'],
+                ['attributes/address/form.php', '7'],
+            ]
+        );
+    }
 }

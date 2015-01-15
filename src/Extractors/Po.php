@@ -82,8 +82,11 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case '#:':
-                    $data = explode(':', $data);
-                    $translation->addReference($data[0], isset($data[1]) ? $data[1] : null);
+                    foreach (preg_split('/\s+/', trim($data)) as $value) {
+                        if (preg_match('/^(.+)(:(\d*))?$/U', $value, $matches)) {
+                            $translation->addReference($matches[1], isset($matches[3]) ? $matches[3] : null);
+                        }
+                    }
                     $append = null;
                     break;
 
