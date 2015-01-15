@@ -6,13 +6,15 @@ namespace Gettext;
  */
 class Translation
 {
-    public $context;
-    public $original;
-    public $translation = '';
-    public $plural;
-    public $pluralTranslation = array();
-    public $references = array();
-    public $comments = array();
+    protected $context;
+    protected $original;
+    protected $translation = '';
+    protected $plural;
+    protected $pluralTranslation = array();
+    protected $references = array();
+    protected $comments = array();
+    protected $extractedComments = array();
+    protected $flags = array();
 
     /**
      * Construct
@@ -271,6 +273,66 @@ class Translation
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Adds a new extracted comment for this translation
+     *
+     * @param string $comment
+     */
+    public function addExtractedComment($comment)
+    {
+        $this->extractedComments[] = $comment;
+    }
+
+    /**
+     * Checks if the translation has any extracted comment
+     *
+     * @return boolean
+     */
+    public function hasExtractedComments()
+    {
+        return isset($this->extractedComments[0]);
+    }
+
+    /**
+     * Returns all extracted comments for this translation
+     *
+     * @return array
+     */
+    public function getExtractedComments()
+    {
+        return $this->extractedComments;
+    }
+
+    /**
+     * Adds a new flat for this translation
+     *
+     * @param string $flag
+     */
+    public function addFlag($flag)
+    {
+        $this->flags[] = $flag;
+    }
+
+    /**
+     * Checks if the translation has any flag
+     *
+     * @return boolean
+     */
+    public function hasFlags()
+    {
+        return isset($this->flags[0]);
+    }
+
+    /**
+     * Returns all extracted flags for this translation
+     *
+     * @return array
+     */
+    public function getFlags()
+    {
+        return $this->flags;
     }
 
     /**

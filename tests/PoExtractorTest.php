@@ -9,6 +9,9 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
 
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, '%ss must be unique for %ss %ss.'));
+        
+        $this->assertEquals($translations->find(null, 'and')->getFlags(), ['c-format']);
+        $this->assertEquals($translations->find(null, 'Value %sr is not a valid choice.')->getExtractedComments(), ['This is a extracted comment']);
     }
 
     public function testPluralHeader()

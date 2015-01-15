@@ -31,9 +31,11 @@ msgstr[2] ""
 msgid  "%ss must be unique for %ss %ss."
 msgstr "%ss mora da bude jedinstven za %ss %ss."
 
+#, c-format
 msgid "and"
 msgstr "i"
 
+#. This is a extracted comment
 msgid "Value %sr is not a valid choice."
 msgstr ""
 

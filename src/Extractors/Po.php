@@ -74,10 +74,20 @@ class Po extends Extractor implements ExtractorInterface
             $append = null;
 
             switch ($key) {
-                case '#,':
                 case '#':
-                case '#.':
                     $translation->addComment($data);
+                    $append = null;
+                    break;
+
+                case '#.':
+                    $translation->addExtractedComment($data);
+                    $append = null;
+                    break;
+
+                case '#,':
+                    foreach (array_map('trim', explode(',', trim($data))) as $value) {
+                        $translation->addFlag($value);
+                    }
                     $append = null;
                     break;
 
