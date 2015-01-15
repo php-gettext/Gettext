@@ -211,9 +211,9 @@ class Translations extends \ArrayObject
             }
         }
 
-        $add = (boolean) $method & self::MERGE_ADD;
-        $references = (boolean) $method & self::MERGE_REFERENCES;
-        $comments = (boolean) $method & self::MERGE_COMMENTS;
+        $add = (boolean) ($method & self::MERGE_ADD);
+        $references = (boolean) ($method & self::MERGE_REFERENCES);
+        $comments = (boolean) ($method & self::MERGE_COMMENTS);
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
@@ -224,13 +224,15 @@ class Translations extends \ArrayObject
         }
 
         if ($method & self::MERGE_REMOVE) {
-            $iterator = $this->getIterator();
+            $filtered = array();
 
-            foreach ($iterator as $k => $entry) {
-                if (!($existing = $translations->find($entry))) {
-                    $iterator->offsetUnset($k);
+            foreach ($this as $entry) {
+                if ($translations->find($entry)) {
+                    $filtered[] = $entry;
                 }
             }
+
+            $this->exchangeArray($filtered);
         }
     }
 }

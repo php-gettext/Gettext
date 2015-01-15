@@ -60,4 +60,14 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
          */
         $this->assertEquals('more', $t->ngettext("single", "more", 3), "non-plural fallback failed");
     }
+
+    public function testNonLoadedTranslations()
+    {
+        $t = new \Gettext\Translator();
+
+        $this->assertEquals('hello', $t->gettext('hello'));
+        $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 0));
+        $this->assertEquals('world', $t->ngettext('world', 'worlds', 1));
+        $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 2));
+    }
 }
