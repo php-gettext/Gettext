@@ -10,8 +10,8 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, '%ss must be unique for %ss %ss.'));
         
-        $this->assertEquals($translations->find(null, 'and')->getFlags(), ['c-format']);
-        $this->assertEquals($translations->find(null, 'Value %sr is not a valid choice.')->getExtractedComments(), ['This is a extracted comment']);
+        $this->assertEquals($translations->find(null, 'and')->getFlags(), array('c-format'));
+        $this->assertEquals($translations->find(null, 'Value %sr is not a valid choice.')->getExtractedComments(), array('This is a extracted comment'));
     }
 
     public function testPluralHeader()
@@ -58,24 +58,24 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $translations->find(null, 'This field cannot be null.')->getReferences(),
-            [
-                ['C:/Users/Me/Documents/foo2.php', '1']
-            ]
+            array(
+                array('C:/Users/Me/Documents/foo2.php', '1')
+            )
         );
 
         $this->assertEquals(
             $translations->find(null, 'This field cannot be blank.')->getReferences(),
-            [
-                ['C:/Users/Me/Documents/foo1.php', null]
-            ]
+            array(
+                array('C:/Users/Me/Documents/foo1.php', null)
+            )
         );
 
         $this->assertEquals(
             $translations->find(null, 'Field of type: %ss')->getReferences(),
-            [
-                ['attributes/address/composer.php', '8'],
-                ['attributes/address/form.php', '7'],
-            ]
+            array(
+                array('attributes/address/composer.php', '8'),
+                array('attributes/address/form.php', '7'),
+            )
         );
     }
 }
