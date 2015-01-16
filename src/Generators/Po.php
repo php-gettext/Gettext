@@ -39,10 +39,20 @@ class Po extends Generator implements GeneratorInterface
                 }
             }
 
+            if ($translation->hasExtractedComments()) {
+                foreach ($translation->getExtractedComments() as $comment) {
+                    $lines[] = '#. '.$comment;
+                }
+            }
+
             if ($translation->hasReferences()) {
                 foreach ($translation->getReferences() as $reference) {
                     $lines[] = '#: '.$reference[0].(!is_null($reference[1]) ? ':'.$reference[1] : null);
                 }
+            }
+
+            if ($translation->hasFlags()) {
+                $lines[] = '#, '.implode(',', $translation->getFlags());
             }
 
             if ($translation->hasContext()) {
