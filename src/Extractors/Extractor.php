@@ -81,7 +81,7 @@ abstract class Extractor
             throw new Exception("Cannot read the file '$file', probably permissions");
         }
 
-        $content = fread($fd, $length);
+        $content = $length ? fread($fd, $length) : '';
         fclose($fd);
 
         return $content;
