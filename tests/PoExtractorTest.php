@@ -78,4 +78,17 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
             )
         );
     }
+
+    public function testMultilineTranslation()
+    {
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+        
+        $t1 = $translations->find(null, '{test1}');
+        $this->assertInstanceOf('Gettext\\Translation', $t1);
+
+        $t2 = $translations->find(null, '{test2}');
+        $this->assertInstanceOf('Gettext\\Translation', $t2);
+
+        $this->assertEquals($t1->getTranslation(), $t2->getTranslation());
+    }
 }
