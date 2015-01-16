@@ -359,9 +359,9 @@ class Translation
         }
 
         if ($comments) {
-            $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
-            $this->extractedComments = array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments));
-            $this->flags = array_unique(array_merge($translation->getFlags(), $this->flags));
+            $this->comments = array_values(array_unique(array_merge($translation->getComments(), $this->comments)));
+            $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
+            $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
         }
     }
 }
