@@ -360,6 +360,8 @@ class Translation
 
         if ($comments) {
             $this->comments = array_unique(array_merge($translation->getComments(), $this->comments));
+            $this->extractedComments = array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments));
+            $this->flags = array_unique(array_merge($translation->getFlags(), $this->flags));
         }
     }
 }
