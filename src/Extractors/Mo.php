@@ -67,6 +67,8 @@ class Mo extends Extractor implements ExtractorInterface
                 $translation->setPluralTranslation($pluralTranslation);
             }
         }
+
+        return $translations;
     }
 
     /**
