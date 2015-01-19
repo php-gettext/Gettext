@@ -14,7 +14,15 @@ class Mo extends Generator implements GeneratorInterface
 
         foreach ($translations as $translation) {
             if ($translation->hasTranslation()) {
-                $array[$translation->getOriginal()] = $translation;
+                $id = '';
+                if ($translation->hasContext()) {
+                    $id .= $translation->getContext()."\x04";
+                }
+                $id .= $translation->getOriginal();
+                if ($translation->hasPlural()) {
+                    $id .= "\x00".$translation->getPlural();
+                }
+                $array[$id] = $translation;
             }
         }
 
@@ -24,17 +32,7 @@ class Mo extends Generator implements GeneratorInterface
         $ids = '';
         $strings = '';
 
-        foreach ($array as $translation) {
-            $id = $translation->getOriginal();
-
-            if ($translation->hasPlural()) {
-                $id .= "\x00".$translation->getPlural();
-            }
-
-            if ($translation->hasContext()) {
-                $id = $translation->getContext()."\x04".$id;
-            }
-
+        foreach ($array as $id => $translation) {
             //Plural msgstrs are NUL-separated
             $msgstrs = array_merge(array($translation->getTranslation()), $translation->getPluralTranslation());
             $str = implode("\x00", $msgstrs);
