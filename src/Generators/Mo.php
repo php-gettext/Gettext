@@ -37,7 +37,7 @@ class Mo extends Generator implements GeneratorInterface
 
             //Plural msgstrs are NUL-separated
             $msgstrs = array_merge(array($translation->getTranslation()), $translation->getPluralTranslation());
-            $str = str_replace("\n", "\x00", implode("\x00", $msgstrs));
+            $str = implode("\x00", $msgstrs);
 
             $offsets[] = array(strlen($ids), strlen($id), strlen($strings), strlen($str));
 
