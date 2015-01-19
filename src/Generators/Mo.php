@@ -20,11 +20,14 @@ class Mo extends Generator implements GeneratorInterface
         }
         foreach ($translations as $translation) {
             if ($translation->hasContext()) {
-                $haskKey = $translation->getContext()."\x04".$translation->getOriginal();
+                $originalString = $translation->getContext()."\x04".$translation->getOriginal();
             } else {
-                $haskKey = $translation->getOriginal();
+                $originalString = $translation->getOriginal();
             }
-            $array[$haskKey] = $translation;
+            if ($translation->hasPlural()) {
+                $originalString .= "\x00".$translation->getPlural();
+            }
+            $array[$originalString] = $translation;
         }
         ksort($array);
         $numEntries = count($array);
@@ -32,16 +35,12 @@ class Mo extends Generator implements GeneratorInterface
         $translationsTable = '';
         $originalsIndex = array();
         $translationsIndex = array();
-        foreach ($array as $haskKey => $translation) {
-            $originalString = $haskKey;
+        foreach ($array as $originalString => $translation) {
             if (is_string($translation)) {
                 // Headers
                 $translationString = $translation;
             } else {
                 /* @var $translation \Gettext\Translation */
-                if ($translation->hasPlural()) {
-                    $originalString .= "\x00".$translation->getPlural();
-                }
                 $translationString = $translation->getTranslation();
                 if ($translation->hasPluralTranslation()) {
                     $translationString .= "\x00".implode("\x00", $translation->getPluralTranslation());
