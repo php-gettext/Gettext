@@ -11,63 +11,91 @@ class Mo extends Generator implements GeneratorInterface
     public static function toString(Translations $translations)
     {
         $array = array();
-
+        $headers = '';
+        foreach ($translations->getHeaders() as $headerName => $headerValue) {
+            $headers .= "$headerName: $headerValue\n";
+        }
+        if (strlen($headers)) {
+            $array[''] = $headers;
+        }
         foreach ($translations as $translation) {
-            if ($translation->hasTranslation()) {
-                $id = '';
-                if ($translation->hasContext()) {
-                    $id .= $translation->getContext()."\x04";
-                }
-                $id .= $translation->getOriginal();
-                if ($translation->hasPlural()) {
-                    $id .= "\x00".$translation->getPlural();
-                }
-                $array[$id] = $translation;
+            if ($translation->hasContext()) {
+                $haskKey = $translation->getContext()."\x04".$translation->getOriginal();
+            } else {
+                $haskKey = $translation->getOriginal();
             }
+            $array[$haskKey] = $translation;
         }
-
-        ksort($array, SORT_STRING);
-
-        $offsets = array();
-        $ids = '';
-        $strings = '';
-
-        foreach ($array as $id => $translation) {
-            //Plural msgstrs are NUL-separated
-            $msgstrs = array_merge(array($translation->getTranslation()), $translation->getPluralTranslation());
-            $str = implode("\x00", $msgstrs);
-
-            $offsets[] = array(strlen($ids), strlen($id), strlen($strings), strlen($str));
-
-            //plural msgids are not stored (?)
-            $ids .= $id."\x00";
-            $strings .= $str."\x00";
+        ksort($array);
+        $numEntries = count($array);
+        $originalsTable = '';
+        $translationsTable = '';
+        $originalsIndex = array();
+        $translationsIndex = array();
+        foreach ($array as $haskKey => $translation) {
+            $originalString = $haskKey;
+            if (is_string($translation)) {
+                // Headers
+                $translationString = $translation;
+            } else {
+                /* @var $translation \Gettext\Translation */
+                if ($translation->hasPlural()) {
+                    $originalString .= "\x00".$translation->getPlural();
+                }
+                $translationString = $translation->getTranslation();
+                if ($translation->hasPluralTranslation()) {
+                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslation());
+                }
+            }
+            $originalsIndex[] = array('relativeOffset' => strlen($originalsTable), 'length' => strlen($originalString));
+            $originalsTable .= $originalString."\x00";
+            $translationsIndex[] = array('relativeOffset' => strlen($translationsTable), 'length' => strlen($translationString));
+            $translationsTable .= $translationString."\x00";
         }
+        // Offset of table with the original strings index: right after the header (which is 7 words)
+        $originalsIndexOffset = 7 * 4;
+        // Size of table with the original strings index
+        $originalsIndexSize = $numEntries * (4 + 4);
+        // Offset of table with the translation strings index: right after the original strings index table
+        $translationsIndexOffset = $originalsIndexOffset + $originalsIndexSize;
+        // Size of table with the translation strings index
+        $translationsIndexSize = $numEntries * (4 + 4);
+        // Hashing table starts after the header and after the index table
+        $originalsStringsOffset = $translationsIndexOffset + $translationsIndexSize;
+        // Translations start after the keys
+        $translationsStringsOffset = $originalsStringsOffset + strlen($originalsTable);
 
-        $key_start = 7 * 4 + count($array) * 4 * 4;
-        $value_start = $key_start + strlen($ids);
-        $key_offsets = array();
-        $value_offsets = array();
-
-        //Calculate
-        foreach ($offsets as $v) {
-            list($o1, $l1, $o2, $l2) = $v;
-
-            $key_offsets[] = $l1;
-            $key_offsets[] = $o1 + $key_start;
-            $value_offsets[] = $l2;
-            $value_offsets[] = $o2 + $value_start;
+        // Let's generate the .mo file binary data
+        $mo = '';
+        // Magic number
+        $mo .= pack('L', 0x950412de);
+        // File format revision
+        $mo .= pack('L', 0);
+        // Number of strings
+        $mo .= pack('L', $numEntries);
+        // Offset of table with original strings
+        $mo .= pack('L', $originalsIndexOffset);
+        // Offset of table with translation strings
+        $mo .= pack('L', $translationsIndexOffset);
+        // Size of hashing table: we don't use it.
+        $mo .= pack('L', 0);
+        // Offset of hashing table: it would start right after the translations index table
+        $mo .= pack('L', $translationsIndexOffset + $translationsIndexSize);
+        // Write the lengths & offsets of the original strings
+        foreach ($originalsIndex as $info) {
+            $mo .= pack('L', $info['length']);
+            $mo .= pack('L', $originalsStringsOffset + $info['relativeOffset']);
         }
-
-        $offsets = array_merge($key_offsets, $value_offsets);
-
-        //Generate binary data
-        $mo = pack('Iiiiiii', 0x950412de, 0, count($array), 7 * 4, 7 * 4 + count($array) * 8, 0, $key_start);
-
-        foreach ($offsets as $offset) {
-            $mo .= pack('i', $offset);
+        // Write the lengths & offsets of the translated strings
+        foreach ($translationsIndex as $info) {
+            $mo .= pack('L', $info['length']);
+            $mo .= pack('L', $translationsStringsOffset + $info['relativeOffset']);
         }
+        // Write original strings
+        $mo .= $originalsTable;
+        // Write translation strings
+        $mo .= $translationsTable;
 
-        return $mo.$ids.$strings;
+        return $mo;
     }
 }
