@@ -50,6 +50,7 @@ class Mo extends Extractor implements ExtractorInterface
             $original = $stream->read($table_originals[$i * 2 + 1]);
             $stream->seekto($table_translations[$i * 2 + 2]);
             $translated = $stream->read($table_translations[$i * 2 + 1]);
+
             if ($original === '') {
                 // Headers
                 foreach (explode("\n", $translated) as $headerLine) {
@@ -60,20 +61,25 @@ class Mo extends Extractor implements ExtractorInterface
                 }
             } else {
                 $chunks = explode("\x04", $original, 2);
+
                 if (isset($chunks[1])) {
                     $context = $chunks[0];
                     $original = $chunks[1];
                 } else {
                     $context = '';
                 }
+
                 $chunks = explode("\x00", $original, 2);
+
                 if (isset($chunks[1])) {
                     $original = $chunks[0];
                     $plural = $chunks[1];
                 } else {
                     $plural = '';
                 }
+
                 $translation = $translations->insert($context, $original, $plural);
+
                 if ($translated !== '') {
                     if ($plural === '') {
                         $translation->setTranslation($translated);

@@ -264,3 +264,5 @@ Note, if the second argument is not defined, the default is `self::MERGE_ADD | s
 * [leom](https://github.com/leom) (Jed fixes)
 * [eusonlito](https://github.com/eusonlito) (Blade extractor)
 * [vvh-empora](https://github.com/vvh-empora) (fixes)
+* [mlocati](https://github.com/mlocati) (Mo generator/extractor)
+* [and many more...](https://github.com/oscarotero/Gettext/graphs/contributors)

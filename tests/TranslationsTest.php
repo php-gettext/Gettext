@@ -108,7 +108,7 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($translation2->hasReferences());
         $this->assertCount(1, $actualRef = $translation2->getReferences());
-        $expectedRef2 = array($comment, $line); 
+        $expectedRef2 = array($comment, $line);
         $this->assertEquals($expectedRef2, current($actualRef));
 
         //merge with references

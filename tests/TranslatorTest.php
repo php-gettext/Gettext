@@ -13,7 +13,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Cijeo broj', $t->gettext('Integer'));
         $this->assertEquals('Ovo polje ne može biti prazno.', $t->gettext('This field cannot be blank.'));
         $this->assertEquals('Value %sr is not a valid choice.', $t->gettext('Value %sr is not a valid choice.'));
-        
+
         //domains
         $this->assertEquals('single', $t->gettext('single'));
         $this->assertEquals('test', $t->dgettext('messages', 'single'));
@@ -26,7 +26,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/po.po'));
 
         Gettext\Translator::initGettextFunctions($t);
-        
+
         $this->assertEquals('Cijeo broj', __('Integer'));
         $this->assertEquals('Ovo polje ne može biti prazno.', __('This field cannot be blank.'));
         $this->assertEquals('Value %sr is not a valid choice.', __('Value %sr is not a valid choice.'));

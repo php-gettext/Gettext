@@ -12,10 +12,9 @@ class Translator
     private $context_glue = "\004";
     private $plurals = array();
 
-
     /**
      * Set a translation instance as global, to use it with the gettext functions
-     * 
+     *
      * @param Translator $translator
      */
     public static function initGettextFunctions(Translator $translator)
@@ -24,7 +23,6 @@ class Translator
 
         include_once __DIR__.'/translator_functions.php';
     }
-
 
     /**
      * Loads translation from a Translations instance, a file on an array
@@ -50,11 +48,10 @@ class Translator
         return $this;
     }
 
-
     /**
      * Set new translations to the dictionary
      *
-     * @param array       $translations
+     * @param array $translations
      */
     public function addTranslations(array $translations)
     {

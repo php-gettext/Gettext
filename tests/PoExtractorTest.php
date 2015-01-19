@@ -9,7 +9,7 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
 
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, '%ss must be unique for %ss %ss.'));
-        
+
         $this->assertEquals($translations->find(null, 'and')->getFlags(), array('c-format'));
         $this->assertEquals($translations->find(null, 'Value %sr is not a valid choice.')->getExtractedComments(), array('This is a extracted comment'));
     }
@@ -59,14 +59,14 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $translations->find(null, 'This field cannot be null.')->getReferences(),
             array(
-                array('C:/Users/Me/Documents/foo2.php', '1')
+                array('C:/Users/Me/Documents/foo2.php', '1'),
             )
         );
 
         $this->assertEquals(
             $translations->find(null, 'This field cannot be blank.')->getReferences(),
             array(
-                array('C:/Users/Me/Documents/foo1.php', null)
+                array('C:/Users/Me/Documents/foo1.php', null),
             )
         );
 
@@ -82,7 +82,7 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
     public function testMultilineTranslation()
     {
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
-        
+
         $t1 = $translations->find(null, '{test1}');
         $this->assertInstanceOf('Gettext\\Translation', $t1);
 
