@@ -28,10 +28,6 @@ class Mo extends Generator implements GeneratorInterface
                 $originalString = $translation->getOriginal();
             }
 
-            if ($translation->hasPlural()) {
-                $originalString .= "\x00".$translation->getPlural();
-            }
-
             $array[$originalString] = $translation;
         }
 
@@ -48,6 +44,9 @@ class Mo extends Generator implements GeneratorInterface
                 $translationString = $translation;
             } else {
                 /* @var $translation \Gettext\Translation */
+                if ($translation->hasPlural()) {
+                    $originalString .= "\x00".$translation->getPlural();
+                }
                 $translationString = $translation->getTranslation();
 
                 if ($translation->hasPluralTranslation()) {
