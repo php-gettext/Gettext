@@ -249,4 +249,15 @@ class Translations extends \ArrayObject
             $this->exchangeArray($filtered);
         }
     }
+
+    /**
+     * Changes the plural count of all the translations. Please remark that partial plural translations will be emptied.
+     * @param int $plurals
+     */
+    public function setPluralCount($nplurals)
+    {
+        foreach ($this as $t) {
+            $t->setPluralCount($nplurals);
+        }
+    }
 }

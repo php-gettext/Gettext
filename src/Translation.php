@@ -370,4 +370,28 @@ class Translation
             $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
         }
     }
+
+    /**
+     * Changes the plural count of this translation. Please remark that partial plural translations will be emptied.
+     * @param int $plurals
+     */
+    public function setPluralCount($nplurals)
+    {
+        if ($this->hasPlural()) {
+            $newArraySize = $nplurals - 1;
+            if ($newArraySize < 1) {
+                $this->pluralTranslation = array();
+            } else {
+                $oldArraySize = count($this->pluralTranslation);
+                if ($newArraySize < $oldArraySize) {
+                    $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $newArraySize);
+                } elseif ($newArraySize > $oldArraySize) {
+                    $this->translation = '';
+                    $this->pluralTranslation = array_fill(0, $newArraySize, '');
+                }
+            }
+        } else {
+            $this->pluralTranslation = array();
+        }
+    }
 }
