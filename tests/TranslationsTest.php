@@ -22,7 +22,7 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('context', $translation->getContext());
 
         //Find by plural
-        $translation = $translations->find(null, 'text 10 with plural', 'The plural form');
+        $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
         $this->assertEquals('text 10 with plural', $translation->getOriginal());
@@ -40,9 +40,6 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($translation);
 
         $translation = $translations->find(null, 'no valid text 2');
-        $this->assertFalse($translation);
-
-        $translation = $translations->find(null, 'text 10 with plural');
         $this->assertFalse($translation);
     }
 

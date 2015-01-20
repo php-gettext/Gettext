@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)"
+
+# duplicate singular
+msgid "1 child"
+msgstr ""
+
+msgid "1 child"
+msgstr "1 fillo"
+
+# duplicate singular - plural
+msgid "1 comment"
+msgstr "1 comentario"
+
+msgid "1 comment"
+msgid_plural "%s comments"
+msgstr[0] ""
+msgstr[1] ""
+
+# duplicate plural - singular
+msgid "1 star"
+msgid_plural "%s stars"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "1 star"
+msgstr "1 estrela"

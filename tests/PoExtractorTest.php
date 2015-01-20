@@ -91,4 +91,30 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($t1->getTranslation(), $t2->getTranslation());
     }
+
+    public function testDuplicates()
+    {
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/duplicate.po');
+
+        //duplicate singular
+        $t = $translations->find(null, '1 child');
+        $this->assertInstanceOf('Gettext\\Translation', $t);
+        $this->assertEquals('1 fillo', $t->getTranslation());
+
+        //duplicate singular - plural
+        $t = $translations->find(null, '1 comment');
+        $this->assertInstanceOf('Gettext\\Translation', $t);
+        $this->assertEquals('%s comments', $t->getPlural());
+        $this->assertEquals('1 comentario', $t->getTranslation());
+        $this->assertTrue($t->hasPlural());
+        $this->assertTrue($t->hasPluralTranslation());
+
+        //duplicate plural - singular
+        $t = $translations->find(null, '1 star');
+        $this->assertInstanceOf('Gettext\\Translation', $t);
+        $this->assertEquals('%s stars', $t->getPlural());
+        $this->assertEquals('1 estrela', $t->getTranslation());
+        $this->assertTrue($t->hasPlural());
+        $this->assertTrue($t->hasPluralTranslation());
+    }
 }

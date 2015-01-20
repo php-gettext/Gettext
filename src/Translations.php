@@ -59,6 +59,25 @@ class Translations extends \ArrayObject
     }
 
     /**
+     * Control the new translations added
+     *
+     * @param mixed $index
+     * @param mixed $value
+     */
+    public function offsetSet($name, $value)
+    {
+        if (!($value instanceof Translation)) {
+            throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
+        }
+
+        if (($exists = $this->find($value))) {
+            $exists->mergeWith($value);
+        } else {
+            parent::offsetSet($name, $value);
+        }
+    }
+
+    /**
      * Set a new header.
      *
      * @param string $name
@@ -144,24 +163,21 @@ class Translations extends \ArrayObject
      *
      * @param string|Translation $context  The context of the translation or a translation instance
      * @param string             $original The original string
-     * @param string             $plural   The original plural string
      *
      * @return Translation|false
      */
-    public function find($context, $original = '', $plural = '')
+    public function find($context, $original = '')
     {
         if ($context instanceof Translation) {
             $original = $context->getOriginal();
-            $plural = $context->getPlural();
             $context = $context->getContext();
         } else {
-            $context = (string) $context;
             $original = (string) $original;
-            $plural = (string) $plural;
+            $context = (string) $context;
         }
 
         foreach ($this as $t) {
-            if ($t->is($context, $original, $plural)) {
+            if ($t->is($context, $original)) {
                 return $t;
             }
         }
@@ -212,12 +228,10 @@ class Translations extends \ArrayObject
         }
 
         $add = (boolean) ($method & self::MERGE_ADD);
-        $references = (boolean) ($method & self::MERGE_REFERENCES);
-        $comments = (boolean) ($method & self::MERGE_COMMENTS);
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $references, $comments);
+                $existing->mergeWith($entry, $method);
             } elseif ($add) {
                 $this[] = clone $entry;
             }

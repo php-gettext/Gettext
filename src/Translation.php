@@ -35,13 +35,12 @@ class Translation
      *
      * @param string $context
      * @param string $original
-     * @param string $plural
      *
      * @return boolean
      */
-    public function is($context, $original = '', $plural = '')
+    public function is($context, $original = '')
     {
-        return (($this->context === $context) && ($this->original === $original) && ($this->plural === $plural)) ? true : false;
+        return (($this->context === $context) && ($this->original === $original)) ? true : false;
     }
 
     /**
@@ -166,7 +165,7 @@ class Translation
     }
 
     /**
-     * Checks if there any plural translation
+     * Checks if there are any plural translation
      *
      * @return boolean
      */
@@ -338,27 +337,34 @@ class Translation
     /**
      * Merges this translation with other translation
      *
-     * @param Translation $translation The translation to merge with
-     * @param boolean     $references  Merge references?
-     * @param boolean     $comments    Merge comments?
+     * @param Translation  $translation The translation to merge with
+     * @param integer|null $method      One or various Translations::MERGE_* constants to define how to merge the translations
      */
-    public function mergeWith(Translation $translation, $references = true, $comments = true)
+    public function mergeWith(Translation $translation, $method = null)
     {
+        if ($method === null) {
+            $method = Translations::MERGE_REFERENCES | Translations::MERGE_COMMENTS;
+        }
+
         if (!$this->hasTranslation()) {
             $this->setTranslation($translation->getTranslation());
+        }
+
+        if (!$this->hasPlural()) {
+            $this->setPlural($translation->getPlural());
         }
 
         if (!$this->hasPluralTranslation() && $translation->hasPluralTranslation()) {
             $this->pluralTranslation = $translation->getPluralTranslation();
         }
 
-        if ($references) {
+        if ($method & Translations::MERGE_REFERENCES) {
             foreach ($translation->getReferences() as $reference) {
                 $this->addReference($reference[0], $reference[1]);
             }
         }
 
-        if ($comments) {
+        if ($method & Translations::MERGE_COMMENTS) {
             $this->comments = array_values(array_unique(array_merge($translation->getComments(), $this->comments)));
             $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
             $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));

@@ -8,8 +8,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bs\n"
-"POT-Creation-Date: 2015-01-16T00:50:15+01:00\n"
-"PO-Revision-Date: 2015-01-16T00:50:15+01:00\n"
+"POT-Creation-Date: 2015-01-20T21:31:51+01:00\n"
+"PO-Revision-Date: 2015-01-20T21:31:51+01:00\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.6.5\n"
 "X-Domain: testingdomain\n"
@@ -53,3 +53,11 @@ msgstr "Polje tipa: %ss"
 # a simple line comment is above
 msgid "Integer"
 msgstr "Cijeo broj"
+
+#: /var/www/test/test.php:96
+msgid "{test1}"
+msgstr "test1\n<div>\n test2\n</div>\ntest3"
+
+#: /var/www/test/test.php:96
+msgid "{test2}"
+msgstr "test1\n<div>\n test2\n</div>\ntest3"

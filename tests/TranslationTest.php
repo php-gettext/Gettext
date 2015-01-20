@@ -40,4 +40,16 @@ class TranslationTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $translation->getPluralTranslation());
         $this->assertEquals('texts 2', $translation->getPluralTranslation(0));
     }
+
+    public function testMerge()
+    {
+        $one = new Gettext\Translation(null, '1 child');
+        $two = new Gettext\Translation(null, '1 child');
+        $two->setTranslation('1 fillo');
+
+        $one->mergeWith($two);
+
+        $this->assertEquals('1 child', $one->getOriginal());
+        $this->assertEquals('1 fillo', $one->getTranslation());
+    }
 }
