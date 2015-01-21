@@ -281,19 +281,18 @@ class Translations extends \ArrayObject
             $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS;
         }
 
-        if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
-            $this->setLanguage($translations->getLanguage());
-        }
-
-        if ((!$this->hasDomain()) && $translations->hasDomain()) {
-            $this->setDomain($translations->getDomain());
-        }
-
         if ($method & self::MERGE_HEADERS) {
             foreach ($translations->getHeaders() as $name => $value) {
                 switch ($name) {
                     case self::HEADER_DOMAIN:
+                        if ((!$this->hasDomain()) && $translations->hasDomain()) {
+                            $this->setDomain($translations->getDomain());
+                        }
+                        break;
                     case self::HEADER_LANGUAGE:
+                        if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
+                            $this->setLanguage($translations->getLanguage());
+                        }
                         break;
                     default:
                         if (!$this->getHeader($name)) {
