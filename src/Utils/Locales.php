@@ -3,7 +3,11 @@ namespace Gettext\Utils;
 
 class Locales
 {
-    // Data from https://github.com/mlocati/concrete5-translation-library/blob/41abcdba30631ff42711aa82479dc505452e3725/src/Gettext.php#L109
+    /**
+     * Language definitions
+     * @var array
+     * @link http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
+     */
     protected static $localeInfo = array(
         'ach' => array('name' => 'Acholi', 'plurals' => 2, 'pluralRule' => '(n > 1)'),
         'af' => array('name' => 'Afrikaans', 'plurals' => 2, 'pluralRule' => '(n != 1)'),
@@ -152,13 +156,39 @@ class Locales
 
     /**
      * Returns the info of a locale
-     * 
+     *
      * @param string $code
-     * 
+     *
      * @return null|array
      */
     public static function getLocaleInfo($code)
     {
-        return isset(self::$localeInfo[$code]) ? self::$localeInfo[$code] : null;
+        $result = null;
+        // Locale identifier structure: see Unicode Language Identifier - http://www.unicode.org/reports/tr35/tr35-31/tr35.html#Unicode_language_identifier
+        if (is_string($code) && preg_match('/^([a-z]{2,3})(?:[_\-]([a-z]{4}))?(?:[_\-]([a-z]{2}|[0-9]{3}))?(?:$|[_\-])/i', $code, $matches)) {
+            $language = strtolower($matches[1]);
+            $script = isset($matches[2]) ? ucfirst(strtolower($matches[2])) : '';
+            $territory = isset($matches[3]) ? strtoupper($matches[3]) : '';
+            // Structure precedence: see Likely Subtags - http://www.unicode.org/reports/tr35/tr35-31/tr35.html#Likely_Subtags
+            $variants = array();
+            if (strlen($script) && strlen($territory)) {
+                $variants[] = "{$language}_{$script}_{$territory}";
+            }
+            if (strlen($script)) {
+                $variants[] = "{$language}_{$script}";
+            }
+            if (strlen($territory)) {
+                $variants[] = "{$language}_{$territory}";
+            }
+            $variants[] = $language;
+            foreach ($variants as $variant) {
+                if (isset(static::$localeInfo[$variant])) {
+                    $result = static::$localeInfo[$variant];
+                    break;
+                }
+            }
+        }
+
+        return $result;
     }
 }
