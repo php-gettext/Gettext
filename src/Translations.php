@@ -78,6 +78,21 @@ class Translations extends \ArrayObject
     }
 
     /**
+     * Set the plural definition
+     *
+     * @param integer $count
+     * @param string  $rule
+     */
+    public function setPluralForms($count, $rule)
+    {
+        $this->setHeader('Plural-Forms', "nplurals={$count}; plural={$rule};");
+
+        foreach ($this as $t) {
+            $t->setPluralCount($count);
+        }
+    }
+
+    /**
      * Set a new header.
      *
      * @param string $name
@@ -121,11 +136,21 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Sets the language value
+     * Sets the language and the plural forms
+     * 
+     * @param string $language
+     * 
+     * @return false If the language code is unknown
      */
     public function setLanguage($language)
     {
         $this->language = trim($language);
+
+        if (!($info = Utils\Locales::getLocaleInfo($language))) {
+            return false;
+        }
+
+        $this->setPluralForms($info['plurals'], $info['pluralRule']);
     }
 
     /**
@@ -247,17 +272,6 @@ class Translations extends \ArrayObject
             }
 
             $this->exchangeArray($filtered);
-        }
-    }
-
-    /**
-     * Changes the plural count of all the translations. Please remark that partial plural translations will be emptied.
-     * @param int $plurals
-     */
-    public function setPluralCount($nplurals)
-    {
-        foreach ($this as $t) {
-            $t->setPluralCount($nplurals);
         }
     }
 }

@@ -372,17 +372,21 @@ class Translation
     }
 
     /**
-     * Changes the plural count of this translation. Please remark that partial plural translations will be emptied.
-     * @param int $plurals
+     * Changes the plural count of this translation.
+     * Please remark that partial plural translations will be emptied.
+     * 
+     * @param integer $plurals
      */
     public function setPluralCount($nplurals)
     {
         if ($this->hasPlural()) {
             $newArraySize = $nplurals - 1;
+
             if ($newArraySize < 1) {
                 $this->pluralTranslation = array();
             } else {
                 $oldArraySize = count($this->pluralTranslation);
+
                 if ($newArraySize < $oldArraySize) {
                     $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $newArraySize);
                 } elseif ($newArraySize > $oldArraySize) {
