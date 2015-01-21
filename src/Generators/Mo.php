@@ -17,7 +17,7 @@ class Mo extends Generator implements GeneratorInterface
             $headers .= "$headerName: $headerValue\n";
         }
 
-        if (strlen($headers)) {
+        if ($headers !== '') {
             $array[''] = $headers;
         }
 

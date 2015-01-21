@@ -54,7 +54,7 @@ class Mo extends Extractor implements ExtractorInterface
             if ($original === '') {
                 // Headers
                 foreach (explode("\n", $translated) as $headerLine) {
-                    if (strlen($headerLine) > 0) {
+                    if ($headerLine !== '') {
                         $headerChunks = preg_split('/:\s*/', $headerLine, 2);
                         $translations->setHeader($headerChunks[0], isset($headerChunks[1]) ? $headerChunks[1] : '');
                     }

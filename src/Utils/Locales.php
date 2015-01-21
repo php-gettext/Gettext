@@ -174,15 +174,15 @@ class Locales
             // Structure precedence: see Likely Subtags - http://www.unicode.org/reports/tr35/tr35-31/tr35.html#Likely_Subtags
             $variants = array();
 
-            if (strlen($script) && strlen($territory)) {
+            if (($script !== '') && ($territory !== '')) {
                 $variants[] = "{$language}_{$script}_{$territory}";
             }
 
-            if (strlen($script)) {
+            if ($script !== '') {
                 $variants[] = "{$language}_{$script}";
             }
 
-            if (strlen($territory)) {
+            if ($territory !== '') {
                 $variants[] = "{$language}_{$territory}";
             }
 

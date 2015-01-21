@@ -196,7 +196,7 @@ class Translations extends \ArrayObject
     {
         $language = $this->getLanguage();
 
-        return (is_string($language) && (strlen($language) > 0)) ? true : false;
+        return (is_string($language) && ($language !== '')) ? true : false;
     }
 
     /**
@@ -228,7 +228,7 @@ class Translations extends \ArrayObject
     {
         $domain = $this->getDomain();
 
-        return (is_string($domain) && (strlen($domain) > 0)) ? true : false;
+        return (is_string($domain) && ($domain !== '')) ? true : false;
     }
 
     /**
