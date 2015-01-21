@@ -66,7 +66,7 @@ class PhpArray extends Extractor implements ExtractorInterface
             $translation = array_shift($message);
             $plural_translation = array_shift($message);
 
-            $entry = $translations->find($context, $original, $plural) ?: $translations->insert($context, $original, $plural);
+            $entry = $translations->insert($context, $original, $plural);
             $entry->setTranslation($translation);
             $entry->setPluralTranslation($plural_translation);
         }

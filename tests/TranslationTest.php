@@ -7,7 +7,7 @@ class TranslationTest extends PHPUnit_Framework_TestCase
     {
         //Extract translations
         $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
-        $translation = $translations->find(null, 'text 10 with plural', 'The plural form');
+        $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
 
@@ -26,10 +26,10 @@ class TranslationTest extends PHPUnit_Framework_TestCase
     {
         //Extract translations
         $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
-        $translation = $translations->find(null, 'text 10 with plural', 'The plural form');
+        $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertTrue($translation->hasPlural());
-        $this->assertTrue($translation->is('', 'text 10 with plural', 'The plural form'));
+        $this->assertTrue($translation->is('', 'text 10 with plural'));
 
         $translation = $translations->find(null, 'text 2');
 

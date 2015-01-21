@@ -98,7 +98,7 @@ $tranlations[] = new Gettext\Translation('comments', 'One comment', '%s comments
 $insertedTranslation = $translations->insert('comments', 'One comments', '%s comments');
 
 //Find a specific translation
-$translation = $translations->find('comments', 'One comments', '%s comments');
+$translation = $translations->find('comments', 'One comments');
 
 //Edit headers, the domain value, etc
 $translations->setHeader('Last-Translator', 'Oscar Otero');

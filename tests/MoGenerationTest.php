@@ -19,7 +19,7 @@ class MoGenerationTest extends PHPUnit_Framework_TestCase
         $this->assertSame($originalTranslations->count(), $decompiledTranslations->count());
 
         foreach ($originalTranslations as $originalTranslation) {
-            $decompiledTranslation = $decompiledTranslations->find($originalTranslation->getContext(), $originalTranslation->getOriginal(), $originalTranslation->getPlural());
+            $decompiledTranslation = $decompiledTranslations->find($originalTranslation->getContext(), $originalTranslation->getOriginal());
             $this->assertInstanceOf('Gettext\\Translation', $decompiledTranslation, 'Translation not found: context="'.$originalTranslation->getContext().'", original="'.$originalTranslation->getOriginal().'"');
             $this->assertSame($originalTranslation->getTranslation(), $decompiledTranslation->getTranslation());
             $this->assertSame($originalTranslation->getPluralTranslation(), $decompiledTranslation->getPluralTranslation());
