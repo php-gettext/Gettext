@@ -164,23 +164,30 @@ class Locales
     public static function getLocaleInfo($code)
     {
         $result = null;
+
         // Locale identifier structure: see Unicode Language Identifier - http://www.unicode.org/reports/tr35/tr35-31/tr35.html#Unicode_language_identifier
         if (is_string($code) && preg_match('/^([a-z]{2,3})(?:[_\-]([a-z]{4}))?(?:[_\-]([a-z]{2}|[0-9]{3}))?(?:$|[_\-])/i', $code, $matches)) {
             $language = strtolower($matches[1]);
             $script = isset($matches[2]) ? ucfirst(strtolower($matches[2])) : '';
             $territory = isset($matches[3]) ? strtoupper($matches[3]) : '';
+
             // Structure precedence: see Likely Subtags - http://www.unicode.org/reports/tr35/tr35-31/tr35.html#Likely_Subtags
             $variants = array();
+
             if (strlen($script) && strlen($territory)) {
                 $variants[] = "{$language}_{$script}_{$territory}";
             }
+
             if (strlen($script)) {
                 $variants[] = "{$language}_{$script}";
             }
+
             if (strlen($territory)) {
                 $variants[] = "{$language}_{$territory}";
             }
+
             $variants[] = $language;
+
             foreach ($variants as $variant) {
                 if (isset(static::$localeInfo[$variant])) {
                     $result = static::$localeInfo[$variant];

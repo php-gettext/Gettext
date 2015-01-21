@@ -374,7 +374,7 @@ class Translation
     /**
      * Changes the plural count of this translation.
      * Please remark that partial plural translations will be emptied.
-     * 
+     *
      * @param integer $plurals
      */
     public function setPluralCount($nplurals)

@@ -63,9 +63,9 @@ class Translations extends \ArrayObject
      *
      * @param mixed $index
      * @param mixed $value
-     * 
+     *
      * @throws InvalidArgumentException If the value is not an instance of Gettext\Translation
-     * 
+     *
      * @return Translation
      */
     public function offsetSet($index, $value)
@@ -76,9 +76,10 @@ class Translations extends \ArrayObject
 
         if (($exists = $this->find($value))) {
             $exists->mergeWith($value);
+
             return $exists;
         }
-        
+
         parent::offsetSet($index, $value);
 
         return $value;
@@ -144,9 +145,9 @@ class Translations extends \ArrayObject
 
     /**
      * Sets the language and the plural forms
-     * 
+     *
      * @param string $language
-     * 
+     *
      * @return false If the language code is unknown
      */
     public function setLanguage($language)
