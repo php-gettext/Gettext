@@ -16,9 +16,11 @@ class Translations extends \ArrayObject
     const MERGE_DEFAULT =  29; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES
 
     const HEADER_LANGUAGE = 'Language';
+    const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
 
     private $headers;
+    private $translationCount;
 
     /**
      * @see \ArrayObject::__construct()
@@ -100,9 +102,12 @@ class Translations extends \ArrayObject
 
         if (($exists = $this->find($value))) {
             $exists->mergeWith($value);
+            $exists->setTranslationCount($this->translationCount);
 
             return $exists;
         }
+
+        $value->setTranslationCount($this->translationCount);
 
         parent::offsetSet($index, $value);
 
@@ -117,11 +122,7 @@ class Translations extends \ArrayObject
      */
     public function setPluralForms($count, $rule)
     {
-        $this->setHeader('Plural-Forms', "nplurals={$count}; plural={$rule};");
-
-        foreach ($this as $t) {
-            $t->setPluralCount($count);
-        }
+        $this->setHeader(self::HEADER_PLURAL, "nplurals={$count}; plural={$rule};");
     }
 
     /**
@@ -131,9 +132,9 @@ class Translations extends \ArrayObject
      */
     public function getPluralForms()
     {
-        $header = $this->getHeader('Plural-Forms');
+        $header = $this->getHeader(self::HEADER_PLURAL);
 
-        if ($header && preg_match('/^nplurals=(\d+);plural=(.*);$/ix', $pluralForms, $matches)) {
+        if ($header && preg_match('/^nplurals=(\d+);plural=(.*);$/ix', $header, $matches)) {
             return array(
                 'plurals' => intval($matches[1]),
                 'pluralRule' => $matches[2],
@@ -149,7 +150,18 @@ class Translations extends \ArrayObject
      */
     public function setHeader($name, $value)
     {
-        $this->headers[trim($name)] = trim($value);
+        $name = trim($name);
+        $this->headers[$name] = trim($value);
+
+        if ($name === self::HEADER_PLURAL && ($forms = $this->getPluralForms())) {
+            $this->translationCount = $forms['plurals'];
+
+            foreach ($this as $t) {
+                $t->setPluralCount($count);
+            }
+        } else {
+            $this->translationCount = null;
+        }
     }
 
     /**
@@ -172,6 +184,24 @@ class Translations extends \ArrayObject
     public function getHeaders()
     {
         return $this->headers;
+    }
+
+    /**
+     * Removes all headers
+     */
+    public function deleteHeaders()
+    {
+        $this->headers = array();
+    }
+
+    /**
+     * Removes one headers
+     * 
+     * @param string $name
+     */
+    public function deleteHeader($name)
+    {
+        unset($this->headers[$name]);
     }
 
     /**

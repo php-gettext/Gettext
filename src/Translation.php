@@ -15,6 +15,7 @@ class Translation
     protected $comments = array();
     protected $extractedComments = array();
     protected $flags = array();
+    protected $translationCount;
 
     /**
      * Construct
@@ -111,6 +112,8 @@ class Translation
     public function setPlural($plural)
     {
         $this->plural = (string) $plural;
+
+        $this->normalizeTranslationCount();
     }
 
     /**
@@ -146,6 +149,8 @@ class Translation
         } else {
             $this->pluralTranslation[$key] = $plural;
         }
+
+        $this->normalizeTranslationCount();
     }
 
     /**
@@ -175,14 +180,59 @@ class Translation
     }
 
     /**
-     * Returns the number of plural translations
+     * Removes all plural translations
+     */
+    public function deletePluralTranslation()
+    {
+        $this->pluralTranslation = array();
+
+        $this->normalizeTranslationCount();
+    }
+
+    /**
+     * Set the number of singular + plural translations allowed
+     *
+     * @param integer $count
+     */
+    public function setTranslationCount($count)
+    {
+        $this->translationCount = is_null($count) ? null : intval($count);
+
+        $this->normalizeTranslationCount();
+    }
+
+    /**
+     * Returns the number of singular + plural translations
      * Returns null if this Translation is not a plural one
      *
      * @return integer|null
      */
-    public function getPluralTranslationCount()
+    public function getTranslationCount()
     {
-        return $this->hasPlural() ? (1 + count($this->pluralTranslation)) : null;
+        return $this->hasPlural() ? $this->translationCount : null;
+    }
+
+    /**
+     * Normalizes the translation count
+     */
+    protected function normalizeTranslationCount()
+    {
+        if ($this->translationCount === null) {
+            return;
+        }
+
+        if ($this->hasPlural()) {
+            $allowed = $this->translationCount - 1;
+            $current = count($this->pluralTranslation);
+
+            if ($allowed > $current) {
+                $this->pluralTranslation = $this->pluralTranslation + array_fill(0, $allowed, null);
+            } elseif ($allowed > $current) {
+                $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $allowed);
+            }
+        } else {
+            $this->pluralTranslation = array();
+        }
     }
 
     /**
@@ -238,14 +288,6 @@ class Translation
     }
 
     /**
-     * Clear all references
-     */
-    public function wipeReferences()
-    {
-        $this->references = array();
-    }
-
-    /**
      * Return all references for this translation
      *
      * @return array
@@ -253,6 +295,14 @@ class Translation
     public function getReferences()
     {
         return array_values($this->references);
+    }
+
+    /**
+     * Removes all references
+     */
+    public function deleteReferences()
+    {
+        $this->references = array();
     }
 
     /**
@@ -286,6 +336,14 @@ class Translation
     }
 
     /**
+     * Removes all comments
+     */
+    public function deleteComments()
+    {
+        $this->comments = array();
+    }
+
+    /**
      * Adds a new extracted comment for this translation
      *
      * @param string $comment
@@ -316,6 +374,14 @@ class Translation
     }
 
     /**
+     * Removes all extracted comments
+     */
+    public function deleteExtractedComments()
+    {
+        $this->extractedComments = array();
+    }
+
+    /**
      * Adds a new flat for this translation
      *
      * @param string $flag
@@ -343,6 +409,14 @@ class Translation
     public function getFlags()
     {
         return $this->flags;
+    }
+
+    /**
+     * Removes all flags
+     */
+    public function deleteFlags()
+    {
+        $this->flags = array();
     }
 
     /**
@@ -379,34 +453,6 @@ class Translation
             $this->comments = array_values(array_unique(array_merge($translation->getComments(), $this->comments)));
             $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
             $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
-        }
-    }
-
-    /**
-     * Changes the plural count of this translation.
-     * Please remark that partial plural translations will be emptied.
-     *
-     * @param integer $plurals
-     */
-    public function setPluralCount($nplurals)
-    {
-        if ($this->hasPlural()) {
-            $newArraySize = $nplurals - 1;
-
-            if ($newArraySize < 1) {
-                $this->pluralTranslation = array();
-            } else {
-                $oldArraySize = count($this->pluralTranslation);
-
-                if ($newArraySize < $oldArraySize) {
-                    $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $newArraySize);
-                } elseif ($newArraySize > $oldArraySize) {
-                    $this->translation = '';
-                    $this->pluralTranslation = array_fill(0, $newArraySize, '');
-                }
-            }
-        } else {
-            $this->pluralTranslation = array();
         }
     }
 }

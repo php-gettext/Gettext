@@ -18,7 +18,7 @@ class TranslationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(__DIR__.'/files/phpcode.php', $references[0][0]);
         $this->assertEquals(19, $references[0][1]);
 
-        $translation->wipeReferences();
+        $translation->deleteReferences();
         $this->assertCount(0, $translation->getReferences());
     }
 
