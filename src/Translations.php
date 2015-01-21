@@ -161,7 +161,7 @@ class Translations extends \ArrayObject
      */
     public function getLanguage()
     {
-        return (string) $this->getHeader(self::HEADER_LANGUAGE);
+        return $this->getHeader(self::HEADER_LANGUAGE);
     }
 
     /**
@@ -185,6 +185,18 @@ class Translations extends \ArrayObject
     }
 
     /**
+     * Checks whether the language is empty or not
+     *
+     * @return boolean
+     */
+    public function hasLanguage()
+    {
+        $language = $this->getDomain();
+
+        return (is_string($language) && (strlen($language) > 0)) ? true : false;
+    }
+
+    /**
      * Set a new domain for this translations
      *
      * @param string $domain
@@ -201,7 +213,7 @@ class Translations extends \ArrayObject
      */
     public function getDomain()
     {
-        return (string) $this->getHeader(self::HEADER_DOMAIN);
+        return $this->getHeader(self::HEADER_DOMAIN);
     }
 
     /**
@@ -211,7 +223,9 @@ class Translations extends \ArrayObject
      */
     public function hasDomain()
     {
-        return (strlen($this->getDomain()) > 0) ? true : false;
+        $domain = $this->getDomain();
+
+        return (is_string($domain) && (strlen($domain) > 0)) ? true : false;
     }
 
     /**
@@ -267,18 +281,25 @@ class Translations extends \ArrayObject
             $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS;
         }
 
-        if (!$this->getLanguage()) {
+        if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
             $this->setLanguage($translations->getLanguage());
         }
 
-        if (!$this->getDomain()) {
+        if ((!$this->hasDomain()) && $translations->hasDomain()) {
             $this->setDomain($translations->getDomain());
         }
 
         if ($method & self::MERGE_HEADERS) {
             foreach ($translations->getHeaders() as $name => $value) {
-                if (!$this->getHeader($name)) {
-                    $this->setHeader($name, $value);
+                switch ($name) {
+                    case self::HEADER_DOMAIN:
+                    case self::HEADER_LANGUAGE:
+                        break;
+                    default:
+                        if (!$this->getHeader($name)) {
+                            $this->setHeader($name, $value);
+                        }
+                        break;
                 }
             }
         }
