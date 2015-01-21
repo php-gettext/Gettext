@@ -64,7 +64,7 @@ class Translations extends \ArrayObject
      * @param mixed $index
      * @param mixed $value
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($index, $value)
     {
         if (!($value instanceof Translation)) {
             throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
@@ -73,7 +73,7 @@ class Translations extends \ArrayObject
         if (($exists = $this->find($value))) {
             $exists->mergeWith($value);
         } else {
-            parent::offsetSet($name, $value);
+            parent::offsetSet($index, $value);
         }
     }
 
