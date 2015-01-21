@@ -12,18 +12,8 @@ class Po extends Generator implements GeneratorInterface
     {
         $lines = array('msgid ""', 'msgstr ""');
 
-        $headers = array_replace(array(
-            'Project-Id-Version' => '',
-            'Report-Msgid-Bugs-To' => '',
-            'Last-Translator' => '',
-            'Language-Team' => '',
-            'MIME-Version' => '1.0',
-            'Content-Type' => 'text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding' => '8bit',
-            'Language' => $translations->getLanguage(),
-        ), $translations->getHeaders());
-
-        $headers['POT-Creation-Date'] = $headers['PO-Revision-Date'] = date('c');
+        $headers = $translations->getHeaders();
+        $headers['PO-Revision-Date'] = date('c');
 
         foreach ($headers as $name => $value) {
             $lines[] = '"'.$name.': '.$value.'\\n"';

@@ -12,12 +12,6 @@ class Po extends Extractor implements ExtractorInterface
     /**
      * Parses a .po file and append the translations found in the Translations instance
      *
-     * There are two special headers which will automatically set their
-     * related value in the object.
-     *
-     *  X-domain: When found, automatically sets the domain for this object
-     *  Language: When found, automatically sets the language for this object
-     *
      * {@inheritDoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
@@ -37,16 +31,6 @@ class Po extends Extractor implements ExtractorInterface
                 $header = array_map('trim', explode(':', $line, 2));
                 $currentHeader = $header[0];
                 $translations->setHeader($currentHeader, $header[1]);
-
-                switch (strtolower($currentHeader)) {
-                    case 'x-domain':
-                        $translations->setDomain($header[1]);
-                        break;
-
-                    case 'language':
-                        $translations->setLanguage($header[1]);
-                        break;
-                }
             } else {
                 $entry = $translations->getHeader($currentHeader);
                 $translations->setHeader($currentHeader, $entry.$line);

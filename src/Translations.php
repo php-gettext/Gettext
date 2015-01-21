@@ -12,9 +12,30 @@ class Translations extends \ArrayObject
     const MERGE_REFERENCES = 8;
     const MERGE_COMMENTS = 16;
 
-    private $domain = null;
-    private $language = null;
-    private $headers = array();
+    const HEADER_LANGUAGE = 'Language';
+    const HEADER_DOMAIN = 'X-Domain';
+
+    private $headers;
+
+    /**
+     * @see \ArrayObject::__construct()
+     */
+    public function __construct($input = array(), $flags = 0, $iterator_class = 'ArrayIterator')
+    {
+        $this->headers = array(
+            'Project-Id-Version' => '',
+            'Report-Msgid-Bugs-To' => '',
+            'Last-Translator' => '',
+            'Language-Team' => '',
+            'MIME-Version' => '1.0',
+            'Content-Type' => 'text/plain; charset=UTF-8',
+            'Content-Transfer-Encoding' => '8bit',
+            'POT-Creation-Date' => date('c'),
+            'PO-Revision-Date' => date('c'),
+        );
+        $this->headers[self::HEADER_LANGUAGE] = '';
+        parent::__construct($input, $flags, $iterator_class);
+    }
 
     /**
      * Magic method to create new instances using extractors
@@ -140,7 +161,7 @@ class Translations extends \ArrayObject
      */
     public function getLanguage()
     {
-        return $this->language;
+        return (string) $this->getHeader(self::HEADER_LANGUAGE);
     }
 
     /**
@@ -152,10 +173,11 @@ class Translations extends \ArrayObject
      */
     public function setLanguage($language)
     {
-        $this->language = trim($language);
+        $this->setHeader(self::HEADER_LANGUAGE, trim($language));
 
         if (($info = Utils\Locales::getLocaleInfo($language))) {
             $this->setPluralForms($info['plurals'], $info['pluralRule']);
+
             return true;
         }
 
@@ -169,7 +191,7 @@ class Translations extends \ArrayObject
      */
     public function setDomain($domain)
     {
-        $this->domain = trim($domain);
+        $this->setHeader(self::HEADER_DOMAIN, trim($domain));
     }
 
     /**
@@ -179,7 +201,7 @@ class Translations extends \ArrayObject
      */
     public function getDomain()
     {
-        return $this->domain;
+        return (string) $this->getHeader(self::HEADER_DOMAIN);
     }
 
     /**
@@ -189,7 +211,7 @@ class Translations extends \ArrayObject
      */
     public function hasDomain()
     {
-        return (isset($this->domain) && $this->domain !== '') ? true : false;
+        return (strlen($this->getDomain()) > 0) ? true : false;
     }
 
     /**

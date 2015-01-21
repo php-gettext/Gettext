@@ -47,8 +47,8 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         //Extract po with no language/domain headers
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
 
-        $this->assertNull($translations->getLanguage(), 'Something erroneously set for language');
-        $this->assertNull($translations->getDomain(), 'Something erroneously set for domain');
+        $this->assertEmpty($translations->getLanguage(), 'Something erroneously set for language');
+        $this->assertEmpty($translations->getDomain(), 'Something erroneously set for domain');
     }
 
     public function testReferences()
