@@ -278,7 +278,15 @@ class Translations extends \ArrayObject
     public function mergeWith(Translations $translations, $method = null)
     {
         if ($method === null) {
-            $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS;
+            $method = self::MERGE_ADD | self::MERGE_COMMENTS | self::MERGE_REFERENCES;
+        }
+
+        if (!$this->getLanguage()) {
+            $this->setLanguage($translations->getLanguage());
+        }
+
+        if (!$this->getDomain()) {
+            $this->setDomain($translations->getDomain());
         }
 
         if ($method & self::MERGE_HEADERS) {
@@ -303,13 +311,48 @@ class Translations extends \ArrayObject
             }
         }
 
+        $myPluralCount = null;
+        foreach ($this as $entry) {
+            $myPluralCount = $entry->getPluralTranslationCount();
+            if (isset($myPluralCount)) {
+                break;
+            }
+        }
+        if (!isset($myPluralCount)) {
+            $pluralForms = $this->getHeader('Plural-Forms');
+            if (isset($pluralForms) && preg_match('/nplurals\s*=\s*(\d+)/i', $pluralForms, $matches)) {
+                $myPluralCount = intval($matches[1]);
+            }
+        }
+
         $add = (boolean) ($method & self::MERGE_ADD);
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
                 $existing->mergeWith($entry, $method);
+                if (isset($myPluralCount)) {
+                    $newPluralCount = $existing->getPluralTranslationCount();
+                    if (isset($newPluralCount) && ($newPluralCount != $myPluralCount)) {
+                        $existing->setTranslation('');
+                        $existing->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
+                    }
+                } else {
+                    $myPluralCount = $existing->getPluralTranslationCount();
+                }
             } elseif ($add) {
-                $this[] = clone $entry;
+                $new = clone $entry;
+                $newPluralCount = $new->getPluralTranslationCount();
+                if (isset($newPluralCount)) {
+                    if (isset($myPluralCount)) {
+                        if ($newPluralCount !== $myPluralCount) {
+                            $new->setTranslation('');
+                            $new->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
+                        }
+                    } else {
+                        $myPluralCount = $newPluralCount;
+                    }
+                }
+                $this[] = $new;
             }
         }
 

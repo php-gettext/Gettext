@@ -175,6 +175,17 @@ class Translation
     }
 
     /**
+     * Returns the number of plural translations
+     * Returns null if this Translation is not a plural one
+     *
+     * @return integer|null
+     */
+    public function getPluralTranslationCount()
+    {
+        return $this->hasPlural() ? (1 + count($this->pluralTranslation)) : null;
+    }
+
+    /**
      * Sets the context of this translation
      *
      * @param string $context
