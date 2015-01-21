@@ -125,6 +125,23 @@ class Translations extends \ArrayObject
     }
 
     /**
+     * Returns the parsed plural definition
+     *
+     * @param null|array [count, rule]
+     */
+    public function getPluralForms()
+    {
+        $header = $this->getHeader('Plural-Forms');
+
+        if ($header && preg_match('/^nplurals=(\d+);plural=(.*);$/ix', $pluralForms, $matches)) {
+            return array(
+                'plurals' => intval($matches[1]),
+                'pluralRule' => $matches[2],
+            );
+        }
+    }
+
+    /**
      * Set a new header.
      *
      * @param string $name
@@ -284,50 +301,11 @@ class Translations extends \ArrayObject
             $method = self::MERGE_DEFAULT;
         }
 
-        if (!$this->getLanguage()) {
-            $this->setLanguage($translations->getLanguage());
-        }
-
-        if (!$this->getDomain()) {
-            $this->setDomain($translations->getDomain());
-        }
-
         if ($method & self::MERGE_HEADERS) {
             foreach ($translations->getHeaders() as $name => $value) {
-                switch ($name) {
-                    case self::HEADER_DOMAIN:
-                        if ((!$this->hasDomain()) && $translations->hasDomain()) {
-                            $this->setDomain($translations->getDomain());
-                        }
-                        break;
-                    case self::HEADER_LANGUAGE:
-                        break;
-                    default:
-                        if (!$this->getHeader($name)) {
-                            $this->setHeader($name, $value);
-                        }
-                        break;
+                if (!$this->getHeader($name)) {
+                    $this->setHeader($name, $value);
                 }
-            }
-        }
-
-        if ($method & self::MERGE_LANGUAGE) {
-            if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
-                $this->setLanguage($translations->getLanguage());
-            }
-        }
-
-        $myPluralCount = null;
-        foreach ($this as $entry) {
-            $myPluralCount = $entry->getPluralTranslationCount();
-            if (isset($myPluralCount)) {
-                break;
-            }
-        }
-        if (!isset($myPluralCount)) {
-            $pluralForms = $this->getHeader('Plural-Forms');
-            if (isset($pluralForms) && preg_match('/nplurals\s*=\s*(\d+)/i', $pluralForms, $matches)) {
-                $myPluralCount = intval($matches[1]);
             }
         }
 
@@ -335,32 +313,9 @@ class Translations extends \ArrayObject
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                if ($existing->hasPlural() == $entry->hasPlural()) {
-                    $existing->mergeWith($entry, $method);
-                    if (isset($myPluralCount)) {
-                        $newPluralCount = $existing->getPluralTranslationCount();
-                        if (isset($newPluralCount) && ($newPluralCount != $myPluralCount)) {
-                            $existing->setTranslation('');
-                            $existing->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
-                        }
-                    } else {
-                        $myPluralCount = $existing->getPluralTranslationCount();
-                    }
-                }
+                $existing->mergeWith($entry, $method);
             } elseif ($add) {
-                $new = clone $entry;
-                $newPluralCount = $new->getPluralTranslationCount();
-                if (isset($newPluralCount)) {
-                    if (isset($myPluralCount)) {
-                        if ($newPluralCount !== $myPluralCount) {
-                            $new->setTranslation('');
-                            $new->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
-                        }
-                    } else {
-                        $myPluralCount = $newPluralCount;
-                    }
-                }
-                $this[] = $new;
+                $this[] = clone $entry;
             }
         }
 
@@ -374,6 +329,23 @@ class Translations extends \ArrayObject
             }
 
             $this->exchangeArray($filtered);
+        }
+
+        if ($method & self::MERGE_LANGUAGE) {
+            $language = $translations->getLanguage();
+            $pluralForm = $translations->getPluralForms();
+
+            if (!$pluralForm) {
+                if ($language) {
+                    $this->setLanguage($language);
+                }
+            } else {
+                if ($language) {
+                    $this->setHeader(self::HEADER_LANGUAGE, $language);
+                }
+
+                $this->setPluralForms($pluralForm['plurals'], $pluralForm['pluralRule']);
+            }
         }
     }
 }

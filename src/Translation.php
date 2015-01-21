@@ -354,7 +354,7 @@ class Translation
     public function mergeWith(Translation $translation, $method = null)
     {
         if ($method === null) {
-            $method = Translations::MERGE_REFERENCES | Translations::MERGE_COMMENTS;
+            $method = Translations::MERGE_DEFAULT;
         }
 
         if (!$this->hasTranslation()) {
