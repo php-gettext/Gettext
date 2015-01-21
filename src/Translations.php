@@ -152,15 +152,14 @@ class Translations extends \ArrayObject
      */
     public function setLanguage($language)
     {
-        $result = false;
         $this->language = trim($language);
 
-        if (!($info = Utils\Locales::getLocaleInfo($language))) {
+        if (($info = Utils\Locales::getLocaleInfo($language))) {
             $this->setPluralForms($info['plurals'], $info['pluralRule']);
-            $result = true;
+            return true;
         }
 
-        return $result;
+        return false;
     }
 
     /**
