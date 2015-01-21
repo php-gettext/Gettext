@@ -191,7 +191,7 @@ class Translations extends \ArrayObject
      */
     public function hasLanguage()
     {
-        $language = $this->getDomain();
+        $language = $this->getLanguage();
 
         return (is_string($language) && (strlen($language) > 0)) ? true : false;
     }
