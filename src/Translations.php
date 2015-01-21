@@ -148,17 +148,19 @@ class Translations extends \ArrayObject
      *
      * @param string $language
      *
-     * @return false If the language code is unknown
+     * @return boolean Returns true if the plural rules has been updated, false if $language hasn't been recognized
      */
     public function setLanguage($language)
     {
+        $result = false;
         $this->language = trim($language);
 
         if (!($info = Utils\Locales::getLocaleInfo($language))) {
-            return false;
+            $this->setPluralForms($info['plurals'], $info['pluralRule']);
+            $result = true;
         }
 
-        $this->setPluralForms($info['plurals'], $info['pluralRule']);
+        return $result;
     }
 
     /**
