@@ -3,7 +3,11 @@ namespace Gettext\Utils;
 
 class Locales
 {
-    // Data from https://github.com/mlocati/concrete5-translation-library/blob/41abcdba30631ff42711aa82479dc505452e3725/src/Gettext.php#L109
+    /**
+     * Language definitions
+     * @var array
+     * @link http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
+     */
     protected static $localeInfo = array(
         'ach' => array('name' => 'Acholi', 'plurals' => 2, 'pluralRule' => '(n > 1)'),
         'af' => array('name' => 'Afrikaans', 'plurals' => 2, 'pluralRule' => '(n != 1)'),
