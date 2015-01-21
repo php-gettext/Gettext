@@ -11,6 +11,7 @@ class Translations extends \ArrayObject
     const MERGE_HEADERS = 4;
     const MERGE_REFERENCES = 8;
     const MERGE_COMMENTS = 16;
+    const MERGE_LANGUAGE = 32;
 
     const HEADER_LANGUAGE = 'Language';
     const HEADER_DOMAIN = 'X-Domain';
@@ -278,7 +279,7 @@ class Translations extends \ArrayObject
     public function mergeWith(Translations $translations, $method = null)
     {
         if ($method === null) {
-            $method = self::MERGE_ADD | self::MERGE_COMMENTS | self::MERGE_REFERENCES;
+            $method = self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES;
         }
 
         if (!$this->getLanguage()) {
@@ -298,9 +299,6 @@ class Translations extends \ArrayObject
                         }
                         break;
                     case self::HEADER_LANGUAGE:
-                        if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
-                            $this->setLanguage($translations->getLanguage());
-                        }
                         break;
                     default:
                         if (!$this->getHeader($name)) {
@@ -308,6 +306,12 @@ class Translations extends \ArrayObject
                         }
                         break;
                 }
+            }
+        }
+
+        if ($method & self::MERGE_LANGUAGE) {
+            if ((!$this->hasLanguage()) && $translations->hasLanguage()) {
+                $this->setLanguage($translations->getLanguage());
             }
         }
 
