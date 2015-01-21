@@ -329,15 +329,17 @@ class Translations extends \ArrayObject
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $method);
-                if (isset($myPluralCount)) {
-                    $newPluralCount = $existing->getPluralTranslationCount();
-                    if (isset($newPluralCount) && ($newPluralCount != $myPluralCount)) {
-                        $existing->setTranslation('');
-                        $existing->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
+                if ($existing->hasPlural() == $entry->hasPlural()) {
+                    $existing->mergeWith($entry, $method);
+                    if (isset($myPluralCount)) {
+                        $newPluralCount = $existing->getPluralTranslationCount();
+                        if (isset($newPluralCount) && ($newPluralCount != $myPluralCount)) {
+                            $existing->setTranslation('');
+                            $existing->setPluralTranslation(($myPluralCount > 1) ? array_fill(0, $myPluralCount - 1, '') : array());
+                        }
+                    } else {
+                        $myPluralCount = $existing->getPluralTranslationCount();
                     }
-                } else {
-                    $myPluralCount = $existing->getPluralTranslationCount();
                 }
             } elseif ($add) {
                 $new = clone $entry;
