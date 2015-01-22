@@ -118,14 +118,8 @@ class JsFunctionsScanner extends FunctionsScanner
                 case ')':
                     switch ($this->status()) {
                         case 'function':
-                            if ($buffer && ($buffer[0] === '"' || $buffer[0] === "'")) {
-                                if ($buffer[0] === '"') {
-                                    $buffer = str_replace('\\"', '"', $buffer);
-                                } else {
-                                    $buffer = str_replace("\\'", "'", $buffer);
-                                }
-
-                                $bufferFunctions[0][2][] = substr($buffer, 1, -1);
+                            if (($argument = self::prepareArgument($buffer))) {
+                                $bufferFunctions[0][2][] = $argument;
                             }
 
                             if ($bufferFunctions) {
@@ -139,14 +133,8 @@ class JsFunctionsScanner extends FunctionsScanner
                 case ',':
                     switch ($this->status()) {
                         case 'function':
-                            if ($buffer && ($buffer[0] === '"' || $buffer[0] === "'")) {
-                                if ($buffer[0] === '"') {
-                                    $buffer = str_replace('\\"', '"', $buffer);
-                                } else {
-                                    $buffer = str_replace("\\'", "'", $buffer);
-                                }
-
-                                $bufferFunctions[0][2][] = substr($buffer, 1, -1);
+                            if (($argument = self::prepareArgument($buffer))) {
+                                $bufferFunctions[0][2][] = $argument;
                             }
 
                             $buffer = '';
@@ -187,5 +175,18 @@ class JsFunctionsScanner extends FunctionsScanner
     protected function upStatus()
     {
         return array_shift($this->status);
+    }
+
+    protected static function prepareArgument($argument)
+    {
+        if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {
+            if ($argument[0] === '"') {
+                $argument = str_replace('\\"', '"', $argument);
+            } else {
+                $argument = str_replace("\\'", "'", $argument);
+            }
+
+            return substr($argument, 1, -1);
+        }
     }
 }
