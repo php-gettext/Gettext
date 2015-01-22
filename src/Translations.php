@@ -83,7 +83,7 @@ class Translations extends \ArrayObject
         foreach ($this as $key => $translation) {
             $array[$key] = clone $translation;
         }
-		  $this->exchangeArray($array);
+        $this->exchangeArray($array);
     }
 
     /**
