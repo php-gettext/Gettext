@@ -134,7 +134,7 @@ class Translations extends \ArrayObject
     {
         $header = $this->getHeader(self::HEADER_PLURAL);
 
-        if ($header && preg_match('/^nplurals=(\d+);plural=(.*);$/ix', $header, $matches)) {
+        if ($header && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
             return array(
                 'plurals' => intval($matches[1]),
                 'pluralRule' => $matches[2],
@@ -196,7 +196,7 @@ class Translations extends \ArrayObject
 
     /**
      * Removes one headers
-     * 
+     *
      * @param string $name
      */
     public function deleteHeader($name)
