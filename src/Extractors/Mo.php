@@ -88,7 +88,7 @@ class Mo extends Extractor implements ExtractorInterface
                             if ($pluralIndex === 0) {
                                 $translation->setTranslation($pluralValue);
                             } else {
-                                $translation->setPluralTranslation($pluralValue);
+                                $translation->setPluralTranslation($pluralValue, $pluralIndex - 1);
                             }
                         }
                     }
