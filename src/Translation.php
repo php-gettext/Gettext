@@ -171,7 +171,7 @@ class Translation
      */
     public function hasPluralTranslation()
     {
-        return !empty(implode('', $this->pluralTranslation));
+        return implode('', $this->pluralTranslation) !== '';
     }
 
     /**
