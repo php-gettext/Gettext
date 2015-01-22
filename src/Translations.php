@@ -79,9 +79,11 @@ class Translations extends \ArrayObject
      */
     public function __clone()
     {
+        $array = array();
         foreach ($this as $key => $translation) {
-            $this[$key] = clone $translation;
+            $array[$key] = clone $translation;
         }
+		  $this->exchangeArray($array);
     }
 
     /**
