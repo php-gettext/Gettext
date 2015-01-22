@@ -13,11 +13,11 @@ class Translations extends \ArrayObject
     const MERGE_COMMENTS = 16;
     const MERGE_LANGUAGE = 32;
 
-    const MERGE_DEFAULT =  29; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES
-
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
+
+    public static $mergeDefault =  29; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES
 
     private $headers;
     private $translationCount;
@@ -331,7 +331,7 @@ class Translations extends \ArrayObject
     public function mergeWith(Translations $translations, $method = null)
     {
         if ($method === null) {
-            $method = self::MERGE_DEFAULT;
+            $method = self::$mergeDefault;
         }
 
         if ($method & self::MERGE_HEADERS) {

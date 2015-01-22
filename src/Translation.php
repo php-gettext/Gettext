@@ -428,7 +428,7 @@ class Translation
     public function mergeWith(Translation $translation, $method = null)
     {
         if ($method === null) {
-            $method = Translations::MERGE_DEFAULT;
+            $method = Translations::$mergeDefault;
         }
 
         if (!$this->hasTranslation()) {
