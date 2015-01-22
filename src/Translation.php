@@ -227,7 +227,7 @@ class Translation
 
             if ($allowed > $current) {
                 $this->pluralTranslation = $this->pluralTranslation + array_fill(0, $allowed, '');
-            } elseif ($allowed > $current) {
+            } elseif ($current > $allowed) {
                 $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $allowed);
             }
         } else {
