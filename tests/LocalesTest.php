@@ -1,5 +1,4 @@
 <?php
-include_once dirname(__DIR__).'/src/autoloader.php';
 
 class LocalesTest extends PHPUnit_Framework_TestCase
 {
