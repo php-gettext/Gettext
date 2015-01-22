@@ -106,13 +106,13 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case 'msgstr[1]':
-                    $translation->setPluralTranslation(self::clean($data));
+                    $translation->setPluralTranslation(self::clean($data), 0);
                     $append = 'PluralTranslation';
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
-                        $translation->setPluralTranslation(self::clean($data));
+                        $translation->setPluralTranslation(self::clean($data), intval(substr($key, 7, -1)) - 1);
                         $append = 'PluralTranslation';
                         break;
                     }

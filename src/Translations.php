@@ -79,9 +79,11 @@ class Translations extends \ArrayObject
      */
     public function __clone()
     {
+        $array = array();
         foreach ($this as $key => $translation) {
-            $this[$key] = clone $translation;
+            $array[$key] = clone $translation;
         }
+        $this->exchangeArray($array);
     }
 
     /**
@@ -134,7 +136,7 @@ class Translations extends \ArrayObject
     {
         $header = $this->getHeader(self::HEADER_PLURAL);
 
-        if ($header && preg_match('/^nplurals=(\d+);plural=(.*);$/ix', $header, $matches)) {
+        if ($header && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
             return array(
                 'plurals' => intval($matches[1]),
                 'pluralRule' => $matches[2],
@@ -153,14 +155,15 @@ class Translations extends \ArrayObject
         $name = trim($name);
         $this->headers[$name] = trim($value);
 
-        if ($name === self::HEADER_PLURAL && ($forms = $this->getPluralForms())) {
-            $this->translationCount = $forms['plurals'];
-
-            foreach ($this as $t) {
-                $t->setPluralCount($count);
+        if ($name === self::HEADER_PLURAL) {
+            if ($forms = $this->getPluralForms()) {
+                $this->translationCount = $forms['plurals'];
+                foreach ($this as $t) {
+                    $t->setTranslationCount($this->translationCount);
+                }
+            } else {
+                $this->translationCount = null;
             }
-        } else {
-            $this->translationCount = null;
         }
     }
 
@@ -196,7 +199,7 @@ class Translations extends \ArrayObject
 
     /**
      * Removes one headers
-     * 
+     *
      * @param string $name
      */
     public function deleteHeader($name)
