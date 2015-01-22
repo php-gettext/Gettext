@@ -106,6 +106,8 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('%s comments', $t->getPlural());
         $this->assertEquals('1 comentario', $t->getTranslation());
         $this->assertTrue($t->hasPlural());
+        $this->assertFalse($t->hasPluralTranslation());
+        $t->setPluralTranslation('% comentarios');
         $this->assertTrue($t->hasPluralTranslation());
 
         //duplicate plural - singular
@@ -114,6 +116,8 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('%s stars', $t->getPlural());
         $this->assertEquals('1 estrela', $t->getTranslation());
         $this->assertTrue($t->hasPlural());
+        $this->assertFalse($t->hasPluralTranslation());
+        $t->setPluralTranslation('% estrelas');
         $this->assertTrue($t->hasPluralTranslation());
     }
 }

@@ -139,17 +139,12 @@ class Translation
     /**
      * Set a new plural translation
      *
-     * @param string       $plural The plural string to add
-     * @param null|integer $key    The key of the plural translation.
+     * @param string  $plural The plural string to add
+     * @param integer $key    The key of the plural translation.
      */
-    public function setPluralTranslation($plural, $key = null)
+    public function setPluralTranslation($plural, $key = 0)
     {
-        if ($key === null) {
-            $this->pluralTranslation[] = $plural;
-        } else {
-            $this->pluralTranslation[$key] = $plural;
-        }
-
+        $this->pluralTranslation[$key] = $plural;
         $this->normalizeTranslationCount();
     }
 
@@ -176,7 +171,7 @@ class Translation
      */
     public function hasPluralTranslation()
     {
-        return isset($this->pluralTranslation[0]);
+        return !empty(implode('', $this->pluralTranslation));
     }
 
     /**
@@ -435,11 +430,11 @@ class Translation
             $this->setTranslation($translation->getTranslation());
         }
 
-        if (!$this->hasPlural()) {
+        if (($method & Translations::MERGE_PLURAL) && !$this->hasPlural()) {
             $this->setPlural($translation->getPlural());
         }
 
-        if (!$this->hasPluralTranslation() && $translation->hasPluralTranslation()) {
+        if ($this->hasPlural() && !$this->hasPluralTranslation() && $translation->hasPluralTranslation()) {
             $this->pluralTranslation = $translation->getPluralTranslation();
         }
 

@@ -12,12 +12,13 @@ class Translations extends \ArrayObject
     const MERGE_REFERENCES = 8;
     const MERGE_COMMENTS = 16;
     const MERGE_LANGUAGE = 32;
+    const MERGE_PLURAL = 64;
 
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
 
-    public static $mergeDefault =  29; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES
+    public static $mergeDefault = 93; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
 
     private $headers;
     private $translationCount;
