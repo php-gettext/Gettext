@@ -153,14 +153,15 @@ class Translations extends \ArrayObject
         $name = trim($name);
         $this->headers[$name] = trim($value);
 
-        if ($name === self::HEADER_PLURAL && ($forms = $this->getPluralForms())) {
-            $this->translationCount = $forms['plurals'];
-
-            foreach ($this as $t) {
-                $t->setPluralCount($count);
+        if ($name === self::HEADER_PLURAL) {
+            if ($forms = $this->getPluralForms()) {
+                $this->translationCount = $forms['plurals'];
+                foreach ($this as $t) {
+                    $t->setTranslationCount($this->translationCount);
+                }
+            } else {
+                $this->translationCount = null;
             }
-        } else {
-            $this->translationCount = null;
         }
     }
 
