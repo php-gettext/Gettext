@@ -8,10 +8,10 @@ Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License
 
 Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
-## v.2.0
+## v.3.0
 
-The 2.0 version has some changes in the API. See the changelog for more information:
-https://github.com/oscarotero/Gettext/releases/tag/2.0
+The 3.0 version has some changes in the API. See the changelog for more information:
+https://github.com/oscarotero/Gettext/releases/tag/3.0
 
 
 ## Usage example
@@ -235,6 +235,8 @@ The second argument of `mergeWith` defines how the merge will be done. You can p
 * MERGE_HEADERS: Merges the headers from translations2 to translations 1
 * MERGE_REFERENCES: Merges the references from translations2 to translations1
 * MERGE_COMMENTS: Merges the comments from translations2 to translations1
+* MERGE_LANGUAGE: Applies the language and plural forms of translations2 to translation1
+* MERGE_PLURAL: Translations with the same id but one with plurals and other singular will be merged into one singular
 
 Example:
 
@@ -254,7 +256,7 @@ $translations->mergeWith($poTranslations, Translations::MERGE_HEADERS | Translat
 Gettext\Generators\Po::generateFile($translations, 'locale.po');
 ```
 
-Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS`
+Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL`
 
 
 ## Contributors
