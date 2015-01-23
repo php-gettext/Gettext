@@ -11,7 +11,7 @@ Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, J
 ## v.3.0
 
 The 3.0 version has some changes in the API. See the changelog for more information:
-https://github.com/oscarotero/Gettext/releases/tag/3.0
+https://github.com/oscarotero/Gettext/releases/tag/v3.0
 
 
 ## Usage example
