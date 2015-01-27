@@ -93,6 +93,7 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
     public function testDuplicates()
     {
+        Gettext\Extractors\Po::$skipIntegrityChecksOnImport = false;
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/duplicate.po');
 
         //duplicate singular
