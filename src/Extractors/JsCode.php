@@ -18,12 +18,8 @@ class JsCode extends Extractor implements ExtractorInterface
     /**
      * {@inheritDoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    protected static function fromStringDo($string, Translations $translations, $file)
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $functions = new JsFunctionsScanner($string);
         $functions->saveGettextFunctions(self::$functions, $translations, $file);
     }

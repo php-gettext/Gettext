@@ -17,23 +17,17 @@ class PhpArray extends Extractor implements ExtractorInterface
      *
      * @return Translations
      */
-    public static function fromFile($file, Translations $translations = null)
+    protected static function fromFileDo($file, Translations $translations)
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         foreach (self::getFiles($file) as $file) {
             self::handleArray(include($file), $translations);
         }
-
-        return $translations;
     }
 
     /**
      * {@inheritDoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    protected static function fromStringDo($string, Translations $translations, $file)
     {
         throw new Exception("PhpArray::fromString() cannot be called. Use PhpArray::fromFile()");
     }

@@ -11,14 +11,10 @@ class Jed extends PhpArray implements ExtractorInterface
     /**
      * {@inheritDoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    protected static function fromStringDo($string, Translations $translations, $file)
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $content = json_decode($string);
 
-        return PhpArray::handleArray($content, $translations);
+        PhpArray::handleArray($content, $translations);
     }
 }

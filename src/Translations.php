@@ -23,11 +23,13 @@ class Translations extends \ArrayObject
     private $headers;
     private $translationCount;
 
+    private $skipIntegrityChecks;
     /**
      * @see \ArrayObject::__construct()
      */
     public function __construct($input = array(), $flags = 0, $iterator_class = 'ArrayIterator')
     {
+        $this->skipIntegrityChecks = false;
         $this->headers = array(
             'Project-Id-Version' => '',
             'Report-Msgid-Bugs-To' => '',
@@ -99,17 +101,18 @@ class Translations extends \ArrayObject
      */
     public function offsetSet($index, $value)
     {
-        if (!($value instanceof Translation)) {
-            throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
+        if (!$this->skipIntegrityChecks) {
+            if (!($value instanceof Translation)) {
+                throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
+            }
+
+            if (($exists = $this->find($value))) {
+                $exists->mergeWith($value);
+                $exists->setTranslationCount($this->translationCount);
+
+                return $exists;
+            }
         }
-
-        if (($exists = $this->find($value))) {
-            $exists->mergeWith($value);
-            $exists->setTranslationCount($this->translationCount);
-
-            return $exists;
-        }
-
         $value->setTranslationCount($this->translationCount);
 
         parent::offsetSet($index, $value);
@@ -381,5 +384,23 @@ class Translations extends \ArrayObject
                 $this->setPluralForms($pluralForm['plurals'], $pluralForm['pluralRule']);
             }
         }
+    }
+
+    /**
+     * Set to true to skip integrity checks while adding new translations, false otherwise
+     * @param bool $skipIntegrityChecks
+     */
+    public function setSkipIntegrityChecks($skipIntegrityChecks)
+    {
+        $this->skipIntegrityChecks = !!$skipIntegrityChecks;
+    }
+
+    /**
+     * Return true if we're skipping integrity checks while adding new translations, false otherwise
+     * @return boolean
+     */
+    public function getSkipIntegrityChecks()
+    {
+        return $this->skipIntegrityChecks;
     }
 }
