@@ -10,6 +10,12 @@ use Gettext\Utils\StringReader;
 
 class Mo extends Extractor implements ExtractorInterface
 {
+    /**
+     * Set to true if integrity checks should be skipped diring the import process, false otherwise
+     * @var bool
+     */
+    public static $skipIntegrityChecksOnImport = true;
+
     const MAGIC1 = -1794895138;
     const MAGIC2 = -569244523;
     const MAGIC3 = 2500072158;
@@ -17,12 +23,8 @@ class Mo extends Extractor implements ExtractorInterface
     /**
      * {@inheritDoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    protected static function fromStringDo($string, Translations $translations, $file)
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $stream = new StringReader($string);
         $magic = self::readInt($stream, 'V');
 
@@ -95,8 +97,6 @@ class Mo extends Extractor implements ExtractorInterface
                 }
             }
         }
-
-        return $translations;
     }
 
     /**

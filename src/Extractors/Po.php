@@ -10,16 +10,18 @@ use Gettext\Translation;
 class Po extends Extractor implements ExtractorInterface
 {
     /**
+     * Set to true if integrity checks should be skipped diring the import process, false otherwise
+     * @var bool
+     */
+    public static $skipIntegrityChecksOnImport = true;
+
+    /**
      * Parses a .po file and append the translations found in the Translations instance
      *
      * {@inheritDoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    protected static function fromStringDo($string, Translations $translations, $file)
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $lines = explode("\n", $string);
         $i = 1;
         $currentHeader = null;
@@ -135,8 +137,6 @@ class Po extends Extractor implements ExtractorInterface
         if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($translations))) {
             $translations[] = $translation;
         }
-
-        return $translations;
     }
 
     /**
