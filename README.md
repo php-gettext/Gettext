@@ -126,7 +126,8 @@ The available extractors are the following:
 * `Gettext\Extractors\JsCode` - To scan a javascript file looking for all gettext functions (the same than PhpCode but for javascript)
 * `Gettext\Extractors\PhpArray` - To get the translations from a php file that returns an array
 * `Gettext\Extractors\Jed` - To scan a json file compatible with the [Jed library](http://slexaxton.github.com/Jed/)
-* `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks @eusonlito)
+* `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks [@eusonlito](https://github.com/eusonlito))
+* `Gettext\Extractors\JsonDictionary` - To get translations from a plain json file with the format `{"original": "translation"}`
 
 ## Generators
 
@@ -147,6 +148,7 @@ The available generators are:
 * `Gettext\Generators\Po` - Exports to Po format
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
 * `Gettext\Generators\Jed` - Exports to json format compatible with [Jed library](http://slexaxton.github.com/Jed/)
+* `Gettext\Generators\JsonDictionary` - Export to plain json with the format `{"original": "translation"}` (thanks, [@gator92](https://github.com/Gator92))
 
 To ease the work with generators and extractors you can use the magic methods availables in `Gettext\Translations` that import and export the translations in all these formats:
 
