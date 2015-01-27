@@ -1108,8 +1108,8 @@ class Locales
             $variants[] = $language;
 
             foreach ($variants as $variant) {
-                if (isset(static::$localeInfo[$variant])) {
-                    $result = static::$localeInfo[$variant];
+                if (isset(static::$pluralRules[$variant])) {
+                    $result = static::$pluralRules[$variant];
                     $result['languageName'] = $language;
                     foreach ($variants as $variant) {
                         if (isset(static::$languageNames[$variant])) {

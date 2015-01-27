@@ -19,11 +19,5 @@ class CloningTest extends PHPUnit_Framework_TestCase
         $item2 = $list2->find($item1);
         $this->assertInstanceOf('Gettext\\Translation', $item2);
         $this->assertNotSame($item, $item2);
-
-        $item1->setOriginal('Test 1');
-        $item2->setOriginal('Test 2');
-
-        $this->assertSame('Test 1', $item1->getOriginal());
-        $this->assertSame('Test 2', $item2->getOriginal());
     }
 }

@@ -18,17 +18,62 @@ class Translation
     protected $translationCount;
 
     /**
+     * Generates the id of a translation (context + glue + original)
+     *
+     * @param string $context
+     * @param string $original
+     * 
+     * @return string
+     */
+    public static function generateId($context, $original)
+    {
+        return "{$context}\004{$original}";
+    }
+
+    /**
      * Construct
      *
      * @param string $context  The context of the translation
      * @param string $original The original string
      * @param string $plural   The original plural string
      */
-    public function __construct($context = '', $original = '', $plural = '')
+    public function __construct($context, $original, $plural = '')
     {
-        $this->setContext($context);
-        $this->setOriginal($original);
+        $this->context = (string) $context;
+        $this->original = (string) $original;
+
         $this->setPlural($plural);
+    }
+
+    /**
+     * Clones this translation
+     *
+     * @param null|string $context  Optional new context
+     * @param null|string $original Optional new original
+     */
+    public function getClone($context = null, $original = null)
+    {
+        $new = clone $this;
+
+        if ($context !== null) {
+            $new->context = (string) $context;
+        }
+
+        if ($original !== null) {
+            $new->original = (string) $original;
+        }
+
+        return $new;
+    }
+
+    /**
+     * Returns the id of this translation
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return static::generateId($this->context, $this->original);
     }
 
     /**
@@ -42,16 +87,6 @@ class Translation
     public function is($context, $original = '')
     {
         return (($this->context === $context) && ($this->original === $original)) ? true : false;
-    }
-
-    /**
-     * Sets the original string
-     *
-     * @param string $original
-     */
-    public function setOriginal($original)
-    {
-        $this->original = (string) $original;
     }
 
     /**
@@ -228,16 +263,6 @@ class Translation
         } else {
             $this->pluralTranslation = array();
         }
-    }
-
-    /**
-     * Sets the context of this translation
-     *
-     * @param string $context
-     */
-    public function setContext($context)
-    {
-        $this->context = (string) $context;
     }
 
     /**

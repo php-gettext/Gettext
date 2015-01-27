@@ -37,7 +37,7 @@ class Po extends Extractor implements ExtractorInterface
             }
         }
 
-        $translation = new Translation();
+        $translation = new Translation('', '');
 
         for ($n = count($lines); $i < $n; $i++) {
             $line = trim($lines[$i]);
@@ -47,7 +47,7 @@ class Po extends Extractor implements ExtractorInterface
             if ($line === '') {
                 if ($translation->hasOriginal()) {
                     $translations[] = $translation;
-                    $translation = new Translation();
+                    $translation = new Translation('', '');
                 }
                 continue;
             }
@@ -55,7 +55,6 @@ class Po extends Extractor implements ExtractorInterface
             $splitLine = preg_split('/\s+/', $line, 2);
             $key = $splitLine[0];
             $data = isset($splitLine[1]) ? $splitLine[1] : '';
-            $append = null;
 
             switch ($key) {
                 case '#':
@@ -85,12 +84,12 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case 'msgctxt':
-                    $translation->setContext(self::clean($data));
+                    $translation = $translation->getClone(self::clean($data));
                     $append = 'Context';
                     break;
 
                 case 'msgid':
-                    $translation->setOriginal(self::clean($data));
+                    $translation = $translation->getClone(null, self::clean($data));
                     $append = 'Original';
                     break;
 
@@ -118,6 +117,16 @@ class Po extends Extractor implements ExtractorInterface
                     }
 
                     if (isset($append)) {
+                        if ($append === 'Context') {
+                            $translation = $translation->getClone($translation->getContext()."\n".self::clean($data));
+                            break;
+                        }
+
+                        if ($append === 'Original') {
+                            $translation = $translation->getClone(null, $translation->getOriginal()."\n".self::clean($data));
+                            break;
+                        }
+
                         if ($append === 'PluralTranslation') {
                             $key = count($translation->getPluralTranslation()) - 1;
                             $translation->setPluralTranslation($translation->getPluralTranslation($key)."\n".self::clean($data), $key);

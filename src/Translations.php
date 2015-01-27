@@ -81,9 +81,11 @@ class Translations extends \ArrayObject
     public function __clone()
     {
         $array = array();
+
         foreach ($this as $key => $translation) {
             $array[$key] = clone $translation;
         }
+
         $this->exchangeArray($array);
     }
 
@@ -103,16 +105,18 @@ class Translations extends \ArrayObject
             throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
         }
 
-        if (($exists = $this->find($value))) {
-            $exists->mergeWith($value);
-            $exists->setTranslationCount($this->translationCount);
+        $id = $value->getId();
 
-            return $exists;
+        if ($this->offsetExists($id)) {
+            $this[$id]->mergeWith($value);
+            $this[$id]->setTranslationCount($this->translationCount);
+
+            return $this[$id];
         }
 
         $value->setTranslationCount($this->translationCount);
 
-        parent::offsetSet($index, $value);
+        parent::offsetSet($id, $value);
 
         return $value;
     }
@@ -293,20 +297,12 @@ class Translations extends \ArrayObject
     public function find($context, $original = '')
     {
         if ($context instanceof Translation) {
-            $original = $context->getOriginal();
-            $context = $context->getContext();
+            $id = $context->getId();
         } else {
-            $original = (string) $original;
-            $context = (string) $context;
+            $id = Translation::generateId($context, $original);
         }
 
-        foreach ($this as $t) {
-            if ($t->is($context, $original)) {
-                return $t;
-            }
-        }
-
-        return false;
+        return $this->offsetExists($id) ? $this[$id] : false;
     }
 
     /**
