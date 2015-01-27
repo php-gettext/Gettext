@@ -27,7 +27,7 @@ abstract class Extractor
             $translations = new Translations();
         }
         $originalSIC = $translations->getSkipIntegrityChecks();
-        if (self::$skipIntegrityChecksOnImport) {
+        if (static::$skipIntegrityChecksOnImport) {
             $translations->setSkipIntegrityChecks(true);
         }
         try {
@@ -62,7 +62,7 @@ abstract class Extractor
             $translations = new Translations();
         }
         $originalSIC = $translations->getSkipIntegrityChecks();
-        if (self::$skipIntegrityChecksOnImport) {
+        if (static::$skipIntegrityChecksOnImport) {
             $translations->setSkipIntegrityChecks(true);
         }
         try {

@@ -10,6 +10,12 @@ use Gettext\Translation;
 class Po extends Extractor implements ExtractorInterface
 {
     /**
+     * Set to true if integrity checks should be skipped diring the import process, false otherwise
+     * @var bool
+     */
+    public static $skipIntegrityChecksOnImport = true;
+
+    /**
      * Parses a .po file and append the translations found in the Translations instance
      *
      * {@inheritDoc}

@@ -10,6 +10,12 @@ use Gettext\Utils\StringReader;
 
 class Mo extends Extractor implements ExtractorInterface
 {
+    /**
+     * Set to true if integrity checks should be skipped diring the import process, false otherwise
+     * @var bool
+     */
+    public static $skipIntegrityChecksOnImport = true;
+
     const MAGIC1 = -1794895138;
     const MAGIC2 = -569244523;
     const MAGIC3 = 2500072158;
