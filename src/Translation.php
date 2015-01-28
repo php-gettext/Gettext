@@ -22,7 +22,7 @@ class Translation
      *
      * @param string $context
      * @param string $original
-     * 
+     *
      * @return string
      */
     public static function generateId($context, $original)

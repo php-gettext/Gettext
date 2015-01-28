@@ -7,7 +7,6 @@ use Gettext\Utils\StringReader;
 /**
  * Class to get gettext strings from .mo files
  */
-
 class Mo extends Extractor implements ExtractorInterface
 {
     const MAGIC1 = -1794895138;
