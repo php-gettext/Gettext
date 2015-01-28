@@ -1124,4 +1124,60 @@ class Locales
 
         return $result;
     }
+
+    /**
+     * Returns the list of languages
+     *
+     * @param bool $excludeCompounds Exclude compounds languages (eg 'Brazilian Portuguese', 'Traditional Chinese')?
+     * @param bool $excludeFake Exclude fake languages (eg 'Unknown Language', 'No linguistic content')?
+     *
+     * @return array
+     */
+    public static function getLanguages($excludeCompounds = false, $excludeFake = false)
+    {
+        $result = static::$languageNames;
+        if ($excludeCompounds) {
+            $keysToKeep = array_filter(
+                array_keys($result),
+                function ($key) {
+                    return (strpos($key, '_') === false) ? true : false;
+                }
+            );
+            $result = array_intersect_key($result, array_flip($keysToKeep));
+        }
+        if ($excludeFake) {
+            unset($result['und']);
+            unset($result['zxx']);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the list of territories
+     *
+     * @param bool $excludeRegions Exclude the regions (eg 'World', 'Europe')?
+     * @param bool $excludeFake Exclude fake territories (eg 'Unknown Region')?
+     *
+     * @return array
+     */
+    public static function getTerritories($excludeRegions = false, $excludeFake = false)
+    {
+        $result = static::$territoryNames;
+        if ($excludeRegions) {
+            unset($result['EU']);
+            $keysToKeep = array_filter(
+                array_keys($result),
+                function ($key) {
+                    return preg_match('/^\d{3}$/', $key) ? false : true;
+                }
+            );
+            $result = array_intersect_key($result, array_flip($keysToKeep));
+        }
+        if ($excludeFake) {
+            unset($result['ZZ']);
+        }
+
+        return $result;
+    }
 }
