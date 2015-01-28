@@ -1130,7 +1130,8 @@ class Locales
      *
      * @param bool $excludeCompounds Exclude compounds languages (eg 'Brazilian Portuguese', 'Traditional Chinese')?
      * @param bool $excludeFake Exclude fake languages (eg 'Unknown Language', 'No linguistic content')?
-     * @return boolean
+     *
+     * @return array
      */
     public static function getLanguages($excludeCompounds = false, $excludeFake = false)
     {
@@ -1157,6 +1158,8 @@ class Locales
      *
      * @param bool $excludeRegions Exclude the regions (eg 'World', 'Europe')?
      * @param bool $excludeFake Exclude fake territories (eg 'Unknown Region')?
+     *
+     * @return array
      */
     public static function getTerritories($excludeRegions = false, $excludeFake = false)
     {
