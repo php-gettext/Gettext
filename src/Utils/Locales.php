@@ -1129,7 +1129,7 @@ class Locales
      * Returns the list of languages
      *
      * @param bool $excludeCompounds Exclude compounds languages (eg 'Brazilian Portuguese', 'Traditional Chinese')?
-     * @param bool $excludeFake Exclude fake languages (eg 'Unknown Language', 'No linguistic content')?
+     * @param bool $excludeFake      Exclude fake languages (eg 'Unknown Language', 'No linguistic content')?
      *
      * @return array
      */
@@ -1157,7 +1157,7 @@ class Locales
      * Returns the list of territories
      *
      * @param bool $excludeRegions Exclude the regions (eg 'World', 'Europe')?
-     * @param bool $excludeFake Exclude fake territories (eg 'Unknown Region')?
+     * @param bool $excludeFake    Exclude fake territories (eg 'Unknown Region')?
      *
      * @return array
      */
