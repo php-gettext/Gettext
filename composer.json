@@ -1,7 +1,7 @@
 {
 	"name": "gettext/gettext",
 	"type": "library",
-	"description": "PHP gettext mananger",
+	"description": "PHP gettext manager",
 	"keywords": ["js", "gettext", "i18n", "translation", "po", "mo"],
 	"homepage": "https://github.com/oscarotero/Gettext",
 	"license": "MIT",
