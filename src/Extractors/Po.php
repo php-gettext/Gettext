@@ -21,21 +21,7 @@ class Po extends Extractor implements ExtractorInterface
         }
 
         $lines = explode("\n", $string);
-        $i = 1;
-        $currentHeader = null;
-
-        while ((isset($lines[++$i]) && ($line = trim($lines[$i])) !== '')) {
-            $line = self::clean($line);
-
-            if (self::isHeaderDefinition($line)) {
-                $header = array_map('trim', explode(':', $line, 2));
-                $currentHeader = $header[0];
-                $translations->setHeader($currentHeader, $header[1]);
-            } else {
-                $entry = $translations->getHeader($currentHeader);
-                $translations->setHeader($currentHeader, $entry.$line);
-            }
-        }
+        $i = 0;
 
         $translation = new Translation('', '');
 
@@ -45,10 +31,13 @@ class Po extends Extractor implements ExtractorInterface
             $line = self::fixMultiLines($line, $lines, $i);
 
             if ($line === '') {
-                if ($translation->hasOriginal()) {
+                if ($translation->is('', '')) {
+                    self::parseHeaders($translation->getTranslation(), $translations);
+                } else if ($translation->hasOriginal()) {
                     $translations[] = $translation;
-                    $translation = new Translation('', '');
                 }
+
+                $translation = new Translation('', '');
                 continue;
             }
 
@@ -161,6 +150,33 @@ class Po extends Extractor implements ExtractorInterface
     }
 
     /**
+     * Parse the po headers
+     *
+     * @param  string       $headers
+     * @param  Translations $translations
+     * 
+     * @return boolean
+     */
+    private static function parseHeaders($headers, Translations $translations)
+    {
+        $headers = explode("\n", $headers);
+        $currentHeader = null;
+
+        foreach ($headers as $line) {
+            $line = self::clean($line);
+            
+            if (self::isHeaderDefinition($line)) {
+                $header = array_map('trim', explode(':', $line, 2));
+                $currentHeader = $header[0];
+                $translations->setHeader($currentHeader, $header[1]);
+            } else {
+                $entry = $translations->getHeader($currentHeader);
+                $translations->setHeader($currentHeader, $entry.$line);
+            }
+        }
+    }
+
+    /**
      * Cleans the strings. Removes quotes and "\n", etc
      *
      * @param string $str
@@ -169,6 +185,10 @@ class Po extends Extractor implements ExtractorInterface
      */
     private static function clean($str)
     {
+        if (!$str) {
+            return '';
+        }
+
         if ($str[0] === '"') {
             $str = substr($str, 1, -1);
         }

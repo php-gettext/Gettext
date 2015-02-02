@@ -2,6 +2,16 @@
 
 class PoExtractorTest extends PHPUnit_Framework_TestCase
 {
+    public function testNoHeadersParser()
+    {
+        //Extract translations
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/no-headers.po');
+
+        $this->assertCount(5, $translations);
+
+        $this->assertCount(10, $translations->getHeaders(), $translations->toPoString());
+    }
+
     public function testParser()
     {
         //Extract translations

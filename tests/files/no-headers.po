@@ -1,0 +1,14 @@
+msgid "Dielen"
+msgstr "timber piling floor"
+
+msgid "Doppelboden"
+msgstr "double floor"
+
+msgid "Estrich"
+msgstr "screed floor"
+
+msgid "Fliesen"
+msgstr "flagging"
+
+msgid "Kunststoffboden"
+msgstr "synthetic floor"
