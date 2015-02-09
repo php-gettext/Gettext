@@ -5,6 +5,8 @@ use Gettext\Translations;
 
 class Mo extends Generator implements GeneratorInterface
 {
+    public static $includeEmptyTranslations = false;
+
     /**
      * {@parentDoc}
      */
@@ -22,7 +24,10 @@ class Mo extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
-            if (!$translation->hasTranslation()) continue;
+            if (!$translation->hasTranslation() && !static::$includeEmptyTranslations) {
+                continue;
+            }
+
             if ($translation->hasContext()) {
                 $originalString = $translation->getContext()."\x04".$translation->getOriginal();
             } else {

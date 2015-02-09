@@ -4,6 +4,8 @@ class MoGenerationTest extends PHPUnit_Framework_TestCase
 {
     public function testMoGeneration()
     {
+        Gettext\Generators\Mo::$includeEmptyTranslations = false; //default
+
         $originalTranslations = Gettext\Translations::fromPoFile(__DIR__.'/files/po.po');
         $this->assertInstanceOf('Gettext\\Translations', $originalTranslations);
 
@@ -13,6 +15,18 @@ class MoGenerationTest extends PHPUnit_Framework_TestCase
 
         $decompiledTranslations = Gettext\Translations::fromMoString($moData);
         $this->assertInstanceOf('Gettext\\Translations', $decompiledTranslations);
+
+        $this->assertEquals($originalTranslations->getHeaders(), $decompiledTranslations->getHeaders());
+        $this->assertCount(11, $originalTranslations);
+        $this->assertCount(8, $decompiledTranslations);
+    }
+
+    public function testMoGenerationWithEmptyTranslations()
+    {
+        Gettext\Generators\Mo::$includeEmptyTranslations = true;
+
+        $originalTranslations = Gettext\Translations::fromPoFile(__DIR__.'/files/po.po');
+        $decompiledTranslations = Gettext\Translations::fromMoString($originalTranslations->toMoString());
 
         $this->assertEquals($originalTranslations->getHeaders(), $decompiledTranslations->getHeaders());
         $this->assertSame($originalTranslations->count(), $decompiledTranslations->count());
