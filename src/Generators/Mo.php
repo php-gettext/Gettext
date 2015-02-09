@@ -22,6 +22,7 @@ class Mo extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
+            if (!$translation->hasTranslation()) continue;
             if ($translation->hasContext()) {
                 $originalString = $translation->getContext()."\x04".$translation->getOriginal();
             } else {
