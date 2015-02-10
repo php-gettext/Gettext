@@ -234,7 +234,7 @@ class Translations extends \ArrayObject
         $this->setHeader(self::HEADER_LANGUAGE, trim($language));
 
         if (($info = Utils\Locales::getLocaleInfo($language))) {
-            $this->setPluralForms($info['plurals'], $info['pluralRule']);
+            $this->setPluralForms($info['plurals'], $info['formula']);
 
             return true;
         }
