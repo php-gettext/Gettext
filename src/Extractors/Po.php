@@ -177,7 +177,7 @@ class Po extends Extractor implements ExtractorInterface
     }
 
     /**
-     * Cleans the strings. Removes quotes and "\n", etc
+     * Cleans the strings. Removes quotes, "\n", "\t", etc
      *
      * @param string $str
      *
@@ -193,11 +193,11 @@ class Po extends Extractor implements ExtractorInterface
             $str = substr($str, 1, -1);
         }
 
-        return str_replace(array('\\n', '\\"'), array("\n", '"'), $str);
+        return str_replace(array('\\n', '\\"', '\\t'), array("\n", '"', "\t"), $str);
     }
 
     /**
-     * Gets one strings from multiline strings
+     * Gets one string from multiline strings
      *
      * @param string  $line
      * @param array   $lines

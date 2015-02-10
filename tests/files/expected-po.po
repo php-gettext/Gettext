@@ -56,8 +56,18 @@ msgstr "Cijeo broj"
 
 #: /var/www/test/test.php:96
 msgid "{test1}"
-msgstr "test1\n<div>\n test2\n</div>\ntest3"
+msgstr ""
+"test1\n"
+"<div>\n"
+" test2\n"
+"</div>\n"
+"test3"
 
 #: /var/www/test/test.php:96
 msgid "{test2}"
-msgstr "test1\n<div>\n test2\n</div>\ntest3"
+msgstr ""
+"test1\n"
+"<div>\n"
+" test2\n"
+"</div>\n"
+"test3"

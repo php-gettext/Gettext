@@ -49,24 +49,17 @@ class Po extends Generator implements GeneratorInterface
                 $lines[] = 'msgctxt '.self::quote($translation->getContext());
             }
 
-            $msgid = self::multilineQuote($translation->getOriginal());
-
-            if (count($msgid) === 1) {
-                $lines[] = 'msgid '.$msgid[0];
-            } else {
-                $lines[] = 'msgid ""';
-                $lines = array_merge($lines, $msgid);
-            }
+            self::addLines($lines, 'msgid', $translation->getOriginal());
 
             if ($translation->hasPlural()) {
-                $lines[] = 'msgid_plural '.self::quote($translation->getPlural());
-                $lines[] = 'msgstr[0] '.self::quote($translation->getTranslation());
+                self::addLines($lines, 'msgid_plural', $translation->getPlural());
+                self::addLines($lines, 'msgstr[0]', $translation->getTranslation());
 
                 foreach ($translation->getPluralTranslation() as $k => $v) {
-                    $lines[] = 'msgstr['.($k + 1).'] '.self::quote($v);
+                    self::addLines($lines, 'msgstr['.($k + 1).']', $v);
                 }
             } else {
-                $lines[] = 'msgstr '.self::quote($translation->getTranslation());
+                self::addLines($lines, 'msgstr', $translation->getTranslation());
             }
 
             $lines[] = '';
@@ -84,7 +77,7 @@ class Po extends Generator implements GeneratorInterface
      */
     private static function quote($string)
     {
-        return '"'.str_replace(array("\r", "\n", '"'), array('', '\n', '\\"'), $string).'"';
+        return '"'.str_replace(array("\r", "\n", "\t", '"'), array('', '\n', '\t', '\\"'), $string).'"';
     }
 
     /**
@@ -108,5 +101,27 @@ class Po extends Generator implements GeneratorInterface
         }
 
         return $lines;
+    }
+
+    /**
+     * Add one or more lines depending whether the string is multiline or not
+     *
+     * @param array  &$lines
+     * @param string $name
+     * @param string $value
+     */
+    private static function addLines(array &$lines, $name, $value)
+    {
+        $newLines = self::multilineQuote($value);
+
+        if (count($newLines) === 1) {
+            $lines[] = $name.' '.$newLines[0];
+        } else {
+            $lines[] = $name.' ""';
+
+            foreach ($newLines as $line) {
+                $lines[] = $line;
+            }
+        }
     }
 }
