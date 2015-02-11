@@ -54,11 +54,11 @@ class Locales
 
             $variants = array();
 
-            if (($script !== '') && ($territory !== '')) {
-                $variants[] = "{$language}_{$script}_{$territory}";
-            }
-
             if ($script !== '') {
+                if ($territory !== '') {
+                    $variants[] = "{$language}_{$script}_{$territory}";
+                }
+
                 $variants[] = "{$language}_{$script}";
             }
 
