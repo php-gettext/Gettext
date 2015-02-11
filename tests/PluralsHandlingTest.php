@@ -40,7 +40,7 @@ class PluralsHandlingTest extends PHPUnit_Framework_TestCase
         $ru = clone $pot;
         $this->assertTrue($ru->setLanguage('ru'));
         $t = $ru->find($pluralTranslated);
-        $this->assertSame(4, $t->getTranslationCount());
+        $this->assertSame(3, $t->getTranslationCount());
 
         // Merge tests
         $ja2 = clone $ja;
