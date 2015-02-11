@@ -22,4 +22,22 @@ class LocalesTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($translations->setLanguage('invalid'));
         $this->assertEquals('invalid', $translations->getLanguage());
     }
+
+    public function testLocalesVariants()
+    {
+        $translations = new Gettext\Translations();
+        
+        $translations->setLanguage('pt');
+
+        $pluralForms = $translations->getPluralForms();
+
+        $this->assertEquals(2, $pluralForms[0]);
+        $this->assertEquals('n > 1', $pluralForms[1]);
+
+        $translations->setLanguage('pt_PT');
+
+        $pluralForms = $translations->getPluralForms();
+        $this->assertEquals(2, $pluralForms[0]);
+        $this->assertEquals('n != 1', $pluralForms[1]);
+    }
 }
