@@ -77,7 +77,7 @@ class Po extends Generator implements GeneratorInterface
      */
     private static function quote($string)
     {
-        return '"'.str_replace(array("\r", "\n", "\t", '"'), array('', '\n', '\t', '\\"'), $string).'"';
+        return '"'.str_replace(array('\\', "\r", "\n", "\t", '"'), array('\\\\', '', '\n', '\t', '\\"'), $string).'"';
     }
 
     /**

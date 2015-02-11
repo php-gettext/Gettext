@@ -193,7 +193,7 @@ class Po extends Extractor implements ExtractorInterface
             $str = substr($str, 1, -1);
         }
 
-        return str_replace(array('\\n', '\\"', '\\t'), array("\n", '"', "\t"), $str);
+        return str_replace(array('\\n', '\\"', '\\t', '\\\\'), array("\n", '"', "\t", '\\'), $str);
     }
 
     /**
