@@ -52,14 +52,32 @@ class Locales
             $languages = self::getLanguages();
             $territories = self::getTerritories();
 
-            if (isset($languages[$language])) {
-                $result = $languages[$language];
-                $result['id'] = $language;
-                $result['script'] = $script;
-                $result['territory'] = $territory;
-                $result['territoryName'] = isset($territories[$territory]) ? $territories[$territory] : '';
+            $variants = array();
 
-                return $result;
+            if (($script !== '') && ($territory !== '')) {
+                $variants[] = "{$language}_{$script}_{$territory}";
+            }
+
+            if ($script !== '') {
+                $variants[] = "{$language}_{$script}";
+            }
+
+            if ($territory !== '') {
+                $variants[] = "{$language}_{$territory}";
+            }
+
+            $variants[] = $language;
+
+            foreach ($variants as $id) {
+                if (isset($languages[$id])) {
+                    $result = $languages[$id];
+                    $result['id'] = $id;
+                    $result['script'] = $script;
+                    $result['territory'] = $territory;
+                    $result['territoryName'] = isset($territories[$territory]) ? $territories[$territory] : '';
+
+                    return $result;
+                }
             }
         }
     }
