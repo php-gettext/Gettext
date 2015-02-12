@@ -156,6 +156,13 @@ class JsFunctionsScanner extends FunctionsScanner
         return $functions;
     }
 
+    /**
+     * Get the current context of the scan
+     *
+     * @param null|string $match To check whether the current status is this value
+     *
+     * @return string|boolean
+     */
     protected function status($match = null)
     {
         $status = isset($this->status[0]) ? $this->status[0] : null;
@@ -167,16 +174,33 @@ class JsFunctionsScanner extends FunctionsScanner
         return $status;
     }
 
+    /**
+     * Add a new status to the stack
+     *
+     * @param string $status
+     */
     protected function downStatus($status)
     {
         array_unshift($this->status, $status);
     }
 
+    /**
+     * Removes and return the current status
+     *
+     * @return string|null
+     */
     protected function upStatus()
     {
         return array_shift($this->status);
     }
 
+    /**
+     * Prepares the arguments found in functions
+     *
+     * @param string $argument
+     *
+     * @return string
+     */
     protected static function prepareArgument($argument)
     {
         if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {

@@ -201,7 +201,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Removes one headers
+     * Removes one header
      *
      * @param string $name
      */

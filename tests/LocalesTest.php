@@ -26,7 +26,7 @@ class LocalesTest extends PHPUnit_Framework_TestCase
     public function testLocalesVariants()
     {
         $translations = new Gettext\Translations();
-        
+
         $translations->setLanguage('pt');
 
         $pluralForms = $translations->getPluralForms();

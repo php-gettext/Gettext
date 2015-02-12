@@ -8,7 +8,7 @@ class Locales
 
     /**
      * Returns all languages data
-     * 
+     *
      * @return array
      */
     public static function getLanguages()
@@ -22,7 +22,7 @@ class Locales
 
     /**
      * Returns all territories data
-     * 
+     *
      * @return array
      */
     public static function getTerritories()

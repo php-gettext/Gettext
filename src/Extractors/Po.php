@@ -33,7 +33,7 @@ class Po extends Extractor implements ExtractorInterface
             if ($line === '') {
                 if ($translation->is('', '')) {
                     self::parseHeaders($translation->getTranslation(), $translations);
-                } else if ($translation->hasOriginal()) {
+                } elseif ($translation->hasOriginal()) {
                     $translations[] = $translation;
                 }
 
@@ -152,9 +152,9 @@ class Po extends Extractor implements ExtractorInterface
     /**
      * Parse the po headers
      *
-     * @param  string       $headers
-     * @param  Translations $translations
-     * 
+     * @param string       $headers
+     * @param Translations $translations
+     *
      * @return boolean
      */
     private static function parseHeaders($headers, Translations $translations)
@@ -164,7 +164,7 @@ class Po extends Extractor implements ExtractorInterface
 
         foreach ($headers as $line) {
             $line = self::clean($line);
-            
+
             if (self::isHeaderDefinition($line)) {
                 $header = array_map('trim', explode(':', $line, 2));
                 $currentHeader = $header[0];
