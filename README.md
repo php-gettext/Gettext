@@ -88,8 +88,8 @@ The `Gettext\Translations` class stores a collection of translations:
 ```php
 $translations = new Gettext\Translations();
 
-//You can add new tranlations using the array syntax
-$tranlations[] = new Gettext\Translation('comments', 'One comment', '%s comments');
+//You can add new translations using the array syntax
+$translations[] = new Gettext\Translation('comments', 'One comment', '%s comments');
 
 //Or using the "insert" method
 $insertedTranslation = $translations->insert('comments', 'One comments', '%s comments');
@@ -163,7 +163,7 @@ To import translations, the methods are static and named `from + [Extractor] + [
 
 ## Translator
 
-The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. You can load the tranlations from a php array file or using a `Gettext\Tranlations` instance:
+The class `Gettext\Translator` implements the gettext functions in php. Usefult if you don't have the native gettext extension for php or want to avoid problems with it. You can load the translations from a php array file or using a `Gettext\Translations` instance:
 
 ```php
 use Gettext\Translator;
@@ -181,7 +181,7 @@ $array = include 'locales/gl.php';
 $t->loadTranslations($array);
 
 // 3. using a Gettext\Translations instance (slower)
-$translations = Gettext\Tranlations::fromPoFile('locales/gl.po');
+$translations = Gettext\Translations::fromPoFile('locales/gl.po');
 $t->loadTranslations($translations);
 
 //Now you can use it in your templates
