@@ -262,16 +262,16 @@ Example:
 use Gettext\Translations;
 
 //Scan the php code to find the latest gettext translations
-$translations = Gettext\Extractors\PhpCode::fromFile('my-templates.php');
+$translations = Translations::fromPhpCodeFile('my-templates.php');
 
 //Get the translations of the code that are stored in a po file
-$poTranslations = Gettext\Extractors\Po::fromFile('locale.po');
+$poTranslations = Translations::fromPoFile('locale.po');
 
 //Apply the translations from the po file to the translations, and merges header and comments but not references and without add or remove translations:
 $translations->mergeWith($poTranslations, Translations::MERGE_HEADERS | Translations::MERGE_COMMENTS);
 
 //Now save a po file with the result
-Gettext\Generators\Po::generateFile($translations, 'locale.po');
+$translations->toPoFile('locale.po');
 ```
 
 Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL`
