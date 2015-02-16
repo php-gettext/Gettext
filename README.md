@@ -254,7 +254,7 @@ The second argument of `mergeWith` defines how the merge will be done. You can p
 * MERGE_REFERENCES: Merges the references from translations2 to translations1
 * MERGE_COMMENTS: Merges the comments from translations2 to translations1
 * MERGE_LANGUAGE: Applies the language and plural forms of translations2 to translation1
-* MERGE_PLURAL: Translations with the same id but one with plurals and other singular will be merged into one singular
+* MERGE_PLURAL: Translations with the same id but one with plurals and other singular will be merged
 
 Example:
 
