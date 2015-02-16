@@ -34,8 +34,8 @@ This package contains the following classes:
 
 * `Gettext\Translation` - A translation definition
 * `Gettext\Translations` - A collection of translations
-* `Gettext\Extractors\*` - Extract gettext values from various sources
-* `Gettext\Generators\*` - Generate gettext formats
+* `Gettext\Extractors\*` - Import translations from various sources (po, mo, php, js, etc)
+* `Gettext\Generators\*` - Export translations to various formats (po, mo, php, json, etc)
 * `Gettext\Translator` - To use the translations in your php templates instead the [php extension](http://php.net/gettext)
 
 ## Usage example
