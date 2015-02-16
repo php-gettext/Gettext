@@ -1,6 +1,8 @@
 <?php
 namespace Gettext;
 
+use Gettext\Languages\Language;
+
 /**
  * Class to manage a collection of translations
  */
@@ -231,8 +233,8 @@ class Translations extends \ArrayObject
     {
         $this->setHeader(self::HEADER_LANGUAGE, trim($language));
 
-        if (($info = Utils\Locales::getLocaleInfo($language))) {
-            $this->setPluralForms($info['plurals'], $info['formula']);
+        if (($info = Language::getById($language))) {
+            $this->setPluralForms(count($info->categories), $info->formula);
 
             return true;
         }
