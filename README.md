@@ -13,41 +13,19 @@ Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, J
 The 3.0 version has some changes in the API. See the changelog for more information:
 https://github.com/oscarotero/Gettext/releases/tag/v3.0
 
+## Installation
 
-## Usage example
+With composer (recomended):
+
+```
+composer require gettext/gettext
+```
+
+If you don't use composer in your project, you have to download and place this package in a directory of your project. You need to install also [gettext/languages](https://github.com/mlocati/cldr-to-gettext-plural-rules). Then, include the autoloaders of both projects in any place of your php code:
 
 ```php
-//Include the autoloader if you don't use composer or PSR-4 loader
-include('src/autoloader.php');
-
-//scan a Po file:
-$translations = Gettext\Translations::fromPoFile('locales/gl.po');
-
-//edit some translations:
-$translation = $translations->find(null, 'apple');
-
-if ($translation) {
-	$translation->setTranslation('Mazá');
-}
-
-//Export to PhpArray:
-$translations->toPhpArrayFile('locales/gl.php');
-
-//Create a translator for your php templates
-$t = new Gettext\Translator();
-
-//Load your translations:
-$t->loadTranslations('locales/gl.php');
-
-//Use it:
-echo $t->gettext('apple'); //echoes "Mazá"
-
-//Use the global functions:
-Gettext\Translator::initGettextFunctions($t);
-
-echo __('apple'); //echoes "Mazá"
-
-__e('apple'); //echoes "Mazá"
+include_once "libs/gettext/src/autoloader.php";
+include_once "libs/cldr-to-gettext-plural-rules/src/autoloader.php";
 ```
 
 ## Classes and functions
@@ -56,9 +34,50 @@ This package contains the following classes:
 
 * `Gettext\Translation` - A translation definition
 * `Gettext\Translations` - A collection of translations
-* `Gettext\Translator` - Use the translations in your php templates
 * `Gettext\Extractors\*` - Extract gettext values from various sources
 * `Gettext\Generators\*` - Generate gettext formats
+* `Gettext\Translator` - To use the translations in your php templates instead the [php extension](http://php.net/gettext)
+
+## Usage example
+
+```php
+use Gettext\Translations;
+
+//import from a .po file:
+$translations = Translations::fromPoFile('locales/gl.po');
+
+//edit some translations:
+$translation = $translations->find(null, 'apple');
+
+if ($translation) {
+	$translation->setTranslation('Mazá');
+}
+
+//export to a php array:
+$translations->toPhpArrayFile('locales/gl.php');
+```
+
+If you want use this translations in your php templates without using the native gettext functions:
+
+```php
+use Gettext\Translator;
+
+//Create a translator instance
+$t = new Translator();
+
+//Load your translations (exported as PhpArray):
+$t->loadTranslations('locales/gl.php');
+
+//Use it:
+echo $t->gettext('apple'); // "Mazá"
+
+//If you want use global functions:
+Translator::initGettextFunctions($t);
+
+echo __('apple'); // "Mazá"
+
+__e('apple'); // "Mazá"
+```
 
 ## Translation
 
@@ -199,7 +218,7 @@ echo __('apple'); //returns Mazá
 __e('apple'); //echo Mazá
 ```
 
-You can scan the php files that uses these functions and extract the values with the PhpCode extractor:
+You can scan the php files containing these functions and extract the values with the PhpCode extractor:
 
 ```html
 <!-- index.php -->
@@ -257,13 +276,12 @@ Gettext\Generators\Po::generateFile($translations, 'locale.po');
 
 Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL`
 
-
 ## Contributors
 
 * [oscarotero](https://github.com/oscarotero) (Creator and maintainer)
+* [mlocati](https://github.com/mlocati) (Mo generator/extractor, languages, etc)
 * [esnoeijs](https://github.com/esnoeijs) (plural parser)
 * [leom](https://github.com/leom) (Jed fixes)
 * [eusonlito](https://github.com/eusonlito) (Blade extractor)
 * [vvh-empora](https://github.com/vvh-empora) (fixes)
-* [mlocati](https://github.com/mlocati) (Mo generator/extractor)
 * [and many more...](https://github.com/oscarotero/Gettext/graphs/contributors)
