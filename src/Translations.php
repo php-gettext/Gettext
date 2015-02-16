@@ -1,7 +1,7 @@
 <?php
 namespace Gettext;
 
-use GettextLanguages\Language;
+use Gettext\Languages\Language;
 
 /**
  * Class to manage a collection of translations

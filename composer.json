@@ -19,7 +19,7 @@
 	},
 	"require": {
 		"php": ">=5.3.0",
-		"gettext/languages": "1.*"
+		"gettext/languages": "2.*"
 	},
 	"suggest": {
 		"illuminate/view": "Is necessary if you want use the Blade extractor"
