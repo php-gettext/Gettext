@@ -23,7 +23,8 @@
     },
     "suggest": {
         "illuminate/view": "Is necessary if you want use the Blade extractor",
-        "twig/twig": "Is necessary if you want to use the Twig extractor"
+        "twig/twig": "Is necessary if you want to use the Twig extractor",
+        "twig/extensions": "Is necessary if you want to use the Twig extractor"
     },
     "autoload": {
         "psr-4": {
