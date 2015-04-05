@@ -25,7 +25,6 @@ abstract class Extractor
             static::fromString(self::readFile($file), $translations, $file);
         }
 
-
         return $translations;
     }
 
