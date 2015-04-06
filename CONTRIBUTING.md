@@ -15,13 +15,3 @@ Good pull requests – patches, improvements, new features – are a fantastic h
 
 * The code must be PSR-2 compliant
 * Write some tests
-
-## Contributors
-
-* [oscarotero](https://github.com/oscarotero) (Creator and maintainer)
-* [esnoeijs](https://github.com/esnoeijs) (plural parser)
-* [leom](https://github.com/leom) (Jed fixes)
-* [eusonlito](https://github.com/eusonlito) (Blade extractor)
-* [vvh-empora](https://github.com/vvh-empora) (fixes)
-* [mlocati](https://github.com/mlocati) (Mo generator/extractor, locales data, etc)
-* [and many more...](https://github.com/oscarotero/Gettext/graphs/contributors)
