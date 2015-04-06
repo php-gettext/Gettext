@@ -143,6 +143,7 @@ The available extractors are the following:
 * `Gettext\Extractors\PhpArray` - To get the translations from a php file that returns an array
 * `Gettext\Extractors\Jed` - To scan a json file compatible with the [Jed library](http://slexaxton.github.com/Jed/)
 * `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks [@eusonlito](https://github.com/eusonlito))
+* `Gettext\Extractors\Twig` - To scan a Twig template (Thanks [@exnor](https://github.com/exnor))
 * `Gettext\Extractors\JsonDictionary` - To get translations from a plain json file with the format `{"original": "translation"}`
 
 ## Generators
@@ -278,10 +279,11 @@ Note, if the second argument is not defined, the default is `self::MERGE_ADD | s
 
 ## Contributors
 
-* [oscarotero](https://github.com/oscarotero) (Creator and maintainer)
-* [mlocati](https://github.com/mlocati) (Mo generator/extractor, languages, etc)
-* [esnoeijs](https://github.com/esnoeijs) (plural parser)
-* [leom](https://github.com/leom) (Jed fixes)
-* [eusonlito](https://github.com/eusonlito) (Blade extractor)
-* [vvh-empora](https://github.com/vvh-empora) (fixes)
+* [@oscarotero](https://github.com/oscarotero) (Creator and maintainer)
+* [@mlocati](https://github.com/mlocati) (Mo generator/extractor, languages, etc)
+* [@esnoeijs](https://github.com/esnoeijs) (plural parser)
+* [@leom](https://github.com/leom) (Jed fixes)
+* [@eusonlito](https://github.com/eusonlito) (Blade extractor)
+* [@exnor](https://github.com/exnor) (Twig extractor)
+* [@vvh-empora](https://github.com/vvh-empora) (fixes)
 * [and many more...](https://github.com/oscarotero/Gettext/graphs/contributors)
