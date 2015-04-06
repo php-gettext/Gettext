@@ -154,8 +154,6 @@ class Po extends Extractor implements ExtractorInterface
      *
      * @param string       $headers
      * @param Translations $translations
-     *
-     * @return boolean
      */
     private static function parseHeaders($headers, Translations $translations)
     {

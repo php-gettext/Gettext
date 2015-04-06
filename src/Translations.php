@@ -94,8 +94,8 @@ class Translations extends \ArrayObject
     /**
      * Control the new translations added
      *
-     * @param mixed $index
-     * @param mixed $value
+     * @param mixed       $index
+     * @param Translation $value
      *
      * @throws InvalidArgumentException If the value is not an instance of Gettext\Translation
      *
