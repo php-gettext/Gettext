@@ -29,6 +29,8 @@ abstract class FunctionsScanner
                 continue;
             }
 
+            $translation = null;
+
             switch ($functions[$name]) {
                 case '__':
                     if (!isset($args[0])) {
@@ -66,7 +68,9 @@ abstract class FunctionsScanner
                     throw new Exception('Not valid functions');
             }
 
-            $translation->addReference($file, $line);
+            if (isset($translation)) {
+                $translation->addReference($file, $line);
+            }
         }
     }
 }
