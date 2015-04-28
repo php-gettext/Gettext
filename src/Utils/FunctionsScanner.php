@@ -35,7 +35,9 @@ abstract class FunctionsScanner
                         continue 2;
                     }
                     $original = $args[0];
-                    $translation = $translations->insert('', $original);
+                    if ($original !== '') {
+                        $translation = $translations->insert('', $original);
+                    }
                     break;
 
                 case 'n__':
@@ -44,7 +46,9 @@ abstract class FunctionsScanner
                     }
                     $original = $args[0];
                     $plural = $args[1];
-                    $translation = $translations->insert('', $original, $plural);
+                    if ($original !== '') {
+                        $translation = $translations->insert('', $original, $plural);
+                    }
                     break;
 
                 case 'p__':
@@ -53,7 +57,9 @@ abstract class FunctionsScanner
                     }
                     $context = $args[0];
                     $original = $args[1];
-                    $translation = $translations->insert($context, $original);
+                    if ($original !== '') {
+                        $translation = $translations->insert($context, $original);
+                    }
                     break;
 
                 default:
