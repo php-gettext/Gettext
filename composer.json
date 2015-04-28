@@ -24,7 +24,8 @@
     "require-dev": {
         "illuminate/view": "*",
         "twig/twig": "*",
-        "twig/extensions": "*"
+        "twig/extensions": "*",
+        "phpunit/phpunit": "~4.0"
     },
     "suggest": {
         "illuminate/view": "Is necessary if you want to use the Blade extractor",
