@@ -17,6 +17,8 @@ class PhpCodeExtractorTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'text 7 (with parenthesis)'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'text 8 "with escaped double quotes"'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'text 9 \'with single quotes\''));
+
+        $this->assertCount(12, $translations);
     }
 
     public function testMultiline()
