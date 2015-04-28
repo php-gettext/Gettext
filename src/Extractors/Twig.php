@@ -12,6 +12,13 @@ use Twig_Extensions_Extension_I18n;
 class Twig extends Extractor implements ExtractorInterface
 {
     /**
+     * Twig instance
+     *
+     * @var Twig_Environment
+     */
+    protected static $twig;
+
+    /**
      * {@inheritDoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
@@ -36,18 +43,6 @@ class Twig extends Extractor implements ExtractorInterface
      */
     public static function addExtension($extension)
     {
-        // Get an instance of the extension
-        // Support for string, closure and an object
-        /*
-        if (is_string($twig_extension)) {
-            $twig_extension = new $twig_extension($this->app, $twig);
-        } elseif (is_callable($twig_extension)) {
-            $twig_extension = $twig_extension($this->app, $twig);
-        } elseif (!is_object($twig_extension)) {
-            throw new InvalidArgumentException('Incorrect extension type');
-        }
-        */
-
         // initialise twig
         if (!isset(self::$twig)) {
             $twigCompiler = new Twig_Loader_String();
@@ -76,5 +71,4 @@ class Twig extends Extractor implements ExtractorInterface
 
         return false;
     }
-}
 }
