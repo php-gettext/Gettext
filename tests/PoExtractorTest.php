@@ -130,4 +130,13 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
         $t->setPluralTranslation('% estrelas');
         $this->assertTrue($t->hasPluralTranslation());
     }
+
+    public function testKeysAreClean()
+    {
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/no-headers.po');
+
+        $msgId = key($translations);
+        
+        $this->assertSame('Dielen', $msgId);
+    }
 }
