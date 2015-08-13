@@ -24,7 +24,7 @@ class JsonDictionary extends Generator implements GeneratorInterface
         return json_encode(
             array_filter(
                 array_map(function ($val) {
-                    return $val[1];
+                    return isset($val[1]) ? $val[1] : null;
                 }, $values)
             )
         );
