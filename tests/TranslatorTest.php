@@ -5,7 +5,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
     public function testOne()
     {
         //Extract translations
-        $t = new Gettext\Translator();
+        $t = new Gettext\Translators\Translator();
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/po.po'));
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/plurals.po'));
 
@@ -21,10 +21,10 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
     public function testFunctions()
     {
         //Extract translations
-        $t = new Gettext\Translator();
+        $t = new Gettext\Translators\Translator();
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/po.po'));
 
-        Gettext\Translator::initGettextFunctions($t);
+        $t->register();
 
         $this->assertEquals('Cijeo broj', __('Integer'));
         $this->assertEquals('Ovo polje ne može biti prazno.', __('This field cannot be blank.'));
@@ -34,7 +34,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
 
     public function testPlural()
     {
-        $t = new \Gettext\Translator();
+        $t = new Gettext\Translators\Translator();
         $t->loadTranslations(Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po'));
 
         /**
@@ -62,7 +62,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
 
     public function testNonLoadedTranslations()
     {
-        $t = new \Gettext\Translator();
+        $t = new Gettext\Translators\Translator();
 
         $this->assertEquals('hello', $t->gettext('hello'));
         $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 0));
