@@ -5,7 +5,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
     public function testOne()
     {
         //Extract translations
-        $t = new Gettext\Translators\Translator();
+        $t = new Gettext\Translator();
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/po.po'));
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/plurals.po'));
 
@@ -21,7 +21,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
     public function testFunctions()
     {
         //Extract translations
-        $t = new Gettext\Translators\Translator();
+        $t = new Gettext\Translator();
         $t->loadTranslations(Gettext\Translations::fromPoFile(__DIR__.'/files/po.po'));
 
         $t->register();
@@ -34,7 +34,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
 
     public function testPlural()
     {
-        $t = new Gettext\Translators\Translator();
+        $t = new Gettext\Translator();
         $t->loadTranslations(Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po'));
 
         /**
@@ -62,7 +62,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
 
     public function testNonLoadedTranslations()
     {
-        $t = new Gettext\Translators\Translator();
+        $t = new Gettext\Translator();
 
         $this->assertEquals('hello', $t->gettext('hello'));
         $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 0));
