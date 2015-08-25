@@ -246,7 +246,7 @@ echo $t->gettext('apple');
 
 ## GettextTranslator
 
-The class `Gettext\GettextTranslator` uses the gettext extension. It's useful because combines the performance of using real gettext functions but with the same API than `Translator` class, so you can switch to one or other translator deppending of the environment without change the php templates.
+The class `Gettext\GettextTranslator` uses the gettext extension. It's useful because combines the performance of using real gettext functions but with the same API than `Translator` class, so you can switch to one or other translator deppending of the environment without change code of your app.
 
 ```php
 use Gettext\GettextTranslator;
@@ -264,6 +264,8 @@ $t->loadDomain('messages', 'project/Locale');
 //Now you can use it in your templates
 echo $t->gettext('apple');
 ```
+
+## Global functions
 
 To ease the use of translations in your php templates, you can use the provided functions:
 

@@ -66,6 +66,14 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $this->assertCount(14, $translations1);
     }
 
+    public function testAdd()
+    {
+        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
+        $translations->addFromPoFile(__DIR__.'/files/plurals.po');
+
+        $this->assertCount(14, $translations);
+    }
+
     public function testMergeAddRemove()
     {
         $translations1 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
