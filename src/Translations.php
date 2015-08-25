@@ -2,6 +2,7 @@
 namespace Gettext;
 
 use Gettext\Languages\Language;
+use BadMethodCallException;
 
 /**
  * Class to manage a collection of translations
@@ -54,27 +55,36 @@ class Translations extends \ArrayObject
     public static function __callStatic($name, $arguments)
     {
         if (!preg_match('/^from(\w+)(File|String)$/i', $name, $matches)) {
-            throw new \Exception("The method $name does not exists");
+            throw new BadMethodCallException("The method $name does not exists");
         }
 
         return call_user_func_array('Gettext\\Extractors\\'.$matches[1].'::from'.$matches[2], $arguments);
     }
 
     /**
-     * Magic method to export the translations to a specific format
+     * Magic method to import/export the translations to a specific format
      * For example: $translations->toMoFile($filename);
+     * For example: $translations->addFromMoFile($filename);
      *
-     * @return bool|string
+     * @return self|boolean
      */
     public function __call($name, $arguments)
     {
-        if (!preg_match('/^to(\w+)(File|String)$/i', $name, $matches)) {
-            throw new \Exception("The method $name does not exists");
+        if (!preg_match('/^(addFrom|to)(\w+)(File|String)$/i', $name, $matches)) {
+            throw new BadMethodCallException("The method $name does not exists");
+        }
+
+        if ($matches[1] === 'addFrom') {
+            $arguments[] = $this;
+
+            call_user_func_array('Gettext\\Extractors\\'.$matches[2].'::from'.$matches[3], $arguments);
+
+            return $this;
         }
 
         array_unshift($arguments, $this);
 
-        return call_user_func_array('Gettext\\Generators\\'.$matches[1].'::to'.$matches[2], $arguments);
+        return call_user_func_array('Gettext\\Generators\\'.$matches[2].'::to'.$matches[3], $arguments);
     }
 
     /**
