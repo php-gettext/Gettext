@@ -7,7 +7,7 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
 
     /**
      * Constructor. Detects the current language using the environment variables
-     * 
+     *
      * @param string $language
      */
     public function __construct($language = null)
@@ -29,9 +29,9 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
 
     /**
      * Define the current locale
-     * 
+     *
      * @param string $language
-     * 
+     *
      * @return self
      */
     public function setLanguage($language)
