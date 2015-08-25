@@ -1,8 +1,7 @@
 <?php
-namespace Gettext\Translators;
+namespace Gettext;
 
 use Gettext\Generators\PhpArray;
-use Gettext\Translations;
 
 class Translator extends BaseTranslator implements TranslatorInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Gettext\Translators;
+namespace Gettext;
 
 abstract class BaseTranslator
 {
@@ -10,11 +10,11 @@ abstract class BaseTranslator
      *
      * @param Translator $translator
      */
-    public static function initGettextFunctions(Translator $translator)
+    public static function initGettextFunctions(TranslatorInterface $translator)
     {
         self::$current = $translator;
 
-        include_once __DIR__.'/functions.php';
+        include_once __DIR__.'/translator_functions.php';
     }
 
     /**

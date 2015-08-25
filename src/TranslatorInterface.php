@@ -1,5 +1,5 @@
 <?php
-namespace Gettext\Translators;
+namespace Gettext;
 
 /**
  * Interface used by all translators

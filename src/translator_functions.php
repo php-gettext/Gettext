@@ -1,5 +1,5 @@
 <?php
-use Gettext\Translators\BaseTranslator;
+use Gettext\BaseTranslator;
 
 /**
  * Returns the translation of a string
