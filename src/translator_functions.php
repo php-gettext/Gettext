@@ -1,5 +1,5 @@
 <?php
-use Gettext\Translator;
+use Gettext\BaseTranslator;
 
 /**
  * Returns the translation of a string
@@ -10,7 +10,7 @@ use Gettext\Translator;
  */
 function __($original)
 {
-    $text = Translator::$current->gettext($original);
+    $text = BaseTranslator::$current->gettext($original);
 
     if (func_num_args() === 1) {
         return $text;
@@ -32,7 +32,7 @@ function __($original)
  */
 function n__($original, $plural, $value)
 {
-    $text = Translator::$current->ngettext($original, $plural, $value);
+    $text = BaseTranslator::$current->ngettext($original, $plural, $value);
 
     if (func_num_args() === 3) {
         return $text;
@@ -53,7 +53,7 @@ function n__($original, $plural, $value)
  */
 function p__($context, $original)
 {
-    $text = Translator::$current->pgettext($context, $original);
+    $text = BaseTranslator::$current->pgettext($context, $original);
 
     if (func_num_args() === 2) {
         return $text;
@@ -74,7 +74,7 @@ function p__($context, $original)
  */
 function d__($domain, $original)
 {
-    $text = Translator::dgettext($domain, $original);
+    $text = BaseTranslator::dgettext($domain, $original);
 
     if (func_num_args() === 2) {
         return $text;
@@ -96,7 +96,7 @@ function d__($domain, $original)
  */
 function dp__($domain, $context, $original)
 {
-    $text = Translator::dpgettext($domain, $context, $original);
+    $text = BaseTranslator::dpgettext($domain, $context, $original);
 
     if (func_num_args() === 3) {
         return $text;
@@ -120,7 +120,7 @@ function dp__($domain, $context, $original)
  */
 function dnp__($domain, $context, $original, $plural, $value)
 {
-    $text = Translator::dnpgettext($domain, $context, $original, $plural, $value);
+    $text = BaseTranslator::dnpgettext($domain, $context, $original, $plural, $value);
 
     if (func_num_args() === 5) {
         return $text;

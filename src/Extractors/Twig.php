@@ -59,7 +59,7 @@ class Twig extends Extractor implements ExtractorInterface
      * Checks if a given Twig extension is already registered or not
      *
      * @param  string   Name of Twig extension to check
-     * @return boolean  Whether it has been registered already or not
+     * @return boolean Whether it has been registered already or not
      */
     protected static function checkHasExtensionByClassName($className)
     {

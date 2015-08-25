@@ -3,33 +3,19 @@ namespace Gettext;
 
 use Gettext\Generators\PhpArray;
 
-class Translator
+class Translator extends BaseTranslator implements TranslatorInterface
 {
-    public static $current;
-
     private $domain;
     private $dictionary = array();
     private $context_glue = "\004";
     private $plurals = array();
 
     /**
-     * Set a translation instance as global, to use it with the gettext functions
-     *
-     * @param Translator $translator
-     */
-    public static function initGettextFunctions(Translator $translator)
-    {
-        self::$current = $translator;
-
-        include_once __DIR__.'/translator_functions.php';
-    }
-
-    /**
      * Loads translation from a Translations instance, a file on an array
      *
      * @param Translations|string|array $translations
      *
-     * @return Translator
+     * @return self
      */
     public function loadTranslations($translations)
     {
@@ -49,11 +35,104 @@ class Translator
     }
 
     /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function gettext($original)
+    {
+        return $this->dpgettext($this->domain, null, $original);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function ngettext($original, $plural, $value)
+    {
+        return $this->dnpgettext($this->domain, null, $original, $plural, $value);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function dngettext($domain, $original, $plural, $value)
+    {
+        return $this->dnpgettext($domain, null, $original, $plural, $value);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function npgettext($context, $original, $plural, $value)
+    {
+        return $this->dnpgettext($this->domain, $context, $original, $plural, $value);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function pgettext($context, $original)
+    {
+        return $this->dpgettext($this->domain, $context, $original);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function dgettext($domain, $original)
+    {
+        return $this->dpgettext($domain, null, $original);
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function dpgettext($domain, $context, $original)
+    {
+        $translation = $this->getTranslation($domain, $context, $original);
+
+        if (isset($translation[1]) && $translation[1] !== '') {
+            return $translation[1];
+        }
+
+        return $original;
+    }
+
+    /**
+     * @see TranslatorInterface
+     *
+     * {@inheritdoc}
+     */
+    public function dnpgettext($domain, $context, $original, $plural, $value)
+    {
+        $key = $this->isPlural($domain, $value);
+        $translation = $this->getTranslation($domain, $context, $original);
+
+        if (isset($translation[$key]) && $translation[$key] !== '') {
+            return $translation[$key];
+        }
+
+        return ($key === 1) ? $original : $plural;
+    }
+
+    /**
      * Set new translations to the dictionary
      *
      * @param array $translations
      */
-    public function addTranslations(array $translations)
+    protected function addTranslations(array $translations)
     {
         $info = isset($translations['']) ? $translations[''] : null;
         unset($translations['']);
@@ -85,14 +164,6 @@ class Translator
     }
 
     /**
-     * Clear all translations
-     */
-    public function clearTranslations()
-    {
-        $this->dictionary = array();
-    }
-
-    /**
      * Search and returns a translation
      *
      * @param string $domain
@@ -101,134 +172,11 @@ class Translator
      *
      * @return array
      */
-    public function getTranslation($domain, $context, $original)
+    protected function getTranslation($domain, $context, $original)
     {
         $key = isset($context) ? $context.$this->context_glue.$original : $original;
 
         return isset($this->dictionary[$domain][$key]) ? $this->dictionary[$domain][$key] : false;
-    }
-
-    /**
-     * Gets a translation using the original string
-     *
-     * @param string $original
-     *
-     * @return string
-     */
-    public function gettext($original)
-    {
-        return $this->dpgettext($this->domain, null, $original);
-    }
-
-    /**
-     * Gets a translation checking the plural form
-     *
-     * @param string $original
-     * @param string $plural
-     * @param string $value
-     *
-     * @return string
-     */
-    public function ngettext($original, $plural, $value)
-    {
-        return $this->dnpgettext($this->domain, null, $original, $plural, $value);
-    }
-
-    /**
-     * Gets a translation checking the domain and the plural form
-     *
-     * @param string $domain
-     * @param string $original
-     * @param string $plural
-     * @param string $value
-     *
-     * @return string
-     */
-    public function dngettext($domain, $original, $plural, $value)
-    {
-        return $this->dnpgettext($domain, null, $original, $plural, $value);
-    }
-
-    /**
-     * Gets a translation checking the context and the plural form
-     *
-     * @param string $context
-     * @param string $original
-     * @param string $plural
-     * @param string $value
-     *
-     * @return string
-     */
-    public function npgettext($context, $original, $plural, $value)
-    {
-        return $this->dnpgettext($this->domain, $context, $original, $plural, $value);
-    }
-
-    /**
-     * Gets a translation checking the context
-     *
-     * @param string $context
-     * @param string $original
-     *
-     * @return string
-     */
-    public function pgettext($context, $original)
-    {
-        return $this->dpgettext($this->domain, $context, $original);
-    }
-
-    /**
-     * Gets a translation checking the domain
-     *
-     * @param string $domain
-     * @param string $original
-     *
-     * @return string
-     */
-    public function dgettext($domain, $original)
-    {
-        return $this->dpgettext($domain, null, $original);
-    }
-
-    /**
-     * Gets a translation checking the domain and context
-     *
-     * @param string $domain
-     * @param string $context
-     * @param string $original
-     *
-     * @return string
-     */
-    public function dpgettext($domain, $context, $original)
-    {
-        $translation = $this->getTranslation($domain, $context, $original);
-
-        if (isset($translation[1]) && $translation[1] !== '') {
-            return $translation[1];
-        }
-
-        return $original;
-    }
-
-    /**
-     * Gets a translation checking the domain, the context and the plural form
-     *
-     * @param string $domain
-     * @param string $context
-     * @param string $original
-     * @param string $plural
-     * @param string $value
-     */
-    public function dnpgettext($domain, $context, $original, $plural, $value)
-    {
-        $key = $this->isPlural($domain, $value);
-        $translation = $this->getTranslation($domain, $context, $original);
-
-        if (isset($translation[$key]) && $translation[$key] !== '') {
-            return $translation[$key];
-        }
-
-        return ($key === 1) ? $original : $plural;
     }
 
     /**
@@ -239,7 +187,7 @@ class Translator
      * @param  string $n
      * @return int
      */
-    public function isPlural($domain, $n)
+    protected function isPlural($domain, $n)
     {
         //Not loaded domain, use a fallback
         if (!isset($this->plurals[$domain])) {
