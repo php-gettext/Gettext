@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
+var_dump(textdomain(null)); die();
 $path = dirname(__DIR__);
 
 if (is_file($path.'/vendor/autoload.php')) {
