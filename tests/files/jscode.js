@@ -7,4 +7,11 @@ $(document).ready(function () {
 
 	/* var value5 = __("Commented function, not valid");*/
 	// var value6 = __('Other commented function')
+        
+        var resp = __("I can't get response.");
+        resp += " " + __("Please, try with other interface type.");
+        
+        resp = '<div class="alert alert-danger">';
+        resp += __("I can't get response. Please, try with other interface type.");
+        resp += '</div>';
 });
