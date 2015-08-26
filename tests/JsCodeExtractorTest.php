@@ -6,7 +6,7 @@ class JsCodeExtractorTest extends PHPUnit_Framework_TestCase
     {
         //Extract translations
         $translations = Gettext\Extractors\JsCode::fromFile(__DIR__.'/files/jscode.js');
-        
+
         $this->assertInstanceOf('Gettext\\Translations', $translations);
 
         $this->assertCount(7, $translations);

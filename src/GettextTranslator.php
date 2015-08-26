@@ -102,7 +102,10 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
      */
     public function npgettext($context, $original, $plural, $value)
     {
-        return $this->ngettext($context."\x04".$original, $plural, $value);
+        $message = $context."\x04".$original;
+        $translation = ngettext($message, $plural, $value);
+
+        return ($translation === $message) ? $original : $translation;
     }
 
     /**
@@ -112,7 +115,10 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
      */
     public function pgettext($context, $original)
     {
-        return $this->gettext($context."\x04".$original);
+        $message = $context."\x04".$original;
+        $translation = gettext($message);
+
+        return ($translation === $message) ? $original : $translation;
     }
 
     /**
@@ -132,7 +138,10 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
      */
     public function dpgettext($domain, $context, $original)
     {
-        return $this->dgettext($domain, $context."\x04".$original);
+        $message = $context."\x04".$original;
+        $translation = dgettext($domain, $message);
+
+        return ($translation === $message) ? $original : $translation;
     }
 
     /**
@@ -142,6 +151,9 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
      */
     public function dnpgettext($domain, $context, $original, $plural, $value)
     {
-        return $this->dngettext($domain, $context."\x04".$original, $plural, $value);
+        $message = $context."\x04".$original;
+        $translation = dngettext($domain, $message, $plural, $value);
+
+        return ($translation === $message) ? $original : $translation;
     }
 }
