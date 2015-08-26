@@ -215,7 +215,7 @@ $translations->addFromPoFile('locales/more-en.po');
 $translations->toMoFile('locales/en.mo');
 ```
 
-To import translations, the methods are static and named `from + [Extractor] + [File/String]`, for example `fromPhpArrayFile` or `fromJsCodeString`. To export or add more translations use the methods named `addFrom + [Generator] + [File/String]` (to add) or  `to + [Generator] + [File/String]` (to export) for example `fromPhpCodeFile`, `toPhpArrayFile` or `toPoString`.
+To import translations, the methods are static and named `from + [Extractor] + [File/String]`, for example `fromPhpArrayFile` or `fromJsCodeString`. To export or add more translations use the methods named `addFrom + [Generator] + [File/String]` (to add) or  `to + [Generator] + [File/String]` (to export) for example `addFromPhpCodeFile`, `toPhpArrayFile` or `toPoString`.
 
 ## Translator
 
