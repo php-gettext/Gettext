@@ -73,6 +73,7 @@ class JsFunctionsScanner extends FunctionsScanner
 
                         case 'line-comment':
                         case 'block-comment':
+                        case 'double-quote':
                             break;
 
                         default:
@@ -89,6 +90,7 @@ class JsFunctionsScanner extends FunctionsScanner
 
                         case 'line-comment':
                         case 'block-comment':
+                        case 'simple-quote':
                             break;
 
                         default:
@@ -102,6 +104,7 @@ class JsFunctionsScanner extends FunctionsScanner
                         case 'double-quote':
                         case 'line-comment':
                         case 'block-comment':
+                        case 'line-comment':
                             break;
 
                         default:
