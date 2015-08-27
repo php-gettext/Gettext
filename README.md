@@ -323,6 +323,7 @@ The second argument of `mergeWith` defines how the merge will be done. You can p
 
 * MERGE_ADD: Adds the translations from translations2 to translations1 if they not exists
 * MERGE_REMOVE: Removes the translations in translations1 if they are not in translations2
+* MERGE_OVERRIDE: Overrides the translations in translations1 if they are in translations2
 * MERGE_HEADERS: Merges the headers from translations2 to translations 1
 * MERGE_REFERENCES: Merges the references from translations2 to translations1
 * MERGE_COMMENTS: Merges the comments from translations2 to translations1

@@ -451,7 +451,7 @@ class Translation
             $method = Translations::$mergeDefault;
         }
 
-        if (!$this->hasTranslation()) {
+        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($method & Translations::MERGE_OVERRIDE))) {
             $this->setTranslation($translation->getTranslation());
         }
 

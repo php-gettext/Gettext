@@ -94,6 +94,27 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $this->assertCount(0, $translations1);
     }
 
+    public function testMergeOverride()
+    {
+        $default = <<<EOT
+msgid "unit"
+msgstr "Unit"
+EOT;
+
+        $override = <<<EOT
+msgid "unit"
+msgstr "Use this instead"
+EOT;
+
+        $translations1 = Gettext\Extractors\Po::fromString($default);
+        $translations2 = Gettext\Extractors\Po::fromString($override);
+
+        $translations1->mergeWith($translations2, Gettext\Translations::MERGE_OVERRIDE);
+
+        $this->assertCount(1, $translations1);
+        $this->assertEquals('Use this instead', $translations1->find(null, 'unit')->getTranslation());
+    }
+
     public function testMergeReferences()
     {
         $translations1 =  new Gettext\Translations();

@@ -16,6 +16,7 @@ class Translations extends \ArrayObject
     const MERGE_COMMENTS = 16;
     const MERGE_LANGUAGE = 32;
     const MERGE_PLURAL = 64;
+    const MERGE_OVERRIDE = 128;
 
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
