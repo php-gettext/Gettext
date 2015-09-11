@@ -4,7 +4,6 @@ namespace Gettext\Extractors;
 use Gettext\Translations;
 use Twig_Loader_String;
 use Twig_Environment;
-use Twig_Extensions_Extension_I18n;
 
 /**
  * Class to get gettext strings from twig files returning arrays
