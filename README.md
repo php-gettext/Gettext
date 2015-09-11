@@ -9,6 +9,8 @@ Gettext
 [![Monthly Downloads](https://poser.pugx.org/gettext/gettext/d/monthly.png)](https://packagist.org/packages/gettext/gettext)
 [![License](https://poser.pugx.org/gettext/gettext/license.svg)](https://packagist.org/packages/gettext/gettext)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/496dc2a6-43be-4046-a283-f8370239dd47/big.png)](https://insight.sensiolabs.com/projects/496dc2a6-43be-4046-a283-f8370239dd47)
+
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
 Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
