@@ -352,6 +352,10 @@ $translations->toPoFile('locale.po');
 
 Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL`
 
+## Use from CLI
+
+There's a Robo task to use this library from the command line interface: https://github.com/oscarotero/GettextRobo
+
 ## Contributors
 
 * [@oscarotero](https://github.com/oscarotero) (Creator and maintainer)
