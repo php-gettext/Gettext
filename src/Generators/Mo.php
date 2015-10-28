@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Generators;
 
 use Gettext\Translations;
@@ -8,7 +9,7 @@ class Mo extends Generator implements GeneratorInterface
     public static $includeEmptyTranslations = false;
 
     /**
-     * {@parentDoc}
+     * {@parentDoc}.
      */
     public static function toString(Translations $translations)
     {

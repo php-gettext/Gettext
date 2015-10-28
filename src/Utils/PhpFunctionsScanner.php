@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Utils;
 
 class PhpFunctionsScanner extends FunctionsScanner
@@ -6,7 +7,7 @@ class PhpFunctionsScanner extends FunctionsScanner
     protected $tokens;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $code The php code to scan
      */
@@ -16,7 +17,7 @@ class PhpFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -24,7 +25,7 @@ class PhpFunctionsScanner extends FunctionsScanner
         $bufferFunctions = array();
         $functions = array();
 
-        for ($k = 0; $k < $count; $k++) {
+        for ($k = 0; $k < $count; ++$k) {
             $value = $this->tokens[$k];
 
             //close the current function
@@ -53,7 +54,7 @@ class PhpFunctionsScanner extends FunctionsScanner
             //new function found
             if (($value[0] === T_STRING) && is_string($this->tokens[$k + 1]) && ($this->tokens[$k + 1] === '(')) {
                 array_unshift($bufferFunctions, array($value[1], $value[2], array()));
-                $k++;
+                ++$k;
 
                 continue;
             }

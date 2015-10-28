@@ -1,8 +1,9 @@
 <?php
+
 use Gettext\BaseTranslator;
 
 /**
- * Returns the translation of a string
+ * Returns the translation of a string.
  *
  * @param string $original
  *
@@ -22,7 +23,7 @@ function __($original)
 }
 
 /**
- * Returns the singular/plural translation of a string
+ * Returns the singular/plural translation of a string.
  *
  * @param string $original
  * @param string $plural
@@ -44,7 +45,7 @@ function n__($original, $plural, $value)
 }
 
 /**
- * Returns the translation of a string in a specific context
+ * Returns the translation of a string in a specific context.
  *
  * @param string $context
  * @param string $original
@@ -65,7 +66,7 @@ function p__($context, $original)
 }
 
 /**
- * Returns the translation of a string in a specific domain
+ * Returns the translation of a string in a specific domain.
  *
  * @param string $domain
  * @param string $original
@@ -86,7 +87,7 @@ function d__($domain, $original)
 }
 
 /**
- * Returns the translation of a string in a specific domain and context
+ * Returns the translation of a string in a specific domain and context.
  *
  * @param string $domain
  * @param string $context
@@ -108,7 +109,7 @@ function dp__($domain, $context, $original)
 }
 
 /**
- * Returns the singular/plural translation of a string in a specific domain and context
+ * Returns the singular/plural translation of a string in a specific domain and context.
  *
  * @param string $domain
  * @param string $context
@@ -132,7 +133,7 @@ function dnp__($domain, $context, $original, $plural, $value)
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see __
  */
@@ -142,7 +143,7 @@ function __e()
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see n__
  */
@@ -152,7 +153,7 @@ function n__e()
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see p__
  */
@@ -162,7 +163,7 @@ function p__e()
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see d__
  */
@@ -172,7 +173,7 @@ function d__e()
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see dp__
  */
@@ -182,7 +183,7 @@ function dp__e()
 }
 
 /**
- * Prints function result
+ * Prints function result.
  *
  * @see dnp__
  */

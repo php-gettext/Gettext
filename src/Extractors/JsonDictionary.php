@@ -1,15 +1,16 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
 
 /**
- * Class to get gettext strings from plain json
+ * Class to get gettext strings from plain json.
  */
 class JsonDictionary extends Extractor implements ExtractorInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {

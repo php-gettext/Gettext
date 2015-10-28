@@ -1,10 +1,11 @@
 <?php
+
 namespace Gettext;
 
 class GettextTranslator extends BaseTranslator implements TranslatorInterface
 {
     /**
-     * Constructor. Detects the current language using the environment variables
+     * Constructor. Detects the current language using the environment variables.
      *
      * @param string $language
      */
@@ -26,7 +27,7 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * Define the current locale
+     * Define the current locale.
      *
      * @param string $language
      *
@@ -41,7 +42,7 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * Loads a gettext domain
+     * Loads a gettext domain.
      *
      * @param string $domain
      * @param string $path

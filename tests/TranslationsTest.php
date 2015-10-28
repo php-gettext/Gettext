@@ -117,7 +117,7 @@ EOT;
 
     public function testMergeReferences()
     {
-        $translations1 =  new Gettext\Translations();
+        $translations1 = new Gettext\Translations();
         $translation1 = new Gettext\Translation(null, 'apple');
         $translation1->addReference($comment = 'templates/hello.php', $line = 34);
         $translations1[] = $translation1;

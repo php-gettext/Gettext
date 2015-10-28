@@ -1,18 +1,19 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Translation;
 
 /**
- * Class to get gettext strings from php files returning arrays
+ * Class to get gettext strings from php files returning arrays.
  */
 class Po extends Extractor implements ExtractorInterface
 {
     /**
-     * Parses a .po file and append the translations found in the Translations instance
+     * Parses a .po file and append the translations found in the Translations instance.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
@@ -25,7 +26,7 @@ class Po extends Extractor implements ExtractorInterface
 
         $translation = new Translation('', '');
 
-        for ($n = count($lines); $i < $n; $i++) {
+        for ($n = count($lines); $i < $n; ++$i) {
             $line = trim($lines[$i]);
 
             $line = self::fixMultiLines($line, $lines, $i);
@@ -139,10 +140,11 @@ class Po extends Extractor implements ExtractorInterface
 
     /**
      * Checks if it is a header definition line. Useful for distguishing between header definitions
-     * and possible continuations of a header entry
+     * and possible continuations of a header entry.
      *
-     * @param  string  $line Line to parse
-     * @return boolean
+     * @param string $line Line to parse
+     *
+     * @return bool
      */
     private static function isHeaderDefinition($line)
     {
@@ -150,7 +152,7 @@ class Po extends Extractor implements ExtractorInterface
     }
 
     /**
-     * Parse the po headers
+     * Parse the po headers.
      *
      * @param string       $headers
      * @param Translations $translations
@@ -175,7 +177,7 @@ class Po extends Extractor implements ExtractorInterface
     }
 
     /**
-     * Cleans the strings. Removes quotes, "\n", "\t", etc
+     * Cleans the strings. Removes quotes, "\n", "\t", etc.
      *
      * @param string $str
      *
@@ -195,22 +197,22 @@ class Po extends Extractor implements ExtractorInterface
     }
 
     /**
-     * Gets one string from multiline strings
+     * Gets one string from multiline strings.
      *
-     * @param string  $line
-     * @param array   $lines
-     * @param integer &$i
+     * @param string $line
+     * @param array  $lines
+     * @param int    &$i
      *
      * @return string
      */
     private static function fixMultiLines($line, array $lines, &$i)
     {
-        for ($j = $i, $t = count($lines); $j < $t; $j++) {
+        for ($j = $i, $t = count($lines); $j < $t; ++$j) {
             if (substr($line, -1, 1) == '"'
-                && isset($lines[$j+1])
-                && substr(trim($lines[$j+1]), 0, 1) == '"'
+                && isset($lines[$j + 1])
+                && substr(trim($lines[$j + 1]), 0, 1) == '"'
             ) {
-                $line = substr($line, 0, -1).substr(trim($lines[$j+1]), 1);
+                $line = substr($line, 0, -1).substr(trim($lines[$j + 1]), 1);
             } else {
                 $i = $j;
                 break;

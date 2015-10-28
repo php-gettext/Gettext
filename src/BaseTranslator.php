@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext;
 
 abstract class BaseTranslator
@@ -6,7 +7,7 @@ abstract class BaseTranslator
     public static $current;
 
     /**
-     * Set a translation instance as global, to use it with the gettext functions
+     * Set a translation instance as global, to use it with the gettext functions.
      *
      * @param Translator $translator
      */

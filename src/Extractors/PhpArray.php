@@ -1,16 +1,17 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Exception;
 use Gettext\Translations;
 
 /**
- * Class to get gettext strings from php files returning arrays
+ * Class to get gettext strings from php files returning arrays.
  */
 class PhpArray extends Extractor implements ExtractorInterface
 {
     /**
-     * Extract the translations from a file
+     * Extract the translations from a file.
      *
      * @param array|string      $file         A path of a file or files
      * @param null|Translations $translations The translations instance to append the new translations.
@@ -31,15 +32,15 @@ class PhpArray extends Extractor implements ExtractorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
-        throw new Exception("PhpArray::fromString() cannot be called. Use PhpArray::fromFile()");
+        throw new Exception('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
     }
 
     /**
-     * Handle an array of translations and append to the Translations instance
+     * Handle an array of translations and append to the Translations instance.
      *
      * @param array        $content
      * @param Translations $translations

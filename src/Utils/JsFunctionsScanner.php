@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Utils;
 
 class JsFunctionsScanner extends FunctionsScanner
@@ -7,7 +8,7 @@ class JsFunctionsScanner extends FunctionsScanner
     protected $status = array();
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $code The php code to scan
      */
@@ -17,7 +18,7 @@ class JsFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -28,7 +29,7 @@ class JsFunctionsScanner extends FunctionsScanner
         $bufferFunctions = array();
         $char = null;
 
-        for ($pos = 0; $pos < $length; $pos++) {
+        for ($pos = 0; $pos < $length; ++$pos) {
             $prev = $char;
             $char = $this->code[$pos];
             $next = isset($this->code[$pos]) ? $this->code[$pos] : null;
@@ -42,7 +43,7 @@ class JsFunctionsScanner extends FunctionsScanner
                     }
                     break;
 
-                case "/":
+                case '/':
                     switch ($this->status()) {
                         case 'simple-quote':
                         case 'double-quote':
@@ -160,11 +161,11 @@ class JsFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * Get the current context of the scan
+     * Get the current context of the scan.
      *
      * @param null|string $match To check whether the current status is this value
      *
-     * @return string|boolean
+     * @return string|bool
      */
     protected function status($match = null)
     {
@@ -178,7 +179,7 @@ class JsFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * Add a new status to the stack
+     * Add a new status to the stack.
      *
      * @param string $status
      */
@@ -188,7 +189,7 @@ class JsFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * Removes and return the current status
+     * Removes and return the current status.
      *
      * @return string|null
      */
@@ -198,7 +199,7 @@ class JsFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * Prepares the arguments found in functions
+     * Prepares the arguments found in functions.
      *
      * @param string $argument
      *

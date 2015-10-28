@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Exception;
@@ -8,7 +9,7 @@ use Gettext\Translations;
 abstract class Extractor
 {
     /**
-     * Extract the translations from a file
+     * Extract the translations from a file.
      *
      * @param array|string      $file         A path of a file or files
      * @param null|Translations $translations The translations instance to append the new translations.
@@ -29,7 +30,7 @@ abstract class Extractor
     }
 
     /**
-     * Checks and returns all files
+     * Checks and returns all files.
      *
      * @param string|array $file The file/s
      *
@@ -67,7 +68,7 @@ abstract class Extractor
     }
 
     /**
-     * Reads and returns the content of a file
+     * Reads and returns the content of a file.
      *
      * @param string $file
      *

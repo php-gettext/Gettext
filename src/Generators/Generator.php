@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Generators;
 
 use Gettext\Translations;
@@ -6,12 +7,12 @@ use Gettext\Translations;
 abstract class Generator
 {
     /**
-     * Saves the translations in a file
+     * Saves the translations in a file.
      *
      * @param Translations $translations
      * @param string       $file
      *
-     * @return boolean
+     * @return bool
      */
     public static function toFile(Translations $translations, $file)
     {

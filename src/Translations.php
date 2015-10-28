@@ -1,11 +1,12 @@
 <?php
+
 namespace Gettext;
 
 use Gettext\Languages\Language;
 use BadMethodCallException;
 
 /**
- * Class to manage a collection of translations
+ * Class to manage a collection of translations.
  */
 class Translations extends \ArrayObject
 {
@@ -49,7 +50,7 @@ class Translations extends \ArrayObject
 
     /**
      * Magic method to create new instances using extractors
-     * For example: Translations::fromMoFile($filename);
+     * For example: Translations::fromMoFile($filename);.
      *
      * @return Translations
      */
@@ -65,9 +66,9 @@ class Translations extends \ArrayObject
     /**
      * Magic method to import/export the translations to a specific format
      * For example: $translations->toMoFile($filename);
-     * For example: $translations->addFromMoFile($filename);
+     * For example: $translations->addFromMoFile($filename);.
      *
-     * @return self|boolean
+     * @return self|bool
      */
     public function __call($name, $arguments)
     {
@@ -89,7 +90,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Magic method to clone each translation on clone the translations object
+     * Magic method to clone each translation on clone the translations object.
      */
     public function __clone()
     {
@@ -103,7 +104,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Control the new translations added
+     * Control the new translations added.
      *
      * @param mixed       $index
      * @param Translation $value
@@ -135,10 +136,10 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Set the plural definition
+     * Set the plural definition.
      *
-     * @param integer $count
-     * @param string  $rule
+     * @param int    $count
+     * @param string $rule
      */
     public function setPluralForms($count, $rule)
     {
@@ -146,7 +147,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns the parsed plural definition
+     * Returns the parsed plural definition.
      *
      * @param null|array [count, rule]
      */
@@ -184,7 +185,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns a header value
+     * Returns a header value.
      *
      * @param string $name
      *
@@ -196,7 +197,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns all header for this translations
+     * Returns all header for this translations.
      *
      * @return array
      */
@@ -206,7 +207,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Removes all headers
+     * Removes all headers.
      */
     public function deleteHeaders()
     {
@@ -214,7 +215,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Removes one header
+     * Removes one header.
      *
      * @param string $name
      */
@@ -224,7 +225,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns the language value
+     * Returns the language value.
      *
      * @return string $language
      */
@@ -234,11 +235,11 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Sets the language and the plural forms
+     * Sets the language and the plural forms.
      *
      * @param string $language
      *
-     * @return boolean Returns true if the plural rules has been updated, false if $language hasn't been recognized
+     * @return bool Returns true if the plural rules has been updated, false if $language hasn't been recognized
      */
     public function setLanguage($language)
     {
@@ -254,9 +255,9 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Checks whether the language is empty or not
+     * Checks whether the language is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasLanguage()
     {
@@ -266,7 +267,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Set a new domain for this translations
+     * Set a new domain for this translations.
      *
      * @param string $domain
      */
@@ -276,7 +277,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns the domain
+     * Returns the domain.
      *
      * @return string
      */
@@ -286,9 +287,9 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Checks whether the domain is empty or not
+     * Checks whether the domain is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasDomain()
     {
@@ -298,7 +299,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Search for a specific translation
+     * Search for a specific translation.
      *
      * @param string|Translation $context  The context of the translation or a translation instance
      * @param string             $original The original string
@@ -317,7 +318,7 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Creates and insert/merges a new translation
+     * Creates and insert/merges a new translation.
      *
      * @param string $context  The translation context
      * @param string $original The translation original string
@@ -331,10 +332,10 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Merges this translations with other translations
+     * Merges this translations with other translations.
      *
      * @param Translations $translations The translations instance to merge with
-     * @param integer|null $method       One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param int|null     $method       One or various Translations::MERGE_* constants to define how to merge the translations
      */
     public function mergeWith(Translations $translations, $method = null)
     {

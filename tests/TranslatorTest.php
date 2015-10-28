@@ -37,27 +37,27 @@ class TranslatorTest extends PHPUnit_Framework_TestCase
         $t = new Gettext\Translator();
         $t->loadTranslations(Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po'));
 
-        /**
+        /*
          * Test that nplural=3 plural translation check comes up with the correct translation key.
          */
-        $this->assertEquals('1 plik',      $t->ngettext("one file", "multiple files", 1), "plural calculation result bad");
-        $this->assertEquals('2,3,4 pliki', $t->ngettext("one file", "multiple files", 2), "plural calculation result bad");
-        $this->assertEquals('2,3,4 pliki', $t->ngettext("one file", "multiple files", 3), "plural calculation result bad");
-        $this->assertEquals('2,3,4 pliki', $t->ngettext("one file", "multiple files", 4), "plural calculation result bad");
-        $this->assertEquals('5-21 plików', $t->ngettext("one file", "multiple files", 5), "plural calculation result bad");
-        $this->assertEquals('5-21 plików', $t->ngettext("one file", "multiple files", 6), "plural calculation result bad");
+        $this->assertEquals('1 plik',      $t->ngettext('one file', 'multiple files', 1), 'plural calculation result bad');
+        $this->assertEquals('2,3,4 pliki', $t->ngettext('one file', 'multiple files', 2), 'plural calculation result bad');
+        $this->assertEquals('2,3,4 pliki', $t->ngettext('one file', 'multiple files', 3), 'plural calculation result bad');
+        $this->assertEquals('2,3,4 pliki', $t->ngettext('one file', 'multiple files', 4), 'plural calculation result bad');
+        $this->assertEquals('5-21 plików', $t->ngettext('one file', 'multiple files', 5), 'plural calculation result bad');
+        $this->assertEquals('5-21 plików', $t->ngettext('one file', 'multiple files', 6), 'plural calculation result bad');
 
-        /**
+        /*
          * Test that when less then the nplural translations are available it still works.
          */
-        $this->assertEquals('1', $t->ngettext("one", "more", 1), "non-plural fallback failed");
-        $this->assertEquals('*', $t->ngettext("one", "more", 2), "non-plural fallback failed");
-        $this->assertEquals('*', $t->ngettext("one", "more", 3), "non-plural fallback failed");
+        $this->assertEquals('1', $t->ngettext('one', 'more', 1), 'non-plural fallback failed');
+        $this->assertEquals('*', $t->ngettext('one', 'more', 2), 'non-plural fallback failed');
+        $this->assertEquals('*', $t->ngettext('one', 'more', 3), 'non-plural fallback failed');
 
-        /**
+        /*
          * Test that non-plural translations the fallback still works.
          */
-        $this->assertEquals('more', $t->ngettext("single", "more", 3), "non-plural fallback failed");
+        $this->assertEquals('more', $t->ngettext('single', 'more', 3), 'non-plural fallback failed');
     }
 
     public function testNonLoadedTranslations()

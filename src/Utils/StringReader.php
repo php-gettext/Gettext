@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Utils;
 
 class StringReader
@@ -8,7 +9,7 @@ class StringReader
     public $strlen;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $str The string to read
      */
@@ -19,7 +20,7 @@ class StringReader
     }
 
     /**
-     * Read and returns a part of the string
+     * Read and returns a part of the string.
      *
      * @param int $bytes The number of bytes to read
      *
@@ -35,7 +36,7 @@ class StringReader
     }
 
     /**
-     * Move the cursor to a specific position
+     * Move the cursor to a specific position.
      *
      * @param int $pos The amount of bytes to move
      *

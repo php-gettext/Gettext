@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Generators;
 
 use Gettext\Translations;
@@ -6,7 +7,7 @@ use Gettext\Translations;
 class PhpArray extends Generator implements GeneratorInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function toString(Translations $translations)
     {
@@ -16,7 +17,7 @@ class PhpArray extends Generator implements GeneratorInterface
     }
 
     /**
-     * Generates an array with the translations
+     * Generates an array with the translations.
      *
      * @param Translations $translations
      *

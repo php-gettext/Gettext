@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 
 $path = dirname(__DIR__);

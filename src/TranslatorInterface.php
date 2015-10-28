@@ -1,18 +1,19 @@
 <?php
+
 namespace Gettext;
 
 /**
- * Interface used by all translators
+ * Interface used by all translators.
  */
 interface TranslatorInterface
 {
     /**
-     * Register this translator as global, to use with the gettext functions __(), p__(), etc
+     * Register this translator as global, to use with the gettext functions __(), p__(), etc.
      */
     public function register();
 
     /**
-     * Gets a translation using the original string
+     * Gets a translation using the original string.
      *
      * @param string $original
      *
@@ -21,7 +22,7 @@ interface TranslatorInterface
     public function gettext($original);
 
     /**
-     * Gets a translation checking the plural form
+     * Gets a translation checking the plural form.
      *
      * @param string $original
      * @param string $plural
@@ -32,7 +33,7 @@ interface TranslatorInterface
     public function ngettext($original, $plural, $value);
 
     /**
-     * Gets a translation checking the domain and the plural form
+     * Gets a translation checking the domain and the plural form.
      *
      * @param string $domain
      * @param string $original
@@ -44,7 +45,7 @@ interface TranslatorInterface
     public function dngettext($domain, $original, $plural, $value);
 
     /**
-     * Gets a translation checking the context and the plural form
+     * Gets a translation checking the context and the plural form.
      *
      * @param string $context
      * @param string $original
@@ -56,7 +57,7 @@ interface TranslatorInterface
     public function npgettext($context, $original, $plural, $value);
 
     /**
-     * Gets a translation checking the context
+     * Gets a translation checking the context.
      *
      * @param string $context
      * @param string $original
@@ -66,7 +67,7 @@ interface TranslatorInterface
     public function pgettext($context, $original);
 
     /**
-     * Gets a translation checking the domain
+     * Gets a translation checking the domain.
      *
      * @param string $domain
      * @param string $original
@@ -76,7 +77,7 @@ interface TranslatorInterface
     public function dgettext($domain, $original);
 
     /**
-     * Gets a translation checking the domain and context
+     * Gets a translation checking the domain and context.
      *
      * @param string $domain
      * @param string $context
@@ -87,7 +88,7 @@ interface TranslatorInterface
     public function dpgettext($domain, $context, $original);
 
     /**
-     * Gets a translation checking the domain, the context and the plural form
+     * Gets a translation checking the domain, the context and the plural form.
      *
      * @param string $domain
      * @param string $context

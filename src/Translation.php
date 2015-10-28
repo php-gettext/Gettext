@@ -1,8 +1,9 @@
 <?php
+
 namespace Gettext;
 
 /**
- * Class to manage a translation string
+ * Class to manage a translation string.
  */
 class Translation
 {
@@ -18,7 +19,7 @@ class Translation
     protected $translationCount;
 
     /**
-     * Generates the id of a translation (context + glue + original)
+     * Generates the id of a translation (context + glue + original).
      *
      * @param string $context
      * @param string $original
@@ -31,7 +32,7 @@ class Translation
     }
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $context  The context of the translation
      * @param string $original The original string
@@ -46,7 +47,7 @@ class Translation
     }
 
     /**
-     * Clones this translation
+     * Clones this translation.
      *
      * @param null|string $context  Optional new context
      * @param null|string $original Optional new original
@@ -67,7 +68,7 @@ class Translation
     }
 
     /**
-     * Returns the id of this translation
+     * Returns the id of this translation.
      *
      * @return string
      */
@@ -77,12 +78,12 @@ class Translation
     }
 
     /**
-     * Checks whether the translation matches with the arguments
+     * Checks whether the translation matches with the arguments.
      *
      * @param string $context
      * @param string $original
      *
-     * @return boolean
+     * @return bool
      */
     public function is($context, $original = '')
     {
@@ -90,7 +91,7 @@ class Translation
     }
 
     /**
-     * Gets the original string
+     * Gets the original string.
      *
      * @return string
      */
@@ -100,9 +101,9 @@ class Translation
     }
 
     /**
-     * Checks if the original string is empty or not
+     * Checks if the original string is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasOriginal()
     {
@@ -110,7 +111,7 @@ class Translation
     }
 
     /**
-     * Sets the translation string
+     * Sets the translation string.
      *
      * @param string $translation
      */
@@ -120,7 +121,7 @@ class Translation
     }
 
     /**
-     * Gets the translation string
+     * Gets the translation string.
      *
      * @return string
      */
@@ -130,9 +131,9 @@ class Translation
     }
 
     /**
-     * Checks if the translation string is empty or not
+     * Checks if the translation string is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasTranslation()
     {
@@ -140,7 +141,7 @@ class Translation
     }
 
     /**
-     * Sets the plural translation string
+     * Sets the plural translation string.
      *
      * @param string $plural
      */
@@ -152,7 +153,7 @@ class Translation
     }
 
     /**
-     * Gets the plural translation string
+     * Gets the plural translation string.
      *
      * @return string
      */
@@ -162,9 +163,9 @@ class Translation
     }
 
     /**
-     * Checks if the plural translation string is empty or not
+     * Checks if the plural translation string is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasPlural()
     {
@@ -172,10 +173,10 @@ class Translation
     }
 
     /**
-     * Set a new plural translation
+     * Set a new plural translation.
      *
-     * @param string  $plural The plural string to add
-     * @param integer $key    The key of the plural translation.
+     * @param string $plural The plural string to add
+     * @param int    $key    The key of the plural translation.
      */
     public function setPluralTranslation($plural, $key = 0)
     {
@@ -184,9 +185,9 @@ class Translation
     }
 
     /**
-     * Gets one or all plural translations
+     * Gets one or all plural translations.
      *
-     * @param integer|null $key The key to return. If is null, return all translations
+     * @param int|null $key The key to return. If is null, return all translations
      *
      * @return string|array
      */
@@ -200,9 +201,9 @@ class Translation
     }
 
     /**
-     * Checks if there are any plural translation
+     * Checks if there are any plural translation.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasPluralTranslation()
     {
@@ -210,7 +211,7 @@ class Translation
     }
 
     /**
-     * Removes all plural translations
+     * Removes all plural translations.
      */
     public function deletePluralTranslation()
     {
@@ -220,9 +221,9 @@ class Translation
     }
 
     /**
-     * Set the number of singular + plural translations allowed
+     * Set the number of singular + plural translations allowed.
      *
-     * @param integer $count
+     * @param int $count
      */
     public function setTranslationCount($count)
     {
@@ -233,9 +234,9 @@ class Translation
 
     /**
      * Returns the number of singular + plural translations
-     * Returns null if this Translation is not a plural one
+     * Returns null if this Translation is not a plural one.
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getTranslationCount()
     {
@@ -243,7 +244,7 @@ class Translation
     }
 
     /**
-     * Normalizes the translation count
+     * Normalizes the translation count.
      */
     protected function normalizeTranslationCount()
     {
@@ -266,7 +267,7 @@ class Translation
     }
 
     /**
-     * Gets the context of this translation
+     * Gets the context of this translation.
      *
      * @return string
      */
@@ -276,9 +277,9 @@ class Translation
     }
 
     /**
-     * Checks if the context is empty or not
+     * Checks if the context is empty or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasContext()
     {
@@ -286,10 +287,10 @@ class Translation
     }
 
     /**
-     * Adds a new reference for this translation
+     * Adds a new reference for this translation.
      *
-     * @param string       $filename The file path where the translation has been found
-     * @param null|integer $line     The line number where the translation has been found
+     * @param string   $filename The file path where the translation has been found
+     * @param null|int $line     The line number where the translation has been found
      */
     public function addReference($filename, $line = null)
     {
@@ -298,9 +299,9 @@ class Translation
     }
 
     /**
-     * Checks if the translation has any reference
+     * Checks if the translation has any reference.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasReferences()
     {
@@ -308,7 +309,7 @@ class Translation
     }
 
     /**
-     * Return all references for this translation
+     * Return all references for this translation.
      *
      * @return array
      */
@@ -318,7 +319,7 @@ class Translation
     }
 
     /**
-     * Removes all references
+     * Removes all references.
      */
     public function deleteReferences()
     {
@@ -326,7 +327,7 @@ class Translation
     }
 
     /**
-     * Adds a new comment for this translation
+     * Adds a new comment for this translation.
      *
      * @param string $comment
      */
@@ -336,9 +337,9 @@ class Translation
     }
 
     /**
-     * Checks if the translation has any comment
+     * Checks if the translation has any comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasComments()
     {
@@ -346,7 +347,7 @@ class Translation
     }
 
     /**
-     * Returns all comments for this translation
+     * Returns all comments for this translation.
      *
      * @return array
      */
@@ -356,7 +357,7 @@ class Translation
     }
 
     /**
-     * Removes all comments
+     * Removes all comments.
      */
     public function deleteComments()
     {
@@ -364,7 +365,7 @@ class Translation
     }
 
     /**
-     * Adds a new extracted comment for this translation
+     * Adds a new extracted comment for this translation.
      *
      * @param string $comment
      */
@@ -374,9 +375,9 @@ class Translation
     }
 
     /**
-     * Checks if the translation has any extracted comment
+     * Checks if the translation has any extracted comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasExtractedComments()
     {
@@ -384,7 +385,7 @@ class Translation
     }
 
     /**
-     * Returns all extracted comments for this translation
+     * Returns all extracted comments for this translation.
      *
      * @return array
      */
@@ -394,7 +395,7 @@ class Translation
     }
 
     /**
-     * Removes all extracted comments
+     * Removes all extracted comments.
      */
     public function deleteExtractedComments()
     {
@@ -402,7 +403,7 @@ class Translation
     }
 
     /**
-     * Adds a new flat for this translation
+     * Adds a new flat for this translation.
      *
      * @param string $flag
      */
@@ -412,9 +413,9 @@ class Translation
     }
 
     /**
-     * Checks if the translation has any flag
+     * Checks if the translation has any flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasFlags()
     {
@@ -422,7 +423,7 @@ class Translation
     }
 
     /**
-     * Returns all extracted flags for this translation
+     * Returns all extracted flags for this translation.
      *
      * @return array
      */
@@ -432,7 +433,7 @@ class Translation
     }
 
     /**
-     * Removes all flags
+     * Removes all flags.
      */
     public function deleteFlags()
     {
@@ -440,10 +441,10 @@ class Translation
     }
 
     /**
-     * Merges this translation with other translation
+     * Merges this translation with other translation.
      *
-     * @param Translation  $translation The translation to merge with
-     * @param integer|null $method      One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param Translation $translation The translation to merge with
+     * @param int|null    $method      One or various Translations::MERGE_* constants to define how to merge the translations
      */
     public function mergeWith(Translation $translation, $method = null)
     {

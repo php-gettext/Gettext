@@ -1,11 +1,12 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Utils\PhpFunctionsScanner;
 
 /**
- * Class to get gettext strings from php files returning arrays
+ * Class to get gettext strings from php files returning arrays.
  */
 class PhpCode extends Extractor implements ExtractorInterface
 {
@@ -19,7 +20,7 @@ class PhpCode extends Extractor implements ExtractorInterface
     );
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {

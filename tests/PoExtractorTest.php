@@ -30,8 +30,8 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
 
-        $pluralHeader = "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
-        $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), "Plural form did not get extracted correctly");
+        $pluralHeader = 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);';
+        $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), 'Plural form did not get extracted correctly');
     }
 
     public function testMultilineHeader()
@@ -41,7 +41,7 @@ class PoExtractorTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
 
-        $pluralHeader = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";
+        $pluralHeader = 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);';
         $this->assertEquals($pluralHeader, $translations->getHeader('Plural-Forms'), 'header split over 2 lines not extracted correctly');
     }
 

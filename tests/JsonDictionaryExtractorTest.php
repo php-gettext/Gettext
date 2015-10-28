@@ -1,4 +1,5 @@
 <?php
+
 include_once dirname(__DIR__).'/src/autoloader.php';
 
 class JsonDictionaryExtractorTest extends PHPUnit_Framework_TestCase

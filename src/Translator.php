@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext;
 
 use Gettext\Generators\PhpArray;
@@ -11,7 +12,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     private $plurals = array();
 
     /**
-     * Loads translation from a Translations instance, a file on an array
+     * Loads translation from a Translations instance, a file on an array.
      *
      * @param Translations|string|array $translations
      *
@@ -128,7 +129,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * Set new translations to the dictionary
+     * Set new translations to the dictionary.
      *
      * @param array $translations
      */
@@ -164,7 +165,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * Search and returns a translation
+     * Search and returns a translation.
      *
      * @param string $domain
      * @param string $context
@@ -183,8 +184,9 @@ class Translator extends BaseTranslator implements TranslatorInterface
      * Executes the plural decision code given the number to decide which
      * plural version to take.
      *
-     * @param  string $domain
-     * @param  string $n
+     * @param string $domain
+     * @param string $n
+     *
      * @return int
      */
     protected function isPlural($domain, $n)
@@ -208,7 +210,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * This function will recursively wrap failure states in brackets if they contain a nested terse if
+     * This function will recursively wrap failure states in brackets if they contain a nested terse if.
      *
      * This because PHP can not handle nested terse if's unless they are wrapped in brackets.
      *
@@ -218,13 +220,14 @@ class Translator extends BaseTranslator implements TranslatorInterface
      * becomes
      * return ($n==1 ? 0 : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? 1 : 2));
      *
-     * @param  string $code  the terse if string
-     * @param  bool   $inner If inner is true we wrap it in brackets
+     * @param string $code  the terse if string
+     * @param bool   $inner If inner is true we wrap it in brackets
+     *
      * @return string A formatted terse If that PHP can work with.
      */
     private static function fixTerseIfs($code, $inner = false)
     {
-        /**
+        /*
          * (?P<expression>[^?]+)   Capture everything up to ? as 'expression'
          * \?                      ?
          * (?P<success>[^:]+)      Capture everything up to : as 'success'
@@ -239,8 +242,8 @@ class Translator extends BaseTranslator implements TranslatorInterface
         }
 
         $expression = $matches['expression'];
-        $success    = $matches['success'];
-        $failure    = $matches['failure'];
+        $success = $matches['success'];
+        $failure = $matches['failure'];
 
         // Go look for another terse if in the failure state.
         $failure = self::fixTerseIfs($failure, true);

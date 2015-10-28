@@ -12,11 +12,11 @@
 </div>
 
 <div>
-    <p><?php __("text 6"); ?></p>
-    <p><?php __("text 7 (with parenthesis)"); ?></p>
-    <p><?php __("text 8 \"with escaped double quotes\""); ?></p>
+    <p><?php __('text 6'); ?></p>
+    <p><?php __('text 7 (with parenthesis)'); ?></p>
+    <p><?php __('text 8 "with escaped double quotes"'); ?></p>
     <p><?php __("text 9 'with single quotes'"); ?></p>
-    <p><?php echo n__("text 10 with plural", "The plural form", 5); ?></p>
+    <p><?php echo n__('text 10 with plural', 'The plural form', 5); ?></p>
 </div>
 
 <?php __e("<div id=\"blog\" class=\"container\">

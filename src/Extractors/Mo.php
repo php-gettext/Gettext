@@ -1,11 +1,12 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Utils\StringReader;
 
 /**
- * Class to get gettext strings from .mo files
+ * Class to get gettext strings from .mo files.
  */
 class Mo extends Extractor implements ExtractorInterface
 {
@@ -14,7 +15,7 @@ class Mo extends Extractor implements ExtractorInterface
     const MAGIC3 = 2500072158;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
@@ -44,7 +45,7 @@ class Mo extends Extractor implements ExtractorInterface
         $stream->seekto($tran);
         $table_translations = self::readIntArray($stream, $byteOrder, $total * 2);
 
-        for ($i = 0; $i < $total; $i++) {
+        for ($i = 0; $i < $total; ++$i) {
             $stream->seekto($table_originals[$i * 2 + 2]);
             $original = $stream->read($table_originals[$i * 2 + 1]);
             $stream->seekto($table_translations[$i * 2 + 2]);

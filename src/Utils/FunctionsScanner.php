@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Utils;
 
 use Exception;
@@ -7,14 +8,14 @@ use Gettext\Translations;
 abstract class FunctionsScanner
 {
     /**
-     * Scan and returns the functions and the arguments
+     * Scan and returns the functions and the arguments.
      *
      * @return array
      */
     abstract public function getFunctions();
 
     /**
-     * Search for specific functions and create translations
+     * Search for specific functions and create translations.
      *
      * @param array        $functions    The gettext functions to search
      * @param Translations $translations The translations instance where save the values

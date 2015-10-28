@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Generators;
 
 use Gettext\Translations;
@@ -6,7 +7,7 @@ use Gettext\Translations;
 class Jed extends Generator implements GeneratorInterface
 {
     /**
-     * {@parentDoc}
+     * {@parentDoc}.
      */
     public static function toString(Translations $translations)
     {

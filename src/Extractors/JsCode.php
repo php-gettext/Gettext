@@ -1,11 +1,12 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Utils\JsFunctionsScanner;
 
 /**
- * Class to get gettext strings from javascript files
+ * Class to get gettext strings from javascript files.
  */
 class JsCode extends Extractor implements ExtractorInterface
 {
@@ -16,7 +17,7 @@ class JsCode extends Extractor implements ExtractorInterface
     );
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
