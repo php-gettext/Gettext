@@ -75,7 +75,7 @@ function p__($context, $original)
  */
 function d__($domain, $original)
 {
-    $text = BaseTranslator::dgettext($domain, $original);
+    $text = BaseTranslator::$current->dgettext($domain, $original);
 
     if (func_num_args() === 2) {
         return $text;
@@ -97,7 +97,7 @@ function d__($domain, $original)
  */
 function dp__($domain, $context, $original)
 {
-    $text = BaseTranslator::dpgettext($domain, $context, $original);
+    $text = BaseTranslator::$current->dpgettext($domain, $context, $original);
 
     if (func_num_args() === 3) {
         return $text;
@@ -121,7 +121,7 @@ function dp__($domain, $context, $original)
  */
 function dnp__($domain, $context, $original, $plural, $value)
 {
-    $text = BaseTranslator::dnpgettext($domain, $context, $original, $plural, $value);
+    $text = BaseTranslator::$current->dnpgettext($domain, $context, $original, $plural, $value);
 
     if (func_num_args() === 5) {
         return $text;
