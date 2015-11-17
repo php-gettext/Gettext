@@ -30,5 +30,7 @@ class PhpCode extends Extractor implements ExtractorInterface
 
         $functions = new PhpFunctionsScanner($string);
         $functions->saveGettextFunctions(self::$functions, $translations, $file);
+        
+        return $translations;
     }
 }
