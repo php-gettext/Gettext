@@ -55,10 +55,6 @@ class Mo extends Extractor implements ExtractorInterface
             $stream->seekto($table_translations[$next + 2]);
             $translated = $stream->read($table_translations[$next + 1]);
 
-            if ($translated === '') {
-                continue;
-            }
-
             if ($original === '') {
                 // Headers
                 foreach (explode("\n", $translated) as $headerLine) {
@@ -92,6 +88,10 @@ class Mo extends Extractor implements ExtractorInterface
             }
 
             $translation = $translations->insert($context, $original, $plural);
+
+            if ($translated === '') {
+                continue;
+            }
 
             if ($plural === '') {
                 $translation->setTranslation($translated);
