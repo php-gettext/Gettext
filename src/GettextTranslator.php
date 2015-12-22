@@ -29,13 +29,18 @@ class GettextTranslator extends BaseTranslator implements TranslatorInterface
     /**
      * Define the current locale.
      *
-     * @param string $language
+     * @param string   $language
+     * @param int|null $category
      *
      * @return self
      */
-    public function setLanguage($language)
+    public function setLanguage($language, $category = null)
     {
-        setlocale(LC_MESSAGES, $language);
+        if ($category === null) {
+            $category = defined('LC_MESSAGES') ? LC_MESSAGES : LC_ALL;
+        }
+
+        setlocale($category, $language);
         putenv('LANGUAGE='.$language);
 
         return $this;
