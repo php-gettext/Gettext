@@ -18,9 +18,11 @@ class Jed extends PhpArray implements ExtractorInterface
             $translations = new Translations();
         }
 
-        $content = json_decode($string);
+        $content = json_decode($string, true);
 
-        return PhpArray::handleArray($content, $translations);
+        PhpArray::handleArray($content, $translations);
+
+        return $translations;
     }
 
     /**

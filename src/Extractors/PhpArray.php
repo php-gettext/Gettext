@@ -47,7 +47,7 @@ class PhpArray extends Extractor implements ExtractorInterface
      */
     public static function handleArray(array $content, Translations $translations)
     {
-        $content = $content['messages'];
+        $content = current($content);
 
         $translations_info = isset($content['']) ? $content[''] : null;
         unset($content['']);
