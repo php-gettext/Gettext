@@ -172,7 +172,7 @@ class JsFunctionsScanner extends FunctionsScanner
         $status = isset($this->status[0]) ? $this->status[0] : null;
 
         if ($match) {
-            return ($status === $match);
+            return $status === $match;
         }
 
         return $status;

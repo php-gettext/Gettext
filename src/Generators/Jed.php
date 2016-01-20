@@ -17,7 +17,7 @@ class Jed extends PhpArray implements GeneratorInterface
     }
 
     /**
-     * {@parentdoc}
+     * {@parentdoc}.
      */
     protected static function buildArray(Translations $translations)
     {

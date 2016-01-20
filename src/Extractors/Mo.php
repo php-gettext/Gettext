@@ -1,4 +1,5 @@
 <?php
+
 namespace Gettext\Extractors;
 
 use Exception;
@@ -135,4 +136,3 @@ class Mo extends Extractor implements ExtractorInterface
         return unpack($byteOrder.$count, $stream->read(4 * $count));
     }
 }
-

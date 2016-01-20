@@ -50,7 +50,7 @@ class PhpArray extends Generator implements GeneratorInterface
     }
 
     /**
-     * Generates an array with all translations
+     * Generates an array with all translations.
      * 
      * @param Translations $translations
      *

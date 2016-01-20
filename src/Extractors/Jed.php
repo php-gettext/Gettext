@@ -24,11 +24,11 @@ class Jed extends PhpArray implements ExtractorInterface
     }
 
     /**
-     * Extract and insert a new translation
+     * Extract and insert a new translation.
      * 
      * @param Translations $translations
-     * @param string $key
-     * @param string $message
+     * @param string       $key
+     * @param string       $message
      */
     protected static function insertTranslation(Translations $translations, $key, $message)
     {
