@@ -11,11 +11,10 @@ php:
 
 matrix:
   allow_failures:
-    - php: 7.0
     - php: hhvm
 
 before_install:
   - composer self-update
   - composer install
 
-script: ./vendor/bin/phpunit
+script: phpunit
