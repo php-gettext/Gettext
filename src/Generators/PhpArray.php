@@ -25,7 +25,7 @@ class PhpArray extends Generator implements GeneratorInterface
      */
     public static function toArray(Translations $translations)
     {
-        $array = self::buildArray($translations);
+        $array = static::buildArray($translations);
 
         $domain = $translations->getDomain() ?: 'messages';
         $lang = $translations->getLanguage() ?: 'en';
