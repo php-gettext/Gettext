@@ -22,4 +22,26 @@ class Jed extends PhpArray implements ExtractorInterface
 
         return PhpArray::handleArray($content, $translations);
     }
+
+    /**
+     * Extract and insert a new translation
+     * 
+     * @param Translations $translations
+     * @param string $key
+     * @param string $message
+     */
+    protected static function insertTranslation(Translations $translations, $key, $message)
+    {
+        $context_glue = '\u0004';
+        $key = explode($context_glue, $key);
+
+        $context = isset($key[1]) ? array_shift($key) : '';
+        $original = array_shift($key);
+        $translation = array_shift($message);
+        $plural_translation = array_shift($message);
+
+        $entry = $translations->insert($context, $original);
+        $entry->setTranslation($translation);
+        $entry->setPluralTranslation($plural_translation);
+    }
 }

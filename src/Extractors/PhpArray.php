@@ -56,20 +56,31 @@ class PhpArray extends Extractor implements ExtractorInterface
             $translations->setDomain($translations_info['domain']);
         }
 
-        $context_glue = '\u0004';
-
         foreach ($content as $key => $message) {
-            $key = explode($context_glue, $key);
-
-            $context = isset($key[1]) ? array_shift($key) : '';
-            $original = array_shift($key);
-            $plural = array_shift($message);
-            $translation = array_shift($message);
-            $plural_translation = array_shift($message);
-
-            $entry = $translations->insert($context, $original, $plural);
-            $entry->setTranslation($translation);
-            $entry->setPluralTranslation($plural_translation);
+            static::insertTranslation($translations, $key, $message);
         }
+    }
+
+    /**
+     * Extract and insert a new translation
+     * 
+     * @param Translations $translations
+     * @param string $key
+     * @param string $message
+     */
+    protected static function insertTranslation(Translations $translations, $key, $message)
+    {
+        $context_glue = '\u0004';
+        $key = explode($context_glue, $key);
+
+        $context = isset($key[1]) ? array_shift($key) : '';
+        $original = array_shift($key);
+        $plural = array_shift($message);
+        $translation = array_shift($message);
+        $plural_translation = array_shift($message);
+
+        $entry = $translations->insert($context, $original, $plural);
+        $entry->setTranslation($translation);
+        $entry->setPluralTranslation($plural_translation);
     }
 }
