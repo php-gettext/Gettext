@@ -7,7 +7,6 @@ class JedGeneratorTest extends PHPUnit_Framework_TestCase
         //Extract translations
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
 
-
         $jed = $translations->toJedString();
         $expect = file_get_contents(__DIR__.'/files/jed.json');
 
