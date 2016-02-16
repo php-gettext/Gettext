@@ -77,7 +77,7 @@ class Po extends Generator implements GeneratorInterface
      */
     private static function quote($string)
     {
-        return '"'.addcslashes($string, "\x00..\x1F").'"';
+        return '"'.addcslashes($string, "\x00..\x1F\"\\").'"';
     }
 
     /**
