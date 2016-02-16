@@ -17,6 +17,52 @@ class PhpFunctionsScanner extends FunctionsScanner
     }
 
     /**
+     * Decodes a T_CONSTANT_ENCAPSED_STRING string.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function decodeString($value)
+    {
+        $result = '';
+        if ($value[0] === "'" || strpos($value, '$') === false) {
+            if (strpos($value, '\\') === false) {
+                $result = substr($value, 1, -1);
+            } else {
+                $result = eval("return $value;");
+            }
+        } else {
+            $value = substr($value, 1, -1);
+            while (($p = strpos($value, '\\')) !== false) {
+                if (!isset($value[$p + 1])) {
+                    break;
+                }
+                if ($p > 0) {
+                    $result .= substr($value, 0, $p);
+                }
+                $value = substr($value, $p + 1);
+                $p = strpos($value, '$');
+                if ($p === false) {
+                    $result .= eval('return "\\'.$value.'";');
+                    $value = '';
+                    break;
+                }
+                if ($p === 0) {
+                    $result .= '$';
+                    $value = substr($value, 1);
+                } else {
+                    $result .= eval('return "\\'.substr($value, 0, $p).'";');
+                    $value = substr($value, $p);
+                }
+            }
+            $result .= $value;
+        }
+
+        return $result;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getFunctions()
@@ -39,15 +85,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
             //add an argument to the current function
             if (isset($bufferFunctions[0]) && ($value[0] === T_CONSTANT_ENCAPSED_STRING)) {
-                $val = $value[1];
-
-                if ($val[0] === '"') {
-                    $val = str_replace('\\"', '"', $val);
-                } else {
-                    $val = str_replace("\\'", "'", $val);
-                }
-
-                $bufferFunctions[0][2][] = substr($val, 1, -1);
+                $bufferFunctions[0][2][] = static::decodeString($value[1]);
                 continue;
             }
 
