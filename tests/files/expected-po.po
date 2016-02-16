@@ -71,3 +71,9 @@ msgstr ""
 " test2\n"
 "</div>\n"
 "test3"
+
+msgid "Multibyte test"
+msgstr "日本人は日本で話される言語です！"
+
+msgid "Tabulation test"
+msgstr "FIELD\tFIELD"
