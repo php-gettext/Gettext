@@ -25,41 +25,45 @@ class PhpFunctionsScanner extends FunctionsScanner
      */
     public static function decodeString($value)
     {
-        $result = '';
         if ($value[0] === "'" || strpos($value, '$') === false) {
             if (strpos($value, '\\') === false) {
-                $result = substr($value, 1, -1);
-            } else {
-                $result = eval("return $value;");
+                return substr($value, 1, -1);
             }
-        } else {
-            $value = substr($value, 1, -1);
-            while (($p = strpos($value, '\\')) !== false) {
-                if (!isset($value[$p + 1])) {
-                    break;
-                }
-                if ($p > 0) {
-                    $result .= substr($value, 0, $p);
-                }
-                $value = substr($value, $p + 1);
-                $p = strpos($value, '$');
-                if ($p === false) {
-                    $result .= eval('return "\\'.$value.'";');
-                    $value = '';
-                    break;
-                }
-                if ($p === 0) {
-                    $result .= '$';
-                    $value = substr($value, 1);
-                } else {
-                    $result .= eval('return "\\'.substr($value, 0, $p).'";');
-                    $value = substr($value, $p);
-                }
-            }
-            $result .= $value;
+
+            return eval("return $value;");
         }
 
-        return $result;
+        $result = '';
+        $value = substr($value, 1, -1);
+
+        while (($p = strpos($value, '\\')) !== false) {
+            if (!isset($value[$p + 1])) {
+                break;
+            }
+
+            if ($p > 0) {
+                $result .= substr($value, 0, $p);
+            }
+
+            $value = substr($value, $p + 1);
+            $p = strpos($value, '$');
+
+            if ($p === false) {
+                $result .= eval('return "\\'.$value.'";');
+                $value = '';
+                break;
+            }
+
+            if ($p === 0) {
+                $result .= '$';
+                $value = substr($value, 1);
+            } else {
+                $result .= eval('return "\\'.substr($value, 0, $p).'";');
+                $value = substr($value, $p);
+            }
+        }
+
+        return $result.$value;
     }
 
     /**
