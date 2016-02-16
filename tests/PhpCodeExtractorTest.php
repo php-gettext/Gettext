@@ -60,4 +60,14 @@ EOT;
         $this->assertInstanceOf('Gettext\\Translation', $translation);
         $this->assertEquals($original, $translation->getOriginal());
     }
+
+    public function testSpecialChars()
+    {
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/special-chars.php');
+
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'plain'));
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'DATE \\a\\t TIME'));
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "FIELD\tFIELD"));
+        $this->assertCount(3, $translations);
+    }
 }
