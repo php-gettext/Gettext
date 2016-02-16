@@ -17,8 +17,8 @@ class MoGenerationTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Gettext\\Translations', $decompiledTranslations);
 
         $this->assertEquals($originalTranslations->getHeaders(), $decompiledTranslations->getHeaders());
-        $this->assertCount(11, $originalTranslations);
-        $this->assertCount(8, $decompiledTranslations);
+        $this->assertCount(13, $originalTranslations);
+        $this->assertCount(10, $decompiledTranslations);
     }
 
     public function testMoGenerationWithEmptyTranslations()

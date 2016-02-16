@@ -58,12 +58,12 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $translations1 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
         $translations2 = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
 
-        $this->assertCount(11, $translations1);
+        $this->assertCount(13, $translations1);
         $this->assertCount(3, $translations2);
 
         $translations1->mergeWith($translations2);
 
-        $this->assertCount(14, $translations1);
+        $this->assertCount(16, $translations1);
     }
 
     public function testAdd()
@@ -71,7 +71,7 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/po.po');
         $translations->addFromPoFile(__DIR__.'/files/plurals.po');
 
-        $this->assertCount(14, $translations);
+        $this->assertCount(16, $translations);
     }
 
     public function testMergeAddRemove()

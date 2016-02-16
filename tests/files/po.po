@@ -68,3 +68,9 @@ msgstr ""
 #: /var/www/test/test.php:96
 msgid "{test2}"
 msgstr "test1\n<div>\n test2\n</div>\ntest3"
+
+msgid "Multibyte test"
+msgstr "日本人は日本で話される言語です！"
+
+msgid "Tabulation test"
+msgstr "FIELD\tFIELD"
