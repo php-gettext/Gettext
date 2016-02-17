@@ -3,6 +3,7 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\Strings;
 
 class Po extends Generator implements GeneratorInterface
 {
@@ -47,7 +48,7 @@ class Po extends Generator implements GeneratorInterface
             }
 
             if ($translation->hasContext()) {
-                $lines[] = 'msgctxt '.self::quote($translation->getContext());
+                $lines[] = 'msgctxt '.Strings::toPo($translation->getContext());
             }
 
             self::addLines($lines, 'msgid', $translation->getOriginal());
@@ -75,18 +76,6 @@ class Po extends Generator implements GeneratorInterface
      *
      * @return string
      */
-    private static function quote($string)
-    {
-        return '"'.addcslashes($string, "\x00..\x1F\"\\").'"';
-    }
-
-    /**
-     * Escapes and adds double quotes to a string.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
     private static function multilineQuote($string)
     {
         $lines = explode("\n", $string);
@@ -94,9 +83,9 @@ class Po extends Generator implements GeneratorInterface
 
         foreach ($lines as $k => $line) {
             if ($k === $last) {
-                $lines[$k] = self::quote($line);
+                $lines[$k] = Strings::toPo($line);
             } else {
-                $lines[$k] = self::quote($line."\n");
+                $lines[$k] = Strings::toPo($line."\n");
             }
         }
 

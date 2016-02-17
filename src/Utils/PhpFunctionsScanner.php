@@ -17,56 +17,6 @@ class PhpFunctionsScanner extends FunctionsScanner
     }
 
     /**
-     * Decodes a T_CONSTANT_ENCAPSED_STRING string.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public static function decodeString($value)
-    {
-        if ($value[0] === "'" || strpos($value, '$') === false) {
-            if (strpos($value, '\\') === false) {
-                return substr($value, 1, -1);
-            }
-
-            return eval("return $value;");
-        }
-
-        $result = '';
-        $value = substr($value, 1, -1);
-
-        while (($p = strpos($value, '\\')) !== false) {
-            if (!isset($value[$p + 1])) {
-                break;
-            }
-
-            if ($p > 0) {
-                $result .= substr($value, 0, $p);
-            }
-
-            $value = substr($value, $p + 1);
-            $p = strpos($value, '$');
-
-            if ($p === false) {
-                $result .= eval('return "\\'.$value.'";');
-                $value = '';
-                break;
-            }
-
-            if ($p === 0) {
-                $result .= '$';
-                $value = substr($value, 1);
-            } else {
-                $result .= eval('return "\\'.substr($value, 0, $p).'";');
-                $value = substr($value, $p);
-            }
-        }
-
-        return $result.$value;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getFunctions()
@@ -89,7 +39,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
             //add an argument to the current function
             if (isset($bufferFunctions[0]) && ($value[0] === T_CONSTANT_ENCAPSED_STRING)) {
-                $bufferFunctions[0][2][] = static::decodeString($value[1]);
+                $bufferFunctions[0][2][] = Strings::fromPhp($value[1]);
                 continue;
             }
 

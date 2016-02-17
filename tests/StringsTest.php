@@ -1,8 +1,9 @@
 <?php
+use Gettext\Utils\Strings;
 
-class DecodePhpStringTest extends PHPUnit_Framework_TestCase
+class StringsTest extends PHPUnit_Framework_TestCase
 {
-    public function decodeStringsProvider()
+    public function stringFromPhpProvider()
     {
         return array(
             array('"test"', 'test'),
@@ -23,10 +24,10 @@ class DecodePhpStringTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider decodeStringsProvider
+     * @dataProvider stringFromPhpProvider
      */
-    public function testDecodeStrings($source, $decoded)
+    public function testStringFromPhp($source, $decoded)
     {
-        $this->assertSame($decoded, Gettext\Utils\PhpFunctionsScanner::decodeString($source));
+        $this->assertSame($decoded, Strings::fromPhp($source));
     }
 }
