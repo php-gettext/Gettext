@@ -17,31 +17,31 @@ class Strings
             if (strpos($value, '\\') === false) {
                 return substr($value, 1, -1);
             }
-    
+
             return eval("return $value;");
         }
-    
+
         $result = '';
         $value = substr($value, 1, -1);
-    
+
         while (($p = strpos($value, '\\')) !== false) {
             if (!isset($value[$p + 1])) {
                 break;
             }
-    
+
             if ($p > 0) {
                 $result .= substr($value, 0, $p);
             }
-    
+
             $value = substr($value, $p + 1);
             $p = strpos($value, '$');
-    
+
             if ($p === false) {
                 $result .= eval('return "\\'.$value.'";');
                 $value = '';
                 break;
             }
-    
+
             if ($p === 0) {
                 $result .= '$';
                 $value = substr($value, 1);
@@ -50,7 +50,7 @@ class Strings
                 $value = substr($value, $p);
             }
         }
-    
+
         return $result.$value;
     }
 
@@ -64,5 +64,25 @@ class Strings
     public static function toPo($value)
     {
         return '"'.addcslashes($value, "\x00..\x1F\"\\").'"';
+    }
+
+    /**
+     * Convert a string from its PO representation.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function fromPo($value)
+    {
+        if (!$value) {
+            return '';
+        }
+
+        if ($value[0] === '"') {
+            $value = substr($value, 1, -1);
+        }
+
+        return str_replace(array('\\n', '\\"', '\\t', '\\\\'), array("\n", '"', "\t", '\\'), $value);
     }
 }
