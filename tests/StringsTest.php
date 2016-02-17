@@ -1,4 +1,5 @@
 <?php
+
 use Gettext\Utils\Strings;
 
 class StringsTest extends PHPUnit_Framework_TestCase
@@ -20,6 +21,8 @@ class StringsTest extends PHPUnit_Framework_TestCase
             array('"Hi\\\\"', 'Hi\\'),
             array('"{$obj->name}"', '{$obj->name}'),
             array('"a\x20b $c"', 'a b $c'),
+            array('"a\x01b\2 \1 \01 \001 \r \n \t \v \f"', "a\1b\2 \1 \1 \1 \r \n \t \v \f"),
+            array('"$ \$a \""', '$ $a "')
         );
     }
 
