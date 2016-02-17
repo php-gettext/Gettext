@@ -47,7 +47,7 @@ class Po extends Generator implements GeneratorInterface
             }
 
             if ($translation->hasContext()) {
-                $lines[] = 'msgctxt '.self::quote($translation->getContext());
+                $lines[] = 'msgctxt '.self::convertString($translation->getContext());
             }
 
             self::addLines($lines, 'msgid', $translation->getOriginal());
@@ -75,18 +75,6 @@ class Po extends Generator implements GeneratorInterface
      *
      * @return string
      */
-    private static function quote($string)
-    {
-        return '"'.addcslashes($string, "\x00..\x1F\"\\").'"';
-    }
-
-    /**
-     * Escapes and adds double quotes to a string.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
     private static function multilineQuote($string)
     {
         $lines = explode("\n", $string);
@@ -94,9 +82,9 @@ class Po extends Generator implements GeneratorInterface
 
         foreach ($lines as $k => $line) {
             if ($k === $last) {
-                $lines[$k] = self::quote($line);
+                $lines[$k] = self::convertString($line);
             } else {
-                $lines[$k] = self::quote($line."\n");
+                $lines[$k] = self::convertString($line."\n");
             }
         }
 
@@ -123,5 +111,25 @@ class Po extends Generator implements GeneratorInterface
                 $lines[] = $line;
             }
         }
+    }
+
+    /**
+     * Convert a string to its PO representation.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function convertString($value)
+    {
+        return '"'.strtr(
+            $value,
+            array(
+                "\x00" => '',
+                '\\' => '\\\\',
+                "\t" => '\t',
+                "\n" => '\n',
+            )
+        ).'"';
     }
 }

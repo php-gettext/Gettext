@@ -74,58 +74,58 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case 'msgctxt':
-                    $translation = $translation->getClone(self::clean($data));
+                    $translation = $translation->getClone(self::convertString($data));
                     $append = 'Context';
                     break;
 
                 case 'msgid':
-                    $translation = $translation->getClone(null, self::clean($data));
+                    $translation = $translation->getClone(null, self::convertString($data));
                     $append = 'Original';
                     break;
 
                 case 'msgid_plural':
-                    $translation->setPlural(self::clean($data));
+                    $translation->setPlural(self::convertString($data));
                     $append = 'Plural';
                     break;
 
                 case 'msgstr':
                 case 'msgstr[0]':
-                    $translation->setTranslation(self::clean($data));
+                    $translation->setTranslation(self::convertString($data));
                     $append = 'Translation';
                     break;
 
                 case 'msgstr[1]':
-                    $translation->setPluralTranslation(self::clean($data), 0);
+                    $translation->setPluralTranslation(self::convertString($data), 0);
                     $append = 'PluralTranslation';
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
-                        $translation->setPluralTranslation(self::clean($data), intval(substr($key, 7, -1)) - 1);
+                        $translation->setPluralTranslation(self::convertString($data), intval(substr($key, 7, -1)) - 1);
                         $append = 'PluralTranslation';
                         break;
                     }
 
                     if (isset($append)) {
                         if ($append === 'Context') {
-                            $translation = $translation->getClone($translation->getContext()."\n".self::clean($data));
+                            $translation = $translation->getClone($translation->getContext()."\n".self::convertString($data));
                             break;
                         }
 
                         if ($append === 'Original') {
-                            $translation = $translation->getClone(null, $translation->getOriginal()."\n".self::clean($data));
+                            $translation = $translation->getClone(null, $translation->getOriginal()."\n".self::convertString($data));
                             break;
                         }
 
                         if ($append === 'PluralTranslation') {
                             $key = count($translation->getPluralTranslation()) - 1;
-                            $translation->setPluralTranslation($translation->getPluralTranslation($key)."\n".self::clean($data), $key);
+                            $translation->setPluralTranslation($translation->getPluralTranslation($key)."\n".self::convertString($data), $key);
                             break;
                         }
 
                         $getMethod = 'get'.$append;
                         $setMethod = 'set'.$append;
-                        $translation->$setMethod($translation->$getMethod()."\n".self::clean($data));
+                        $translation->$setMethod($translation->$getMethod()."\n".self::convertString($data));
                     }
                     break;
             }
@@ -163,7 +163,7 @@ class Po extends Extractor implements ExtractorInterface
         $currentHeader = null;
 
         foreach ($headers as $line) {
-            $line = self::clean($line);
+            $line = self::convertString($line);
 
             if (self::isHeaderDefinition($line)) {
                 $header = array_map('trim', explode(':', $line, 2));
@@ -174,26 +174,6 @@ class Po extends Extractor implements ExtractorInterface
                 $translations->setHeader($currentHeader, $entry.$line);
             }
         }
-    }
-
-    /**
-     * Cleans the strings. Removes quotes, "\n", "\t", etc.
-     *
-     * @param string $str
-     *
-     * @return string
-     */
-    private static function clean($str)
-    {
-        if (!$str) {
-            return '';
-        }
-
-        if ($str[0] === '"') {
-            $str = substr($str, 1, -1);
-        }
-
-        return str_replace(array('\\n', '\\"', '\\t', '\\\\'), array("\n", '"', "\t", '\\'), $str);
     }
 
     /**
@@ -220,5 +200,38 @@ class Po extends Extractor implements ExtractorInterface
         }
 
         return $line;
+    }
+
+    /**
+     * Convert a string from its PO representation.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function convertString($value)
+    {
+        if (!$value) {
+            return '';
+        }
+
+        if ($value[0] === '"') {
+            $value = substr($value, 1, -1);
+        }
+
+        return strtr(
+            $value,
+            array(
+                '\\\\' => '\\',
+                '\\a' => "\x07",
+                '\\b' => "\x08",
+                '\\t' => "\t",
+                '\\n' => "\n",
+                '\\v' => "\x0b",
+                '\\f' => "\x0c",
+                '\\r' => "\r",
+                '\\"' => '"',
+            )
+        );
     }
 }
