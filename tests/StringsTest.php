@@ -1,8 +1,8 @@
 <?php
 
-use Gettext\Utils\Strings;
+namespace Gettext;
 
-class StringsTest extends PHPUnit_Framework_TestCase
+class StringsTest extends \PHPUnit_Framework_TestCase
 {
     public function stringFromPhpProvider()
     {
@@ -31,7 +31,7 @@ class StringsTest extends PHPUnit_Framework_TestCase
      */
     public function testStringFromPhp($source, $decoded)
     {
-        $this->assertSame($decoded, Strings::fromPhp($source));
+        $this->assertSame($decoded, Extractors\PhpCode::convertString($source));
     }
 
     public function poStringsProvider()
@@ -49,7 +49,7 @@ class StringsTest extends PHPUnit_Framework_TestCase
      */
     public function testStringToPo($phpString, $poString)
     {
-        $this->assertSame($poString, Strings::ToPo($phpString));
+        $this->assertSame($poString, Generators\Po::convertString($phpString));
     }
 
     /**
@@ -57,7 +57,7 @@ class StringsTest extends PHPUnit_Framework_TestCase
      */
     public function testStringFromPo($phpString, $poString)
     {
-        $this->assertSame($phpString, Strings::fromPo($poString));
+        $this->assertSame($phpString, Extractors\Po::convertString($poString));
     }
 
     public function stringFromPo2Provider()
@@ -80,6 +80,6 @@ class StringsTest extends PHPUnit_Framework_TestCase
      */
     public function testStringFromPo2($poString, $phpString)
     {
-        $this->assertSame($phpString, Strings::fromPo($poString));
+        $this->assertSame($phpString, Extractors\Po::convertString($poString));
     }
 }

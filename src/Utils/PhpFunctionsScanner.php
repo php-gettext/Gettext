@@ -39,7 +39,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
             //add an argument to the current function
             if (isset($bufferFunctions[0]) && ($value[0] === T_CONSTANT_ENCAPSED_STRING)) {
-                $bufferFunctions[0][2][] = Strings::fromPhp($value[1]);
+                $bufferFunctions[0][2][] = \Gettext\Extractors\PhpCode::convertString($value[1]);
                 continue;
             }
 
