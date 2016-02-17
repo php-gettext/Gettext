@@ -40,7 +40,7 @@ class StringsTest extends PHPUnit_Framework_TestCase
             array('test', '"test"'),
             array("'test'", '"\'test\'"'),
             array("Special chars: \r \n \t", '"Special chars: \\r \\n \\t"'),
-            array("Newline\nSlash and n\\n", '"Newline\nSlash and n\\n"'),
+            array("Newline\nSlash and n\\nend", '"Newline\nSlash and n\\\\nend"'),
         );
     }
 
