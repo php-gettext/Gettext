@@ -63,7 +63,15 @@ class Strings
      */
     public static function toPo($value)
     {
-        return '"'.addcslashes($value, "\x00..\x1F\"\\").'"';
+        return '"'.strtr(
+            $value,
+            array(
+                "\x00" => '',
+                '\\' => '\\\\',
+                "\t" => '\t',
+                "\n" => '\n',
+            )
+        ).'"';
     }
 
     /**
@@ -83,6 +91,19 @@ class Strings
             $value = substr($value, 1, -1);
         }
 
-        return str_replace(array('\\n', '\\r', '\\"', '\\t', '\\\\'), array("\n", "\r", '"', "\t", '\\'), $value);
+        return strtr(
+            $value,
+            array(
+                '\\\\' => '\\',
+                '\\a' => "\x07",
+                '\\b' => "\x08",
+                '\\t' => "\t",
+                '\\n' => "\n",
+                '\\v' => "\x0b",
+                '\\f' => "\x0c",
+                '\\r' => "\r",
+                '\\"' => '"',
+            )
+        );
     }
 }

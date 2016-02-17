@@ -39,7 +39,7 @@ class StringsTest extends PHPUnit_Framework_TestCase
         return array(
             array('test', '"test"'),
             array("'test'", '"\'test\'"'),
-            array("Special chars: \r \n \t", '"Special chars: \\r \\n \\t"'),
+            array("Special chars: \n \t \\ ", '"Special chars: \\n \\t \\\\ "'),
             array("Newline\nSlash and n\\nend", '"Newline\nSlash and n\\\\nend"'),
         );
     }
@@ -56,6 +56,29 @@ class StringsTest extends PHPUnit_Framework_TestCase
      * @dataProvider poStringsProvider
      */
     public function testStringFromPo($phpString, $poString)
+    {
+        $this->assertSame($phpString, Strings::fromPo($poString));
+    }
+
+    public function stringFromPo2Provider()
+    {
+        return array(
+            array('"\\\\x07 - aka \\\\a: \\a"', "\\x07 - aka \\a: \x07"),
+            array('"\\\\x08 - aka \\\\b: \\b"', "\\x08 - aka \\b: \x08"),
+            array('"\\\\x09 - aka \\\\t: \\t"', "\\x09 - aka \\t: \t"),
+            array('"\\\\x0a - aka \\\\n: \\n"', "\\x0a - aka \\n: \n"),
+            array('"\\\\x0b - aka \\\\v: \\v"', "\\x0b - aka \\v: \x0b"),
+            array('"\\\\x0c - aka \\\\f: \\f"', "\\x0c - aka \\f: \x0c"),
+            array('"\\\\x0d - aka \\\\r: \\r"', "\\x0d - aka \\r: \r"),
+            array('"\\\\x22 - aka \\": \\""', '\x22 - aka ": "'),
+            array('"\\\\x5c - aka \\\\: \\\\"', '\\x5c - aka \\: \\'),
+        );
+    }
+
+    /**
+     * @dataProvider stringFromPo2Provider
+     */
+    public function testStringFromPo2($poString, $phpString)
     {
         $this->assertSame($phpString, Strings::fromPo($poString));
     }
