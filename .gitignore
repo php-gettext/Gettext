@@ -1,2 +1,7 @@
 vendor
 composer.lock
+
+# Eclipse-specific files
+/.settings/
+/.buildpath
+/.project
