@@ -41,6 +41,7 @@ class StringsTest extends \PHPUnit_Framework_TestCase
             array("'test'", '"\'test\'"'),
             array("Special chars: \n \t \\ ", '"Special chars: \\n \\t \\\\ "'),
             array("Newline\nSlash and n\\nend", '"Newline\nSlash and n\\\\nend"'),
+            array('Quoted "string" with %s', '"Quoted \\"string\\" with %s"'),
         );
     }
 
