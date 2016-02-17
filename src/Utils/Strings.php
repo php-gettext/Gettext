@@ -83,6 +83,6 @@ class Strings
             $value = substr($value, 1, -1);
         }
 
-        return str_replace(array('\\n', '\\"', '\\t', '\\\\'), array("\n", '"', "\t", '\\'), $value);
+        return str_replace(array('\\n', '\\r', '\\"', '\\t', '\\\\'), array("\n", "\r", '"', "\t", '\\'), $value);
     }
 }
