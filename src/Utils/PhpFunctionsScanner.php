@@ -24,16 +24,22 @@ class PhpFunctionsScanner extends FunctionsScanner
         $count = count($this->tokens);
         $bufferFunctions = array();
         $functions = array();
+        $concatenating = false;
 
         for ($k = 0; $k < $count; ++$k) {
             $value = $this->tokens[$k];
 
-            //close the current function
             if (is_string($value)) {
+                if ($value === '.') {
+                    //concatenating strings
+                    $concatenating = true;
+                    continue;
+                }
+                $concatenating = false;
                 if ($value === ')' && isset($bufferFunctions[0])) {
+                    //close the current function
                     $functions[] = array_shift($bufferFunctions);
                 }
-
                 continue;
             }
 
@@ -41,7 +47,12 @@ class PhpFunctionsScanner extends FunctionsScanner
                 case T_CONSTANT_ENCAPSED_STRING:
                     //add an argument to the current function
                     if (isset($bufferFunctions[0])) {
-                        $bufferFunctions[0][2][] = \Gettext\Extractors\PhpCode::convertString($value[1]);
+                        $string = \Gettext\Extractors\PhpCode::convertString($value[1]);
+                        if ($concatenating && !empty($bufferFunctions[0][2])) {
+                            $bufferFunctions[0][2][count($bufferFunctions[0][2]) - 1] .= $string;
+                        } else {
+                            $bufferFunctions[0][2][] = $string;
+                        }
                     }
                     break;
                 case T_STRING:
@@ -58,6 +69,9 @@ class PhpFunctionsScanner extends FunctionsScanner
                         break;
                     }
                     break;
+            }
+            if ($concatenating && $value[0] !== T_COMMENT && $value[0] !== T_WHITESPACE) {
+                $concatenating = false;
             }
         }
 
