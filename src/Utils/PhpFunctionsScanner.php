@@ -37,18 +37,20 @@ class PhpFunctionsScanner extends FunctionsScanner
                 continue;
             }
 
-            //add an argument to the current function
-            if (isset($bufferFunctions[0]) && ($value[0] === T_CONSTANT_ENCAPSED_STRING)) {
-                $bufferFunctions[0][2][] = \Gettext\Extractors\PhpCode::convertString($value[1]);
-                continue;
-            }
-
-            //new function found
-            if (($value[0] === T_STRING) && is_string($this->tokens[$k + 1]) && ($this->tokens[$k + 1] === '(')) {
-                array_unshift($bufferFunctions, array($value[1], $value[2], array()));
-                ++$k;
-
-                continue;
+            switch ($value[0]) {
+                case T_CONSTANT_ENCAPSED_STRING:
+                    //add an argument to the current function
+                    if (isset($bufferFunctions[0])) {
+                        $bufferFunctions[0][2][] = \Gettext\Extractors\PhpCode::convertString($value[1]);
+                    }
+                    break;
+                case T_STRING:
+                    //new function found
+                    if (is_string($this->tokens[$k + 1]) && ($this->tokens[$k + 1] === '(')) {
+                        array_unshift($bufferFunctions, array($value[1], $value[2], array()));
+                        ++$k;
+                    }
+                    break;
             }
         }
 
