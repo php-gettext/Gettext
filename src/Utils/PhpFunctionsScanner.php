@@ -46,9 +46,16 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
                 case T_STRING:
                     //new function found
-                    if (is_string($this->tokens[$k + 1]) && ($this->tokens[$k + 1] === '(')) {
-                        array_unshift($bufferFunctions, array($value[1], $value[2], array()));
-                        ++$k;
+                    for ($j = $k + 1; $j < $count; $j++) {
+                        $nextToken = $this->tokens[$j];
+                        if (is_array($nextToken) && ($nextToken[0] === T_COMMENT || $nextToken[0] === T_WHITESPACE)) {
+                            continue;
+                        }
+                        if ($nextToken === '(') {
+                            array_unshift($bufferFunctions, array($value[1], $value[2], array()));
+                            $k = $j;
+                        }
+                        break;
                     }
                     break;
             }
