@@ -43,44 +43,69 @@ class PhpCode extends Extractor implements ExtractorInterface
      */
     public static function convertString($value)
     {
-        if ($value[0] === "'" || strpos($value, '$') === false) {
-            if (strpos($value, '\\') === false) {
-                return substr($value, 1, -1);
-            }
-
-            return eval("return $value;");
+        if ($value[0] === "'") {
+            return substr(str_replace(['\\\\', '\\\''], ['\\', '\''], $value), 1, -1);
         }
 
-        $result = '';
         $value = substr($value, 1, -1);
 
-        while (($p = strpos($value, '\\')) !== false) {
-            if (!isset($value[$p + 1])) {
-                break;
+        return preg_replace_callback('/\\\(n|r|t|v|e|f|\$|"|\\\|x[0-9A-Fa-f]{1,2}|u{[0-9a-f]{1,6}}|[0-7]{1,3})/', function ($match) {
+            switch ($match[1]) {
+                case 'n':
+                    return "\n";
+                case 'r':
+                    return "\r";
+                case 't':
+                    return "\t";
+                case 'v':
+                    return "\v";
+                case 'e':
+                    return "\e";
+                case 'f':
+                    return "\f";
+                case '$':
+                    return '$';
+                case '"':
+                    return '"';
+                case '\\':
+                    return '\\';
             }
 
-            if ($p > 0) {
-                $result .= substr($value, 0, $p);
+            switch ($match[1][0]) {
+                case 'x':
+                    return chr(hexdec(substr($match[0], 1)));
+
+                case 'u':
+                    return self::unicodeChar(hexdec(substr($match[0], 1)));
             }
 
-            $value = substr($value, $p + 1);
-            $p = strpos($value, '$');
+            return chr(octdec($match[0]));
+        }, $value);
+    }
 
-            if ($p === false) {
-                $result .= eval('return "\\'.$value.'";');
-                $value = '';
-                break;
-            }
-
-            if ($p === 0) {
-                $result .= '$';
-                $value = substr($value, 1);
-            } else {
-                $result .= eval('return "\\'.substr($value, 0, $p).'";');
-                $value = substr($value, $p);
-            }
+    //http://php.net/manual/en/function.chr.php#118804
+    private static function unicodeChar($dec)
+    {
+        if ($dec < 0x80) {
+            return chr($dec);
         }
 
-        return $result.$value;
+        if ($dec < 0x0800) {
+            return chr(0xC0 + ($dec >> 6))
+                .chr(0x80 + ($dec & 0x3f));
+        }
+
+        if ($dec < 0x010000) {
+            return chr(0xE0 + ($dec >> 12))
+                    .chr(0x80 + (($dec >> 6) & 0x3f))
+                    .chr(0x80 + ($dec & 0x3f));
+        }
+
+        if ($dec < 0x200000) {
+            return chr(0xF0 + ($dec >> 18))
+                    .chr(0x80 + (($dec >> 12) & 0x3f))
+                    .chr(0x80 + (($dec >> 6) & 0x3f))
+                    .chr(0x80 + ($dec & 0x3f));
+        }
     }
 }
