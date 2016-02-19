@@ -68,6 +68,9 @@ EOT;
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'plain'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'DATE \\a\\t TIME'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "FIELD\tFIELD"));
-        $this->assertCount(3, $translations);
+        $this->assertFalse($translations->find(null, "text "));
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "text concatenated with 'comments'"));
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "Stop at the variable"));
+        $this->assertCount(5, $translations);
     }
 }
