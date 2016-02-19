@@ -44,7 +44,7 @@ class PhpCode extends Extractor implements ExtractorInterface
     public static function convertString($value)
     {
         if ($value[0] === "'") {
-            return substr(str_replace(['\\\\', '\\\''], ['\\', '\''], $value), 1, -1);
+            return strtr(substr($value, 1, -1), array('\\\\' => '\\', '\\\'' => '\''));
         }
 
         $value = substr($value, 1, -1);
