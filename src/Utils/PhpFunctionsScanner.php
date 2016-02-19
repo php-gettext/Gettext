@@ -53,7 +53,6 @@ class PhpFunctionsScanner extends FunctionsScanner
                 }
             )
         );
-        $this->extractComments = false;
     }
 
     /**
