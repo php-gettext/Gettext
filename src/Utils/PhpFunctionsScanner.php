@@ -2,6 +2,8 @@
 
 namespace Gettext\Utils;
 
+use Gettext\Extractors\PhpCode;
+
 class PhpFunctionsScanner extends FunctionsScanner
 {
     protected $tokens;
@@ -23,22 +25,34 @@ class PhpFunctionsScanner extends FunctionsScanner
     {
         $count = count($this->tokens);
         $bufferFunctions = array();
+        /* @var ParsedFunction[] $bufferFunctions */
         $functions = array();
-        $concatenating = false;
+        /* @var ParsedFunction[] $functions */
 
         for ($k = 0; $k < $count; ++$k) {
             $value = $this->tokens[$k];
 
             if (is_string($value)) {
-                if ($value === '.') {
-                    //concatenating strings
-                    $concatenating = true;
-                    continue;
-                }
-                $concatenating = false;
-                if ($value === ')' && isset($bufferFunctions[0])) {
-                    //close the current function
-                    $functions[] = array_shift($bufferFunctions);
+                $s = $value;
+            } else {
+                $s = token_name($value[0]).' >'.$value[1].'<';
+            }
+
+            if (is_string($value)) {
+                if (isset($bufferFunctions[0])) {
+                    switch ($value) {
+                        case ',':
+                            $bufferFunctions[0]->nextArgument();
+                            break;
+                        case ')':
+                            $functions[] = array_shift($bufferFunctions)->close();
+                            break;
+                        case '.':
+                            break;
+                        default:
+                            $bufferFunctions[0]->stopArgument();
+                            break;
+                    }
                 }
                 continue;
             }
@@ -47,31 +61,34 @@ class PhpFunctionsScanner extends FunctionsScanner
                 case T_CONSTANT_ENCAPSED_STRING:
                     //add an argument to the current function
                     if (isset($bufferFunctions[0])) {
-                        $string = \Gettext\Extractors\PhpCode::convertString($value[1]);
-                        if ($concatenating && !empty($bufferFunctions[0][2])) {
-                            $bufferFunctions[0][2][count($bufferFunctions[0][2]) - 1] .= $string;
-                        } else {
-                            $bufferFunctions[0][2][] = $string;
-                        }
+                        $bufferFunctions[0]->addArgumentChunk(PhpCode::convertString($value[1]));
                     }
                     break;
                 case T_STRING:
+                    if (isset($bufferFunctions[0])) {
+                        $bufferFunctions[0]->stopArgument();
+                    }
                     //new function found
-                    for ($j = $k + 1; $j < $count; $j++) {
+                    for ($j = $k + 1; $j < $count; ++$j) {
                         $nextToken = $this->tokens[$j];
                         if (is_array($nextToken) && ($nextToken[0] === T_COMMENT || $nextToken[0] === T_WHITESPACE)) {
                             continue;
                         }
                         if ($nextToken === '(') {
-                            array_unshift($bufferFunctions, array($value[1], $value[2], array()));
+                            array_unshift($bufferFunctions, new ParsedFunction($value[1], $value[2]));
                             $k = $j;
                         }
                         break;
                     }
                     break;
-            }
-            if ($concatenating && $value[0] !== T_COMMENT && $value[0] !== T_WHITESPACE) {
-                $concatenating = false;
+                case T_WHITESPACE:
+                case T_COMMENT:
+                    break;
+                default:
+                    if (isset($bufferFunctions[0])) {
+                        $bufferFunctions[0]->stopArgument();
+                    }
+                    break;
             }
         }
 
