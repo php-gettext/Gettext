@@ -43,6 +43,13 @@ class ParsedFunction
     protected $argumentStopped;
 
     /**
+     * Extracted comments.
+     *
+     * @var string[]|null
+     */
+    protected $comments;
+
+    /**
      * Initializes the instance.
      *
      * @param string $name The function name.
@@ -55,6 +62,7 @@ class ParsedFunction
         $this->arguments = array();
         $this->argumentIndex = -1;
         $this->argumentStopped = false;
+        $this->comments = null;
     }
 
     /**
@@ -102,6 +110,18 @@ class ParsedFunction
     }
 
     /**
+     * Add a comment associated to this function.
+     *
+     * @param string $comment
+     */
+    public function addComment($comment)
+    {
+        if ($this->comments === null) {
+            $this->comments = array();
+        }
+        $this->comments[] = $comment;
+    }
+    /**
      * A closing parenthesis was found: return the final data.
      *
      * @return array{
@@ -109,6 +129,7 @@ class ParsedFunction
      *   @var string The function name.
      *   @var int The line where the function starts.
      *   @var string[] the strings extracted from the function arguments.
+     *   @var string[] the comments associated to the function.
      * }
      */
     public function close()
@@ -122,6 +143,7 @@ class ParsedFunction
             $this->name,
             $this->line,
             $arguments,
+            $this->comments,
         );
     }
 }

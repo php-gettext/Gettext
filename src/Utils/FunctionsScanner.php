@@ -71,6 +71,11 @@ abstract class FunctionsScanner
 
             if (isset($translation)) {
                 $translation->addReference($file, $line);
+                if (isset($function[3])) {
+                    foreach ($function[3] as $extractedComment) {
+                        $translation->addExtractedComment($extractedComment);
+                    }
+                }
             }
         }
     }
