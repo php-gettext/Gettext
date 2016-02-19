@@ -2,6 +2,11 @@
 
 class PhpCodeExtractorTest extends PHPUnit_Framework_TestCase
 {
+    protected function tearDown()
+    {
+        Gettext\Extractors\PhpCode::$extractComments = false;
+    }
+
     public function testOne()
     {
         //Extract translations
@@ -68,9 +73,50 @@ EOT;
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'plain'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'DATE \\a\\t TIME'));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "FIELD\tFIELD"));
-        $this->assertFalse($translations->find(null, "text "));
+        $this->assertFalse($translations->find(null, 'text '));
         $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "text concatenated with 'comments'"));
-        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, "Stop at the variable"));
+        $this->assertInstanceOf('Gettext\\Translation', $translations->find(null, 'Stop at the variable'));
         $this->assertCount(5, $translations);
+    }
+
+    public function testExtractComments()
+    {
+        Gettext\Extractors\PhpCode::$extractComments = false;
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcomments.php');
+        $this->assertCount(4, $translations);
+        foreach ($translations as $translation) {
+            $this->assertEmpty($translation->getExtractedComments());
+        }
+
+        Gettext\Extractors\PhpCode::$extractComments = '';
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcomments.php');
+        $this->assertCount(4, $translations);
+        foreach ($translations as $translation) {
+            /* @var Gettext\Translation $translation */
+            switch ($translation->getOriginal()) {
+                case 'No comments':
+                    $this->assertEmpty($translation->getExtractedComments());
+                    break;
+                default:
+                    $this->assertCount(1, $translation->getExtractedComments());
+                    break;
+            }
+        }
+
+        Gettext\Extractors\PhpCode::$extractComments = 'i18n';
+        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcomments.php');
+        $this->assertCount(4, $translations);
+        foreach ($translations as $translation) {
+            /* @var Gettext\Translation $translation */
+            switch ($translation->getOriginal()) {
+                case 'No comments':
+                case 'All comments':
+                    $this->assertEmpty($translation->getExtractedComments());
+                    break;
+                default:
+                    $this->assertCount(1, $translation->getExtractedComments());
+                    break;
+            }
+        }
     }
 }
