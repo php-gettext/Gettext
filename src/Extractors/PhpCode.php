@@ -20,6 +20,16 @@ class PhpCode extends Extractor implements ExtractorInterface
     );
 
     /**
+     * Set to:
+     * - false to not extract comments
+     * - empty string to extract all comments
+     * - non-empty string to extract comments that start with that string.
+     *
+     * @var string|false
+     */
+    public static $extractComments = false;
+
+    /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
@@ -29,6 +39,9 @@ class PhpCode extends Extractor implements ExtractorInterface
         }
 
         $functions = new PhpFunctionsScanner($string);
+        if (self::$extractComments !== false) {
+            $functions->enableCommentsExtraction(self::$extractComments);
+        }
         $functions->saveGettextFunctions(self::$functions, $translations, $file);
 
         return $translations;
