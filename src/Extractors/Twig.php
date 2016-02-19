@@ -39,7 +39,7 @@ class Twig extends Extractor implements ExtractorInterface
      * Initialise Twig if it isn't already, and add a given Twig extension.
      * This must be called before calling fromString().
      *
-     * @param mixed Already initialised extension to add
+     * @param mixed $extension Already initialised extension to add
      */
     public static function addExtension($extension)
     {
