@@ -48,8 +48,7 @@ class PhpFunctionsScanner extends FunctionsScanner
         $this->tokens = array_values(
             array_filter(
                 token_get_all($code),
-                function ($token)
-                {
+                function ($token) {
                     return !is_array($token) || $token[0] !== T_WHITESPACE;
                 }
             )
@@ -146,8 +145,7 @@ class PhpFunctionsScanner extends FunctionsScanner
         if ($this->extractComments !== false) {
             if ($value[0] === '#') {
                 $value = substr($value, 1);
-            }
-            elseif ($value[1] === '/') {
+            } elseif ($value[1] === '/') {
                 $value = substr($value, 2);
             } else {
                 $value = substr($value, 2, -2);

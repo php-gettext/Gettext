@@ -155,7 +155,7 @@ class Translations extends \ArrayObject
     {
         $header = $this->getHeader(self::HEADER_PLURAL);
 
-        if ($header && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
+        if (!empty($header) && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
             return array(intval($matches[1]), $matches[2]);
         }
     }
@@ -378,11 +378,11 @@ class Translations extends \ArrayObject
             $pluralForm = $translations->getPluralForms();
 
             if (!$pluralForm) {
-                if ($language) {
+                if (!empty($language)) {
                     $this->setLanguage($language);
                 }
             } else {
-                if ($language) {
+                if (!empty($language)) {
                     $this->setHeader(self::HEADER_LANGUAGE, $language);
                 }
 

@@ -126,7 +126,7 @@ class JsFunctionsScanner extends FunctionsScanner
                                 $bufferFunctions[0][2][] = $argument;
                             }
 
-                            if ($bufferFunctions) {
+                            if (!empty($bufferFunctions)) {
                                 $functions[] = array_shift($bufferFunctions);
                             }
 
@@ -171,7 +171,7 @@ class JsFunctionsScanner extends FunctionsScanner
     {
         $status = isset($this->status[0]) ? $this->status[0] : null;
 
-        if ($match) {
+        if ($match !== null) {
             return $status === $match;
         }
 

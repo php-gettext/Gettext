@@ -2,7 +2,7 @@
 
 namespace Gettext;
 
-abstract class BaseTranslator
+abstract class BaseTranslator implements TranslatorInterface
 {
     public static $current;
 
