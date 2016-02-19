@@ -56,6 +56,10 @@ class PhpCode extends Extractor implements ExtractorInterface
      */
     public static function convertString($value)
     {
+        if (strpos($value, '\\') === false) {
+            return substr($value, 1, -1);
+        }
+
         if ($value[0] === "'") {
             return strtr(substr($value, 1, -1), array('\\\\' => '\\', '\\\'' => '\''));
         }
@@ -63,7 +67,7 @@ class PhpCode extends Extractor implements ExtractorInterface
         $value = substr($value, 1, -1);
 
         return preg_replace_callback('/\\\(n|r|t|v|e|f|\$|"|\\\|x[0-9A-Fa-f]{1,2}|u{[0-9a-f]{1,6}}|[0-7]{1,3})/', function ($match) {
-            switch ($match[1]) {
+            switch ($match[1][0]) {
                 case 'n':
                     return "\n";
                 case 'r':
@@ -82,17 +86,13 @@ class PhpCode extends Extractor implements ExtractorInterface
                     return '"';
                 case '\\':
                     return '\\';
-            }
-
-            switch ($match[1][0]) {
                 case 'x':
                     return chr(hexdec(substr($match[0], 1)));
-
                 case 'u':
                     return self::unicodeChar(hexdec(substr($match[0], 1)));
+                default:
+                    return chr(octdec($match[0]));
             }
-
-            return chr(octdec($match[0]));
         }, $value);
     }
 
