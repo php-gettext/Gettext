@@ -33,12 +33,6 @@ class PhpFunctionsScanner extends FunctionsScanner
             $value = $this->tokens[$k];
 
             if (is_string($value)) {
-                $s = $value;
-            } else {
-                $s = token_name($value[0]).' >'.$value[1].'<';
-            }
-
-            if (is_string($value)) {
                 if (isset($bufferFunctions[0])) {
                     switch ($value) {
                         case ',':
