@@ -109,6 +109,29 @@ function dp__($domain, $context, $original)
 }
 
 /**
+ * Returns the singular/plural translation of a string in a specific context.
+ *
+ * @param string $context
+ * @param string $original
+ * @param string $plural
+ * @param string $value
+ *
+ * @return string
+ */
+function np__($context, $original, $plural, $value)
+{
+    $text = BaseTranslator::$current->npgettext($context, $original, $plural, $value);
+
+    if (func_num_args() === 4) {
+        return $text;
+    }
+
+    $args = array_slice(func_get_args(), 4);
+
+    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+}
+
+/**
  * Returns the singular/plural translation of a string in a specific domain and context.
  *
  * @param string $domain

@@ -4,12 +4,13 @@ namespace Gettext;
 
 abstract class BaseTranslator implements TranslatorInterface
 {
+    /** @var TranslatorInterface */
     public static $current;
 
     /**
      * Set a translation instance as global, to use it with the gettext functions.
      *
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      */
     public static function initGettextFunctions(TranslatorInterface $translator)
     {
