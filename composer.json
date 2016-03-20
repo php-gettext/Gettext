@@ -24,12 +24,14 @@
     "require-dev": {
         "illuminate/view": "*",
         "twig/twig": "*",
-        "twig/extensions": "*"
+        "twig/extensions": "*",
+        "symfony/yaml": "~2"
     },
     "suggest": {
         "illuminate/view": "Is necessary if you want to use the Blade extractor",
         "twig/twig": "Is necessary if you want to use the Twig extractor",
-        "twig/extensions": "Is necessary if you want to use the Twig extractor"
+        "twig/extensions": "Is necessary if you want to use the Twig extractor",
+        "symfony/yaml": "Is necessary if you want to use the Yaml extractor/generator"
     },
     "autoload": {
         "psr-4": {

@@ -181,6 +181,7 @@ The available extractors are the following:
 * `Gettext\Extractors\Blade` - To scan a Blade template (For laravel users. Thanks [@eusonlito](https://github.com/eusonlito))
 * `Gettext\Extractors\Twig` - To scan a Twig template (Thanks [@exnor](https://github.com/exnor))
 * `Gettext\Extractors\JsonDictionary` - To get translations from a plain json file with the format `{"original": "translation"}`
+* `Gettext\Extractors\YamlDictionary` - To get translations from a plain yaml file with the format `"original": translation`
 
 ## Generators
 
@@ -203,6 +204,7 @@ The available generators are:
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
 * `Gettext\Generators\Jed` - Exports to json format compatible with [Jed library](http://slexaxton.github.com/Jed/)
 * `Gettext\Generators\JsonDictionary` - Export to plain json with the format `{"original": "translation"}` (thanks, [@gator92](https://github.com/Gator92))
+* `Gettext\Generators\YamlDictionary` - Export to plain yaml with the format `"original": translation` (thanks, [@sourcerer-mike](https://github.com/sourcerer-mike))
 
 To ease the work with generators and extractors you can use the magic methods availables in `Gettext\Translations` that import and export the translations in all these formats:
 
