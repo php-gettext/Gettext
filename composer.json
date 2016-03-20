@@ -19,7 +19,8 @@
     },
     "require": {
         "php": ">=5.3.0",
-        "gettext/languages": "2.*"
+        "gettext/languages": "2.*",
+        "symfony/yaml": "~2"
     },
     "require-dev": {
         "illuminate/view": "*",
