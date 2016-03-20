@@ -29,7 +29,7 @@ class CsvDictionary extends Generator implements GeneratorInterface
             if (!isset($translated[1])) {
                 $translated[1] = '';
             }
-            fputcsv($handle, [$original, $translated[1]]);
+            fputcsv($handle, array($original, $translated[1]));
         }
 
         fclose($handle);
