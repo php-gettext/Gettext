@@ -23,11 +23,13 @@ class JsonDictionary extends Generator implements GeneratorInterface
 
         //map to a simple json dictionary (no plurals)
         return json_encode(
-            array_filter(
-                array_map(function ($val) {
-                    return isset($val[1]) ? $val[1] : null;
-                }, $values)
-            )
+            array_map(
+                function ($val) {
+                    return isset( $val[1] ) ? $val[1] : '';
+                },
+                $values
+            ),
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
         );
     }
 }

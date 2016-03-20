@@ -18,6 +18,6 @@ class JsonDictionaryGeneratorTest extends PHPUnit_Framework_TestCase
         $translation->setPlural('apples');
         //generate json dict - skips meta, empty translations and plurals
         $json = Gettext\Generators\JsonDictionary::toString($translations);
-        $this->assertEquals('{"text 2":"apple"}', $json);
+        $this->assertEquals(file_get_contents(__DIR__.'/files/generated.json'), $json);
     }
 }
