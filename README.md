@@ -196,7 +196,7 @@ $string = file_put_contents('locales/en.po', $content);
 
 The available generators are:
 
-* `Gettext\Generators\Csv` - Exports to CSV format
+* `Gettext\Generators\CsvDictionary` - Exports to CSV format
 * `Gettext\Generators\Mo` - Exports to Mo format
 * `Gettext\Generators\Po` - Exports to Po format
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
