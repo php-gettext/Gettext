@@ -171,6 +171,7 @@ $translations = Gettext\Extractors\Po::fromString($string);
 
 The available extractors are the following:
 
+* `Gettext\Extractors\CsvDictionary` - Gets the strings from CSV
 * `Gettext\Extractors\Po` - Gets the strings from PO
 * `Gettext\Extractors\Mo` - Gets the strings from MO
 * `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions (see `translator_functions.php`)
