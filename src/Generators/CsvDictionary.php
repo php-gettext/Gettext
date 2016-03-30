@@ -21,8 +21,7 @@ class CsvDictionary extends Generator implements GeneratorInterface
             unset($values['']);
         }
 
-        $tmpFile = tempnam(sys_get_temp_dir(), 'gettext_');
-        $handle = fopen($tmpFile, 'w');
+        $handle = fopen('php://memory', 'w');
 
         //map to a simple csv dictionary (no plurals)
         foreach ($values as $original => $translated) {
@@ -32,9 +31,10 @@ class CsvDictionary extends Generator implements GeneratorInterface
             fputcsv($handle, array($original, $translated[1]));
         }
 
+        rewind($handle);
+        $csv = stream_get_contents($handle);
+
         fclose($handle);
-        $csv = file_get_contents($tmpFile);
-        unlink($tmpFile);
 
         return $csv;
     }

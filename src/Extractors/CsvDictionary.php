@@ -18,9 +18,10 @@ class CsvDictionary extends Extractor implements ExtractorInterface
             $translations = new Translations();
         }
 
-        $tmpFile = tempnam(sys_get_temp_dir(), 'gettext_');
-        file_put_contents($tmpFile, $string);
-        $handle = fopen($tmpFile, 'r');
+        $handle = fopen('php://memory', 'w');
+
+        fputs($handle, $string);
+        rewind($handle);
 
         $entries = array();
         while ($row = fgetcsv($handle)) {
