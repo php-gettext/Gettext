@@ -6,6 +6,8 @@ use Gettext\Translations;
 
 class JsonDictionary extends Generator implements GeneratorInterface
 {
+    public static $options = 0;
+
     /**
      * {@parentDoc}.
      */
@@ -27,7 +29,8 @@ class JsonDictionary extends Generator implements GeneratorInterface
                 array_map(function ($val) {
                     return isset($val[1]) ? $val[1] : null;
                 }, $values)
-            )
+            ),
+            self::$options
         );
     }
 }
