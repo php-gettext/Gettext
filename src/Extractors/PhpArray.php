@@ -24,8 +24,8 @@ class PhpArray extends Extractor implements ExtractorInterface
             $translations = new Translations();
         }
 
-        foreach (self::getFiles($file) as $file) {
-            self::handleArray(include($file), $translations);
+        foreach (static::getFiles($file) as $file) {
+            static::extract(include($file), $translations);
         }
 
         return $translations;
@@ -45,42 +45,26 @@ class PhpArray extends Extractor implements ExtractorInterface
      * @param array        $content
      * @param Translations $translations
      */
-    public static function handleArray(array $content, Translations $translations)
+    public static function extract(array $content, Translations $translations)
     {
-        $content = current($content);
-
-        $translations_info = isset($content['']) ? $content[''] : null;
-        unset($content['']);
-
-        if (isset($translations_info['domain'])) {
-            $translations->setDomain($translations_info['domain']);
+        if (!empty($content['domain'])) {
+            $translations->setDomain($content['domain']);
         }
 
-        foreach ($content as $key => $message) {
-            static::insertTranslation($translations, $key, $message);
+        if (!empty($content['lang'])) {
+            $translations->setLanguage($content['language']);
         }
-    }
 
-    /**
-     * Extract and insert a new translation.
-     * 
-     * @param Translations $translations
-     * @param string       $key
-     * @param string       $message
-     */
-    protected static function insertTranslation(Translations $translations, $key, $message)
-    {
-        $context_glue = '\u0004';
-        $key = explode($context_glue, $key);
+        if (!empty($content['plural-forms'])) {
+            $translations->setPluralForms($content['plural-forms']);
+        }
 
-        $context = isset($key[1]) ? array_shift($key) : '';
-        $original = array_shift($key);
-        $plural = array_shift($message);
-        $translation = array_shift($message);
-        $plural_translation = array_shift($message);
-
-        $entry = $translations->insert($context, $original, $plural);
-        $entry->setTranslation($translation);
-        $entry->setPluralTranslation($plural_translation);
+        foreach ($content['messages'] as $context => $messages) {
+            foreach ($messages as $original => $translations) {
+                $translations->insert($context, $original)
+                    ->setTranslation(array_shift($translations))
+                    ->setPluralTranslations($translations);
+            }
+        }
     }
 }

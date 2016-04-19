@@ -114,10 +114,14 @@ class Translation
      * Sets the translation string.
      *
      * @param string $translation
+     * 
+     * @return self
      */
     public function setTranslation($translation)
     {
         $this->translation = (string) $translation;
+
+        return $this;
     }
 
     /**
@@ -144,12 +148,16 @@ class Translation
      * Sets the plural translation string.
      *
      * @param string $plural
+     * 
+     * @return self
      */
     public function setPlural($plural)
     {
         $this->plural = (string) $plural;
 
         $this->normalizeTranslationCount();
+
+        return $this;
     }
 
     /**
@@ -175,13 +183,32 @@ class Translation
     /**
      * Set a new plural translation.
      *
+     * @param array $plural
+     * 
+     * @return self
+     */
+    public function setPluralTranslations(array $plural)
+    {
+        $this->pluralTranslation = $plural;
+        $this->normalizeTranslationCount();
+
+        return $this;
+    }
+
+    /**
+     * Set a new plural translation.
+     *
      * @param string $plural The plural string to add
      * @param int    $key    The key of the plural translation.
+     * 
+     * @return self
      */
     public function setPluralTranslation($plural, $key = 0)
     {
         $this->pluralTranslation[$key] = $plural;
         $this->normalizeTranslationCount();
+
+        return $this;
     }
 
     /**
@@ -191,13 +218,19 @@ class Translation
      *
      * @return string|array
      */
-    public function getPluralTranslation($key = null)
+    public function getPluralTranslation($key = 0)
     {
-        if ($key === null) {
-            return $this->pluralTranslation;
-        }
-
         return isset($this->pluralTranslation[$key]) ? (string) $this->pluralTranslation[$key] : '';
+    }
+
+    /**
+     * Gets all plural translations.
+     *
+     * @return array
+     */
+    public function getPluralTranslations()
+    {
+        return $this->pluralTranslation;
     }
 
     /**
@@ -224,12 +257,16 @@ class Translation
      * Set the number of singular + plural translations allowed.
      *
      * @param int $count
+     * 
+     * @return self
      */
     public function setTranslationCount($count)
     {
         $this->translationCount = is_null($count) ? null : intval($count);
 
         $this->normalizeTranslationCount();
+
+        return $this;
     }
 
     /**

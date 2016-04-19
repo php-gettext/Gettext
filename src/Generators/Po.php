@@ -55,7 +55,7 @@ class Po extends Generator implements GeneratorInterface
                 self::addLines($lines, 'msgid_plural', $translation->getPlural());
                 self::addLines($lines, 'msgstr[0]', $translation->getTranslation());
 
-                foreach ($translation->getPluralTranslation() as $k => $v) {
+                foreach ($translation->getPluralTranslations() as $k => $v) {
                     self::addLines($lines, 'msgstr['.($k + 1).']', $v);
                 }
             } else {
