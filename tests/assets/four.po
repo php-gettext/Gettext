@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:2
+msgid "text 1"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:6
+msgctxt "context"
+msgid "text 1 with context"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:7
+msgid "text 2"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:8
+msgid "text 3 (with parenthesis)"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:9
+msgid "text 4 \"with double quotes\""
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:10
+msgid "text 5 'with escaped single quotes'"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:14
+msgid "text 6"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:15
+msgid "text 7 (with parenthesis)"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:16
+msgid "text 8 \"with escaped double quotes\""
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:17
+msgid "text 9 'with single quotes'"
+msgstr ""
+
+#: /Volumes/Documentos/www/Gettext/tests/assets/four.blade.php:18
+msgid "text 10 with plural"
+msgid_plural "The plural form"
+msgstr[0] ""

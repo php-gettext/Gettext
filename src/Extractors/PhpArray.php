@@ -52,18 +52,18 @@ class PhpArray extends Extractor implements ExtractorInterface
         }
 
         if (!empty($content['lang'])) {
-            $translations->setLanguage($content['language']);
+            $translations->setLanguage($content['lang']);
         }
 
         if (!empty($content['plural-forms'])) {
-            $translations->setPluralForms($content['plural-forms']);
+            $translations->setHeader(Translations::HEADER_PLURAL, $content['plural-forms']);
         }
 
         foreach ($content['messages'] as $context => $messages) {
-            foreach ($messages as $original => $translations) {
+            foreach ($messages as $original => $translation) {
                 $translations->insert($context, $original)
-                    ->setTranslation(array_shift($translations))
-                    ->setPluralTranslations($translations);
+                    ->setTranslation(array_shift($translation))
+                    ->setPluralTranslations($translation);
             }
         }
     }

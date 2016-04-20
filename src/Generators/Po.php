@@ -13,10 +13,7 @@ class Po extends Generator implements GeneratorInterface
     {
         $lines = array('msgid ""', 'msgstr ""');
 
-        $headers = $translations->getHeaders();
-        $headers['PO-Revision-Date'] = date('c');
-
-        foreach ($headers as $name => $value) {
+        foreach ($translations->getHeaders() as $name => $value) {
             $lines[] = '"'.$name.': '.$value.'\\n"';
         }
 

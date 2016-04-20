@@ -26,7 +26,6 @@ class Translations extends \ArrayObject
     public static $mergeDefault = 93; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
 
     private $headers;
-    private $translationCount;
 
     /**
      * @see \ArrayObject::__construct()
@@ -41,8 +40,8 @@ class Translations extends \ArrayObject
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
-            'POT-Creation-Date' => date('c'),
-            'PO-Revision-Date' => date('c'),
+            //'POT-Creation-Date' => date('c'),
+            //'PO-Revision-Date' => date('c'),
         );
         $this->headers[self::HEADER_LANGUAGE] = '';
         parent::__construct($input, $flags, $iterator_class);
@@ -123,12 +122,9 @@ class Translations extends \ArrayObject
 
         if ($this->offsetExists($id)) {
             $this[$id]->mergeWith($value);
-            $this[$id]->setTranslationCount($this->translationCount);
 
             return $this[$id];
         }
-
-        $value->setTranslationCount($this->translationCount);
 
         parent::offsetSet($id, $value);
 
@@ -170,18 +166,6 @@ class Translations extends \ArrayObject
     {
         $name = trim($name);
         $this->headers[$name] = trim($value);
-
-        if ($name === self::HEADER_PLURAL) {
-            if ($forms = $this->getPluralForms()) {
-                $this->translationCount = $forms[0];
-
-                foreach ($this as $t) {
-                    $t->setTranslationCount($this->translationCount);
-                }
-            } else {
-                $this->translationCount = null;
-            }
-        }
     }
 
     /**
@@ -218,10 +202,14 @@ class Translations extends \ArrayObject
      * Removes one header.
      *
      * @param string $name
+     * 
+     * @return self
      */
     public function deleteHeader($name)
     {
         unset($this->headers[$name]);
+
+        return $this;
     }
 
     /**

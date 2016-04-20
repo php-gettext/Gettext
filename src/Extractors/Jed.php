@@ -7,7 +7,7 @@ use Gettext\Translations;
 /**
  * Class to get gettext strings from json files.
  */
-class Jed extends PhpArray implements ExtractorInterface
+class Jed extends Extractor implements ExtractorInterface
 {
     /**
      * {@inheritdoc}
@@ -18,32 +18,44 @@ class Jed extends PhpArray implements ExtractorInterface
             $translations = new Translations();
         }
 
-        $content = json_decode($string, true);
-
-        PhpArray::handleArray($content, $translations);
+        self::extract(json_decode($string, true), $translations);
 
         return $translations;
     }
 
     /**
-     * Extract and insert a new translation.
-     * 
+     * Handle an array of translations and append to the Translations instance.
+     *
+     * @param array        $content
      * @param Translations $translations
-     * @param string       $key
-     * @param string       $message
      */
-    protected static function insertTranslation(Translations $translations, $key, $message)
+    public static function extract(array $content, Translations $translations)
     {
+        $content = current($content);
+        $headers = isset($content['']) ? $content[''] : null;
+        unset($content['']);
+
+        if (!empty($headers['domain'])) {
+            $translations->setDomain($headers['domain']);
+        }
+
+        if (!empty($headers['lang'])) {
+            $translations->setLanguage($headers['lang']);
+        }
+
+        if (!empty($headers['plural-forms'])) {
+            $translations->setHeader(Translations::HEADER_PLURAL, $headers['plural-forms']);
+        }
+
         $context_glue = '\u0004';
-        $key = explode($context_glue, $key);
 
-        $context = isset($key[1]) ? array_shift($key) : '';
-        $original = array_shift($key);
-        $translation = array_shift($message);
-        $plural_translation = array_shift($message);
+        foreach ($content as $key => $translation) {
+            $key = explode($context_glue, $key);
+            $context = isset($key[1]) ? array_shift($key) : '';
 
-        $entry = $translations->insert($context, $original);
-        $entry->setTranslation($translation);
-        $entry->setPluralTranslation($plural_translation);
+            $translations->insert($context, array_shift($key))
+                ->setTranslation(array_shift($translation))
+                ->setPluralTranslations($translation);
+        }
     }
 }

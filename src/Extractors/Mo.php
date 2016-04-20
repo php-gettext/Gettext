@@ -99,13 +99,9 @@ class Mo extends Extractor implements ExtractorInterface
                 continue;
             }
 
-            foreach (explode("\x00", $translated) as $pluralIndex => $pluralValue) {
-                if ($pluralIndex === 0) {
-                    $translation->setTranslation($pluralValue);
-                } else {
-                    $translation->setPluralTranslation($pluralValue, $pluralIndex - 1);
-                }
-            }
+            $v = explode("\x00", $translated);
+            $translation->setTranslation(array_shift($v));
+            $translation->setPluralTranslations($v);
         }
 
         return $translations;

@@ -16,7 +16,6 @@ class Translation
     protected $comments = array();
     protected $extractedComments = array();
     protected $flags = array();
-    protected $translationCount;
 
     /**
      * Generates the id of a translation (context + glue + original).
@@ -155,8 +154,6 @@ class Translation
     {
         $this->plural = (string) $plural;
 
-        $this->normalizeTranslationCount();
-
         return $this;
     }
 
@@ -190,46 +187,33 @@ class Translation
     public function setPluralTranslations(array $plural)
     {
         $this->pluralTranslation = $plural;
-        $this->normalizeTranslationCount();
 
         return $this;
-    }
-
-    /**
-     * Set a new plural translation.
-     *
-     * @param string $plural The plural string to add
-     * @param int    $key    The key of the plural translation.
-     * 
-     * @return self
-     */
-    public function setPluralTranslation($plural, $key = 0)
-    {
-        $this->pluralTranslation[$key] = $plural;
-        $this->normalizeTranslationCount();
-
-        return $this;
-    }
-
-    /**
-     * Gets one or all plural translations.
-     *
-     * @param int|null $key The key to return. If is null, return all translations
-     *
-     * @return string|array
-     */
-    public function getPluralTranslation($key = 0)
-    {
-        return isset($this->pluralTranslation[$key]) ? (string) $this->pluralTranslation[$key] : '';
     }
 
     /**
      * Gets all plural translations.
+     * 
+     * @param int $limit
      *
      * @return array
      */
-    public function getPluralTranslations()
+    public function getPluralTranslations($limit = null)
     {
+        if ($limit === null) {
+            return $this->pluralTranslation;
+        }
+
+        $current = count($this->pluralTranslation);
+
+        if ($limit > $current) {
+            return $this->pluralTranslation + array_fill(0, $limit, '');
+        }
+
+        if ($limit < $current) {
+            return array_slice($this->pluralTranslation, 0, $limit);
+        }
+
         return $this->pluralTranslation;
     }
 
@@ -238,7 +222,7 @@ class Translation
      *
      * @return bool
      */
-    public function hasPluralTranslation()
+    public function hasPluralTranslations()
     {
         return implode('', $this->pluralTranslation) !== '';
     }
@@ -249,58 +233,6 @@ class Translation
     public function deletePluralTranslation()
     {
         $this->pluralTranslation = array();
-
-        $this->normalizeTranslationCount();
-    }
-
-    /**
-     * Set the number of singular + plural translations allowed.
-     *
-     * @param int $count
-     * 
-     * @return self
-     */
-    public function setTranslationCount($count)
-    {
-        $this->translationCount = is_null($count) ? null : intval($count);
-
-        $this->normalizeTranslationCount();
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of singular + plural translations
-     * Returns null if this Translation is not a plural one.
-     *
-     * @return int|null
-     */
-    public function getTranslationCount()
-    {
-        return $this->hasPlural() ? $this->translationCount : null;
-    }
-
-    /**
-     * Normalizes the translation count.
-     */
-    protected function normalizeTranslationCount()
-    {
-        if ($this->translationCount === null) {
-            return;
-        }
-
-        if ($this->hasPlural()) {
-            $allowed = $this->translationCount - 1;
-            $current = count($this->pluralTranslation);
-
-            if ($allowed > $current) {
-                $this->pluralTranslation = $this->pluralTranslation + array_fill(0, $allowed, '');
-            } elseif ($current > $allowed) {
-                $this->pluralTranslation = array_slice($this->pluralTranslation, 0, $allowed);
-            }
-        } else {
-            $this->pluralTranslation = array();
-        }
     }
 
     /**
@@ -370,7 +302,9 @@ class Translation
      */
     public function addComment($comment)
     {
-        $this->comments[] = $comment;
+        if (!in_array($comment, $this->comments, true)) {
+            $this->comments[] = $comment;
+        }
     }
 
     /**
@@ -408,7 +342,9 @@ class Translation
      */
     public function addExtractedComment($comment)
     {
-        $this->extractedComments[] = $comment;
+        if (!in_array($comment, $this->extractedComments, true)) {
+            $this->extractedComments[] = $comment;
+        }
     }
 
     /**
@@ -446,7 +382,9 @@ class Translation
      */
     public function addFlag($flag)
     {
-        $this->flags[] = $flag;
+        if (!in_array($flag, $this->flags, true)) {
+            $this->flags[] = $flag;
+        }
     }
 
     /**
@@ -497,8 +435,8 @@ class Translation
             $this->setPlural($translation->getPlural());
         }
 
-        if ($this->hasPlural() && !$this->hasPluralTranslation() && $translation->hasPluralTranslation()) {
-            $this->pluralTranslation = $translation->getPluralTranslation();
+        if ($this->hasPlural() && !$this->hasPluralTranslations() && $translation->hasPluralTranslations()) {
+            $this->pluralTranslation = $translation->getPluralTranslations();
         }
 
         if ($method & Translations::MERGE_REFERENCES) {

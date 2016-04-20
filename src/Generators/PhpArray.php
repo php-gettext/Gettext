@@ -13,7 +13,7 @@ class PhpArray extends Generator implements GeneratorInterface
     {
         $array = self::toArray($translations);
 
-        return '<?php return '.var_export($array, true).'; ?>';
+        return '<?php return '.var_export($array, true).';';
     }
 
     /**
@@ -23,13 +23,13 @@ class PhpArray extends Generator implements GeneratorInterface
      *
      * @return array
      */
-    public static function toArray(Translations $translations)
+    private static function toArray(Translations $translations)
     {
         return [
             'domain' => $translations->getDomain() ?: 'messages',
             'lang' => $translations->getLanguage() ?: 'en',
             'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
-            'messages' => static::buildArray($translations)
+            'messages' => self::buildMessages($translations)
         ];
     }
 
@@ -40,8 +40,10 @@ class PhpArray extends Generator implements GeneratorInterface
      *
      * @return array
      */
-    protected static function buildArray(Translations $translations)
+    private static function buildMessages(Translations $translations)
     {
+        $pluralForm = $translations->getPluralForms();
+        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $messages = [];
 
         foreach ($translations as $translation) {
@@ -51,8 +53,12 @@ class PhpArray extends Generator implements GeneratorInterface
                 $messages[$context] = [];
             }
 
-            $message = $translation->getPluralTranslations();
-            array_unshift($message, $translation->getTranslation());
+            if ($translation->hasPluralTranslations()) {
+                $message = $translation->getPluralTranslations($pluralLimit);
+                array_unshift($message, $translation->getTranslation());
+            } else {
+                $message = [$translation->getTranslation()];
+            }
 
             $messages[$context][$translation->getOriginal()] = $message;
         }

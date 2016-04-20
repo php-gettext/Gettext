@@ -6,8 +6,6 @@ use Gettext\Translations;
 
 class Mo extends Generator implements GeneratorInterface
 {
-    public static $includeEmptyTranslations = false;
-
     /**
      * {@parentDoc}.
      */
@@ -15,6 +13,8 @@ class Mo extends Generator implements GeneratorInterface
     {
         $array = array();
         $headers = '';
+        $pluralForm = $translations->getPluralForms();
+        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
 
         foreach ($translations->getHeaders() as $headerName => $headerValue) {
             $headers .= "$headerName: $headerValue\n";
@@ -25,7 +25,7 @@ class Mo extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
-            if (!$translation->hasTranslation() && !static::$includeEmptyTranslations) {
+            if (!$translation->hasTranslation()) {
                 continue;
             }
 
@@ -51,13 +51,12 @@ class Mo extends Generator implements GeneratorInterface
                 $translationString = $translation;
             } else {
                 /* @var $translation \Gettext\Translation */
-                if ($translation->hasPlural()) {
+                if ($translation->hasPlural() && $translation->hasPluralTranslations()) {
                     $originalString .= "\x00".$translation->getPlural();
-                }
-                $translationString = $translation->getTranslation();
-
-                if ($translation->hasPluralTranslation()) {
-                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslation());
+                    $translationString = $translation->getTranslation();
+                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslations($pluralLimit));
+                } else {
+                    $translationString = $translation->getTranslation();
                 }
             }
 

@@ -27,7 +27,7 @@ class PhpCode extends Extractor implements ExtractorInterface
      *
      * @var string|false
      */
-    public static $extractComments = false;
+    public static $extractComments = '';
 
     /**
      * {@inheritdoc}

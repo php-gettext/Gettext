@@ -95,13 +95,16 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case 'msgstr[1]':
-                    $translation->setPluralTranslation(self::convertString($data), 0);
+                    $translation->setPluralTranslations([self::convertString($data)]);
                     $append = 'PluralTranslation';
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
-                        $translation->setPluralTranslation(self::convertString($data), intval(substr($key, 7, -1)) - 1);
+                        $p = $translation->getPluralTranslations();
+                        $p[] = self::convertString($data);
+
+                        $translation->setPluralTranslations($p);
                         $append = 'PluralTranslation';
                         break;
                     }
@@ -118,8 +121,9 @@ class Po extends Extractor implements ExtractorInterface
                         }
 
                         if ($append === 'PluralTranslation') {
-                            $key = count($translation->getPluralTranslation()) - 1;
-                            $translation->setPluralTranslation($translation->getPluralTranslation($key)."\n".self::convertString($data), $key);
+                            $p = $translation->getPluralTranslations();
+                            $p[] = array_pop($p)."\n".self::convertString($data);
+                            $translations->setPluralTranslations($p);
                             break;
                         }
 
@@ -164,6 +168,10 @@ class Po extends Extractor implements ExtractorInterface
 
         foreach ($headers as $line) {
             $line = self::convertString($line);
+
+            if ($line === '') {
+                continue;
+            }
 
             if (self::isHeaderDefinition($line)) {
                 $header = array_map('trim', explode(':', $line, 2));

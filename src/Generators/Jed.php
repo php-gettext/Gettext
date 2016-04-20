@@ -4,37 +4,55 @@ namespace Gettext\Generators;
 
 use Gettext\Translations;
 
-class Jed extends PhpArray implements GeneratorInterface
+class Jed extends Generator implements GeneratorInterface
 {
+    public static $options = JSON_PRETTY_PRINT;
+
     /**
      * {@parentDoc}.
      */
     public static function toString(Translations $translations)
     {
-        $array = static::toArray($translations);
+        $domain = $translations->getDomain() ?: 'messages';
 
-        return json_encode($array);
+        return json_encode([
+            $domain => [
+                '' => [
+                    'domain' => $domain,
+                    'lang' => $translations->getLanguage() ?: 'en',
+                    'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
+                ]
+            ] + self::buildMessages($translations)
+        ], static::$options);
     }
 
     /**
-     * {@parentdoc}.
+     * Generates an array with all translations.
+     * 
+     * @param Translations $translations
+     *
+     * @return array
      */
-    protected static function buildArray(Translations $translations)
+    private static function buildMessages(Translations $translations)
     {
-        $array = array();
-
-        $context_glue = "\004";
+        $pluralForm = $translations->getPluralForms();
+        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
+        $messages = [];
+        $context_glue = '\u0004';
 
         foreach ($translations as $translation) {
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
 
-            if ($translation->hasPluralTranslation()) {
-                $array[$key] = array_merge(array($translation->getTranslation()), $translation->getPluralTranslation());
+            if ($translation->hasPluralTranslations()) {
+                $message = $translation->getPluralTranslations($pluralLimit);
+                array_unshift($message, $translation->getTranslation());
             } else {
-                $array[$key] = array($translation->getTranslation());
+                $message = [$translation->getTranslation()];
             }
+
+            $messages[$key] = $message;
         }
 
-        return $array;
+        return $messages;
     }
 }

@@ -35,5 +35,10 @@
         "psr-4": {
             "Gettext\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gettext\\Tests\\": "tests"
+        }
     }
 }
