@@ -33,7 +33,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     }
 
     /**
-     * Set the default domain
+     * Set the default domain.
      * 
      * @param string $domain
      */
@@ -151,6 +151,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
 
         if (isset($this->dictionary[$domain])) {
             $this->dictionary[$domain] = array_replace_recursive($this->dictionary[$domain], $translations['messages']);
+
             return;
         }
 

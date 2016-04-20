@@ -112,7 +112,7 @@ class TranslationsTest extends AbstractTest
     {
         $translations1 = Translations::fromPoFile(static::asset('one.po'));
         $translations2 = Translations::fromPoFile(static::asset('one.po'));
-        
+
         $found = $translations2->find(null, 'single');
         $found->setTranslation('Use this instead');
 

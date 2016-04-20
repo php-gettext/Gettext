@@ -23,7 +23,6 @@ class TranslatorTest extends AbstractTest
 
         $this->assertEquals('Ovo polje ne može biti prazno.', $t->gettext('This field cannot be blank.'));
         $this->assertEquals('Value %sr is not a valid choice.', $t->gettext('Value %sr is not a valid choice.'));
-
     }
 
     public function testFunctions()

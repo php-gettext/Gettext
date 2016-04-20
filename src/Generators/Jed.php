@@ -21,8 +21,8 @@ class Jed extends Generator implements GeneratorInterface
                     'domain' => $domain,
                     'lang' => $translations->getLanguage() ?: 'en',
                     'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
-                ]
-            ] + self::buildMessages($translations)
+                ],
+            ] + self::buildMessages($translations),
         ], static::$options);
     }
 

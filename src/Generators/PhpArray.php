@@ -29,7 +29,7 @@ class PhpArray extends Generator implements GeneratorInterface
             'domain' => $translations->getDomain() ?: 'messages',
             'lang' => $translations->getLanguage() ?: 'en',
             'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
-            'messages' => self::buildMessages($translations)
+            'messages' => self::buildMessages($translations),
         ];
     }
 

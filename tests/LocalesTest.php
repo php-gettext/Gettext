@@ -3,7 +3,6 @@
 namespace Gettext\Tests;
 
 use Gettext\Translations;
-use Gettext\Translation;
 
 class LocalesTest extends AbstractTest
 {
