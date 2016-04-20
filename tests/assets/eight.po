@@ -9,30 +9,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:2
+#: ./tests/assets/eight.js:2
 msgid "Value with simple quotes"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:3
+#: ./tests/assets/eight.js:3
 msgid "Value with double quotes"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:4
+#: ./tests/assets/eight.js:4
 msgid "Other value with double quotes"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:6
+#: ./tests/assets/eight.js:6
 msgid "function inside function"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:11
+#: ./tests/assets/eight.js:11
 msgid "I can't get response."
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:12
+#: ./tests/assets/eight.js:12
 msgid "Please, try with other interface type."
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/eight.js:15
+#: ./tests/assets/eight.js:15
 msgid "I can't get response. Please, try with other interface type."
 msgstr ""

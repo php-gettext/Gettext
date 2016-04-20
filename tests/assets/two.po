@@ -9,53 +9,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:2
+#: ./tests/assets/two.raw.php:2
 msgid "text 1"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:7
+#: ./tests/assets/two.raw.php:7
 msgctxt "context"
 msgid "text 1 with context"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:8
+#: ./tests/assets/two.raw.php:8
 msgid "text 2"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:9
+#: ./tests/assets/two.raw.php:9
 msgid "text 3 (with parenthesis)"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:10
+#: ./tests/assets/two.raw.php:10
 msgid "text 4 \"with double quotes\""
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:11
+#: ./tests/assets/two.raw.php:11
 msgid "text 5 'with escaped single quotes'"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:15
+#: ./tests/assets/two.raw.php:15
 msgid "text 6"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:16
+#: ./tests/assets/two.raw.php:16
 msgid "text 7 (with parenthesis)"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:17
+#: ./tests/assets/two.raw.php:17
 msgid "text 8 \"with escaped double quotes\""
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:18
+#: ./tests/assets/two.raw.php:18
 msgid "text 9 'with single quotes'"
 msgstr ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:19
+#: ./tests/assets/two.raw.php:19
 msgid "text 10 with plural"
 msgid_plural "The plural form"
 msgstr[0] ""
 
-#: /Volumes/Documentos/www/Gettext/tests/assets/two.raw.php:22
+#: ./tests/assets/two.raw.php:22
 msgid ""
 "<div id=\"blog\" class=\"container\">\n"
 "    <div class=\"row\">\n"

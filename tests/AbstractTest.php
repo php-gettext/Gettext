@@ -9,7 +9,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
     protected static function asset($file)
     {
-        return __DIR__.'/assets/'.$file;
+        return './tests/assets/'.$file;
     }
 
     protected static function file($format)
