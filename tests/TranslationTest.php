@@ -1,11 +1,15 @@
 <?php
 
-class TranslationTest extends PHPUnit_Framework_TestCase
+namespace Gettext\Tests;
+
+use Gettext\Translation;
+use Gettext\Translations;
+
+class TranslationTest extends AbstractTest
 {
     public function testReferences()
     {
-        //Extract translations
-        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
+        $translations = Translations::fromPhpCodeFile(static::asset('two.raw.php'));
         $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
@@ -14,7 +18,7 @@ class TranslationTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $references);
         $this->assertTrue($translation->hasReferences());
-        $this->assertEquals(__DIR__.'/files/phpcode.php', $references[0][0]);
+        $this->assertEquals(static::asset('two.raw.php'), $references[0][0]);
         $this->assertEquals(19, $references[0][1]);
 
         $translation->deleteReferences();
@@ -23,8 +27,7 @@ class TranslationTest extends PHPUnit_Framework_TestCase
 
     public function testPlurals()
     {
-        //Extract translations
-        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
+        $translations = Translations::fromPhpCodeFile(static::asset('two.raw.php'));
         $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertTrue($translation->hasPlural());
@@ -34,16 +37,17 @@ class TranslationTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($translation->hasPlural());
 
-        $translation->setPluralTranslation('texts 2');
+        $translation->setPluralTranslations(['texts 2']);
 
-        $this->assertCount(1, $translation->getPluralTranslation());
-        $this->assertEquals('texts 2', $translation->getPluralTranslation(0));
+        $pluralTranslations = $translation->getPluralTranslations();
+        $this->assertCount(1, $pluralTranslations);
+        $this->assertEquals('texts 2', $pluralTranslations[0]);
     }
 
     public function testMerge()
     {
-        $one = new Gettext\Translation(null, '1 child');
-        $two = new Gettext\Translation(null, '1 child');
+        $one = new Translation(null, '1 child');
+        $two = new Translation(null, '1 child');
         $two->setTranslation('1 fillo');
 
         $one->mergeWith($two);

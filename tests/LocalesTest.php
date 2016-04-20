@@ -1,12 +1,15 @@
 <?php
 
-class LocalesTest extends PHPUnit_Framework_TestCase
+namespace Gettext\Tests;
+
+use Gettext\Translations;
+use Gettext\Translation;
+
+class LocalesTest extends AbstractTest
 {
     public function testPlurals()
     {
-        //Extract translations
-        $translations = Gettext\Extractors\Po::fromFile(__DIR__.'/files/plurals.po');
-        $t = $translations->find(null, 'one file');
+        $translations = Translations::fromPoFile(static::asset('one.po'));
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
         $this->assertEquals('nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);', $translations->getHeader('Plural-Forms'));
@@ -21,9 +24,9 @@ class LocalesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('invalid', $translations->getLanguage());
     }
 
-    public function _testLocalesVariants()
+    public function testLocalesVariants()
     {
-        $translations = new Gettext\Translations();
+        $translations = new Translations();
 
         $translations->setLanguage('pt');
 

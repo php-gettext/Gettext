@@ -23,7 +23,7 @@ class PhpArray extends Generator implements GeneratorInterface
      *
      * @return array
      */
-    private static function toArray(Translations $translations)
+    public static function toArray(Translations $translations)
     {
         return [
             'domain' => $translations->getDomain() ?: 'messages',

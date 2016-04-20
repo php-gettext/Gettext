@@ -7,9 +7,14 @@ use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
+    protected static function asset($file)
+    {
+        return __DIR__.'/assets/'.$file;
+    }
+
     protected static function file($format)
     {
-        return __DIR__.'/assets/'.static::$file.'.'.$format;
+        return static::asset(static::$file.'.'.$format);
     }
 
     protected static function content($format)

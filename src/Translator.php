@@ -7,9 +7,8 @@ use Gettext\Generators\PhpArray;
 class Translator extends BaseTranslator implements TranslatorInterface
 {
     private $domain;
-    private $dictionary = array();
-    private $context_glue = "\004";
-    private $plurals = array();
+    private $dictionary = [];
+    private $plurals = [];
 
     /**
      * Loads translation from a Translations instance, a file on an array.
@@ -28,11 +27,19 @@ class Translator extends BaseTranslator implements TranslatorInterface
             throw new \InvalidArgumentException('Invalid Translator: only arrays, files or instance of Translations are allowed');
         }
 
-        foreach ($translations as $translation) {
-            $this->addTranslations($translation);
-        }
+        $this->addTranslations($translations);
 
         return $this;
+    }
+
+    /**
+     * Set the default domain
+     * 
+     * @param string $domain
+     */
+    public function defaultDomain($domain)
+    {
+        $this->domain = $domain;
     }
 
     /**
@@ -104,8 +111,8 @@ class Translator extends BaseTranslator implements TranslatorInterface
     {
         $translation = $this->getTranslation($domain, $context, $original);
 
-        if (isset($translation[1]) && $translation[1] !== '') {
-            return $translation[1];
+        if (isset($translation[0]) && $translation[0] !== '') {
+            return $translation[0];
         }
 
         return $original;
@@ -125,7 +132,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
             return $translation[$key];
         }
 
-        return ($key === 1) ? $original : $plural;
+        return ($key === 0) ? $original : $plural;
     }
 
     /**
@@ -135,33 +142,30 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     protected function addTranslations(array $translations)
     {
-        $info = isset($translations['']) ? $translations[''] : null;
-        unset($translations['']);
-
-        $domain = isset($info['domain']) ? $info['domain'] : 'messages';
+        $domain = $translations['domain'];
 
         //Set the first domain loaded as default domain
         if (!$this->domain) {
             $this->domain = $domain;
         }
 
-        if (!isset($this->dictionary[$domain])) {
-            // If a plural form is set we extract those values
-            $pluralForms = empty($info['plural-forms']) ? 'nplurals=2; plural=(n != 1)' : $info['plural-forms'];
-
-            list($count, $code) = explode(';', $pluralForms, 2);
-
-            // extract just the expression turn 'n' into a php variable '$n'.
-            // Slap on a return keyword and semicolon at the end.
-            $this->plurals[$domain] = array(
-                'count' => (int) str_replace('nplurals=', '', $count),
-                'code' => str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';',
-            );
-
-            $this->dictionary[$domain] = $translations;
-        } else {
-            $this->dictionary[$domain] = array_replace_recursive($this->dictionary[$domain], $translations);
+        if (isset($this->dictionary[$domain])) {
+            $this->dictionary[$domain] = array_replace_recursive($this->dictionary[$domain], $translations['messages']);
+            return;
         }
+
+        $pluralForms = $translations['plural-forms'];
+
+        list($count, $code) = explode(';', $pluralForms, 2);
+
+        // extract just the expression turn 'n' into a php variable '$n'.
+        // Slap on a return keyword and semicolon at the end.
+        $this->plurals[$domain] = [
+            'count' => (int) str_replace('nplurals=', '', $count),
+            'code' => str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';',
+        ];
+
+        $this->dictionary[$domain] = $translations['messages'];
     }
 
     /**
@@ -171,13 +175,11 @@ class Translator extends BaseTranslator implements TranslatorInterface
      * @param string $context
      * @param string $original
      *
-     * @return array
+     * @return string|false
      */
     protected function getTranslation($domain, $context, $original)
     {
-        $key = isset($context) ? $context.$this->context_glue.$original : $original;
-
-        return isset($this->dictionary[$domain][$key]) ? $this->dictionary[$domain][$key] : false;
+        return isset($this->dictionary[$domain][$context][$original]) ? $this->dictionary[$domain][$context][$original] : false;
     }
 
     /**
@@ -193,7 +195,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     {
         //Not loaded domain, use a fallback
         if (!isset($this->plurals[$domain])) {
-            return $n == 1 ? 1 : 2;
+            return $n == 1 ? 0 : 1;
         }
 
         if (!isset($this->plurals[$domain]['function'])) {
@@ -201,12 +203,10 @@ class Translator extends BaseTranslator implements TranslatorInterface
         }
 
         if ($this->plurals[$domain]['count'] <= 2) {
-            return (call_user_func($this->plurals[$domain]['function'], $n)) ? 2 : 1;
+            return call_user_func($this->plurals[$domain]['function'], $n) ? 1 : 0;
         }
 
-        // We need to +1 because while (GNU) gettext codes assume 0 based,
-        // this gettext actually stores 1 based.
-        return (call_user_func($this->plurals[$domain]['function'], $n)) + 1;
+        return call_user_func($this->plurals[$domain]['function'], $n);
     }
 
     /**

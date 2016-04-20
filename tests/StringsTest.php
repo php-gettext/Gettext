@@ -1,8 +1,11 @@
 <?php
 
-namespace Gettext;
+namespace Gettext\Tests;
 
-class StringsTest extends \PHPUnit_Framework_TestCase
+use Gettext\Extractors;
+use Gettext\Generators;
+
+class StringsTest extends AbstractTest
 {
     public function stringFromPhpProvider()
     {
