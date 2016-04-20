@@ -123,7 +123,7 @@ class Po extends Extractor implements ExtractorInterface
                         if ($append === 'PluralTranslation') {
                             $p = $translation->getPluralTranslations();
                             $p[] = array_pop($p)."\n".self::convertString($data);
-                            $translations->setPluralTranslations($p);
+                            $translation->setPluralTranslations($p);
                             break;
                         }
 
