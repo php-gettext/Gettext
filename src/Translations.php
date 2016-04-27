@@ -23,7 +23,7 @@ class Translations extends \ArrayObject
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
 
-    public static $mergeDefault = 93; // self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
+    public static $mergeDefault = 221; // self::MERGE_ADD | self::MERGE_OVERRIDE | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
 
     private $headers;
 
