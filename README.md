@@ -13,7 +13,7 @@ Gettext
 
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
-Gettext is a PHP (5.3) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
+Gettext is a PHP (5.4) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
 ## Installation
 
