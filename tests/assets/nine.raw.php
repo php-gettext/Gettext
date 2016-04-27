@@ -1,6 +1,6 @@
 <div>
     <p><?php __ ( 'plain' ); ?></p>
-    <p><?php __('DATE \a\t TIME'); ?></p>
+    <p><?php gettext('DATE \a\t TIME'); ?></p>
     <p><?php __("DATE \a\\t TIME"); ?></p>
     <p><?php __("DATE \\a\\t TIME"); ?></p>
     <p><?php __("FIELD\tFIELD"); ?></p>
@@ -25,7 +25,7 @@ __('All comments');
 
 __('i18n Tagged comment');
 
-__(
+gettext(
     /* i18n Tagged comment inside */
     'i18n Tagged comment inside'
 );

@@ -30,9 +30,9 @@ class Translations extends \ArrayObject
     /**
      * @see \ArrayObject::__construct()
      */
-    public function __construct($input = array(), $flags = 0, $iterator_class = 'ArrayIterator')
+    public function __construct($input = [], $flags = 0, $iterator_class = 'ArrayIterator')
     {
-        $this->headers = array(
+        $this->headers = [
             'Project-Id-Version' => '',
             'Report-Msgid-Bugs-To' => '',
             'Last-Translator' => '',
@@ -42,7 +42,7 @@ class Translations extends \ArrayObject
             'Content-Transfer-Encoding' => '8bit',
             //'POT-Creation-Date' => date('c'),
             //'PO-Revision-Date' => date('c'),
-        );
+        ];
         $this->headers[self::HEADER_LANGUAGE] = '';
         parent::__construct($input, $flags, $iterator_class);
     }
@@ -93,7 +93,7 @@ class Translations extends \ArrayObject
      */
     public function __clone()
     {
-        $array = array();
+        $array = [];
 
         foreach ($this as $key => $translation) {
             $array[$key] = clone $translation;
@@ -152,7 +152,7 @@ class Translations extends \ArrayObject
         $header = $this->getHeader(self::HEADER_PLURAL);
 
         if (!empty($header) && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
-            return array(intval($matches[1]), $matches[2]);
+            return [intval($matches[1]), $matches[2]];
         }
     }
 
@@ -195,7 +195,7 @@ class Translations extends \ArrayObject
      */
     public function deleteHeaders()
     {
-        $this->headers = array();
+        $this->headers = [];
     }
 
     /**
@@ -350,7 +350,7 @@ class Translations extends \ArrayObject
         }
 
         if ($method & self::MERGE_REMOVE) {
-            $filtered = array();
+            $filtered = [];
 
             foreach ($this as $entry) {
                 if ($translations->find($entry)) {

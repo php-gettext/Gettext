@@ -23,7 +23,8 @@ class CsvDictionary extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        $entries = array();
+        $entries = [];
+        
         while ($row = fgetcsv($handle)) {
             $entries[$row[0]] = $row[1];
         }

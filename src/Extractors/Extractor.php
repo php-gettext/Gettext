@@ -51,11 +51,11 @@ abstract class Extractor
                 throw new InvalidArgumentException("'$file' is not a readable file");
             }
 
-            return array($file);
+            return [$file];
         }
 
         if (is_array($file)) {
-            $files = array();
+            $files = [];
 
             foreach ($file as $f) {
                 $files = array_merge($files, self::getFiles($f));

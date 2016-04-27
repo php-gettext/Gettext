@@ -11,11 +11,11 @@ class Translation
     protected $original;
     protected $translation = '';
     protected $plural;
-    protected $pluralTranslation = array();
-    protected $references = array();
-    protected $comments = array();
-    protected $extractedComments = array();
-    protected $flags = array();
+    protected $pluralTranslation = [];
+    protected $references = [];
+    protected $comments = [];
+    protected $extractedComments = [];
+    protected $flags = [];
 
     /**
      * Generates the id of a translation (context + glue + original).
@@ -232,7 +232,7 @@ class Translation
      */
     public function deletePluralTranslation()
     {
-        $this->pluralTranslation = array();
+        $this->pluralTranslation = [];
     }
 
     /**
@@ -264,7 +264,7 @@ class Translation
     public function addReference($filename, $line = null)
     {
         $key = "{$filename}:{$line}";
-        $this->references[$key] = array($filename, $line);
+        $this->references[$key] = [$filename, $line];
     }
 
     /**
@@ -292,7 +292,7 @@ class Translation
      */
     public function deleteReferences()
     {
-        $this->references = array();
+        $this->references = [];
     }
 
     /**
@@ -332,7 +332,7 @@ class Translation
      */
     public function deleteComments()
     {
-        $this->comments = array();
+        $this->comments = [];
     }
 
     /**
@@ -372,7 +372,7 @@ class Translation
      */
     public function deleteExtractedComments()
     {
-        $this->extractedComments = array();
+        $this->extractedComments = [];
     }
 
     /**
@@ -412,7 +412,7 @@ class Translation
      */
     public function deleteFlags()
     {
-        $this->flags = array();
+        $this->flags = [];
     }
 
     /**

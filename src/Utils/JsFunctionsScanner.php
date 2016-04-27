@@ -5,7 +5,7 @@ namespace Gettext\Utils;
 class JsFunctionsScanner extends FunctionsScanner
 {
     protected $code;
-    protected $status = array();
+    protected $status = [];
 
     /**
      * Constructor.
@@ -25,8 +25,8 @@ class JsFunctionsScanner extends FunctionsScanner
         $length = strlen($this->code);
         $line = 1;
         $buffer = '';
-        $functions = array();
-        $bufferFunctions = array();
+        $functions = [];
+        $bufferFunctions = [];
         $char = null;
 
         for ($pos = 0; $pos < $length; ++$pos) {
@@ -111,7 +111,7 @@ class JsFunctionsScanner extends FunctionsScanner
                         default:
                             if ($buffer && preg_match('/(\w+)$/', $buffer, $matches)) {
                                 $this->downStatus('function');
-                                array_unshift($bufferFunctions, array($matches[1], $line, array()));
+                                array_unshift($bufferFunctions, [$matches[1], $line, []]);
                                 $buffer = '';
                                 continue 3;
                             }

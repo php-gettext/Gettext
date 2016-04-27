@@ -10,7 +10,7 @@ use Gettext\Utils\PhpFunctionsScanner;
  */
 class PhpCode extends Extractor implements ExtractorInterface
 {
-    public static $functions = array(
+    public static $functions = [
         'gettext' => 'gettext',
         '__' => 'gettext',
         'ngettext' => 'ngettext',
@@ -25,7 +25,7 @@ class PhpCode extends Extractor implements ExtractorInterface
         'np__' => 'npgettext',
         'dnpgettext' => 'dnpgettext',
         'dnp__' => 'dnpgettext',
-    );
+    ];
 
     /**
      * Set to:
@@ -71,7 +71,7 @@ class PhpCode extends Extractor implements ExtractorInterface
         }
 
         if ($value[0] === "'") {
-            return strtr(substr($value, 1, -1), array('\\\\' => '\\', '\\\'' => '\''));
+            return strtr(substr($value, 1, -1), ['\\\\' => '\\', '\\\'' => '\'']);
         }
 
         $value = substr($value, 1, -1);

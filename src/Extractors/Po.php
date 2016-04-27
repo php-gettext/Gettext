@@ -229,7 +229,7 @@ class Po extends Extractor implements ExtractorInterface
 
         return strtr(
             $value,
-            array(
+            [
                 '\\\\' => '\\',
                 '\\a' => "\x07",
                 '\\b' => "\x08",
@@ -239,7 +239,7 @@ class Po extends Extractor implements ExtractorInterface
                 '\\f' => "\x0c",
                 '\\r' => "\r",
                 '\\"' => '"',
-            )
+            ]
         );
     }
 }

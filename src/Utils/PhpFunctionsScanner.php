@@ -61,9 +61,9 @@ class PhpFunctionsScanner extends FunctionsScanner
     public function getFunctions()
     {
         $count = count($this->tokens);
-        $bufferFunctions = array();
+        $bufferFunctions = [];
         /* @var ParsedFunction[] $bufferFunctions */
-        $functions = array();
+        $functions = [];
         /* @var ParsedFunction[] $functions */
 
         for ($k = 0; $k < $count; ++$k) {

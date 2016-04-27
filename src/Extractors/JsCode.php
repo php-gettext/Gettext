@@ -10,7 +10,7 @@ use Gettext\Utils\JsFunctionsScanner;
  */
 class JsCode extends Extractor implements ExtractorInterface
 {
-    public static $functions = array(
+    public static $functions = [
         'gettext' => 'gettext',
         '__' => 'gettext',
         'ngettext' => 'ngettext',
@@ -25,7 +25,7 @@ class JsCode extends Extractor implements ExtractorInterface
         'np__' => 'npgettext',
         'dnpgettext' => 'dnpgettext',
         'dnp__' => 'dnpgettext',
-    );
+    ];
 
     /**
      * {@inheritdoc}

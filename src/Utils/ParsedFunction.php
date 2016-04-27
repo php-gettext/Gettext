@@ -59,7 +59,7 @@ class ParsedFunction
     {
         $this->name = $name;
         $this->line = $line;
-        $this->arguments = array();
+        $this->arguments = [];
         $this->argumentIndex = -1;
         $this->argumentStopped = false;
         $this->comments = null;
@@ -117,7 +117,7 @@ class ParsedFunction
     public function addComment($comment)
     {
         if ($this->comments === null) {
-            $this->comments = array();
+            $this->comments = [];
         }
         $this->comments[] = $comment;
     }
@@ -134,16 +134,16 @@ class ParsedFunction
      */
     public function close()
     {
-        $arguments = array();
+        $arguments = [];
         for ($i = 0; $i <= $this->argumentIndex; ++$i) {
             $arguments[$i] = isset($this->arguments[$i]) ? $this->arguments[$i] : '';
         }
 
-        return array(
+        return [
             $this->name,
             $this->line,
             $arguments,
             $this->comments,
-        );
+        ];
     }
 }

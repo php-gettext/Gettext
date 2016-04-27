@@ -3,9 +3,9 @@
 </header>
 
 <div>
-    <p>{{ p__('context', 'text 1 with context') }}</p>
+    <p>{{ pgettext('context', 'text 1 with context') }}</p>
     <p>{{ __('text 2') }}</p>
-    <p>{{ __('text 3 (with parenthesis)') }}</p>
+    <p>{{ gettext('text 3 (with parenthesis)') }}</p>
     <p>{{ __('text 4 "with double quotes"') }}</p>
     <p>{{ __('text 5 \'with escaped single quotes\'') }}</p>
 </div>

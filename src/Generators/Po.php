@@ -11,7 +11,7 @@ class Po extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations)
     {
-        $lines = array('msgid ""', 'msgstr ""');
+        $lines = ['msgid ""', 'msgstr ""'];
 
         foreach ($translations->getHeaders() as $name => $value) {
             $lines[] = '"'.$name.': '.$value.'\\n"';
@@ -121,13 +121,13 @@ class Po extends Generator implements GeneratorInterface
     {
         return '"'.strtr(
             $value,
-            array(
+            [
                 "\x00" => '',
                 '\\' => '\\\\',
                 "\t" => '\t',
                 "\n" => '\n',
                 '"' => '\\"',
-            )
+            ]
         ).'"';
     }
 }
