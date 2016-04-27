@@ -30,6 +30,7 @@ class OneTest extends AbstractTest
         $this->assertSame(static::content('jed'), $translations->toJedString());
         $this->assertSame(static::content('json'), $translations->toJsonDictionaryString());
         $this->assertSame(static::content('csv'), $translations->toCsvDictionaryString());
+        $this->assertSame(static::content('yml'), $translations->toYamlDictionaryString());
 
         return $translations;
     }
@@ -84,5 +85,13 @@ class OneTest extends AbstractTest
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertSame(static::content('csv'), $translations->toCsvDictionaryString());
+    }
+
+    public function testYamlDictionary()
+    {
+        $translations = Translations::fromYamlDictionaryFile(static::file('yml'));
+
+        $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertSame(static::content('yml'), $translations->toYamlDictionaryString());
     }
 }

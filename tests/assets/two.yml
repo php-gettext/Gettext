@@ -1,6 +1,6 @@
 'text 1': ''
-"context\x04text 1 with context": ''
-'text 2': apple
+'text 1 with context': ''
+'text 2': ''
 'text 3 (with parenthesis)': ''
 'text 4 "with double quotes"': ''
 'text 5 ''with escaped single quotes''': ''

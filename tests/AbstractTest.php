@@ -35,5 +35,6 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         static::save($translations->toJedString(), 'jed');
         static::save($translations->toJsonDictionaryString(), 'json');
         static::save($translations->toCsvDictionaryString(), 'csv');
+        static::save($translations->toYamlDictionaryString(), 'yml');
     }
 }

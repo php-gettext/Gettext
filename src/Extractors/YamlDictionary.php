@@ -3,7 +3,7 @@
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
-use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class to get gettext strings from plain json.
@@ -19,9 +19,7 @@ class YamlDictionary extends Extractor implements ExtractorInterface
             $translations = new Translations();
         }
 
-        $yml = new Parser();
-
-        if (($entries = $yml->parse($string))) {
+        if (($entries = Yaml::parse($string))) {
             foreach ($entries as $original => $translation) {
                 $translations->insert(null, $original)->setTranslation($translation);
             }
