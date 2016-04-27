@@ -47,4 +47,5 @@ msgstr ""
 
 #: ./tests/assets/six.twig.php:65
 msgid "text 10 with plural"
-msgstr ""
+msgid_plural "The plural form"
+msgstr[0] ""

@@ -30,47 +30,73 @@ abstract class FunctionsScanner
                 continue;
             }
 
-            $translation = null;
+            $domain = $context = $original = $plural = $translation = null;
 
             switch ($functions[$name]) {
-                case '__':
+                case 'gettext':
                     if (!isset($args[0])) {
                         continue 2;
                     }
+
                     $original = $args[0];
-                    if ($original !== '') {
-                        $translation = $translations->insert('', $original);
-                    }
                     break;
 
-                case 'n__':
+                case 'ngettext':
                     if (!isset($args[1])) {
                         continue 2;
                     }
-                    $original = $args[0];
-                    $plural = $args[1];
-                    if ($original !== '') {
-                        $translation = $translations->insert('', $original, $plural);
-                    }
+
+                    list($original, $plural) = $args;
                     break;
 
-                case 'p__':
+                case 'pgettext':
                     if (!isset($args[1])) {
                         continue 2;
                     }
-                    $context = $args[0];
-                    $original = $args[1];
-                    if ($original !== '') {
-                        $translation = $translations->insert($context, $original);
+
+                    list($context, $original) = $args;
+                    break;
+
+                case 'dgettext':
+                    if (!isset($args[1])) {
+                        continue 2;
                     }
+
+                    list($domain, $original) = $args;
+                    break;
+
+                case 'dpgettext':
+                    if (!isset($args[2])) {
+                        continue 2;
+                    }
+
+                    list($domain, $context, $original) = $args;
+                    break;
+
+                case 'npgettext':
+                    if (!isset($args[2])) {
+                        continue 2;
+                    }
+
+                    list($context, $original, $plural) = $args;
+                    break;
+
+                case 'dnpgettext':
+                    if (!isset($args[4])) {
+                        continue 2;
+                    }
+
+                    list($domain, $context, $original, $plural) = $args;
                     break;
 
                 default:
-                    throw new Exception('Not valid functions');
+                    throw new Exception(sprintf('Not valid function %s', $functions[$name]));
             }
 
-            if (isset($translation)) {
+            if ((string) $original !== '' && ($domain === null || $domain === $translations->getDomain())) {
+                $translation = $translations->insert($context, $original, $plural);
                 $translation->addReference($file, $line);
+
                 if (isset($function[3])) {
                     foreach ($function[3] as $extractedComment) {
                         $translation->addExtractedComment($extractedComment);

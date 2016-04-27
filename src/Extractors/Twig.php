@@ -27,11 +27,6 @@ class Twig extends Extractor implements ExtractorInterface
 
         $string = self::$twig->compileSource($string);
 
-        // add default global php gettext functions
-        PhpCode::$functions['gettext'] = '__';
-        PhpCode::$functions['ngettext'] = '__';
-        PhpCode::$functions['_'] = '__';
-
         return PhpCode::fromString($string, $translations, $file);
     }
 

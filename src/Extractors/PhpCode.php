@@ -11,12 +11,20 @@ use Gettext\Utils\PhpFunctionsScanner;
 class PhpCode extends Extractor implements ExtractorInterface
 {
     public static $functions = array(
-        '__' => '__',
-        '__e' => '__',
-        'n__' => 'n__',
-        'n__e' => 'n__',
-        'p__' => 'p__',
-        'p__e' => 'p__',
+        'gettext' => 'gettext',
+        '__' => 'gettext',
+        'ngettext' => 'ngettext',
+        'n__' => 'ngettext',
+        'pgettext' => 'pgettext',
+        'p__' => 'pgettext',
+        'dgettext' => 'dgettext',
+        'd__' => 'dgettext',
+        'dpgettext' => 'dpgettext',
+        'dp__' => 'dpgettext',
+        'npgettext' => 'npgettext',
+        'np__' => 'npgettext',
+        'dnpgettext' => 'dnpgettext',
+        'dnp__' => 'dnpgettext',
     );
 
     /**
@@ -39,9 +47,11 @@ class PhpCode extends Extractor implements ExtractorInterface
         }
 
         $functions = new PhpFunctionsScanner($string);
+
         if (self::$extractComments !== false) {
             $functions->enableCommentsExtraction(self::$extractComments);
         }
+
         $functions->saveGettextFunctions(self::$functions, $translations, $file);
 
         return $translations;

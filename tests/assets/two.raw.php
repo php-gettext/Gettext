@@ -1,5 +1,5 @@
 <header>
-    <h1><?php __e('text 1'); ?></h1>
+    <h1><?php __('text 1'); ?></h1>
 </header>
 
 <div>
@@ -19,7 +19,7 @@
     <p><?php echo n__('text 10 with plural', 'The plural form', 5); ?></p>
 </div>
 
-<?php __e("<div id=\"blog\" class=\"container\">
+<?php __("<div id=\"blog\" class=\"container\">
     <div class=\"row\">
         <div class=\"col-md-12\">
             <div id=\"content\">

@@ -11,9 +11,20 @@ use Gettext\Utils\JsFunctionsScanner;
 class JsCode extends Extractor implements ExtractorInterface
 {
     public static $functions = array(
-        '__' => '__',
-        'n__' => 'n__',
-        'p__' => 'p__',
+        'gettext' => 'gettext',
+        '__' => 'gettext',
+        'ngettext' => 'ngettext',
+        'n__' => 'ngettext',
+        'pgettext' => 'pgettext',
+        'p__' => 'pgettext',
+        'dgettext' => 'dgettext',
+        'd__' => 'dgettext',
+        'dpgettext' => 'dpgettext',
+        'dp__' => 'dpgettext',
+        'npgettext' => 'npgettext',
+        'np__' => 'npgettext',
+        'dnpgettext' => 'dnpgettext',
+        'dnp__' => 'dnpgettext',
     );
 
     /**
