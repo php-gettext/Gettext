@@ -36,10 +36,14 @@ class Translator extends BaseTranslator implements TranslatorInterface
      * Set the default domain.
      * 
      * @param string $domain
+     * 
+     * @return self
      */
     public function defaultDomain($domain)
     {
         $this->domain = $domain;
+
+        return $this;
     }
 
     /**

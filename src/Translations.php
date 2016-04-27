@@ -4,6 +4,7 @@ namespace Gettext;
 
 use Gettext\Languages\Language;
 use BadMethodCallException;
+use InvalidArgumentException;
 
 /**
  * Class to manage a collection of translations.
@@ -24,6 +25,7 @@ class Translations extends \ArrayObject
     const HEADER_DOMAIN = 'X-Domain';
 
     public static $mergeDefault = 221; // self::MERGE_ADD | self::MERGE_OVERRIDE | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
+    public static $insertDate = true;
 
     private $headers;
 
@@ -40,9 +42,12 @@ class Translations extends \ArrayObject
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
-            //'POT-Creation-Date' => date('c'),
-            //'PO-Revision-Date' => date('c'),
         ];
+
+        if (static::$insertDate) {
+            $this->headers['POT-Creation-Date'] = $this->headers['PO-Revision-Date'] = date('c');
+        }
+
         $this->headers[self::HEADER_LANGUAGE] = '';
         parent::__construct($input, $flags, $iterator_class);
     }
@@ -115,7 +120,7 @@ class Translations extends \ArrayObject
     public function offsetSet($index, $value)
     {
         if (!($value instanceof Translation)) {
-            throw new \InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
+            throw new InvalidArgumentException('Only instances of Gettext\\Translation must be added to a Gettext\\Translations');
         }
 
         $id = $value->getId();
@@ -136,10 +141,14 @@ class Translations extends \ArrayObject
      *
      * @param int    $count
      * @param string $rule
+     * 
+     * @return self
      */
     public function setPluralForms($count, $rule)
     {
         $this->setHeader(self::HEADER_PLURAL, "nplurals={$count}; plural={$rule};");
+
+        return $this;
     }
 
     /**
@@ -161,11 +170,15 @@ class Translations extends \ArrayObject
      *
      * @param string $name
      * @param string $value
+     * 
+     * @return self
      */
     public function setHeader($name, $value)
     {
         $name = trim($name);
         $this->headers[$name] = trim($value);
+
+        return $this;
     }
 
     /**
@@ -192,10 +205,14 @@ class Translations extends \ArrayObject
 
     /**
      * Removes all headers.
+     * 
+     * @return self
      */
     public function deleteHeaders()
     {
         $this->headers = [];
+
+        return $this;
     }
 
     /**
@@ -226,20 +243,20 @@ class Translations extends \ArrayObject
      * Sets the language and the plural forms.
      *
      * @param string $language
+     * 
+     * @throws InvalidArgumentException if the language hasn't been recognized
      *
-     * @return bool Returns true if the plural rules has been updated, false if $language hasn't been recognized
+     * @return self
      */
     public function setLanguage($language)
     {
         $this->setHeader(self::HEADER_LANGUAGE, trim($language));
 
         if (($info = Language::getById($language))) {
-            $this->setPluralForms(count($info->categories), $info->formula);
-
-            return true;
+            return $this->setPluralForms(count($info->categories), $info->formula);
         }
 
-        return false;
+        throw new InvalidArgumentException(sprintf('The language "%s" is not valid', $language));
     }
 
     /**
@@ -258,10 +275,14 @@ class Translations extends \ArrayObject
      * Set a new domain for this translations.
      *
      * @param string $domain
+     * 
+     * @return self
      */
     public function setDomain($domain)
     {
         $this->setHeader(self::HEADER_DOMAIN, trim($domain));
+
+        return $this;
     }
 
     /**
@@ -324,6 +345,8 @@ class Translations extends \ArrayObject
      *
      * @param Translations $translations The translations instance to merge with
      * @param int|null     $method       One or various Translations::MERGE_* constants to define how to merge the translations
+     * 
+     * @return self
      */
     public function mergeWith(Translations $translations, $method = null)
     {
@@ -377,5 +400,7 @@ class Translations extends \ArrayObject
                 $this->setPluralForms($pluralForm[0], $pluralForm[1]);
             }
         }
+
+        return $this;
     }
 }

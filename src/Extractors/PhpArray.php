@@ -2,7 +2,7 @@
 
 namespace Gettext\Extractors;
 
-use Exception;
+use BadMethodCallException;
 use Gettext\Translations;
 
 /**
@@ -36,7 +36,7 @@ class PhpArray extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
-        throw new Exception('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
+        throw new BadMethodCallException('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
     }
 
     /**

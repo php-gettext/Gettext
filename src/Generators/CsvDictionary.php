@@ -19,7 +19,6 @@ class CsvDictionary extends Generator implements GeneratorInterface
 
         rewind($handle);
         $csv = stream_get_contents($handle);
-
         fclose($handle);
 
         return $csv;

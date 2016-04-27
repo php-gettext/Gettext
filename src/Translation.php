@@ -50,6 +50,8 @@ class Translation
      *
      * @param null|string $context  Optional new context
      * @param null|string $original Optional new original
+     * 
+     * @return Translation
      */
     public function getClone($context = null, $original = null)
     {
@@ -229,10 +231,14 @@ class Translation
 
     /**
      * Removes all plural translations.
+     * 
+     * @return self
      */
     public function deletePluralTranslation()
     {
         $this->pluralTranslation = [];
+
+        return $this;
     }
 
     /**
@@ -260,11 +266,15 @@ class Translation
      *
      * @param string   $filename The file path where the translation has been found
      * @param null|int $line     The line number where the translation has been found
+     * 
+     * @return self
      */
     public function addReference($filename, $line = null)
     {
         $key = "{$filename}:{$line}";
         $this->references[$key] = [$filename, $line];
+
+        return $this;
     }
 
     /**
@@ -289,22 +299,30 @@ class Translation
 
     /**
      * Removes all references.
+     * 
+     * @return self
      */
     public function deleteReferences()
     {
         $this->references = [];
+
+        return $this;
     }
 
     /**
      * Adds a new comment for this translation.
      *
      * @param string $comment
+     * 
+     * @return self
      */
     public function addComment($comment)
     {
         if (!in_array($comment, $this->comments, true)) {
             $this->comments[] = $comment;
         }
+
+        return $this;
     }
 
     /**
@@ -329,22 +347,30 @@ class Translation
 
     /**
      * Removes all comments.
+     * 
+     * @return self
      */
     public function deleteComments()
     {
         $this->comments = [];
+
+        return $this;
     }
 
     /**
      * Adds a new extracted comment for this translation.
      *
      * @param string $comment
+     * 
+     * @return self
      */
     public function addExtractedComment($comment)
     {
         if (!in_array($comment, $this->extractedComments, true)) {
             $this->extractedComments[] = $comment;
         }
+
+        return $this;
     }
 
     /**
@@ -369,22 +395,30 @@ class Translation
 
     /**
      * Removes all extracted comments.
+     * 
+     * @return self
      */
     public function deleteExtractedComments()
     {
         $this->extractedComments = [];
+
+        return $this;
     }
 
     /**
      * Adds a new flat for this translation.
      *
      * @param string $flag
+     * 
+     * @return self
      */
     public function addFlag($flag)
     {
         if (!in_array($flag, $this->flags, true)) {
             $this->flags[] = $flag;
         }
+
+        return $this;
     }
 
     /**
@@ -409,10 +443,14 @@ class Translation
 
     /**
      * Removes all flags.
+     * 
+     * @return self
      */
     public function deleteFlags()
     {
         $this->flags = [];
+
+        return $this;
     }
 
     /**
@@ -420,6 +458,8 @@ class Translation
      *
      * @param Translation $translation The translation to merge with
      * @param int|null    $method      One or various Translations::MERGE_* constants to define how to merge the translations
+     * 
+     * @return self
      */
     public function mergeWith(Translation $translation, $method = null)
     {
@@ -450,5 +490,7 @@ class Translation
             $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
             $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
         }
+
+        return $this;
     }
 }
