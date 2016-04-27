@@ -10,7 +10,10 @@ class PhpCodeExtractorTest extends PHPUnit_Framework_TestCase
     public function testOne()
     {
         //Extract translations
-        $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
+        $translations = new Gettext\Translations();
+        $translations->setDomain('myapp');
+        $translations->addFromPhpCodeFile(__DIR__.'/files/phpcode.php');
+        $translations->setDomain('myapp');
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
         $this->assertInstanceOf('Gettext\\Translation', $translations->find('context', 'text 1 with context'));

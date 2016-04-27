@@ -37,7 +37,9 @@ abstract class FunctionsScanner
                     if (!isset($args[0])) {
                         continue 2;
                     }
+
                     $original = $args[0];
+
                     if ($original !== '') {
                         $translation = $translations->insert('', $original);
                     }
@@ -47,8 +49,9 @@ abstract class FunctionsScanner
                     if (!isset($args[1])) {
                         continue 2;
                     }
-                    $original = $args[0];
-                    $plural = $args[1];
+
+                    list($original, $plural) = $args;
+
                     if ($original !== '') {
                         $translation = $translations->insert('', $original, $plural);
                     }
@@ -58,10 +61,59 @@ abstract class FunctionsScanner
                     if (!isset($args[1])) {
                         continue 2;
                     }
-                    $context = $args[0];
-                    $original = $args[1];
+
+                    list($context, $original) = $args;
+
                     if ($original !== '') {
                         $translation = $translations->insert($context, $original);
+                    }
+                    break;
+
+                case 'd__':
+                    if (!isset($args[1])) {
+                        continue 2;
+                    }
+
+                    list($domain, $original) = $args;
+
+                    if ($original !== '' && $domain === $translations->getDomain()) {
+                        $translation = $translations->insert('', $original);
+                    }
+                    break;
+
+                case 'dp__':
+                    if (!isset($args[2])) {
+                        continue 2;
+                    }
+
+                    list($domain, $context, $original) = $args;
+
+                    if ($original !== '' && $domain === $translations->getDomain()) {
+                        $translation = $translations->insert($context, $original);
+                    }
+                    break;
+
+                case 'np__':
+                    if (!isset($args[2])) {
+                        continue 2;
+                    }
+
+                    list($context, $original, $plural) = $args;
+
+                    if ($original !== '') {
+                        $translation = $translations->insert($context, $original, $plural);
+                    }
+                    break;
+
+                case 'dnp__':
+                    if (!isset($args[4])) {
+                        continue 2;
+                    }
+
+                    list($domain, $context, $original, $plural) = $args;
+
+                    if ($original !== '' && $domain === $translations->getDomain()) {
+                        $translation = $translations->insert($context, $original, $plural);
                     }
                     break;
 

@@ -5,7 +5,7 @@
 <div>
     <p><?php __($var); ?></p>
     <p><?php p__('context', 'text 1 with context'); ?></p>
-    <p><?php __('text 2'); ?></p>
+    <p><?php d__('myapp', 'text 2'); ?></p>
     <p><?php __('text 3 (with parenthesis)'); ?></p>
     <p><?php __('text 4 "with double quotes"'); ?></p>
     <p><?php __('text 5 \'with escaped single quotes\''); ?></p>

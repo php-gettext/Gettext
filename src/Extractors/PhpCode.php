@@ -11,12 +11,27 @@ use Gettext\Utils\PhpFunctionsScanner;
 class PhpCode extends Extractor implements ExtractorInterface
 {
     public static $functions = array(
+        'gettext' => '__',
         '__' => '__',
         '__e' => '__',
+        'ngettext' => 'n__',
         'n__' => 'n__',
         'n__e' => 'n__',
+        'pgettext' => 'p__',
         'p__' => 'p__',
         'p__e' => 'p__',
+        'dgettext' => 'd__',
+        'd__' => 'd__',
+        'd__e' => 'd__',
+        'dpgettext' => 'dp__',
+        'dp__' => 'dp__',
+        'dp__e' => 'dp__',
+        'npgettext' => 'np__',
+        'np__' => 'np__',
+        'np__e' => 'np__',
+        'dnpgettext' => 'dnp__',
+        'dnp__' => 'dnp__',
+        'dnp__e' => 'dnp__',
     );
 
     /**

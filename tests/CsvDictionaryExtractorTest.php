@@ -12,9 +12,9 @@ class CsvDictionaryExtractorTest extends PHPUnit_Framework_TestCase
         $translations = Gettext\Translations::fromCsvDictionaryString($string);
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
-        $this->assertEquals(12, count($translations));
+        $this->assertEquals(11, count($translations));
 
-        $translation = $translations->find('', 'text 2');
+        $translation = $translations->find('', 'text 6');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
         $this->assertEquals('apple', $translation->getTranslation());

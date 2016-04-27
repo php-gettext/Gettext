@@ -11,6 +11,6 @@ class PhpArrayGeneratorTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_array($array));
         $this->assertArrayHasKey('messages', $array);
-        $this->assertCount(13, $array['messages']);
+        $this->assertCount(12, $array['messages']);
     }
 }

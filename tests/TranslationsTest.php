@@ -8,10 +8,10 @@ class TranslationsTest extends PHPUnit_Framework_TestCase
         $translations = Gettext\Extractors\PhpCode::fromFile(__DIR__.'/files/phpcode.php');
 
         //Find by original
-        $translation = $translations->find(null, 'text 2');
+        $translation = $translations->find(null, 'text 6');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
-        $this->assertEquals('text 2', $translation->getOriginal());
+        $this->assertEquals('text 6', $translation->getOriginal());
 
         //Find by context
         $translation = $translations->find('context', 'text 1 with context');

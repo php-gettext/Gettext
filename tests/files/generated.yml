@@ -1,10 +1,9 @@
 'text 1': ''
 "context\x04text 1 with context": ''
-'text 2': apple
 'text 3 (with parenthesis)': ''
 'text 4 "with double quotes"': ''
 'text 5 ''with escaped single quotes''': ''
-'text 6': ''
+'text 6': apple
 'text 7 (with parenthesis)': ''
 'text 8 "with escaped double quotes"': ''
 'text 9 ''with single quotes''': ''

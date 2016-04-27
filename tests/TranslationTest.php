@@ -30,14 +30,14 @@ class TranslationTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($translation->hasPlural());
         $this->assertTrue($translation->is('', 'text 10 with plural'));
 
-        $translation = $translations->find(null, 'text 2');
+        $translation = $translations->find(null, 'text 6');
 
         $this->assertFalse($translation->hasPlural());
 
-        $translation->setPluralTranslation('texts 2');
+        $translation->setPluralTranslation('texts 6');
 
         $this->assertCount(1, $translation->getPluralTranslation());
-        $this->assertEquals('texts 2', $translation->getPluralTranslation(0));
+        $this->assertEquals('texts 6', $translation->getPluralTranslation(0));
     }
 
     public function testMerge()
