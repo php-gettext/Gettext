@@ -1,13 +1,13 @@
 <div>
-    <p><?php __ ( 'plain' ); ?></p>
+    <p><?php __('plain'); ?></p>
     <p><?php __('DATE \a\t TIME'); ?></p>
     <p><?php __("DATE \a\\t TIME"); ?></p>
-    <p><?php __("DATE \\a\\t TIME"); ?></p>
+    <p><?php __('DATE \\a\\t TIME'); ?></p>
     <p><?php __("FIELD\tFIELD"); ?></p>
     <p><?php __(
-        "text "
+        'text '
         // test
-        .'concatenated'.
+.'concatenated'.
         /* test*/ " with 'comments'"
     ); ?></p>
     <p><?php __($avoid['me']); ?>

@@ -4,7 +4,6 @@ namespace Gettext\Generators;
 
 use Gettext\Translations;
 use Symfony\Component\Yaml\Dumper;
-use Symfony\Component\Yaml\Parser;
 
 class YamlDictionary extends Generator implements GeneratorInterface
 {
@@ -24,17 +23,17 @@ class YamlDictionary extends Generator implements GeneratorInterface
         }
 
         //map to a simple yml dictionary (no plurals)
-        $yml    = new Dumper();
+        $yml = new Dumper();
         $output = $yml->dump(
                 array_map(
                     function ($val) {
-                        return isset( $val[1] ) ? $val[1] : null;
+                        return isset($val[1]) ? $val[1] : null;
                     },
                     $values
                 ),
             1
         );
-        
+
         return $output;
     }
 }
