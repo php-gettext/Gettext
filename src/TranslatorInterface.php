@@ -9,7 +9,7 @@ interface TranslatorInterface
 {
     /**
      * Register this translator as global, to use with the gettext functions __(), p__(), etc.
-     * Returns the previous translator if exists
+     * Returns the previous translator if exists.
      * 
      * @return TranslatorInterface|null
      */
