@@ -30,7 +30,7 @@ abstract class FunctionsScanner
                 continue;
             }
 
-            $domain = $context = $original = $plural = $translation = null;
+            $domain = $context = $original = $plural = null;
 
             switch ($functions[$name]) {
                 case 'gettext':

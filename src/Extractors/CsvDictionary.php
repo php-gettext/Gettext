@@ -31,10 +31,8 @@ class CsvDictionary extends Extractor implements ExtractorInterface
 
         fclose($handle);
 
-        if ($entries) {
-            foreach ($entries as $original => $translation) {
-                $translations->insert(null, $original)->setTranslation($translation);
-            }
+        foreach ($entries as $original => $translation) {
+            $translations->insert(null, $original)->setTranslation($translation);
         }
 
         return $translations;

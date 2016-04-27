@@ -123,14 +123,13 @@ class ParsedFunction
     }
     /**
      * A closing parenthesis was found: return the final data.
+     * The array returned has the following values:
+     *  0 => string The function name.
+     *  1 => int The line where the function starts.
+     *  2 => string[] the strings extracted from the function arguments.
+     *  3 => string[] the comments associated to the function.
      *
-     * @return array{
-     *
-     *   @var string The function name.
-     *   @var int The line where the function starts.
-     *   @var string[] the strings extracted from the function arguments.
-     *   @var string[] the comments associated to the function.
-     * }
+     * @return array
      */
     public function close()
     {
