@@ -12,8 +12,12 @@ abstract class BaseTranslator implements TranslatorInterface
      */
     public function register()
     {
+        $previous = self::$current;
+
         self::$current = $this;
 
         include_once __DIR__.'/translator_functions.php';
+
+        return $previous;
     }
 }

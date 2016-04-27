@@ -171,7 +171,6 @@ $translations = Gettext\Extractors\Po::fromString($string);
 
 The available extractors are the following:
 
-* `Gettext\Extractors\CsvDictionary` - Gets the strings from CSV
 * `Gettext\Extractors\Po` - Gets the strings from PO
 * `Gettext\Extractors\Mo` - Gets the strings from MO
 * `Gettext\Extractors\PhpCode` - To scan a php file looking for all gettext functions (see `translator_functions.php`)
@@ -182,6 +181,7 @@ The available extractors are the following:
 * `Gettext\Extractors\Twig` - To scan a Twig template (Thanks [@exnor](https://github.com/exnor))
 * `Gettext\Extractors\JsonDictionary` - To get translations from a plain json file with the format `{"original": "translation"}`
 * `Gettext\Extractors\YamlDictionary` - To get translations from a plain yaml file with the format `"original": translation`
+* `Gettext\Extractors\CsvDictionary` - Gets the strings from plain CSV with the format `"original", "translation"`
 
 ## Generators
 
@@ -198,13 +198,13 @@ $string = file_put_contents('locales/en.po', $content);
 
 The available generators are:
 
-* `Gettext\Generators\CsvDictionary` - Exports to CSV format
 * `Gettext\Generators\Mo` - Exports to Mo format
 * `Gettext\Generators\Po` - Exports to Po format
 * `Gettext\Generators\PhpArray` - Exports to php code that returns an array with all values
 * `Gettext\Generators\Jed` - Exports to json format compatible with [Jed library](http://slexaxton.github.com/Jed/)
 * `Gettext\Generators\JsonDictionary` - Export to plain json with the format `{"original": "translation"}` (thanks, [@gator92](https://github.com/Gator92))
 * `Gettext\Generators\YamlDictionary` - Export to plain yaml with the format `"original": translation` (thanks, [@sourcerer-mike](https://github.com/sourcerer-mike))
+* `Gettext\Generators\CsvDictionary` - Exports to CSV format with the format `"original","translation"` (thanks, [@sourcerer-mike](https://github.com/sourcerer-mike))
 
 To ease the work with generators and extractors you can use the magic methods availables in `Gettext\Translations` that import and export the translations in all these formats:
 

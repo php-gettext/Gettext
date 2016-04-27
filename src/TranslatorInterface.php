@@ -9,6 +9,9 @@ interface TranslatorInterface
 {
     /**
      * Register this translator as global, to use with the gettext functions __(), p__(), etc.
+     * Returns the previous translator if exists
+     * 
+     * @return TranslatorInterface|null
      */
     public function register();
 
