@@ -3,9 +3,12 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\DictionaryTrait;
 
 class CsvDictionary extends Generator implements GeneratorInterface
 {
+    use DictionaryTrait;
+
     /**
      * {@parentDoc}.
      */
@@ -13,8 +16,8 @@ class CsvDictionary extends Generator implements GeneratorInterface
     {
         $handle = fopen('php://memory', 'w');
 
-        foreach ($translations as $translation) {
-            fputcsv($handle, [$translation->getOriginal(), $translation->getTranslation()]);
+        foreach (static::toArray($translations) as $original => $translation) {
+            fputcsv($handle, [$original, $translation]);
         }
 
         rewind($handle);

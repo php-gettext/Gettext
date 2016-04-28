@@ -3,21 +3,18 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\DictionaryTrait;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlDictionary extends Generator implements GeneratorInterface
 {
+    use DictionaryTrait;
+
     /**
      * {@inheritdoc}
      */
     public static function toString(Translations $translations)
     {
-        $messages = [];
-
-        foreach ($translations as $translation) {
-            $messages[$translation->getOriginal()] = $translation->getTranslation();
-        }
-
-        return Yaml::dump($messages);
+        return Yaml::dump(static::toArray($translations));
     }
 }
