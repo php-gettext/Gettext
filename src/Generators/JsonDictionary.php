@@ -16,6 +16,6 @@ class JsonDictionary extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations)
     {
-        return json_encode(static::toArray($translations), static::$options);
+        return json_encode(self::toArray($translations), static::$options);
     }
 }

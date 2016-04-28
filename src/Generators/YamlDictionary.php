@@ -15,6 +15,6 @@ class YamlDictionary extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations)
     {
-        return Yaml::dump(static::toArray($translations));
+        return Yaml::dump(self::toArray($translations));
     }
 }
