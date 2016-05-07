@@ -12,12 +12,8 @@ class Jed extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         self::extract(json_decode($string, true), $translations);
 
         return $translations;

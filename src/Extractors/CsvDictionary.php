@@ -12,12 +12,8 @@ class CsvDictionary extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $handle = fopen('php://memory', 'w');
 
         fputs($handle, $string);

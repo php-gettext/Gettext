@@ -18,12 +18,8 @@ class Mo extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $stream = new StringReader($string);
         $magic = self::readInt($stream, 'V');
 

@@ -15,12 +15,8 @@ class Po extends Extractor implements ExtractorInterface
      *
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         $lines = explode("\n", $string);
         $i = 0;
 
@@ -137,6 +133,8 @@ class Po extends Extractor implements ExtractorInterface
         if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($translations))) {
             $translations[] = $translation;
         }
+
+
 
         return $translations;
     }

@@ -32,13 +32,9 @@ class JsCode extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
         $options += static::$options;
-
-        if ($translations === null) {
-            $translations = new Translations();
-        }
 
         $functions = new JsFunctionsScanner($string);
         $functions->saveGettextFunctions($translations, $options);

@@ -13,12 +13,8 @@ class PhpArray extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromFile($file, Translations $translations = null, array $options = [])
+    public static function fromFile($file, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         foreach (static::getFiles($file) as $file) {
             static::extract(include($file), $translations);
         }
@@ -29,7 +25,7 @@ class PhpArray extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
         throw new BadMethodCallException('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
     }

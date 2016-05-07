@@ -12,12 +12,8 @@ class JsonDictionary extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         if (($entries = json_decode($string, true))) {
             foreach ($entries as $original => $translation) {
                 $translations->insert(null, $original)->setTranslation($translation);

@@ -54,7 +54,7 @@ class Translations extends \ArrayObject
 
     /**
      * Magic method to create new instances using extractors
-     * For example: Translations::fromMoFile($filename);.
+     * For example: Translations::fromMoFile($filename, $options);.
      *
      * @return Translations
      */
@@ -64,13 +64,13 @@ class Translations extends \ArrayObject
             throw new BadMethodCallException("The method $name does not exists");
         }
 
-        return call_user_func_array('Gettext\\Extractors\\'.$matches[1].'::from'.$matches[2], $arguments);
+        return call_user_func_array([new static(), 'add'.ucfirst($name)], $arguments);
     }
 
     /**
      * Magic method to import/export the translations to a specific format
-     * For example: $translations->toMoFile($filename);
-     * For example: $translations->addFromMoFile($filename);.
+     * For example: $translations->toMoFile($filename, $options);
+     * For example: $translations->addFromMoFile($filename, $options);.
      *
      * @return self|bool
      */
@@ -81,16 +81,20 @@ class Translations extends \ArrayObject
         }
 
         if ($matches[1] === 'addFrom') {
-            $arguments[] = $this;
+            $extractor = 'Gettext\\Extractors\\'.$matches[2].'::from'.$matches[3];
+            $source = array_shift($arguments);
+            $options = array_shift($arguments) ?: [];
 
-            call_user_func_array('Gettext\\Extractors\\'.$matches[2].'::from'.$matches[3], $arguments);
+            call_user_func($extractor, $source, $this, $options);
 
             return $this;
         }
 
+        $generator = 'Gettext\\Generators\\'.$matches[2].'::to'.$matches[3];
+
         array_unshift($arguments, $this);
 
-        return call_user_func_array('Gettext\\Generators\\'.$matches[2].'::to'.$matches[3], $arguments);
+        return call_user_func_array($generator, $arguments);
     }
 
     /**

@@ -14,7 +14,7 @@ class Blade extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, array $options = [])
+    public static function fromString($string, Translations $translations, array $options = [])
     {
         $bladeCompiler = new BladeCompiler(new Filesystem(), null);
         $string = $bladeCompiler->compileString($string);

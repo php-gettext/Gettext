@@ -11,12 +11,8 @@ abstract class Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromFile($file, Translations $translations = null, array $options = [])
+    public static function fromFile($file, Translations $translations, array $options = [])
     {
-        if ($translations === null) {
-            $translations = new Translations();
-        }
-
         foreach (self::getFiles($file) as $file) {
             $options['file'] = $file;
             static::fromString(self::readFile($file), $translations, $options);
