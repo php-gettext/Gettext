@@ -10,49 +10,48 @@ use Gettext\Utils\PhpFunctionsScanner;
  */
 class PhpCode extends Extractor implements ExtractorInterface
 {
-    public static $functions = [
-        'gettext' => 'gettext',
-        '__' => 'gettext',
-        'ngettext' => 'ngettext',
-        'n__' => 'ngettext',
-        'pgettext' => 'pgettext',
-        'p__' => 'pgettext',
-        'dgettext' => 'dgettext',
-        'd__' => 'dgettext',
-        'dpgettext' => 'dpgettext',
-        'dp__' => 'dpgettext',
-        'npgettext' => 'npgettext',
-        'np__' => 'npgettext',
-        'dnpgettext' => 'dnpgettext',
-        'dnp__' => 'dnpgettext',
-    ];
+    public static $options = [
+         // - false: to not extract comments
+         // - empty string: to extract all comments
+         // - non-empty string: to extract comments that start with that string
+        'extractComments' => '',
 
-    /**
-     * Set to:
-     * - false to not extract comments
-     * - empty string to extract all comments
-     * - non-empty string to extract comments that start with that string.
-     *
-     * @var string|false
-     */
-    public static $extractComments = '';
+        'functions' => [
+            'gettext' => 'gettext',
+            '__' => 'gettext',
+            'ngettext' => 'ngettext',
+            'n__' => 'ngettext',
+            'pgettext' => 'pgettext',
+            'p__' => 'pgettext',
+            'dgettext' => 'dgettext',
+            'd__' => 'dgettext',
+            'dpgettext' => 'dpgettext',
+            'dp__' => 'dpgettext',
+            'npgettext' => 'npgettext',
+            'np__' => 'npgettext',
+            'dnpgettext' => 'dnpgettext',
+            'dnp__' => 'dnpgettext',
+        ],
+    ];
 
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
         if ($translations === null) {
             $translations = new Translations();
         }
 
+        $options += static::$options;
+
         $functions = new PhpFunctionsScanner($string);
 
-        if (self::$extractComments !== false) {
-            $functions->enableCommentsExtraction(self::$extractComments);
+        if ($options['extractComments'] !== false) {
+            $functions->enableCommentsExtraction($options['extractComments']);
         }
 
-        $functions->saveGettextFunctions(self::$functions, $translations, $file);
+        $functions->saveGettextFunctions($translations, $options);
 
         return $translations;
     }

@@ -21,13 +21,13 @@ class Twig extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
         self::addExtension('Twig_Extensions_Extension_I18n');
 
         $string = self::$twig->compileSource($string);
 
-        return PhpCode::fromString($string, $translations, $file);
+        return PhpCode::fromString($string, $translations, $options);
     }
 
     /**

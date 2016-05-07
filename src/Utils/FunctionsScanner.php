@@ -17,12 +17,14 @@ abstract class FunctionsScanner
     /**
      * Search for specific functions and create translations.
      *
-     * @param array        $functions    The gettext functions to search
      * @param Translations $translations The translations instance where save the values
-     * @param string       $file         The filename used to the reference
+     * @param array        $options      The extractor options
      */
-    public function saveGettextFunctions(array $functions, Translations $translations, $file = '')
+    public function saveGettextFunctions(Translations $translations, array $options)
     {
+        $functions = $options['functions'];
+        $file = $options['file'];
+
         foreach ($this->getFunctions() as $function) {
             list($name, $line, $args) = $function;
 

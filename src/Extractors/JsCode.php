@@ -10,33 +10,37 @@ use Gettext\Utils\JsFunctionsScanner;
  */
 class JsCode extends Extractor implements ExtractorInterface
 {
-    public static $functions = [
-        'gettext' => 'gettext',
-        '__' => 'gettext',
-        'ngettext' => 'ngettext',
-        'n__' => 'ngettext',
-        'pgettext' => 'pgettext',
-        'p__' => 'pgettext',
-        'dgettext' => 'dgettext',
-        'd__' => 'dgettext',
-        'dpgettext' => 'dpgettext',
-        'dp__' => 'dpgettext',
-        'npgettext' => 'npgettext',
-        'np__' => 'npgettext',
-        'dnpgettext' => 'dnpgettext',
-        'dnp__' => 'dnpgettext',
+    public static $options = [
+        'functions' => [
+            'gettext' => 'gettext',
+            '__' => 'gettext',
+            'ngettext' => 'ngettext',
+            'n__' => 'ngettext',
+            'pgettext' => 'pgettext',
+            'p__' => 'pgettext',
+            'dgettext' => 'dgettext',
+            'd__' => 'dgettext',
+            'dpgettext' => 'dpgettext',
+            'dp__' => 'dpgettext',
+            'npgettext' => 'npgettext',
+            'np__' => 'npgettext',
+            'dnpgettext' => 'dnpgettext',
+            'dnp__' => 'dnpgettext',
+        ],
     ];
 
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
+        $options += static::$options;
+
         if ($translations === null) {
             $translations = new Translations();
         }
 
         $functions = new JsFunctionsScanner($string);
-        $functions->saveGettextFunctions(self::$functions, $translations, $file);
+        $functions->saveGettextFunctions($translations, $options);
     }
 }

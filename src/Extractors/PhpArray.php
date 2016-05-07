@@ -11,14 +11,9 @@ use Gettext\Translations;
 class PhpArray extends Extractor implements ExtractorInterface
 {
     /**
-     * Extract the translations from a file.
-     *
-     * @param array|string      $file         A path of a file or files
-     * @param null|Translations $translations The translations instance to append the new translations.
-     *
-     * @return Translations
+     * {@inheritdoc}
      */
-    public static function fromFile($file, Translations $translations = null)
+    public static function fromFile($file, Translations $translations = null, array $options = [])
     {
         if ($translations === null) {
             $translations = new Translations();
@@ -34,7 +29,7 @@ class PhpArray extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
         throw new BadMethodCallException('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
     }

@@ -14,11 +14,11 @@ class Blade extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
         $bladeCompiler = new BladeCompiler(new Filesystem(), null);
         $string = $bladeCompiler->compileString($string);
 
-        return PhpCode::fromString($string, $translations, $file);
+        return PhpCode::fromString($string, $translations, $options);
     }
 }

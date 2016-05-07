@@ -6,14 +6,17 @@ use Gettext\Translations;
 
 class Jed extends Generator implements GeneratorInterface
 {
-    public static $options = JSON_PRETTY_PRINT;
+    public static $options = [
+        'json' => JSON_PRETTY_PRINT,
+    ];
 
     /**
      * {@parentDoc}.
      */
-    public static function toString(Translations $translations)
+    public static function toString(Translations $translations, array $options = [])
     {
         $domain = $translations->getDomain() ?: 'messages';
+        $options += static::$options;
 
         return json_encode([
             $domain => [
@@ -23,7 +26,7 @@ class Jed extends Generator implements GeneratorInterface
                     'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
                 ],
             ] + self::buildMessages($translations),
-        ], static::$options);
+        ], $options['json']);
     }
 
     /**

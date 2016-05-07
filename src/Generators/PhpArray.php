@@ -6,14 +6,16 @@ use Gettext\Translations;
 
 class PhpArray extends Generator implements GeneratorInterface
 {
-    public static $includeHeaders = true;
+    public static $options = [
+        'includeHeaders' => true,
+    ];
 
     /**
      * {@inheritdoc}
      */
-    public static function toString(Translations $translations)
+    public static function toString(Translations $translations, array $options = [])
     {
-        $array = self::toArray($translations);
+        $array = self::toArray($translations, $options);
 
         return '<?php return '.var_export($array, true).';';
     }
@@ -22,15 +24,18 @@ class PhpArray extends Generator implements GeneratorInterface
      * Generates an array with the translations.
      *
      * @param Translations $translations
+     * @param array        $options
      *
      * @return array
      */
-    public static function toArray(Translations $translations)
+    public static function toArray(Translations $translations, array $options = [])
     {
+        $options += static::$options;
+
         return [
             'domain' => $translations->getDomain(),
             'plural-forms' => $translations->getHeader('Plural-Forms'),
-            'messages' => self::buildMessages($translations),
+            'messages' => self::buildMessages($translations, $options),
         ];
     }
 
@@ -38,16 +43,17 @@ class PhpArray extends Generator implements GeneratorInterface
      * Generates an array with all translations.
      * 
      * @param Translations $translations
+     * @param array        $options
      *
      * @return array
      */
-    private static function buildMessages(Translations $translations)
+    private static function buildMessages(Translations $translations, array $options)
     {
         $pluralForm = $translations->getPluralForms();
         $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $messages = [];
 
-        if (static::$includeHeaders) {
+        if ($options['includeHeaders']) {
             $headers = '';
 
             foreach ($translations->getHeaders() as $name => $value) {

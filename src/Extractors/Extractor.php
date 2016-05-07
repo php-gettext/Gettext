@@ -6,24 +6,20 @@ use Exception;
 use InvalidArgumentException;
 use Gettext\Translations;
 
-abstract class Extractor
+abstract class Extractor implements ExtractorInterface
 {
     /**
-     * Extract the translations from a file.
-     *
-     * @param array|string      $file         A path of a file or files
-     * @param null|Translations $translations The translations instance to append the new translations.
-     *
-     * @return Translations
+     * {@inheritdoc}
      */
-    public static function fromFile($file, Translations $translations = null)
+    public static function fromFile($file, Translations $translations = null, array $options = [])
     {
         if ($translations === null) {
             $translations = new Translations();
         }
 
         foreach (self::getFiles($file) as $file) {
-            static::fromString(self::readFile($file), $translations, $file);
+            $options['file'] = $file;
+            static::fromString(self::readFile($file), $translations, $options);
         }
 
         return $translations;

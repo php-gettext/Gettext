@@ -18,7 +18,7 @@ class Mo extends Extractor implements ExtractorInterface
     /**
      * {@inheritdoc}
      */
-    public static function fromString($string, Translations $translations = null, $file = '')
+    public static function fromString($string, Translations $translations = null, array $options = [])
     {
         if ($translations === null) {
             $translations = new Translations();

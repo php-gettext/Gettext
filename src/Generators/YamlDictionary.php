@@ -13,7 +13,7 @@ class YamlDictionary extends Generator implements GeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public static function toString(Translations $translations)
+    public static function toString(Translations $translations, array $options = [])
     {
         return Yaml::dump(self::toArray($translations));
     }

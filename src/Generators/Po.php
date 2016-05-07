@@ -9,7 +9,7 @@ class Po extends Generator implements GeneratorInterface
     /**
      * {@parentDoc}.
      */
-    public static function toString(Translations $translations)
+    public static function toString(Translations $translations, array $options = [])
     {
         $lines = ['msgid ""', 'msgstr ""'];
 
