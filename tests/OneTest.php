@@ -20,6 +20,7 @@ class OneTest extends AbstractTest
     public function testParser()
     {
         $translations = static::getParsed();
+        //static::saveAsserts($translations);
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
@@ -59,6 +60,7 @@ class OneTest extends AbstractTest
     {
         $translations = Translations::fromPhpArrayFile(static::file('php'));
 
+        //translations + headers
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertSame(static::content('php'), $translations->toPhpArrayString());
     }

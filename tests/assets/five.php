@@ -1,11 +1,24 @@
 <?php return array (
   'domain' => 'testingdomain',
-  'lang' => 'bs',
   'plural-forms' => 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);',
   'messages' => 
   array (
     '' => 
     array (
+      '' => 
+      array (
+        0 => 'Project-Id-Version: 
+Report-Msgid-Bugs-To: 
+Last-Translator: 
+Language-Team: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Language: bs
+X-Domain: testingdomain
+Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
+',
+      ),
       'Ensure this value has at least %(limit_value)d character (it has %sd).' => 
       array (
         0 => '',

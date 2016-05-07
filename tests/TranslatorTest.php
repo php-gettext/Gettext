@@ -15,7 +15,7 @@ class TranslatorTest extends AbstractTest
         $t->loadTranslations(Translations::fromPoFile(static::asset('three.po')));
 
         $this->assertEquals('test', $t->gettext('single'));
-        $this->assertEquals('test', $t->dgettext('messages', 'single'));
+        $this->assertEquals('test', $t->dgettext('', 'single'));
 
         $this->assertEquals('Cijeo broj', $t->dgettext('testingdomain', 'Integer'));
 
@@ -68,5 +68,16 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 0));
         $this->assertEquals('world', $t->ngettext('world', 'worlds', 1));
         $this->assertEquals('worlds', $t->ngettext('world', 'worlds', 2));
+    }
+
+    public function testHeaders()
+    {
+        $po = (new Translator())->loadTranslations(Translations::fromPoFile(static::asset('one.po')));
+        $mo = (new Translator())->loadTranslations(Translations::fromMoFile(static::asset('one.mo')));
+        $array = (new Translator())->loadTranslations(Translations::fromPhpArrayFile(static::asset('one.php')));
+
+        $this->assertNotEmpty($po->gettext(''));
+        $this->assertEquals($po->gettext(''), $mo->gettext(''));
+        $this->assertEquals($po->gettext(''), $array->gettext(''));
     }
 }

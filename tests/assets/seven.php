@@ -1,11 +1,22 @@
 <?php return array (
-  'domain' => 'messages',
-  'lang' => 'en',
-  'plural-forms' => 'nplurals=2; plural=(n != 1);',
+  'domain' => NULL,
+  'plural-forms' => NULL,
   'messages' => 
   array (
     '' => 
     array (
+      '' => 
+      array (
+        0 => 'Project-Id-Version: 
+Report-Msgid-Bugs-To: 
+Last-Translator: 
+Language-Team: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Language: 
+',
+      ),
       'Dielen' => 
       array (
         0 => 'timber piling floor',

@@ -13,11 +13,9 @@ class Mo extends Generator implements GeneratorInterface
     {
         $messages = [];
         $headers = '';
-        $pluralForm = $translations->getPluralForms();
-        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
 
-        foreach ($translations->getHeaders() as $headerName => $headerValue) {
-            $headers .= "$headerName: $headerValue\n";
+        foreach ($translations->getHeaders() as $name => $value) {
+            $headers .= "{$name}: {$value}\n";
         }
 
         if ($headers !== '') {
@@ -44,6 +42,8 @@ class Mo extends Generator implements GeneratorInterface
         $translationsTable = '';
         $originalsIndex = [];
         $translationsIndex = [];
+        $pluralForm = $translations->getPluralForms();
+        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
 
         foreach ($messages as $originalString => $translation) {
             if (is_string($translation)) {

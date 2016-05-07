@@ -146,10 +146,10 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     protected function addTranslations(array $translations)
     {
-        $domain = $translations['domain'];
+        $domain = isset($translations['domain']) ? $translations['domain'] : '';
 
         //Set the first domain loaded as default domain
-        if (!$this->domain) {
+        if ($this->domain === null) {
             $this->domain = $domain;
         }
 

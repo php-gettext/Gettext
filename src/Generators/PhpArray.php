@@ -6,6 +6,8 @@ use Gettext\Translations;
 
 class PhpArray extends Generator implements GeneratorInterface
 {
+    public static $includeHeaders = true;
+
     /**
      * {@inheritdoc}
      */
@@ -26,9 +28,8 @@ class PhpArray extends Generator implements GeneratorInterface
     public static function toArray(Translations $translations)
     {
         return [
-            'domain' => $translations->getDomain() ?: 'messages',
-            'lang' => $translations->getLanguage() ?: 'en',
-            'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
+            'domain' => $translations->getDomain(),
+            'plural-forms' => $translations->getHeader('Plural-Forms'),
             'messages' => self::buildMessages($translations),
         ];
     }
@@ -45,6 +46,18 @@ class PhpArray extends Generator implements GeneratorInterface
         $pluralForm = $translations->getPluralForms();
         $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $messages = [];
+
+        if (static::$includeHeaders) {
+            $headers = '';
+
+            foreach ($translations->getHeaders() as $name => $value) {
+                $headers .= "{$name}: {$value}\n";
+            }
+
+            if ($headers !== '') {
+                $messages[''] = ['' => [$headers]];
+            }
+        }
 
         foreach ($translations as $translation) {
             $context = (string) $translation->getContext();

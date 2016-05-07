@@ -28,7 +28,6 @@ class Po extends Extractor implements ExtractorInterface
 
         for ($n = count($lines); $i < $n; ++$i) {
             $line = trim($lines[$i]);
-
             $line = self::fixMultiLines($line, $lines, $i);
 
             if ($line === '') {
