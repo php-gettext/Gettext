@@ -11,7 +11,7 @@ class Mo extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations)
     {
-        $array = [];
+        $messages = [];
         $headers = '';
         $pluralForm = $translations->getPluralForms();
         $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
@@ -21,7 +21,7 @@ class Mo extends Generator implements GeneratorInterface
         }
 
         if ($headers !== '') {
-            $array[''] = $headers;
+            $messages[''] = $headers;
         }
 
         foreach ($translations as $translation) {
@@ -35,17 +35,17 @@ class Mo extends Generator implements GeneratorInterface
                 $originalString = $translation->getOriginal();
             }
 
-            $array[$originalString] = $translation;
+            $messages[$originalString] = $translation;
         }
 
-        ksort($array);
-        $numEntries = count($array);
+        ksort($messages);
+        $numEntries = count($messages);
         $originalsTable = '';
         $translationsTable = '';
         $originalsIndex = [];
         $translationsIndex = [];
 
-        foreach ($array as $originalString => $translation) {
+        foreach ($messages as $originalString => $translation) {
             if (is_string($translation)) {
                 // Headers
                 $translationString = $translation;
