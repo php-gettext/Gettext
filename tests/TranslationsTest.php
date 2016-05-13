@@ -28,7 +28,7 @@ class TranslationsTest extends AbstractTest
 
     public function testFind()
     {
-        $translations = Translations::fromPhpCodeFile(static::asset('two.raw.php'));
+        $translations = Translations::fromPhpCodeFile(static::asset('2/Input.PhpCode.php'));
 
         //Find by original
         $found = $translations->find(null, 'text 2');
@@ -59,7 +59,7 @@ class TranslationsTest extends AbstractTest
 
     public function testGettersSetters()
     {
-        $translations = Translations::fromPoFile(static::asset('three.raw.po'));
+        $translations = Translations::fromPoFile(static::asset('3/Input.Po.po'));
 
         $this->assertEquals('gettext generator test', $translations->getHeader('Project-Id-Version'));
 
@@ -69,39 +69,39 @@ class TranslationsTest extends AbstractTest
 
     public function testMergeDefault()
     {
-        $translations1 = Translations::fromPoFile(static::asset('one.po'));
-        $translations2 = Translations::fromPoFile(static::asset('two.po'));
+        $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations2 = Translations::fromPoFile(static::asset('2/Po.po'));
 
-        $this->assertCount(OneTest::COUNT_TRANSLATIONS, $translations1);
-        $this->assertCount(TwoTest::COUNT_TRANSLATIONS, $translations2);
+        $this->assertCount(T1::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(T2::COUNT_TRANSLATIONS, $translations2);
 
         $translations1->mergeWith($translations2);
 
-        $this->assertCount(OneTest::COUNT_TRANSLATIONS + TwoTest::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(T1::COUNT_TRANSLATIONS + T2::COUNT_TRANSLATIONS, $translations1);
     }
 
     public function testAdd()
     {
-        $translations = Translations::fromPoFile(static::asset('one.po'));
-        $translations->addFromPoFile(static::asset('two.po'));
+        $translations = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations->addFromPoFile(static::asset('2/Po.po'));
 
-        $this->assertCount(OneTest::COUNT_TRANSLATIONS + TwoTest::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(T1::COUNT_TRANSLATIONS + T2::COUNT_TRANSLATIONS, $translations);
     }
 
     public function testMergeAddRemove()
     {
-        $translations1 = Translations::fromPoFile(static::asset('one.po'));
-        $translations2 = Translations::fromPoFile(static::asset('two.po'));
+        $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations2 = Translations::fromPoFile(static::asset('2/Po.po'));
 
         $translations1->mergeWith($translations2, Translations::MERGE_REMOVE | Translations::MERGE_ADD);
 
-        $this->assertCount(TwoTest::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(T2::COUNT_TRANSLATIONS, $translations1);
     }
 
     public function testMergeRemove()
     {
-        $translations1 = Translations::fromPoFile(static::asset('one.po'));
-        $translations2 = Translations::fromPoFile(static::asset('two.po'));
+        $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations2 = Translations::fromPoFile(static::asset('2/Po.po'));
 
         $translations1->mergeWith($translations2, Translations::MERGE_REMOVE);
 
@@ -110,15 +110,15 @@ class TranslationsTest extends AbstractTest
 
     public function testMergeOverride()
     {
-        $translations1 = Translations::fromPoFile(static::asset('one.po'));
-        $translations2 = Translations::fromPoFile(static::asset('one.po'));
+        $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations2 = Translations::fromPoFile(static::asset('1/Po.po'));
 
         $found = $translations2->find(null, 'single');
         $found->setTranslation('Use this instead');
 
         $translations1->mergeWith($translations2, Translations::MERGE_OVERRIDE);
 
-        $this->assertCount(OneTest::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(T1::COUNT_TRANSLATIONS, $translations1);
         $this->assertEquals('Use this instead', $translations1->find(null, 'single')->getTranslation());
     }
 

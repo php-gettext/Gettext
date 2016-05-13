@@ -4,10 +4,15 @@ namespace Gettext\Generators;
 
 use Gettext\Translations;
 use Gettext\Utils\DictionaryTrait;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Yaml as YamlDumper;
 
 class YamlDictionary extends Generator implements GeneratorInterface
 {
+    public static $options = [
+        'inline' => 3,
+        'indent' => 2,
+    ];
+
     use DictionaryTrait;
 
     /**
@@ -15,6 +20,8 @@ class YamlDictionary extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations, array $options = [])
     {
-        return Yaml::dump(self::toArray($translations));
+        $options += static::$options;
+
+        return YamlDumper::dump(self::toArray($translations), $options['inline'], $options['indent']);
     }
 }

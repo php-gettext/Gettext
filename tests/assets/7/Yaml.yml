@@ -1,0 +1,12 @@
+'':
+  0: '1 estrela'
+  1: '1 comentario'
+  Dielen: 'timber piling floor'
+  Doppelboden: 'double floor'
+  Estrich: 'screed floor'
+  Fliesen: flagging
+  Kunststoffboden: 'synthetic floor'
+  '1 child': '1 fillo'
+  '1 comment': {  }
+  '1 star':
+    - ''

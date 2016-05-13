@@ -9,7 +9,7 @@ class TranslationTest extends AbstractTest
 {
     public function testReferences()
     {
-        $translations = Translations::fromPhpCodeFile(static::asset('two.raw.php'));
+        $translations = Translations::fromPhpCodeFile(static::asset('2/Input.PhpCode.php'));
         $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertInstanceOf('Gettext\\Translation', $translation);
@@ -18,7 +18,7 @@ class TranslationTest extends AbstractTest
 
         $this->assertCount(1, $references);
         $this->assertTrue($translation->hasReferences());
-        $this->assertEquals(static::asset('two.raw.php'), $references[0][0]);
+        $this->assertEquals(static::asset('2/Input.PhpCode.php'), $references[0][0]);
         $this->assertEquals(19, $references[0][1]);
 
         $translation->deleteReferences();
@@ -27,7 +27,7 @@ class TranslationTest extends AbstractTest
 
     public function testPlurals()
     {
-        $translations = Translations::fromPhpCodeFile(static::asset('two.raw.php'));
+        $translations = Translations::fromPhpCodeFile(static::asset('2/Input.PhpCode.php'));
         $translation = $translations->find(null, 'text 10 with plural');
 
         $this->assertTrue($translation->hasPlural());
