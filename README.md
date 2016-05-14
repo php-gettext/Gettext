@@ -184,7 +184,7 @@ $translations->addFromPoFile('locales2/en.po');
 The available extractors are the following:
 
 Name | Description | Example
------------------------------
+---- | ----------- | --------
 **Po**             | Gets the messages from PO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
 **Mo**             | Gets the messages from MO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Mo.po)
 **PhpCode**        | Scans php code looking for all gettext functions (see `translator_functions.php`). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/2/Input.PhpCode.php)
@@ -230,7 +230,7 @@ file_put_contents('locales/en.po', $content);
 The available generators are the following:
 
 Name | Description | Example
------------------------------
+---- | ----------- | --------
 **Po**             | Exports to Po. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
 **Mo**             | Exports to Mo. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Mo.po)
 **PhpArray**       | Exports to php code that returns an array. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/PhpArray.po)
