@@ -19,8 +19,6 @@ class Csv extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        $entries = [];
-
         while ($row = fgetcsv($handle)) {
             $translation = $translations->insert(array_shift($row), array_shift($row));
 

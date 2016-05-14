@@ -2,8 +2,6 @@
 
 namespace Gettext\Tests;
 
-use Gettext\Translations;
-
 class Asset7Test extends Asset1Test
 {
     protected static $directory = '7';

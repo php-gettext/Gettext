@@ -3,10 +3,9 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
-use Gettext\Utils\DictionaryTrait;
 
 /**
- * Class to export translations to csv
+ * Class to export translations to csv.
  */
 class Csv extends Generator implements GeneratorInterface
 {
@@ -19,7 +18,7 @@ class Csv extends Generator implements GeneratorInterface
 
         foreach ($translations as $translation) {
             $line = [$translation->getContext(), $translation->getOriginal(), $translation->getTranslation()];
-            
+
             if ($translation->hasPluralTranslations()) {
                 $line = array_merge($line, $translation->getPluralTranslations());
             }

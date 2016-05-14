@@ -15,10 +15,10 @@ class YamlDictionary extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        if (($entries = YamlParser::parse($string))) {
-            foreach ($entries as $original => $translation) {
-                $translations->insert(null, $original)->setTranslation($translation);
-            }
+        $entries = (array) YamlParser::parse($string);
+
+        foreach ($entries as $original => $translation) {
+            $translations->insert(null, $original)->setTranslation($translation);
         }
 
         return $translations;

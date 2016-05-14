@@ -17,7 +17,7 @@ class Xliff extends Extractor implements ExtractorInterface
     public static function fromString($string, Translations $translations, array $options = [])
     {
         $xml = new SimpleXMLElement($string, null, false);
-        
+
         foreach ($xml->file as $file) {
             if (isset($file->notes)) {
                 foreach ($file->notes->note as $note) {
@@ -32,7 +32,6 @@ class Xliff extends Extractor implements ExtractorInterface
                     foreach ($segment->target as $target) {
                         $targets[] = (string) $target;
                     }
-
 
                     $translation = new Translation(null, (string) $segment->source);
                     $translation->setTranslation(array_shift($targets));
@@ -57,7 +56,7 @@ class Xliff extends Extractor implements ExtractorInterface
                                     $ref = explode(':', (string) $note, 2);
                                     $translation->addReference($ref[0], isset($ref[1]) ? $ref[1] : null);
                                     break;
-                                
+
                                 default:
                                     $translation->addComment((string) $note);
                                     break;

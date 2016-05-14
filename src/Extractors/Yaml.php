@@ -16,7 +16,7 @@ class Yaml extends Extractor implements ExtractorInterface
     public static function fromString($string, Translations $translations, array $options = [])
     {
         $entries = (array) YamlParser::parse($string);
-        
+
         foreach ($entries as $context => $contextTranslations) {
             foreach ($contextTranslations as $original => $value) {
                 $translation = $translations->insert($context, $original);

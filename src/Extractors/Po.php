@@ -134,8 +134,6 @@ class Po extends Extractor implements ExtractorInterface
             $translations[] = $translation;
         }
 
-
-
         return $translations;
     }
 

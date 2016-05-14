@@ -31,7 +31,7 @@ class Yaml extends Generator implements GeneratorInterface
             if (!isset($messages[$context])) {
                 $messages[$context] = [];
             }
-            
+
             if ($translation->hasPluralTranslations()) {
                 $messages[$context][$original] = $translation->getPluralTranslations();
                 array_unshift($messages[$context][$original], $translation->getTranslation());
