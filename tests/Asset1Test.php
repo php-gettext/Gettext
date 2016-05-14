@@ -4,7 +4,7 @@ namespace Gettext\Tests;
 
 use Gettext\Translations;
 
-class T1 extends AbstractTest
+class Asset1Test extends AbstractTest
 {
     protected static $directory = '1';
     protected static $input = 'Po';
@@ -16,7 +16,6 @@ class T1 extends AbstractTest
     public function testParser()
     {
         $translations = static::getInput(static::$input);
-        //static::save($translations, 'Yaml');
         
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
@@ -38,7 +37,6 @@ class T1 extends AbstractTest
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
-
         $this->assertContent($translations, 'Po');
     }
 
@@ -48,7 +46,6 @@ class T1 extends AbstractTest
 
         $this->assertCount(static::COUNT_TRANSLATIONS - static::COUNT_EMPTY_TRANSLATIONS, $translations);
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
-
         $this->assertContent($translations, 'Mo');
     }
 
@@ -56,9 +53,7 @@ class T1 extends AbstractTest
     {
         $translations = static::get('PhpArray');
 
-        //translations + headers
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
-
         $this->assertContent($translations, 'PhpArray');
     }
 
@@ -67,7 +62,6 @@ class T1 extends AbstractTest
         $translations = static::get('Jed');
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
-        
         $this->assertContent($translations, 'Jed');
     }
 
@@ -85,6 +79,14 @@ class T1 extends AbstractTest
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertContent($translations, 'CsvDictionary');
+    }
+
+    public function testCsv()
+    {
+        $translations = static::get('Csv');
+
+        $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertContent($translations, 'Csv');
     }
 
     public function testYamlDictionary()

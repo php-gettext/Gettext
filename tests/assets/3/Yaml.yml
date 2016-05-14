@@ -1,12 +1,6 @@
 '':
-  0: ''
-  1: ''
-  'Ensure this value has at least %(limit_value)d character (it has %sd).':
-    - ''
-    - ''
-  'Ensure this value has at most %(limit_value)d character (it has %sd).':
-    - ''
-    - ''
+  'Ensure this value has at least %(limit_value)d character (it has %sd).': ''
+  'Ensure this value has at most %(limit_value)d character (it has %sd).': ''
   '%ss must be unique for %ss %ss.': '%ss mora da bude jedinstven za %ss %ss.'
   and: i
   'Value %sr is not a valid choice.': ''

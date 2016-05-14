@@ -10,13 +10,16 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
     protected static $directory = '1';
     protected static $files = [
         'Blade' => 'php',
+        'Csv' => 'csv',
         'CsvDictionary' => 'csv',
         'Jed' => 'json',
+        'JsCode' => 'js',
         'JsonDictionary' => 'json',
         'Mo' => 'mo',
         'PhpArray' => 'php',
         'PhpCode' => 'php',
         'Po' => 'po',
+        'Twig' => 'php',
         'Yaml' => 'yml',
         'YamlDictionary' => 'yml',
     ];
@@ -55,18 +58,6 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $method = "to{$format}String";
 
         file_put_contents(static::file($format), $translations->$method());
-    }
-
-    protected static function saveAll(Translations $translations)
-    {
-        static::save($translations, 'Po');
-        static::save($translations, 'Mo');
-        static::save($translations, 'PhpArray');
-        static::save($translations, 'Jed');
-        static::save($translations, 'JsonDictionary');
-        static::save($translations, 'CsvDictionary');
-        static::save($translations, 'YamlDictionary');
-        static::save($translations, 'Yaml');
     }
 
     protected function assertContent(Translations $translations, $format)

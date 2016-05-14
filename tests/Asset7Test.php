@@ -4,7 +4,7 @@ namespace Gettext\Tests;
 
 use Gettext\Translations;
 
-class T7 extends T1
+class Asset7Test extends Asset1Test
 {
     protected static $directory = '7';
     protected static $input = 'Po';

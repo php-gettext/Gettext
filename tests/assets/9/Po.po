@@ -9,44 +9,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 
-#: ./tests/assets/nine.raw.php:2
+#: ./tests/assets/9/Input.PhpCode.php:2
 msgid "plain"
 msgstr ""
 
-#: ./tests/assets/nine.raw.php:3
-#: ./tests/assets/nine.raw.php:4
-#: ./tests/assets/nine.raw.php:5
+#: ./tests/assets/9/Input.PhpCode.php:3
+#: ./tests/assets/9/Input.PhpCode.php:4
+#: ./tests/assets/9/Input.PhpCode.php:5
 msgid "DATE \\a\\t TIME"
 msgstr ""
 
-#: ./tests/assets/nine.raw.php:6
+#: ./tests/assets/9/Input.PhpCode.php:6
 msgid "FIELD\tFIELD"
 msgstr ""
 
 #. test
-#: ./tests/assets/nine.raw.php:7
+#: ./tests/assets/9/Input.PhpCode.php:7
 msgid "text concatenated with 'comments'"
 msgstr ""
 
-#: ./tests/assets/nine.raw.php:14
+#: ./tests/assets/9/Input.PhpCode.php:14
 msgid "Stop at the variable"
 msgstr ""
 
-#: ./tests/assets/nine.raw.php:19
+#: ./tests/assets/9/Input.PhpCode.php:19
 msgid "No comments"
 msgstr ""
 
 #. All comments
-#: ./tests/assets/nine.raw.php:22
+#: ./tests/assets/9/Input.PhpCode.php:22
 msgid "All comments"
 msgstr ""
 
 #. i18n Tagged comment
-#: ./tests/assets/nine.raw.php:26
+#: ./tests/assets/9/Input.PhpCode.php:26
 msgid "i18n Tagged comment"
 msgstr ""
 
 #. i18n Tagged comment inside
-#: ./tests/assets/nine.raw.php:28
+#: ./tests/assets/9/Input.PhpCode.php:28
 msgid "i18n Tagged comment inside"
 msgstr ""

@@ -9,48 +9,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 
-#: ./tests/assets/four.blade.php:2
+#: ./tests/assets/4/Input.Blade.php:2
 msgid "text 1"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:6
+#: ./tests/assets/4/Input.Blade.php:6
 msgctxt "context"
 msgid "text 1 with context"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:7
+#: ./tests/assets/4/Input.Blade.php:7
 msgid "text 2"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:8
+#: ./tests/assets/4/Input.Blade.php:8
 msgid "text 3 (with parenthesis)"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:9
+#: ./tests/assets/4/Input.Blade.php:9
 msgid "text 4 \"with double quotes\""
 msgstr ""
 
-#: ./tests/assets/four.blade.php:10
+#: ./tests/assets/4/Input.Blade.php:10
 msgid "text 5 'with escaped single quotes'"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:14
+#: ./tests/assets/4/Input.Blade.php:14
 msgid "text 6"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:15
+#: ./tests/assets/4/Input.Blade.php:15
 msgid "text 7 (with parenthesis)"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:16
+#: ./tests/assets/4/Input.Blade.php:16
 msgid "text 8 \"with escaped double quotes\""
 msgstr ""
 
-#: ./tests/assets/four.blade.php:17
+#: ./tests/assets/4/Input.Blade.php:17
 msgid "text 9 'with single quotes'"
 msgstr ""
 
-#: ./tests/assets/four.blade.php:18
+#: ./tests/assets/4/Input.Blade.php:18
 msgid "text 10 with plural"
 msgid_plural "The plural form"
 msgstr[0] ""

@@ -1,5 +1,4 @@
 '':
-  0: ''
   'text 1': ''
   'text 2': ''
   'text 3 (with parenthesis)': ''
@@ -9,4 +8,4 @@
   'text 7 (with parenthesis)': ''
   'text 8 "with escaped double quotes"': ''
   'text 9 ''with single quotes''': ''
-  'text 10 with plural': {  }
+  'text 10 with plural': ''

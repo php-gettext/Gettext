@@ -72,12 +72,12 @@ class TranslationsTest extends AbstractTest
         $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
         $translations2 = Translations::fromPoFile(static::asset('2/Po.po'));
 
-        $this->assertCount(T1::COUNT_TRANSLATIONS, $translations1);
-        $this->assertCount(T2::COUNT_TRANSLATIONS, $translations2);
+        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(Asset2Test::COUNT_TRANSLATIONS, $translations2);
 
         $translations1->mergeWith($translations2);
 
-        $this->assertCount(T1::COUNT_TRANSLATIONS + T2::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS + Asset2Test::COUNT_TRANSLATIONS, $translations1);
     }
 
     public function testAdd()
@@ -85,7 +85,7 @@ class TranslationsTest extends AbstractTest
         $translations = Translations::fromPoFile(static::asset('1/Po.po'));
         $translations->addFromPoFile(static::asset('2/Po.po'));
 
-        $this->assertCount(T1::COUNT_TRANSLATIONS + T2::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS + Asset2Test::COUNT_TRANSLATIONS, $translations);
     }
 
     public function testMergeAddRemove()
@@ -95,7 +95,7 @@ class TranslationsTest extends AbstractTest
 
         $translations1->mergeWith($translations2, Translations::MERGE_REMOVE | Translations::MERGE_ADD);
 
-        $this->assertCount(T2::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(Asset2Test::COUNT_TRANSLATIONS, $translations1);
     }
 
     public function testMergeRemove()
@@ -118,7 +118,7 @@ class TranslationsTest extends AbstractTest
 
         $translations1->mergeWith($translations2, Translations::MERGE_OVERRIDE);
 
-        $this->assertCount(T1::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS, $translations1);
         $this->assertEquals('Use this instead', $translations1->find(null, 'single')->getTranslation());
     }
 
