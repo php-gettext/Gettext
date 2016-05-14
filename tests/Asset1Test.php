@@ -16,7 +16,7 @@ class Asset1Test extends AbstractTest
     public function testParser()
     {
         $translations = static::getInput(static::$input);
-        
+
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
 
@@ -26,6 +26,7 @@ class Asset1Test extends AbstractTest
         $this->assertContent($translations, 'Jed');
         $this->assertContent($translations, 'JsonDictionary');
         $this->assertContent($translations, 'CsvDictionary');
+        $this->assertContent($translations, 'Xliff');
         $this->assertContent($translations, 'YamlDictionary');
 
         return $translations;
@@ -95,6 +96,14 @@ class Asset1Test extends AbstractTest
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
         $this->assertContent($translations, 'YamlDictionary');
+    }
+
+    public function testXliff()
+    {
+        $translations = static::get('Xliff');
+
+        $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertContent($translations, 'Xliff');
     }
 
     public function testYaml()

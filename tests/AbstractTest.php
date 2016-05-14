@@ -20,6 +20,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         'PhpCode' => 'php',
         'Po' => 'po',
         'Twig' => 'php',
+        'Xliff' => 'xlf',
         'Yaml' => 'yml',
         'YamlDictionary' => 'yml',
     ];
