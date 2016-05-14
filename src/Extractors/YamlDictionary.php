@@ -6,7 +6,7 @@ use Gettext\Translations;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
- * Class to get gettext strings from plain json.
+ * Class to get gettext strings from yaml.
  */
 class YamlDictionary extends Extractor implements ExtractorInterface
 {

@@ -5,7 +5,7 @@ namespace Gettext\Extractors;
 use Gettext\Translations;
 
 /**
- * Class to get gettext strings from plain json.
+ * Class to get gettext strings from csv.
  */
 class CsvDictionary extends Extractor implements ExtractorInterface
 {
@@ -19,17 +19,11 @@ class CsvDictionary extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        $entries = [];
-
         while ($row = fgetcsv($handle)) {
-            $entries[$row[0]] = $row[1];
+            $translations->insert(null, $row[0])->setTranslation(isset($row[1]) ? $row[1] : '');
         }
 
         fclose($handle);
-
-        foreach ($entries as $original => $translation) {
-            $translations->insert(null, $original)->setTranslation($translation);
-        }
 
         return $translations;
     }
