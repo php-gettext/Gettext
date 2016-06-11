@@ -9,16 +9,23 @@ use Gettext\Translations;
  */
 trait DictionaryTrait
 {
+    use HeadersGeneratorTrait;
+
     /**
      * Returns a plain dictionary with the format [original => translation].
      * 
      * @param Translations $translations
+     * @param bool         $includeHeaders
      *
      * @return array
      */
-    private static function toArray(Translations $translations)
+    private static function toArray(Translations $translations, $includeHeaders)
     {
         $messages = [];
+
+        if ($includeHeaders) {
+            $messages[''] = self::generateHeaders($translations);
+        }
 
         foreach ($translations as $translation) {
             $messages[$translation->getOriginal()] = $translation->getTranslation();

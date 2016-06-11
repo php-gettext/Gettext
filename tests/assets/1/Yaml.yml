@@ -1,4 +1,6 @@
 '':
+  '':
+    - "Project-Id-Version: \nReport-Msgid-Bugs-To: \nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: \nPlural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
   'one file':
     - '1 plik'
     - '2,3,4 pliki'
@@ -6,4 +8,5 @@
   one:
     - '1'
     - '*'
+    - ''
   single: test

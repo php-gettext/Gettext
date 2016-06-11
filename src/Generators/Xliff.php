@@ -26,9 +26,7 @@ class Xliff extends Generator implements GeneratorInterface
         $notes = $dom->createElement('notes');
 
         foreach ($translations->getHeaders() as $name => $value) {
-            if ($value !== '') {
-                $notes->appendChild(self::createTextNode($dom, 'note', $value))->setAttribute('id', $name);
-            }
+            $notes->appendChild(self::createTextNode($dom, 'note', $value))->setAttribute('id', $name);
         }
 
         if ($notes->hasChildNodes()) {

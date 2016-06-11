@@ -3,9 +3,14 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\MultidimensionalArrayTrait;
 
 class PhpArray extends Generator implements GeneratorInterface
 {
+    use MultidimensionalArrayTrait {
+        MultidimensionalArrayTrait::toArray as toMultidimensionalArray;
+    }
+
     public static $options = [
         'includeHeaders' => true,
     ];
@@ -35,53 +40,7 @@ class PhpArray extends Generator implements GeneratorInterface
         return [
             'domain' => $translations->getDomain(),
             'plural-forms' => $translations->getHeader('Plural-Forms'),
-            'messages' => self::buildMessages($translations, $options),
+            'messages' => self::toMultidimensionalArray($translations, $options['includeHeaders'], true),
         ];
-    }
-
-    /**
-     * Generates an array with all translations.
-     * 
-     * @param Translations $translations
-     * @param array        $options
-     *
-     * @return array
-     */
-    private static function buildMessages(Translations $translations, array $options)
-    {
-        $pluralForm = $translations->getPluralForms();
-        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
-        $messages = [];
-
-        if ($options['includeHeaders']) {
-            $headers = '';
-
-            foreach ($translations->getHeaders() as $name => $value) {
-                $headers .= "{$name}: {$value}\n";
-            }
-
-            if ($headers !== '') {
-                $messages[''] = ['' => [$headers]];
-            }
-        }
-
-        foreach ($translations as $translation) {
-            $context = (string) $translation->getContext();
-
-            if (!isset($messages[$context])) {
-                $messages[$context] = [];
-            }
-
-            if ($translation->hasPluralTranslations()) {
-                $message = $translation->getPluralTranslations($pluralLimit);
-                array_unshift($message, $translation->getTranslation());
-            } else {
-                $message = [$translation->getTranslation()];
-            }
-
-            $messages[$context][$translation->getOriginal()] = $message;
-        }
-
-        return $messages;
     }
 }

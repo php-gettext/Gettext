@@ -53,6 +53,7 @@ class Asset1Test extends AbstractTest
         $translations = static::get('PhpArray');
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
         $this->assertContent($translations, 'PhpArray');
     }
 
@@ -85,6 +86,7 @@ class Asset1Test extends AbstractTest
         $translations = static::get('Csv');
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
         $this->assertContent($translations, 'Csv');
     }
 
@@ -101,6 +103,7 @@ class Asset1Test extends AbstractTest
         $translations = static::get('Xliff');
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
         $this->assertContent($translations, 'Xliff');
     }
 
@@ -109,6 +112,7 @@ class Asset1Test extends AbstractTest
         $translations = static::get('Yaml');
 
         $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
         $this->assertContent($translations, 'Yaml');
     }
 }

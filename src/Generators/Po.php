@@ -14,7 +14,7 @@ class Po extends Generator implements GeneratorInterface
         $lines = ['msgid ""', 'msgstr ""'];
 
         foreach ($translations->getHeaders() as $name => $value) {
-            $lines[] = '"'.$name.': '.$value.'\\n"';
+            $lines[] = sprintf('"%s: %s\\n"', $name, $value);
         }
 
         $lines[] = '';

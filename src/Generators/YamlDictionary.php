@@ -8,12 +8,13 @@ use Symfony\Component\Yaml\Yaml as YamlDumper;
 
 class YamlDictionary extends Generator implements GeneratorInterface
 {
+    use DictionaryTrait;
+
     public static $options = [
         'inline' => 3,
         'indent' => 2,
+        'includeHeaders' => false,
     ];
-
-    use DictionaryTrait;
 
     /**
      * {@inheritdoc}
@@ -22,6 +23,6 @@ class YamlDictionary extends Generator implements GeneratorInterface
     {
         $options += static::$options;
 
-        return YamlDumper::dump(self::toArray($translations), $options['inline'], $options['indent']);
+        return YamlDumper::dump(self::toArray($translations, $options['includeHeaders']), $options['inline'], $options['indent']);
     }
 }

@@ -3,18 +3,30 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\HeadersGeneratorTrait;
 
 /**
  * Class to export translations to csv.
  */
 class Csv extends Generator implements GeneratorInterface
 {
+    use HeadersGeneratorTrait;
+
+    public static $options = [
+        'includeHeaders' => true,
+    ];
+
     /**
      * {@parentDoc}.
      */
     public static function toString(Translations $translations, array $options = [])
     {
+        $options += static::$options;
         $handle = fopen('php://memory', 'w');
+
+        if ($options['includeHeaders']) {
+            fputcsv($handle, ['', '', self::generateHeaders($translations)]);
+        }
 
         foreach ($translations as $translation) {
             $line = [$translation->getContext(), $translation->getOriginal(), $translation->getTranslation()];

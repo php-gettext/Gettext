@@ -3,23 +3,26 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\Utils\HeadersGeneratorTrait;
 
 class Mo extends Generator implements GeneratorInterface
 {
+    use HeadersGeneratorTrait;
+
+    public static $options = [
+        'includeHeaders' => true,
+    ];
+
     /**
      * {@parentDoc}.
      */
     public static function toString(Translations $translations, array $options = [])
     {
+        $options += static::$options;
         $messages = [];
-        $headers = '';
 
-        foreach ($translations->getHeaders() as $name => $value) {
-            $headers .= "{$name}: {$value}\n";
-        }
-
-        if ($headers !== '') {
-            $messages[''] = $headers;
+        if ($options['includeHeaders']) {
+            $messages[''] = self::generateHeaders($translations);
         }
 
         foreach ($translations as $translation) {

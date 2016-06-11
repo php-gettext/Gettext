@@ -3,6 +3,7 @@
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
+use Gettext\Utils\HeadersExtractorTrait;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Yaml\Yaml as YamlParser;
  */
 class Yaml extends Extractor implements ExtractorInterface
 {
+    use HeadersExtractorTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -19,6 +22,11 @@ class Yaml extends Extractor implements ExtractorInterface
 
         foreach ($entries as $context => $contextTranslations) {
             foreach ($contextTranslations as $original => $value) {
+                if ($context === '' && $original === '') {
+                    self::extractHeaders(array_shift($value), $translations);
+                    continue;
+                }
+
                 $translation = $translations->insert($context, $original);
 
                 if (is_array($value)) {

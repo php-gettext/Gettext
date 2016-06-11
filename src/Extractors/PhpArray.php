@@ -4,12 +4,15 @@ namespace Gettext\Extractors;
 
 use BadMethodCallException;
 use Gettext\Translations;
+use Gettext\Utils\HeadersExtractorTrait;
 
 /**
  * Class to get gettext strings from php files returning arrays.
  */
 class PhpArray extends Extractor implements ExtractorInterface
 {
+    use HeadersExtractorTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +44,7 @@ class PhpArray extends Extractor implements ExtractorInterface
         foreach ($content['messages'] as $context => $messages) {
             foreach ($messages as $original => $translation) {
                 if ($original === '' && $context === '') {
-                    self::parseHeaders(array_shift($translation), $translations);
+                    self::extractHeaders(array_shift($translation), $translations);
                     continue;
                 }
 
@@ -57,24 +60,6 @@ class PhpArray extends Extractor implements ExtractorInterface
 
         if (!empty($content['plural-forms'])) {
             $translations->setHeader(Translations::HEADER_PLURAL, $content['plural-forms']);
-        }
-    }
-
-    /**
-     * Parse the po headers.
-     *
-     * @param string       $headers
-     * @param Translations $translations
-     */
-    private static function parseHeaders($headers, Translations $translations)
-    {
-        $headers = explode("\n", $headers);
-
-        foreach ($headers as $line) {
-            if (strpos($line, ':') !== false) {
-                $header = array_map('trim', explode(':', $line, 2));
-                $translations->setHeader($header[0], $header[1]);
-            }
         }
     }
 }

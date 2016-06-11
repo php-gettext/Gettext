@@ -4,12 +4,15 @@ namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Translation;
+use Gettext\Utils\HeadersExtractorTrait;
 
 /**
  * Class to get gettext strings from php files returning arrays.
  */
 class Po extends Extractor implements ExtractorInterface
 {
+    use HeadersExtractorTrait;
+
     /**
      * Parses a .po file and append the translations found in the Translations instance.
      *
@@ -28,7 +31,7 @@ class Po extends Extractor implements ExtractorInterface
 
             if ($line === '') {
                 if ($translation->is('', '')) {
-                    self::parseHeaders($translation->getTranslation(), $translations);
+                    self::extractHeaders($translation->getTranslation(), $translations);
                 } elseif ($translation->hasOriginal()) {
                     $translations[] = $translation;
                 }
@@ -135,48 +138,6 @@ class Po extends Extractor implements ExtractorInterface
         }
 
         return $translations;
-    }
-
-    /**
-     * Checks if it is a header definition line. Useful for distguishing between header definitions
-     * and possible continuations of a header entry.
-     *
-     * @param string $line Line to parse
-     *
-     * @return bool
-     */
-    private static function isHeaderDefinition($line)
-    {
-        return (bool) preg_match('/^[\w-]+:/', $line);
-    }
-
-    /**
-     * Parse the po headers.
-     *
-     * @param string       $headers
-     * @param Translations $translations
-     */
-    private static function parseHeaders($headers, Translations $translations)
-    {
-        $headers = explode("\n", $headers);
-        $currentHeader = null;
-
-        foreach ($headers as $line) {
-            $line = self::convertString($line);
-
-            if ($line === '') {
-                continue;
-            }
-
-            if (self::isHeaderDefinition($line)) {
-                $header = array_map('trim', explode(':', $line, 2));
-                $currentHeader = $header[0];
-                $translations->setHeader($currentHeader, $header[1]);
-            } else {
-                $entry = $translations->getHeader($currentHeader);
-                $translations->setHeader($currentHeader, $entry.$line);
-            }
-        }
     }
 
     /**

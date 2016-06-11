@@ -3,17 +3,18 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
-use Gettext\Utils\DictionaryTrait;
+use Gettext\Utils\MultidimensionalArrayTrait;
 use Symfony\Component\Yaml\Yaml as YamlDumper;
 
 class Yaml extends Generator implements GeneratorInterface
 {
+    use MultidimensionalArrayTrait;
+
     public static $options = [
+        'includeHeaders' => true,
         'inline' => 3,
         'indent' => 2,
     ];
-
-    use DictionaryTrait;
 
     /**
      * {@inheritdoc}
@@ -22,24 +23,6 @@ class Yaml extends Generator implements GeneratorInterface
     {
         $options += static::$options;
 
-        $messages = [];
-
-        foreach ($translations as $translation) {
-            $context = $translation->getContext();
-            $original = $translation->getOriginal();
-
-            if (!isset($messages[$context])) {
-                $messages[$context] = [];
-            }
-
-            if ($translation->hasPluralTranslations()) {
-                $messages[$context][$original] = $translation->getPluralTranslations();
-                array_unshift($messages[$context][$original], $translation->getTranslation());
-            } else {
-                $messages[$context][$original] = $translation->getTranslation();
-            }
-        }
-
-        return YamlDumper::dump($messages, $options['inline'], $options['indent']);
+        return YamlDumper::dump(static::toArray($translations, $options['includeHeaders']), $options['inline'], $options['indent']);
     }
 }

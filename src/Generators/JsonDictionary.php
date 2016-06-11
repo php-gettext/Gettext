@@ -7,11 +7,12 @@ use Gettext\Utils\DictionaryTrait;
 
 class JsonDictionary extends Generator implements GeneratorInterface
 {
+    use DictionaryTrait;
+
     public static $options = [
         'json' => JSON_PRETTY_PRINT,
+        'includeHeaders' => false,
     ];
-
-    use DictionaryTrait;
 
     /**
      * {@parentDoc}.
@@ -20,6 +21,6 @@ class JsonDictionary extends Generator implements GeneratorInterface
     {
         $options += static::$options;
 
-        return json_encode(self::toArray($translations), $options['json']);
+        return json_encode(self::toArray($translations, $options['includeHeaders']), $options['json']);
     }
 }
