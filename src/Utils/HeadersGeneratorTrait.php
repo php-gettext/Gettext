@@ -5,12 +5,12 @@ namespace Gettext\Utils;
 use Gettext\Translations;
 
 /**
- * Trait to provide the functionality of extracting headers
+ * Trait to provide the functionality of extracting headers.
  */
 trait HeadersGeneratorTrait
 {
     /**
-     * Returns the headers as a string
+     * Returns the headers as a string.
      * 
      * @param Translations $translations
      *

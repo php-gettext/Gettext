@@ -4,7 +4,6 @@ namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Utils\MultidimensionalArrayTrait;
-use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
  * Class to get gettext strings from json.

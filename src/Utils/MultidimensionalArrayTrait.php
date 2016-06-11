@@ -55,7 +55,7 @@ trait MultidimensionalArrayTrait
     }
 
     /**
-     * Extract the entries from a multidimensional array
+     * Extract the entries from a multidimensional array.
      * 
      * @param array        $messages
      * @param Translations $translations

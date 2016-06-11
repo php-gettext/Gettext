@@ -36,7 +36,7 @@ trait DictionaryTrait
     }
 
     /**
-     * Extract the entries from a dictionary
+     * Extract the entries from a dictionary.
      * 
      * @param array        $messages
      * @param Translations $translations
