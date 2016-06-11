@@ -25,9 +25,9 @@ class Jed extends Extractor implements ExtractorInterface
      */
     public static function extract(array $content, Translations $translations)
     {
-        $content = current($content);
-        $headers = isset($content['']) ? $content[''] : null;
-        unset($content['']);
+        $messages = current($content);
+        $headers = isset($messages['']) ? $messages[''] : null;
+        unset($messages['']);
 
         if (!empty($headers['domain'])) {
             $translations->setDomain($headers['domain']);
@@ -43,7 +43,7 @@ class Jed extends Extractor implements ExtractorInterface
 
         $context_glue = '\u0004';
 
-        foreach ($content as $key => $translation) {
+        foreach ($messages as $key => $translation) {
             $key = explode($context_glue, $key);
             $context = isset($key[1]) ? array_shift($key) : '';
 

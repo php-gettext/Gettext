@@ -22,8 +22,8 @@ class CsvDictionary extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        while ($row = fgetcsv($handle)) {
-            list($original, $translation) = $row + ['', ''];
+        while ($message = fgetcsv($handle)) {
+            list($original, $translation) = $message + ['', ''];
 
             if ($original === '') {
                 self::extractHeaders($translation, $translations);
