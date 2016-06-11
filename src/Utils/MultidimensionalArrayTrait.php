@@ -10,6 +10,7 @@ use Gettext\Translations;
 trait MultidimensionalArrayTrait
 {
     use HeadersGeneratorTrait;
+    use HeadersExtractorTrait;
 
     /**
      * Returns a multidimensional array.
@@ -51,5 +52,32 @@ trait MultidimensionalArrayTrait
         }
 
         return $messages;
+    }
+
+    /**
+     * Extract the entries from a multidimensional array
+     * 
+     * @param array        $messages
+     * @param Translations $translations
+     */
+    private static function fromArray(array $messages, Translations $translations)
+    {
+        foreach ($messages as $context => $contextTranslations) {
+            foreach ($contextTranslations as $original => $value) {
+                if ($context === '' && $original === '') {
+                    self::extractHeaders(is_array($value) ? array_shift($value) : $value, $translations);
+                    continue;
+                }
+
+                $translation = $translations->insert($context, $original);
+
+                if (is_array($value)) {
+                    $translation->setTranslation(array_shift($value));
+                    $translation->setPluralTranslations($value);
+                } else {
+                    $translation->setTranslation($value);
+                }
+            }
+        }
     }
 }

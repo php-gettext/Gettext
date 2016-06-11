@@ -27,7 +27,7 @@ class Twig extends Extractor implements ExtractorInterface
 
         $string = self::$twig->compileSource($string);
 
-        return PhpCode::fromString($string, $translations, $options);
+        PhpCode::fromString($string, $translations, $options);
     }
 
     /**

@@ -40,7 +40,5 @@ class Csv extends Extractor implements ExtractorInterface
         }
 
         fclose($handle);
-
-        return $translations;
     }
 }

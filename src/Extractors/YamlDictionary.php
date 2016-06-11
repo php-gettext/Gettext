@@ -3,6 +3,7 @@
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
+use Gettext\Utils\DictionaryTrait;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
@@ -10,17 +11,17 @@ use Symfony\Component\Yaml\Yaml as YamlParser;
  */
 class YamlDictionary extends Extractor implements ExtractorInterface
 {
+    use DictionaryTrait;
+
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        $entries = (array) YamlParser::parse($string);
+        $messages = YamlParser::parse($string);
 
-        foreach ($entries as $original => $translation) {
-            $translations->insert(null, $original)->setTranslation($translation);
+        if (is_array($messages)) {
+            self::fromArray($messages, $translations);
         }
-
-        return $translations;
     }
 }

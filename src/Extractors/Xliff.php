@@ -68,7 +68,5 @@ class Xliff extends Extractor implements ExtractorInterface
                 }
             }
         }
-
-        return $translations;
     }
 }

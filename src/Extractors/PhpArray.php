@@ -4,14 +4,14 @@ namespace Gettext\Extractors;
 
 use BadMethodCallException;
 use Gettext\Translations;
-use Gettext\Utils\HeadersExtractorTrait;
+use Gettext\Utils\MultidimensionalArrayTrait;
 
 /**
  * Class to get gettext strings from php files returning arrays.
  */
 class PhpArray extends Extractor implements ExtractorInterface
 {
-    use HeadersExtractorTrait;
+    use MultidimensionalArrayTrait;
 
     /**
      * {@inheritdoc}
@@ -21,8 +21,6 @@ class PhpArray extends Extractor implements ExtractorInterface
         foreach (static::getFiles($file) as $file) {
             static::extract(include($file), $translations);
         }
-
-        return $translations;
     }
 
     /**
@@ -41,18 +39,7 @@ class PhpArray extends Extractor implements ExtractorInterface
      */
     public static function extract(array $content, Translations $translations)
     {
-        foreach ($content['messages'] as $context => $messages) {
-            foreach ($messages as $original => $translation) {
-                if ($original === '' && $context === '') {
-                    self::extractHeaders(array_shift($translation), $translations);
-                    continue;
-                }
-
-                $translations->insert($context, $original)
-                    ->setTranslation(array_shift($translation))
-                    ->setPluralTranslations($translation);
-            }
-        }
+        self::fromArray($content['messages'], $translations);
 
         if (!empty($content['domain'])) {
             $translations->setDomain($content['domain']);

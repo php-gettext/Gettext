@@ -99,8 +99,6 @@ class Mo extends Extractor implements ExtractorInterface
             $translation->setTranslation(array_shift($v));
             $translation->setPluralTranslations($v);
         }
-
-        return $translations;
     }
 
     /**

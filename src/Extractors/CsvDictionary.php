@@ -3,12 +3,15 @@
 namespace Gettext\Extractors;
 
 use Gettext\Translations;
+use Gettext\Utils\HeadersExtractorTrait;
 
 /**
  * Class to get gettext strings from csv.
  */
 class CsvDictionary extends Extractor implements ExtractorInterface
 {
+    use HeadersExtractorTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -20,11 +23,16 @@ class CsvDictionary extends Extractor implements ExtractorInterface
         rewind($handle);
 
         while ($row = fgetcsv($handle)) {
-            $translations->insert(null, $row[0])->setTranslation(isset($row[1]) ? $row[1] : '');
+            list($original, $translation) = $row + ['', ''];
+
+            if ($original === '') {
+                self::extractHeaders($translation, $translations);
+                continue;
+            }
+
+            $translations->insert(null, $original)->setTranslation($translation);
         }
 
         fclose($handle);
-
-        return $translations;
     }
 }

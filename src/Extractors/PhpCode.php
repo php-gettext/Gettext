@@ -48,8 +48,6 @@ class PhpCode extends Extractor implements ExtractorInterface
         }
 
         $functions->saveGettextFunctions($translations, $options);
-
-        return $translations;
     }
 
     /**

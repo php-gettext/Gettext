@@ -115,4 +115,13 @@ class Asset1Test extends AbstractTest
         $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
         $this->assertContent($translations, 'Yaml');
     }
+
+    public function testJson()
+    {
+        $translations = static::get('Json');
+
+        $this->assertCount(static::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(static::COUNT_HEADERS, $translations->getHeaders());
+        $this->assertContent($translations, 'Json');
+    }
 }

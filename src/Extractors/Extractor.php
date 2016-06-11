@@ -17,8 +17,6 @@ abstract class Extractor implements ExtractorInterface
             $options['file'] = $file;
             static::fromString(self::readFile($file), $translations, $options);
         }
-
-        return $translations;
     }
 
     /**

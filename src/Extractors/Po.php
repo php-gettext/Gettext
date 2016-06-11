@@ -136,8 +136,6 @@ class Po extends Extractor implements ExtractorInterface
         if ($translation->hasOriginal() && !in_array($translation, iterator_to_array($translations))) {
             $translations[] = $translation;
         }
-
-        return $translations;
     }
 
     /**

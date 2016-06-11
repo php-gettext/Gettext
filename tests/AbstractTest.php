@@ -15,6 +15,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         'Jed' => 'json',
         'JsCode' => 'js',
         'JsonDictionary' => 'json',
+        'Json' => 'json',
         'Mo' => 'mo',
         'PhpArray' => 'php',
         'PhpCode' => 'php',

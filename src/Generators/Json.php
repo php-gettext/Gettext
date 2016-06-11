@@ -4,16 +4,14 @@ namespace Gettext\Generators;
 
 use Gettext\Translations;
 use Gettext\Utils\MultidimensionalArrayTrait;
-use Symfony\Component\Yaml\Yaml as YamlDumper;
 
-class Yaml extends Generator implements GeneratorInterface
+class Json extends Generator implements GeneratorInterface
 {
     use MultidimensionalArrayTrait;
 
     public static $options = [
+        'json' => JSON_PRETTY_PRINT,
         'includeHeaders' => true,
-        'inline' => 3,
-        'indent' => 2,
     ];
 
     /**
@@ -23,6 +21,6 @@ class Yaml extends Generator implements GeneratorInterface
     {
         $options += static::$options;
 
-        return YamlDumper::dump(self::toArray($translations, $options['includeHeaders']), $options['inline'], $options['indent']);
+        return json_encode(self::toArray($translations, $options['includeHeaders']), $options['json']);
     }
 }

@@ -12,8 +12,6 @@ interface ExtractorInterface
      * @param array|string $file         A path of a file or files
      * @param Translations $translations The translations instance to append the new translations.
      * @param array        $options
-     *
-     * @return Translations
      */
     public static function fromFile($file, Translations $translations, array $options = []);
 
@@ -23,8 +21,6 @@ interface ExtractorInterface
      * @param string       $string
      * @param Translations $translations
      * @param array        $options
-     *
-     * @return Translations
      */
     public static function fromString($string, Translations $translations, array $options = []);
 }

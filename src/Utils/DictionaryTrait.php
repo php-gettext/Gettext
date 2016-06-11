@@ -10,6 +10,7 @@ use Gettext\Translations;
 trait DictionaryTrait
 {
     use HeadersGeneratorTrait;
+    use HeadersExtractorTrait;
 
     /**
      * Returns a plain dictionary with the format [original => translation].
@@ -32,5 +33,23 @@ trait DictionaryTrait
         }
 
         return $messages;
+    }
+
+    /**
+     * Extract the entries from a dictionary
+     * 
+     * @param array        $messages
+     * @param Translations $translations
+     */
+    private static function fromArray(array $messages, Translations $translations)
+    {
+        foreach ($messages as $original => $translation) {
+            if ($original === '') {
+                self::extractHeaders($translation, $translations);
+                continue;
+            }
+
+            $translations->insert(null, $original)->setTranslation($translation);
+        }
     }
 }

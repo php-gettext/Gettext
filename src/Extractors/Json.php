@@ -7,9 +7,9 @@ use Gettext\Utils\MultidimensionalArrayTrait;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
- * Class to get gettext strings from yaml.
+ * Class to get gettext strings from json.
  */
-class Yaml extends Extractor implements ExtractorInterface
+class Json extends Extractor implements ExtractorInterface
 {
     use MultidimensionalArrayTrait;
 
@@ -18,7 +18,7 @@ class Yaml extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        $messages = YamlParser::parse($string);
+        $messages = json_decode($string, true);
 
         if (is_array($messages)) {
             self::fromArray($messages, $translations);
