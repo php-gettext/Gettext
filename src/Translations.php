@@ -350,17 +350,17 @@ class Translations extends \ArrayObject
      * Merges this translations with other translations.
      *
      * @param Translations $translations The translations instance to merge with
-     * @param int|null     $method       One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param int|null     $options      One or various Translations::MERGE_* constants to define how to merge the translations
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $method = null)
+    public function mergeWith(Translations $translations, $options = null)
     {
-        if ($method === null) {
-            $method = self::$mergeDefault;
+        if ($options === null) {
+            $options = self::$mergeDefault;
         }
 
-        if ($method & self::MERGE_HEADERS) {
+        if ($options & self::MERGE_HEADERS) {
             foreach ($translations->getHeaders() as $name => $value) {
                 if (!$this->getHeader($name)) {
                     $this->setHeader($name, $value);
@@ -368,17 +368,17 @@ class Translations extends \ArrayObject
             }
         }
 
-        $add = (boolean) ($method & self::MERGE_ADD);
+        $add = (boolean) ($options & self::MERGE_ADD);
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $method);
+                $existing->mergeWith($entry, $options);
             } elseif ($add) {
                 $this[] = clone $entry;
             }
         }
 
-        if ($method & self::MERGE_REMOVE) {
+        if ($options & self::MERGE_REMOVE) {
             $filtered = [];
 
             foreach ($this as $entry) {
@@ -390,7 +390,7 @@ class Translations extends \ArrayObject
             $this->exchangeArray($filtered);
         }
 
-        if ($method & self::MERGE_LANGUAGE) {
+        if ($options & self::MERGE_LANGUAGE) {
             $language = $translations->getLanguage();
             $pluralForm = $translations->getPluralForms();
 

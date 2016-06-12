@@ -159,9 +159,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
             return;
         }
 
-        $pluralForms = $translations['plural-forms'];
-
-        list($count, $code) = explode(';', $pluralForms, 2);
+        list($count, $code) = array_map('trim', explode(';', $translations['plural-forms'], 2));
 
         // extract just the expression turn 'n' into a php variable '$n'.
         // Slap on a return keyword and semicolon at the end.

@@ -457,21 +457,21 @@ class Translation
      * Merges this translation with other translation.
      *
      * @param Translation $translation The translation to merge with
-     * @param int|null    $method      One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param int|null    $options     One or various Translations::MERGE_* constants to define how to merge the translations
      * 
      * @return self
      */
-    public function mergeWith(Translation $translation, $method = null)
+    public function mergeWith(Translation $translation, $options = null)
     {
-        if ($method === null) {
-            $method = Translations::$mergeDefault;
+        if ($options === null) {
+            $options = Translations::$mergeDefault;
         }
 
-        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($method & Translations::MERGE_OVERRIDE))) {
+        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($options & Translations::MERGE_OVERRIDE))) {
             $this->setTranslation($translation->getTranslation());
         }
 
-        if (($method & Translations::MERGE_PLURAL) && !$this->hasPlural()) {
+        if (($options & Translations::MERGE_PLURAL) && !$this->hasPlural()) {
             $this->setPlural($translation->getPlural());
         }
 
@@ -479,13 +479,13 @@ class Translation
             $this->pluralTranslation = $translation->getPluralTranslations();
         }
 
-        if ($method & Translations::MERGE_REFERENCES) {
+        if ($options & Translations::MERGE_REFERENCES) {
             foreach ($translation->getReferences() as $reference) {
                 $this->addReference($reference[0], $reference[1]);
             }
         }
 
-        if ($method & Translations::MERGE_COMMENTS) {
+        if ($options & Translations::MERGE_COMMENTS) {
             $this->comments = array_values(array_unique(array_merge($translation->getComments(), $this->comments)));
             $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
             $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
