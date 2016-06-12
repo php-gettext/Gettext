@@ -51,7 +51,11 @@ trait MultidimensionalArrayTrait
             }
         }
 
-        return $messages;
+        return [
+            'domain' => $translations->getDomain(),
+            'plural-forms' => $translations->getHeader('Plural-Forms'),
+            'messages' => $messages,
+        ];
     }
 
     /**
@@ -62,7 +66,15 @@ trait MultidimensionalArrayTrait
      */
     private static function fromArray(array $messages, Translations $translations)
     {
-        foreach ($messages as $context => $contextTranslations) {
+        if (!empty($messages['domain'])) {
+            $translations->setDomain($messages['domain']);
+        }
+
+        if (!empty($messages['plural-forms'])) {
+            $translations->setHeader(Translations::HEADER_PLURAL, $messages['plural-forms']);
+        }
+
+        foreach ($messages['messages'] as $context => $contextTranslations) {
             foreach ($contextTranslations as $original => $value) {
                 if ($context === '' && $original === '') {
                     self::extractHeaders(is_array($value) ? array_shift($value) : $value, $translations);

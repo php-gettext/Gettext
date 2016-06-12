@@ -22,9 +22,12 @@ class Asset1Test extends AbstractTest
         $this->assertContent($translations, 'Mo');
         $this->assertContent($translations, 'PhpArray');
         $this->assertContent($translations, 'Jed');
+        $this->assertContent($translations, 'Json');
         $this->assertContent($translations, 'JsonDictionary');
+        $this->assertContent($translations, 'Csv');
         $this->assertContent($translations, 'CsvDictionary');
         $this->assertContent($translations, 'Xliff');
+        $this->assertContent($translations, 'Yaml');
         $this->assertContent($translations, 'YamlDictionary');
 
         return $translations;

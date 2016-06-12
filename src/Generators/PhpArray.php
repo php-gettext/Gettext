@@ -7,9 +7,7 @@ use Gettext\Utils\MultidimensionalArrayTrait;
 
 class PhpArray extends Generator implements GeneratorInterface
 {
-    use MultidimensionalArrayTrait {
-        MultidimensionalArrayTrait::toArray as toMultidimensionalArray;
-    }
+    use MultidimensionalArrayTrait;
 
     public static $options = [
         'includeHeaders' => true,
@@ -20,7 +18,7 @@ class PhpArray extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations, array $options = [])
     {
-        $array = self::toArray($translations, $options);
+        $array = self::generate($translations, $options);
 
         return '<?php return '.var_export($array, true).';';
     }
@@ -33,14 +31,10 @@ class PhpArray extends Generator implements GeneratorInterface
      *
      * @return array
      */
-    public static function toArray(Translations $translations, array $options = [])
+    public static function generate(Translations $translations, array $options = [])
     {
         $options += static::$options;
 
-        return [
-            'domain' => $translations->getDomain(),
-            'plural-forms' => $translations->getHeader('Plural-Forms'),
-            'messages' => self::toMultidimensionalArray($translations, $options['includeHeaders'], true),
-        ];
+        return self::toArray($translations, $options['includeHeaders'], true);
     }
 }

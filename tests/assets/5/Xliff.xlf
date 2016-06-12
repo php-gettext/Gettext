@@ -2,16 +2,16 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="bs" trgLang="bs">
   <file id="testingdomain.bs">
     <notes>
+      <note id="Content-Transfer-Encoding">8bit</note>
+      <note id="Content-Type">text/plain; charset=UTF-8</note>
+      <note id="Language">bs</note>
+      <note id="Language-Team"></note>
+      <note id="Last-Translator"></note>
+      <note id="MIME-Version">1.0</note>
+      <note id="Plural-Forms"><![CDATA[nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);]]></note>
       <note id="Project-Id-Version"></note>
       <note id="Report-Msgid-Bugs-To"></note>
-      <note id="Last-Translator"></note>
-      <note id="Language-Team"></note>
-      <note id="MIME-Version">1.0</note>
-      <note id="Content-Type">text/plain; charset=UTF-8</note>
-      <note id="Content-Transfer-Encoding">8bit</note>
-      <note id="Language">bs</note>
       <note id="X-Domain">testingdomain</note>
-      <note id="Plural-Forms"><![CDATA[nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);]]></note>
     </notes>
     <unit id="717a652ad994962dbab9a82b7b90ea5b">
       <notes>

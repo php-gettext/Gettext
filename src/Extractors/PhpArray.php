@@ -19,7 +19,7 @@ class PhpArray extends Extractor implements ExtractorInterface
     public static function fromFile($file, Translations $translations, array $options = [])
     {
         foreach (static::getFiles($file) as $file) {
-            static::extract(include($file), $translations);
+            self::fromArray(include($file), $translations);
         }
     }
 
@@ -29,24 +29,5 @@ class PhpArray extends Extractor implements ExtractorInterface
     public static function fromString($string, Translations $translations, array $options = [])
     {
         throw new BadMethodCallException('PhpArray::fromString() cannot be called. Use PhpArray::fromFile()');
-    }
-
-    /**
-     * Handle an array of translations and append to the Translations instance.
-     *
-     * @param array        $content
-     * @param Translations $translations
-     */
-    public static function extract(array $content, Translations $translations)
-    {
-        self::fromArray($content['messages'], $translations);
-
-        if (!empty($content['domain'])) {
-            $translations->setDomain($content['domain']);
-        }
-
-        if (!empty($content['plural-forms'])) {
-            $translations->setHeader(Translations::HEADER_PLURAL, $content['plural-forms']);
-        }
     }
 }

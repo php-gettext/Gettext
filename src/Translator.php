@@ -20,7 +20,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
     public function loadTranslations($translations)
     {
         if (is_object($translations) && $translations instanceof Translations) {
-            $translations = PhpArray::toArray($translations);
+            $translations = PhpArray::generate($translations);
         } elseif (is_string($translations) && is_file($translations)) {
             $translations = include $translations;
         } elseif (!is_array($translations)) {
@@ -129,7 +129,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     public function dnpgettext($domain, $context, $original, $plural, $value)
     {
-        $key = $this->isPlural($domain, $value);
+        $key = $this->getPluralIndex($domain, $value);
         $translation = $this->getTranslation($domain, $context, $original);
 
         if (isset($translation[$key]) && $translation[$key] !== '') {
@@ -196,7 +196,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
      *
      * @return int
      */
-    protected function isPlural($domain, $n)
+    protected function getPluralIndex($domain, $n)
     {
         //Not loaded domain, use a fallback
         if (!isset($this->plurals[$domain])) {

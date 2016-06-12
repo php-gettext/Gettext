@@ -7,19 +7,19 @@
     array (
       '' => 
       array (
-        0 => 'Project-Id-Version: gettext generator test
-Report-Msgid-Bugs-To: 
-Last-Translator: 
-Language-Team: 
-MIME-Version: 1.0
+        0 => 'Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 Language: bs
-POT-Creation-Date: 
+Language-Team: 
+Last-Translator: 
+MIME-Version: 1.0
 PO-Revision-Date: 
+POT-Creation-Date: 
 Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
-X-Generator: Poedit 1.6.5
+Project-Id-Version: gettext generator test
+Report-Msgid-Bugs-To: 
 X-Domain: testingdomain
+X-Generator: Poedit 1.6.5
 ',
       ),
       'Ensure this value has at least %(limit_value)d character (it has %sd).' => 

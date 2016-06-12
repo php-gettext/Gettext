@@ -1,7 +1,7 @@
 $(document).ready(function () {
-	var value = __('Value with simple quotes');
+	var value = i18n.__('Value with simple quotes');
 	var value2 = __("Value with double quotes");
-	var value3 = __("Other value with double quotes", 'and other value');
+	var value3 = i18n.gettext("Other value with double quotes", 'and other value');
 
 	var value4 = myFunction(__('function inside function', 'with 2 arguments'), 'other argument');
 

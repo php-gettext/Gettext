@@ -2,14 +2,14 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="" trgLang="">
   <file id=".">
     <notes>
+      <note id="Content-Transfer-Encoding">8bit</note>
+      <note id="Content-Type">text/plain; charset=UTF-8</note>
+      <note id="Language"></note>
+      <note id="Language-Team"></note>
+      <note id="Last-Translator"></note>
+      <note id="MIME-Version">1.0</note>
       <note id="Project-Id-Version"></note>
       <note id="Report-Msgid-Bugs-To"></note>
-      <note id="Last-Translator"></note>
-      <note id="Language-Team"></note>
-      <note id="MIME-Version">1.0</note>
-      <note id="Content-Type">text/plain; charset=UTF-8</note>
-      <note id="Content-Transfer-Encoding">8bit</note>
-      <note id="Language"></note>
     </notes>
     <unit id="ac7938d40cfc2307e2bf325d28e7884e">
       <notes>

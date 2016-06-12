@@ -198,12 +198,14 @@ class Translations extends \ArrayObject
     }
 
     /**
-     * Returns all header for this translations.
+     * Returns all header for this translations (in alphabetic order).
      *
      * @return array
      */
     public function getHeaders()
     {
+        ksort($this->headers);
+
         return $this->headers;
     }
 
