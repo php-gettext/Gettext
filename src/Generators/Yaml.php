@@ -12,8 +12,8 @@ class Yaml extends Generator implements GeneratorInterface
 
     public static $options = [
         'includeHeaders' => true,
-        'inline' => 3,
         'indent' => 2,
+        'inline' => 4,
     ];
 
     /**

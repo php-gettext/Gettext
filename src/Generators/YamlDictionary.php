@@ -11,9 +11,9 @@ class YamlDictionary extends Generator implements GeneratorInterface
     use DictionaryTrait;
 
     public static $options = [
-        'inline' => 3,
-        'indent' => 2,
         'includeHeaders' => false,
+        'indent' => 2,
+        'inline' => 3,
     ];
 
     /**
