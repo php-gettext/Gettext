@@ -315,7 +315,7 @@ You can scan the php files containing these functions and extract the values wit
 ```
 
 
-# Merge translations
+## Merge translations
 
 To work with different translations you may want merge them in an unique file. There are two ways to do this:
 

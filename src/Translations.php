@@ -368,14 +368,14 @@ class Translations extends \ArrayObject
     private function mergeHeaders(Translations $translations, $options)
     {
         if ($options & self::MERGE_HEADERS_THEIRS) {
-            $this->deleteHeader();
+            $this->deleteHeaders();
         }
 
         if (!($options & self::MERGE_HEADERS_MINES)) {
             foreach ($translations->getHeaders() as $name => $value) {
                 $current = $this->getHeader($name);
 
-                if ($current === null) {
+                if (empty($current)) {
                     $this->setHeader($name, $value);
                     continue;
                 }
@@ -383,21 +383,19 @@ class Translations extends \ArrayObject
                 switch ($name) {
                     case self::HEADER_LANGUAGE:
                     case self::HEADER_PLURAL:
-                        if (!$current || ($value && ($options & self::MERGE_LANGUAGE_OVERRIDE))) {
+                        if ($value && ($options & self::MERGE_LANGUAGE_OVERRIDE)) {
                             $this->setHeader($name, $value);
                         }
                         continue 2;
 
                     case self::HEADER_DOMAIN:
-                        if (!$current || ($value && ($options & self::MERGE_DOMAIN_OVERRIDE))) {
+                        if ($value && ($options & self::MERGE_DOMAIN_OVERRIDE)) {
                             $this->setHeader($name, $value);
                         }
                         continue 2;
 
                     default:
-                        if (!$current) {
-                            $this->setHeader($name, $value);
-                        }
+                        $this->setHeader($name, $value);
                 }
             }
         }
@@ -417,7 +415,7 @@ class Translations extends \ArrayObject
             if (($existing = $this->find($entry))) {
                 $existing->mergeWith($entry, $options);
             } elseif ($add) {
-                $this[] = clone $entry;
+                $this[] = $entry;
             }
         }
 
