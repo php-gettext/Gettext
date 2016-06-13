@@ -347,11 +347,11 @@ class Translations extends \ArrayObject
      * Merges this translations with other translations.
      *
      * @param Translations $translations        The translations instance to merge with
-     * @param int          $options             
+     * @param int          $options             By default: self::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $options = self::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE)
+    public function mergeWith(Translations $translations, $options = 65)
     {
         $this->mergeHeaders($translations, $options);
         $this->mergeTranslations($translations, $options);
