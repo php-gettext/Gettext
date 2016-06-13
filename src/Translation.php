@@ -7,16 +7,16 @@ namespace Gettext;
  */
 class Translation
 {
-    const MERGE_TRANSLATION_OVERRIDE = 1;
-    const MERGE_PLURAL_OVERRIDE = 2;
-    const MERGE_COMMENTS_MINES = 4;
-    const MERGE_COMMENTS_THEIRS = 8;
-    const MERGE_EXTRACTED_COMMENTS_MINES = 16;
-    const MERGE_EXTRACTED_COMMENTS_THEIRS = 32;
-    const MERGE_FLAGS_MINES = 64;
-    const MERGE_FLAGS_THEIRS = 128;
-    const MERGE_REFERENCES_MINES = 256;
-    const MERGE_REFERENCES_THEIRS = 512;
+    const MERGE_TRANSLATION_OVERRIDE = 64;
+    const MERGE_PLURAL_OVERRIDE = 128;
+    const MERGE_COMMENTS_MINES = 256;
+    const MERGE_COMMENTS_THEIRS = 512;
+    const MERGE_EXTRACTED_COMMENTS_MINES = 1024;
+    const MERGE_EXTRACTED_COMMENTS_THEIRS = 2048;
+    const MERGE_FLAGS_MINES = 4096;
+    const MERGE_FLAGS_THEIRS = 8192;
+    const MERGE_REFERENCES_MINES = 16384;
+    const MERGE_REFERENCES_THEIRS = 32768;
 
     protected $context;
     protected $original;
@@ -480,7 +480,26 @@ class Translation
      */
     public function mergeWith(Translation $translation, $options = self::MERGE_TRANSLATION_OVERRIDE)
     {
-        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($options & self::MERGE_TRANSLATION_OVERRIDE))) {
+        $this->mergeTranslation($translation, $options);
+        $this->mergeReferences($translation, $options);
+        $this->mergeComments($translation, $options);
+        $this->mergeExtractedComments($translation, $options);
+        $this->mergeFlags($translation, $options);
+
+        return $this;
+    }
+
+    /**
+     * Merge the translations of two translations
+     * 
+     * @param Translation $translation
+     * @param int         $options
+     */
+    private function mergeTranslation(Translation $translation, $options)
+    {
+        $override = (boolean) ($options & self::MERGE_TRANSLATION_OVERRIDE);
+
+        if (!$this->hasTranslation() || ($translation->hasTranslation() && $override)) {
             $this->setTranslation($translation->getTranslation());
         }
 
@@ -488,10 +507,19 @@ class Translation
             $this->setPlural($translation->getPlural());
         }
 
-        if (!$this->hasPluralTranslations() || ($translation->hasPluralTranslations() && ($options & self::MERGE_TRANSLATION_OVERRIDE))) {
+        if (!$this->hasPluralTranslations() || ($translation->hasPluralTranslations() && $override)) {
             $this->setPluralTranslations($translation->getPluralTranslations());
         }
+    }
 
+    /**
+     * Merge the references of two translations
+     * 
+     * @param Translation $translation
+     * @param int         $options
+     */
+    private function mergeReferences(Translation $translation, $options)
+    {
         if ($options & self::MERGE_REFERENCES_THEIRS) {
             $this->deleteReferences();
         }
@@ -501,7 +529,16 @@ class Translation
                 $this->addReference($reference[0], $reference[1]);
             }
         }
+    }
 
+    /**
+     * Merge the comments of two translations
+     * 
+     * @param Translation $translation
+     * @param int         $options
+     */
+    private function mergeComments(Translation $translation, $options)
+    {
         if ($options & self::MERGE_COMMENTS_THEIRS) {
             $this->deleteComments();
         }
@@ -511,7 +548,16 @@ class Translation
                 $this->addComment($comment);
             }
         }
+    }
 
+    /**
+     * Merge the extracted comments of two translations
+     * 
+     * @param Translation $translation
+     * @param int         $options
+     */
+    private function mergeExtractedComments(Translation $translation, $options)
+    {
         if ($options & self::MERGE_EXTRACTED_COMMENTS_THEIRS) {
             $this->deleteExtractedComments();
         }
@@ -521,7 +567,16 @@ class Translation
                 $this->addExtractedComment($comment);
             }
         }
+    }
 
+    /**
+     * Merge the flags of two translations
+     * 
+     * @param Translation $translation
+     * @param int         $options
+     */
+    private function mergeFlags(Translation $translation, $options)
+    {
         if ($options & self::MERGE_FLAGS_THEIRS) {
             $this->deleteFlags();
         }
@@ -531,7 +586,5 @@ class Translation
                 $this->addFlag($flag);
             }
         }
-
-        return $this;
     }
 }

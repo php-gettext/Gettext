@@ -116,7 +116,7 @@ class TranslationsTest extends AbstractTest
         $found = $translations2->find(null, 'single');
         $found->setTranslation('Use this instead');
 
-        $translations1->mergeWith($translations2, Translations::MERGE_ADD, Translation::MERGE_TRANSLATION_OVERRIDE);
+        $translations1->mergeWith($translations2, Translations::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE);
 
         $this->assertCount(Asset1Test::COUNT_TRANSLATIONS, $translations1);
         $this->assertEquals('Use this instead', $translations1->find(null, 'single')->getTranslation());
@@ -144,7 +144,7 @@ class TranslationsTest extends AbstractTest
         $this->assertEquals($expectedRef2, current($actualRef));
 
         //merge with references
-        $translations1->mergeWith($translations2, Translations::MERGE_ADD, Translation::MERGE_REFERENCES_THEIRS);
+        $translations1->mergeWith($translations2, Translations::MERGE_ADD | Translation::MERGE_REFERENCES_THEIRS);
 
         //translation merged (orange)
         $this->assertInstanceOf('Gettext\\Translation', $translations1->find(null, 'orange'));

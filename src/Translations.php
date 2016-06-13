@@ -13,10 +13,10 @@ class Translations extends \ArrayObject
 {
     const MERGE_ADD = 1;
     const MERGE_REMOVE = 2;
-    const MERGE_HEADERS_MINES = 8;
-    const MERGE_HEADERS_THEIRS = 16;
-    const MERGE_LANGUAGE_OVERRIDE = 32;
-    const MERGE_DOMAIN_OVERRIDE = 64;
+    const MERGE_HEADERS_MINES = 4;
+    const MERGE_HEADERS_THEIRS = 8;
+    const MERGE_LANGUAGE_OVERRIDE = 16;
+    const MERGE_DOMAIN_OVERRIDE = 32;
 
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
@@ -347,17 +347,26 @@ class Translations extends \ArrayObject
      * Merges this translations with other translations.
      *
      * @param Translations $translations        The translations instance to merge with
-     * @param int          $options             One or various Translations::MERGE_* constants to define how to merge the translations
-     * @param int          $translationOptions  One or various Translation::MERGE_* constants to define how to merge each translation
+     * @param int          $options             
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $options = self::MERGE_ADD, $translationOptions = Translation::MERGE_TRANSLATION_OVERRIDE)
+    public function mergeWith(Translations $translations, $options = self::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE)
     {
-        if ($options === null) {
-            $options = self::$mergeDefault;
-        }
+        $this->mergeHeaders($translations, $options);
+        $this->mergeTranslations($translations, $options);
 
+        return $this;
+    }
+
+    /**
+     * Merge the headers of two translations
+     * 
+     * @param Translations $translations
+     * @param int          $options
+     */
+    private function mergeHeaders(Translations $translations, $options)
+    {
         if ($options & self::MERGE_HEADERS_THEIRS) {
             $this->deleteHeader();
         }
@@ -392,12 +401,21 @@ class Translations extends \ArrayObject
                 }
             }
         }
+    }
 
+    /**
+     * Merge the translations of two translations
+     * 
+     * @param Translations $translations
+     * @param int          $options
+     */
+    private function mergeTranslations(Translations $translations, $options)
+    {
         $add = (boolean) ($options & self::MERGE_ADD);
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $translationOptions);
+                $existing->mergeWith($entry, $options);
             } elseif ($add) {
                 $this[] = clone $entry;
             }
@@ -414,7 +432,5 @@ class Translations extends \ArrayObject
 
             $this->exchangeArray($filtered);
         }
-
-        return $this;
     }
 }
