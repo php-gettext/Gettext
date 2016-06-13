@@ -344,16 +344,26 @@ $translations1->mergeWith($translations2);
 //Now translations1 has all values
 ```
 
-The second argument of `mergeWith` defines how the merge will be done. You can pass one or various of the following predefined constants:
+The second argument of `mergeWith` defines how the merge will be done. Both `Translations` and `Translation` classes have the following predefined constants to configure the merging:
 
-* MERGE_ADD: Adds the translations from translations2 to translations1 if they not exists
-* MERGE_REMOVE: Removes the translations in translations1 if they are not in translations2
-* MERGE_OVERRIDE: Overrides the translations in translations1 if they are in translations2
-* MERGE_HEADERS: Merges the headers from translations2 to translations 1
-* MERGE_REFERENCES: Merges the references from translations2 to translations1
-* MERGE_COMMENTS: Merges the comments from translations2 to translations1
-* MERGE_LANGUAGE: Applies the language and plural forms of translations2 to translation1
-* MERGE_PLURAL: Translations with the same id but one with plurals and other singular will be merged
+Class::Constant | Description
+--------------- | -----------
+`Translations::MERGE_ADD` | Add the translations from `$translations2` missing in `$translations1`
+`Translations::MERGE_REMOVE` | Removes the translations in `$translations1` if they are not in `$translations2`
+`Translations::MERGE_HEADERS_MINES` | Use only the headers of `$translations1`
+`Translations::MERGE_HEADERS_THEIRS` | Use only the headers of `$translations2`
+`Translations::MERGE_LANGUAGE_OVERRIDE` | Set the language defined in `$translations2`
+`Translations::MERGE_DOMAIN_OVERRIDE` | Set the domain defined in `$translations2`
+`Translation::MERGE_TRANSLATION_OVERRIDE` | Override the translation with the value of `$translation2`
+`Translation::MERGE_PLURAL_OVERRIDE` | Override the plural with the value of `$translation2`
+`Translation::MERGE_COMMENTS_MINES` | Use only the comments of `$translation1`
+`Translation::MERGE_COMMENTS_THEIRS` | Use only the comments of `$translation2`
+`Translation::MERGE_EXTRACTED_COMMENTS_MINES` | Use only the extracted comments of `$translation1`
+`Translation::MERGE_EXTRACTED_COMMENTS_THEIRS` | Use only the extracted comments of `$translation2`
+`Translation::MERGE_FLAGS_MINES` | Use only the flags of `$translation1`
+`Translation::MERGE_FLAGS_THEIRS` | Use only the flags of `$translation2`
+`Translation::MERGE_REFERENCES_MINES` | Use only the references of `$translation1`
+`Translation::MERGE_REFERENCES_THEIRS` | Use only the references of `$translation2`
 
 Example:
 
@@ -361,19 +371,19 @@ Example:
 use Gettext\Translations;
 
 //Scan the php code to find the latest gettext translations
-$translations = Translations::fromPhpCodeFile('my-templates.php');
+$phpTranslations = Translations::fromPhpCodeFile('my-templates.php');
 
 //Get the translations of the code that are stored in a po file
 $poTranslations = Translations::fromPoFile('locale.po');
 
-//Apply the translations from the po file to the translations, and merges header and comments but not references and without add or remove translations:
-$translations->mergeWith($poTranslations, Translations::MERGE_HEADERS | Translations::MERGE_COMMENTS);
+//Apply the translations from the po file to the translations using the references from `$phpTranslations` but the headers of `$poTranslations`:
+$translations->mergeWith($poTranslations, Translation::MERGE_REFERENCES_MINES | Translations::MERGE_HEADERS_THEIRS);
 
 //Now save a po file with the result
 $translations->toPoFile('locale.po');
 ```
 
-Note, if the second argument is not defined, the default is `self::MERGE_ADD | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL | self::MERGE_OVERRIDE`
+Note, if the second argument is not defined, the default is `Translations::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE`.
 
 ## Use from CLI
 
