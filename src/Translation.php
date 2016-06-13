@@ -7,6 +7,17 @@ namespace Gettext;
  */
 class Translation
 {
+    const MERGE_TRANSLATION_OVERRIDE = 1;
+    const MERGE_PLURAL_OVERRIDE = 2;
+    const MERGE_COMMENTS_MINES = 4;
+    const MERGE_COMMENTS_THEIRS = 8;
+    const MERGE_EXTRACTED_COMMENTS_MINES = 16;
+    const MERGE_EXTRACTED_COMMENTS_THEIRS = 32;
+    const MERGE_FLAGS_MINES = 64;
+    const MERGE_FLAGS_THEIRS = 128;
+    const MERGE_REFERENCES_MINES = 256;
+    const MERGE_REFERENCES_THEIRS = 512;
+
     protected $context;
     protected $original;
     protected $translation = '';
@@ -406,7 +417,7 @@ class Translation
     }
 
     /**
-     * Adds a new flat for this translation.
+     * Adds a new flag for this translation.
      *
      * @param string $flag
      * 
@@ -457,38 +468,62 @@ class Translation
      * Merges this translation with other translation.
      *
      * @param Translation $translation The translation to merge with
-     * @param int|null    $options     One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param int         $options     The merging options
      * 
      * @return self
      */
-    public function mergeWith(Translation $translation, $options = null)
+    public function mergeWith(Translation $translation, $options = self::MERGE_TRANSLATION_OVERRIDE)
     {
-        if ($options === null) {
-            $options = Translations::$mergeDefault;
-        }
-
-        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($options & Translations::MERGE_OVERRIDE))) {
+        if (!$this->hasTranslation() || ($translation->hasTranslation() && ($options & self::MERGE_TRANSLATION_OVERRIDE))) {
             $this->setTranslation($translation->getTranslation());
         }
 
-        if (($options & Translations::MERGE_PLURAL) && !$this->hasPlural()) {
+        if (!$this->hasPlural() || ($translation->hasPlural() && ($options & self::MERGE_PLURAL_OVERRIDE))) {
             $this->setPlural($translation->getPlural());
         }
 
-        if ($this->hasPlural() && !$this->hasPluralTranslations() && $translation->hasPluralTranslations()) {
-            $this->pluralTranslation = $translation->getPluralTranslations();
+        if (!$this->hasPluralTranslations() || ($translation->hasPluralTranslations() && ($options & self::MERGE_TRANSLATION_OVERRIDE))) {
+            $this->setPluralTranslations($translation->getPluralTranslations());
         }
 
-        if ($options & Translations::MERGE_REFERENCES) {
+        if ($options & self::MERGE_REFERENCES_THEIRS) {
+            $this->deleteReferences();
+        }
+
+        if (!($options & self::MERGE_REFERENCES_MINES)) {
             foreach ($translation->getReferences() as $reference) {
                 $this->addReference($reference[0], $reference[1]);
             }
         }
 
-        if ($options & Translations::MERGE_COMMENTS) {
-            $this->comments = array_values(array_unique(array_merge($translation->getComments(), $this->comments)));
-            $this->extractedComments = array_values(array_unique(array_merge($translation->getExtractedComments(), $this->extractedComments)));
-            $this->flags = array_values(array_unique(array_merge($translation->getFlags(), $this->flags)));
+        if ($options & self::MERGE_COMMENTS_THEIRS) {
+            $this->deleteComments();
+        }
+
+        if (!($options & self::MERGE_COMMENTS_MINES)) {
+            foreach ($translation->getComments() as $comment) {
+                $this->addComment($comment);
+            }
+        }
+
+        if ($options & self::MERGE_EXTRACTED_COMMENTS_THEIRS) {
+            $this->deleteExtractedComments();
+        }
+
+        if (!($options & self::MERGE_EXTRACTED_COMMENTS_MINES)) {
+            foreach ($translation->getExtractedComments() as $comment) {
+                $this->addExtractedComment($comment);
+            }
+        }
+
+        if ($options & self::MERGE_FLAGS_THEIRS) {
+            $this->deleteFlags();
+        }
+
+        if (!($options & self::MERGE_FLAGS_MINES)) {
+            foreach ($translation->getFlags() as $flag) {
+                $this->addFlag($flag);
+            }
         }
 
         return $this;

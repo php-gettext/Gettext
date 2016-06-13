@@ -13,18 +13,15 @@ class Translations extends \ArrayObject
 {
     const MERGE_ADD = 1;
     const MERGE_REMOVE = 2;
-    const MERGE_HEADERS = 4;
-    const MERGE_REFERENCES = 8;
-    const MERGE_COMMENTS = 16;
-    const MERGE_LANGUAGE = 32;
-    const MERGE_PLURAL = 64;
-    const MERGE_OVERRIDE = 128;
+    const MERGE_HEADERS_MINES = 8;
+    const MERGE_HEADERS_THEIRS = 16;
+    const MERGE_LANGUAGE_OVERRIDE = 32;
+    const MERGE_DOMAIN_OVERRIDE = 64;
 
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
 
-    public static $mergeDefault = 221; // self::MERGE_ADD | self::MERGE_OVERRIDE | self::MERGE_HEADERS | self::MERGE_COMMENTS | self::MERGE_REFERENCES | self::MERGE_PLURAL
     public static $insertDate = true;
 
     private $headers;
@@ -349,21 +346,49 @@ class Translations extends \ArrayObject
     /**
      * Merges this translations with other translations.
      *
-     * @param Translations $translations The translations instance to merge with
-     * @param int|null     $options      One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param Translations $translations        The translations instance to merge with
+     * @param int          $options             One or various Translations::MERGE_* constants to define how to merge the translations
+     * @param int          $translationOptions  One or various Translation::MERGE_* constants to define how to merge each translation
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $options = null)
+    public function mergeWith(Translations $translations, $options = self::MERGE_ADD, $translationOptions = Translation::MERGE_TRANSLATION_OVERRIDE)
     {
         if ($options === null) {
             $options = self::$mergeDefault;
         }
 
-        if ($options & self::MERGE_HEADERS) {
+        if ($options & self::MERGE_HEADERS_THEIRS) {
+            $this->deleteHeader();
+        }
+
+        if (!($options & self::MERGE_HEADERS_MINES)) {
             foreach ($translations->getHeaders() as $name => $value) {
-                if (!$this->getHeader($name)) {
+                $current = $this->getHeader($name);
+
+                if ($current === null) {
                     $this->setHeader($name, $value);
+                    continue;
+                }
+
+                switch ($name) {
+                    case self::HEADER_LANGUAGE:
+                    case self::HEADER_PLURAL:
+                        if (!$current || ($value && ($options & self::MERGE_LANGUAGE_OVERRIDE))) {
+                            $this->setHeader($name, $value);
+                        }
+                        continue 2;
+
+                    case self::HEADER_DOMAIN:
+                        if (!$current || ($value && ($options & self::MERGE_DOMAIN_OVERRIDE))) {
+                            $this->setHeader($name, $value);
+                        }
+                        continue 2;
+
+                    default:
+                        if (!$current) {
+                            $this->setHeader($name, $value);
+                        }
                 }
             }
         }
@@ -372,7 +397,7 @@ class Translations extends \ArrayObject
 
         foreach ($translations as $entry) {
             if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $options);
+                $existing->mergeWith($entry, $translationOptions);
             } elseif ($add) {
                 $this[] = clone $entry;
             }
@@ -388,23 +413,6 @@ class Translations extends \ArrayObject
             }
 
             $this->exchangeArray($filtered);
-        }
-
-        if ($options & self::MERGE_LANGUAGE) {
-            $language = $translations->getLanguage();
-            $pluralForm = $translations->getPluralForms();
-
-            if (!$pluralForm) {
-                if (!empty($language)) {
-                    $this->setLanguage($language);
-                }
-            } else {
-                if (!empty($language)) {
-                    $this->setHeader(self::HEADER_LANGUAGE, $language);
-                }
-
-                $this->setPluralForms($pluralForm[0], $pluralForm[1]);
-            }
         }
 
         return $this;

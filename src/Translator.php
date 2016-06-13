@@ -159,14 +159,16 @@ class Translator extends BaseTranslator implements TranslatorInterface
             return;
         }
 
-        list($count, $code) = array_map('trim', explode(';', $translations['plural-forms'], 2));
+        if (!empty($translations['plural-forms'])) {
+            list($count, $code) = array_map('trim', explode(';', $translations['plural-forms'], 2));
 
-        // extract just the expression turn 'n' into a php variable '$n'.
-        // Slap on a return keyword and semicolon at the end.
-        $this->plurals[$domain] = [
-            'count' => (int) str_replace('nplurals=', '', $count),
-            'code' => str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';',
-        ];
+            // extract just the expression turn 'n' into a php variable '$n'.
+            // Slap on a return keyword and semicolon at the end.
+            $this->plurals[$domain] = [
+                'count' => (int) str_replace('nplurals=', '', $count),
+                'code' => str_replace('plural=', 'return ', str_replace('n', '$n', $code)).';',
+            ];
+        }
 
         $this->dictionary[$domain] = $translations['messages'];
     }
