@@ -46,7 +46,7 @@ class Jed extends Generator implements GeneratorInterface
         foreach ($translations as $translation) {
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
 
-            if ($translation->hasPluralTranslations()) {
+            if ($translation->hasPluralTranslations(true)) {
                 $message = $translation->getPluralTranslations($pluralLimit);
                 array_unshift($message, $translation->getTranslation());
             } else {

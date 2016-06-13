@@ -31,7 +31,7 @@ class Csv extends Generator implements GeneratorInterface
         foreach ($translations as $translation) {
             $line = [$translation->getContext(), $translation->getOriginal(), $translation->getTranslation()];
 
-            if ($translation->hasPluralTranslations()) {
+            if ($translation->hasPluralTranslations(true)) {
                 $line = array_merge($line, $translation->getPluralTranslations());
             }
 

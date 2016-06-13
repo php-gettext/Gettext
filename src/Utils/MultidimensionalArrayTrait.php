@@ -41,7 +41,7 @@ trait MultidimensionalArrayTrait
                 $messages[$context] = [];
             }
 
-            if ($translation->hasPluralTranslations()) {
+            if ($translation->hasPluralTranslations(true)) {
                 $messages[$context][$original] = $translation->getPluralTranslations($pluralLimit);
                 array_unshift($messages[$context][$original], $translation->getTranslation());
             } elseif ($forceArray) {

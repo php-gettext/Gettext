@@ -232,12 +232,18 @@ class Translation
 
     /**
      * Checks if there are any plural translation.
+     * 
+     * @param bool $checkContent
      *
      * @return bool
      */
-    public function hasPluralTranslations()
+    public function hasPluralTranslations($checkContent = false)
     {
-        return implode('', $this->pluralTranslation) !== '';
+        if ($checkContent) {
+            return implode('', $this->pluralTranslation) !== '';
+        }
+
+        return !empty($this->pluralTranslation);
     }
 
     /**

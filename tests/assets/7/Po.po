@@ -32,6 +32,7 @@ msgstr "1 fillo"
 msgid "1 comment"
 msgid_plural "%s comments"
 msgstr[0] "1 comentario"
+msgstr[1] ""
 
 # duplicate plural - singular
 msgid "1 star"

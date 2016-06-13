@@ -152,7 +152,7 @@ class TranslationsTest extends AbstractTest
         //references merged (apple)
         $this->assertInstanceOf('Gettext\\Translation', $translations1->find(null, 'apple'));
         $this->assertTrue($translation1->hasReferences());
-        $this->assertCount(2, $actualRef = $translation1->getReferences());
-        $this->assertEquals(array($expectedRef1, $expectedRef2), $actualRef);
+        $this->assertCount(1, $actualRef = $translation1->getReferences());
+        $this->assertEquals(array($expectedRef2), $actualRef);
     }
 }

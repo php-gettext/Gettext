@@ -65,7 +65,9 @@ class Xliff extends Generator implements GeneratorInterface
             $segment->appendChild(self::createTextNode($dom, 'target', $translation->getTranslation()));
 
             foreach ($translation->getPluralTranslations() as $plural) {
-                $segment->appendChild(self::createTextNode($dom, 'target', $plural));
+                if ($plural !== '') {
+                    $segment->appendChild(self::createTextNode($dom, 'target', $plural));
+                }
             }
 
             $file->appendChild($unit);

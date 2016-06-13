@@ -23,8 +23,6 @@
       <segment>
         <source>Ensure this value has at least %(limit_value)d character (it has %sd).</source>
         <target></target>
-        <target></target>
-        <target></target>
       </segment>
     </unit>
     <unit id="125dfab5f665bfbdda1520b496fd7b0c">
@@ -33,8 +31,6 @@
       </notes>
       <segment>
         <source>Ensure this value has at most %(limit_value)d character (it has %sd).</source>
-        <target></target>
-        <target></target>
         <target></target>
       </segment>
     </unit>
