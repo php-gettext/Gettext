@@ -344,31 +344,32 @@ $translations1->mergeWith($translations2);
 //Now translations1 has all values
 ```
 
-The second argument of `mergeWith` defines how the merge will be done. Both `Translations` and `Translation` classes have the following predefined constants to configure the merging:
+The second argument of `mergeWith` defines how the merge will be done. Use the `Gettext\Merge` constants to configure the merging:
 
-Class::Constant | Description
---------------- | -----------
-`Translations::MERGE_ADD` | Add the translations from `$translations2` missing in `$translations1`
-`Translations::MERGE_REMOVE` | Removes the translations in `$translations1` if they are not in `$translations2`
-`Translations::MERGE_HEADERS_MINES` | Use only the headers of `$translations1`
-`Translations::MERGE_HEADERS_THEIRS` | Use only the headers of `$translations2`
-`Translations::MERGE_LANGUAGE_OVERRIDE` | Set the language defined in `$translations2`
-`Translations::MERGE_DOMAIN_OVERRIDE` | Set the domain defined in `$translations2`
-`Translation::MERGE_TRANSLATION_OVERRIDE` | Override the translation with the value of `$translation2`
-`Translation::MERGE_PLURAL_OVERRIDE` | Override the plural with the value of `$translation2`
-`Translation::MERGE_COMMENTS_MINES` | Use only the comments of `$translation1`
-`Translation::MERGE_COMMENTS_THEIRS` | Use only the comments of `$translation2`
-`Translation::MERGE_EXTRACTED_COMMENTS_MINES` | Use only the extracted comments of `$translation1`
-`Translation::MERGE_EXTRACTED_COMMENTS_THEIRS` | Use only the extracted comments of `$translation2`
-`Translation::MERGE_FLAGS_MINES` | Use only the flags of `$translation1`
-`Translation::MERGE_FLAGS_THEIRS` | Use only the flags of `$translation2`
-`Translation::MERGE_REFERENCES_MINES` | Use only the references of `$translation1`
-`Translation::MERGE_REFERENCES_THEIRS` | Use only the references of `$translation2`
+Constant | Description
+--------- | -----------
+`Merge::ADD` | Adds the translations from `$translations2` that are missing
+`Merge::REMOVE` | Removes the translations missing in `$translations2`
+`Merge::HEADERS_ADD` | Adds the headers from `$translations2` that are missing
+`Merge::HEADERS_REMOVE` | Removes the headers missing in `$translations2`
+`Merge::HEADERS_OVERRIDE` | Overrides the headers with the values of `$translations2`
+`Merge::LANGUAGE_OVERRIDE` | Set the language defined in `$translations2`
+`Merge::DOMAIN_OVERRIDE` | Set the domain defined in `$translations2`
+`Merge::TRANSLATION_OVERRIDE` | Override the translation and plural translations with the value of `$translation2`
+`Merge::COMMENTS_OURS` | Use only the comments of `$translation1`
+`Merge::COMMENTS_THEIRS` | Use only the comments of `$translation2`
+`Merge::EXTRACTED_COMMENTS_OURS` | Use only the extracted comments of `$translation1`
+`Merge::EXTRACTED_COMMENTS_THEIRS` | Use only the extracted comments of `$translation2`
+`Merge::FLAGS_OURS` | Use only the flags of `$translation1`
+`Merge::FLAGS_THEIRS` | Use only the flags of `$translation2`
+`Merge::REFERENCES_OURS` | Use only the references of `$translation1`
+`Merge::REFERENCES_THEIRS` | Use only the references of `$translation2`
 
 Example:
 
 ```php
 use Gettext\Translations;
+use Gettext\Merge;
 
 //Scan the php code to find the latest gettext translations
 $phpTranslations = Translations::fromPhpCodeFile('my-templates.php');
@@ -376,14 +377,14 @@ $phpTranslations = Translations::fromPhpCodeFile('my-templates.php');
 //Get the translations of the code that are stored in a po file
 $poTranslations = Translations::fromPoFile('locale.po');
 
-//Apply the translations from the po file to the translations using the references from `$phpTranslations` but the headers of `$poTranslations`:
-$translations->mergeWith($poTranslations, Translation::MERGE_REFERENCES_MINES | Translations::MERGE_HEADERS_THEIRS);
+//Merge the translations from the po file using the references from `$phpTranslations`:
+$translations->mergeWith($poTranslations, Merge::REFERENCES_OURS);
 
 //Now save a po file with the result
 $translations->toPoFile('locale.po');
 ```
 
-Note, if the second argument is not defined, the default is `Translations::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE`.
+Note, if the second argument is not defined, the default value is `Merge::DEFAULT` that's equivalent to `Merge::ADD | Merge::HEADERS_ADD`.
 
 ## Use from CLI
 

@@ -57,13 +57,6 @@ use InvalidArgumentException;
  */
 class Translations extends \ArrayObject
 {
-    const MERGE_ADD = 1;
-    const MERGE_REMOVE = 2;
-    const MERGE_HEADERS_MINES = 4;
-    const MERGE_HEADERS_THEIRS = 8;
-    const MERGE_LANGUAGE_OVERRIDE = 16;
-    const MERGE_DOMAIN_OVERRIDE = 32;
-
     const HEADER_LANGUAGE = 'Language';
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
@@ -393,16 +386,15 @@ class Translations extends \ArrayObject
      * Merges this translations with other translations.
      *
      * @param Translations $translations        The translations instance to merge with
-     * @param int          $options             By default: self::MERGE_ADD | Translation::MERGE_TRANSLATION_OVERRIDE
+     * @param int          $options
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $options = 65)
+    public function mergeWith(Translations $translations, $options = Merge::DEFAULT)
     {
-        $this->mergeHeaders($translations, $options);
-        $this->mergeTranslations($translations, $options);
-
-        return $this;
+        return $this
+            ->mergeHeadersWith($translations, $options)
+            ->mergeTranslationsWith($translations, $options);
     }
 
     /**
@@ -410,41 +402,55 @@ class Translations extends \ArrayObject
      * 
      * @param Translations $translations
      * @param int          $options
+     * 
+     * @return self
      */
-    private function mergeHeaders(Translations $translations, $options)
+    public function mergeHeadersWith(Translations $translations, $options = Merge::DEFAULT)
     {
-        if ($options & self::MERGE_HEADERS_THEIRS) {
-            $this->deleteHeaders();
-        }
-
-        if (!($options & self::MERGE_HEADERS_MINES)) {
-            foreach ($translations->getHeaders() as $name => $value) {
-                $current = $this->getHeader($name);
-
-                if (empty($current)) {
-                    $this->setHeader($name, $value);
-                    continue;
-                }
-
-                switch ($name) {
-                    case self::HEADER_LANGUAGE:
-                    case self::HEADER_PLURAL:
-                        if ($value && ($options & self::MERGE_LANGUAGE_OVERRIDE)) {
-                            $this->setHeader($name, $value);
-                        }
-                        continue 2;
-
-                    case self::HEADER_DOMAIN:
-                        if ($value && ($options & self::MERGE_DOMAIN_OVERRIDE)) {
-                            $this->setHeader($name, $value);
-                        }
-                        continue 2;
-
-                    default:
-                        $this->setHeader($name, $value);
+        if ($options & Merge::HEADERS_REMOVE) {
+            foreach (array_keys($this->getHeaders()) as $name) {
+                if ($translations->getHeader($name) === null) {
+                    $this->deleteHeader($name);
                 }
             }
         }
+
+        foreach ($translations->getHeaders() as $name => $value) {
+            $current = $this->getHeader($name);
+
+            if (empty($current)) {
+                if ($options & Merge::HEADERS_ADD) {
+                    $this->setHeader($name, $value);
+                }
+                continue;
+            }
+
+            if (empty($value)) {
+                continue;
+            }
+
+            switch ($name) {
+                case self::HEADER_LANGUAGE:
+                case self::HEADER_PLURAL:
+                    if ($options & Merge::LANGUAGE_OVERRIDE) {
+                        $this->setHeader($name, $value);
+                    }
+                    break;
+
+                case self::HEADER_DOMAIN:
+                    if ($options & Merge::DOMAIN_OVERRIDE) {
+                        $this->setHeader($name, $value);
+                    }
+                    break;
+
+                default:
+                    if ($options & Merge::HEADERS_OVERRIDE) {
+                        $this->setHeader($name, $value);
+                    }
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -452,29 +458,31 @@ class Translations extends \ArrayObject
      * 
      * @param Translations $translations
      * @param int          $options
+     * 
+     * @return self
      */
-    private function mergeTranslations(Translations $translations, $options)
+    public function mergeTranslationsWith(Translations $translations, $options = Merge::DEFAULT)
     {
-        $add = (boolean) ($options & self::MERGE_ADD);
-
-        foreach ($translations as $entry) {
-            if (($existing = $this->find($entry))) {
-                $existing->mergeWith($entry, $options);
-            } elseif ($add) {
-                $this[] = $entry;
-            }
-        }
-
-        if ($options & self::MERGE_REMOVE) {
+        if ($options & Merge::REMOVE) {
             $filtered = [];
 
             foreach ($this as $entry) {
                 if ($translations->find($entry)) {
-                    $filtered[] = $entry;
+                    $filtered[$entry->getId()] = $entry;
                 }
             }
 
             $this->exchangeArray($filtered);
         }
+
+        foreach ($translations as $entry) {
+            if (($existing = $this->find($entry))) {
+                $existing->mergeWith($entry, $options);
+            } elseif ($options & Merge::ADD) {
+                $this[] = $entry;
+            }
+        }
+
+        return $this;
     }
 }

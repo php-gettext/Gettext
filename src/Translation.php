@@ -7,17 +7,6 @@ namespace Gettext;
  */
 class Translation
 {
-    const MERGE_TRANSLATION_OVERRIDE = 64;
-    const MERGE_PLURAL_OVERRIDE = 128;
-    const MERGE_COMMENTS_MINES = 256;
-    const MERGE_COMMENTS_THEIRS = 512;
-    const MERGE_EXTRACTED_COMMENTS_MINES = 1024;
-    const MERGE_EXTRACTED_COMMENTS_THEIRS = 2048;
-    const MERGE_FLAGS_MINES = 4096;
-    const MERGE_FLAGS_THEIRS = 8192;
-    const MERGE_REFERENCES_MINES = 16384;
-    const MERGE_REFERENCES_THEIRS = 32768;
-
     protected $context;
     protected $original;
     protected $translation = '';
@@ -474,19 +463,18 @@ class Translation
      * Merges this translation with other translation.
      *
      * @param Translation $translation The translation to merge with
-     * @param int         $options     The merging options
+     * @param int         $options
      * 
      * @return self
      */
-    public function mergeWith(Translation $translation, $options = self::MERGE_TRANSLATION_OVERRIDE)
+    public function mergeWith(Translation $translation, $options = Merge::DEFAULT)
     {
-        $this->mergeTranslation($translation, $options);
-        $this->mergeReferences($translation, $options);
-        $this->mergeComments($translation, $options);
-        $this->mergeExtractedComments($translation, $options);
-        $this->mergeFlags($translation, $options);
-
-        return $this;
+        return $this
+            ->mergeTranslation($translation, $options)
+            ->mergeReferences($translation, $options)
+            ->mergeComments($translation, $options)
+            ->mergeExtractedComments($translation, $options)
+            ->mergeFlags($translation, $options);
     }
 
     /**
@@ -494,22 +482,26 @@ class Translation
      * 
      * @param Translation $translation
      * @param int         $options
+     * 
+     * @return self
      */
-    private function mergeTranslation(Translation $translation, $options)
+    public function mergeTranslation(Translation $translation, $options = Merge::DEFAULT)
     {
-        $override = (boolean) ($options & self::MERGE_TRANSLATION_OVERRIDE);
+        $override = (boolean) ($options & Merge::TRANSLATION_OVERRIDE);
 
         if (!$this->hasTranslation() || ($translation->hasTranslation() && $override)) {
             $this->setTranslation($translation->getTranslation());
         }
 
-        if (!$this->hasPlural() || ($translation->hasPlural() && ($options & self::MERGE_PLURAL_OVERRIDE))) {
+        if (!$this->hasPlural() || ($translation->hasPlural() && $override)) {
             $this->setPlural($translation->getPlural());
         }
 
         if (!$this->hasPluralTranslations() || ($translation->hasPluralTranslations() && $override)) {
             $this->setPluralTranslations($translation->getPluralTranslations());
         }
+
+        return $this;
     }
 
     /**
@@ -517,18 +509,22 @@ class Translation
      * 
      * @param Translation $translation
      * @param int         $options
+     * 
+     * @return self
      */
-    private function mergeReferences(Translation $translation, $options)
+    public function mergeReferences(Translation $translation, $options = Merge::DEFAULT)
     {
-        if ($options & self::MERGE_REFERENCES_THEIRS) {
+        if ($options & Merge::REFERENCES_THEIRS) {
             $this->deleteReferences();
         }
 
-        if (!($options & self::MERGE_REFERENCES_MINES)) {
+        if (!($options & Merge::REFERENCES_OURS)) {
             foreach ($translation->getReferences() as $reference) {
                 $this->addReference($reference[0], $reference[1]);
             }
         }
+
+        return $this;
     }
 
     /**
@@ -536,18 +532,22 @@ class Translation
      * 
      * @param Translation $translation
      * @param int         $options
+     * 
+     * @return self
      */
-    private function mergeComments(Translation $translation, $options)
+    public function mergeComments(Translation $translation, $options = Merge::DEFAULT)
     {
-        if ($options & self::MERGE_COMMENTS_THEIRS) {
+        if ($options & Merge::COMMENTS_THEIRS) {
             $this->deleteComments();
         }
 
-        if (!($options & self::MERGE_COMMENTS_MINES)) {
+        if (!($options & Merge::COMMENTS_OURS)) {
             foreach ($translation->getComments() as $comment) {
                 $this->addComment($comment);
             }
         }
+
+        return $this;
     }
 
     /**
@@ -555,18 +555,22 @@ class Translation
      * 
      * @param Translation $translation
      * @param int         $options
+     * 
+     * @return self
      */
-    private function mergeExtractedComments(Translation $translation, $options)
+    public function mergeExtractedComments(Translation $translation, $options = Merge::DEFAULT)
     {
-        if ($options & self::MERGE_EXTRACTED_COMMENTS_THEIRS) {
+        if ($options & Merge::EXTRACTED_COMMENTS_THEIRS) {
             $this->deleteExtractedComments();
         }
 
-        if (!($options & self::MERGE_EXTRACTED_COMMENTS_MINES)) {
+        if (!($options & Merge::EXTRACTED_COMMENTS_OURS)) {
             foreach ($translation->getExtractedComments() as $comment) {
                 $this->addExtractedComment($comment);
             }
         }
+
+        return $this;
     }
 
     /**
@@ -574,17 +578,21 @@ class Translation
      * 
      * @param Translation $translation
      * @param int         $options
+     * 
+     * @return self
      */
-    private function mergeFlags(Translation $translation, $options)
+    public function mergeFlags(Translation $translation, $options = Merge::DEFAULT)
     {
-        if ($options & self::MERGE_FLAGS_THEIRS) {
+        if ($options & Merge::FLAGS_THEIRS) {
             $this->deleteFlags();
         }
 
-        if (!($options & self::MERGE_FLAGS_MINES)) {
+        if (!($options & Merge::FLAGS_OURS)) {
             foreach ($translation->getFlags() as $flag) {
                 $this->addFlag($flag);
             }
         }
+
+        return $this;
     }
 }
