@@ -390,7 +390,7 @@ class Translations extends \ArrayObject
      * 
      * @return self
      */
-    public function mergeWith(Translations $translations, $options = Merge::DEFAULT)
+    public function mergeWith(Translations $translations, $options = Merge::DEFAULTS)
     {
         return $this
             ->mergeHeadersWith($translations, $options)
@@ -405,7 +405,7 @@ class Translations extends \ArrayObject
      * 
      * @return self
      */
-    public function mergeHeadersWith(Translations $translations, $options = Merge::DEFAULT)
+    public function mergeHeadersWith(Translations $translations, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::HEADERS_REMOVE) {
             foreach (array_keys($this->getHeaders()) as $name) {
@@ -461,7 +461,7 @@ class Translations extends \ArrayObject
      * 
      * @return self
      */
-    public function mergeTranslationsWith(Translations $translations, $options = Merge::DEFAULT)
+    public function mergeTranslationsWith(Translations $translations, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::REMOVE) {
             $filtered = [];

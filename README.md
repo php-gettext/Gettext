@@ -384,7 +384,7 @@ $translations->mergeWith($poTranslations, Merge::REFERENCES_OURS);
 $translations->toPoFile('locale.po');
 ```
 
-Note, if the second argument is not defined, the default value is `Merge::DEFAULT` that's equivalent to `Merge::ADD | Merge::HEADERS_ADD`.
+Note, if the second argument is not defined, the default value is `Merge::DEFAULTS` that's equivalent to `Merge::ADD | Merge::HEADERS_ADD`.
 
 ## Use from CLI
 

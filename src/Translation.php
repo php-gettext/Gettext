@@ -467,7 +467,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeWith(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeWith(Translation $translation, $options = Merge::DEFAULTS)
     {
         return $this
             ->mergeTranslation($translation, $options)
@@ -485,7 +485,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeTranslation(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeTranslation(Translation $translation, $options = Merge::DEFAULTS)
     {
         $override = (boolean) ($options & Merge::TRANSLATION_OVERRIDE);
 
@@ -512,7 +512,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeReferences(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeReferences(Translation $translation, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::REFERENCES_THEIRS) {
             $this->deleteReferences();
@@ -535,7 +535,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeComments(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeComments(Translation $translation, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::COMMENTS_THEIRS) {
             $this->deleteComments();
@@ -558,7 +558,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeExtractedComments(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeExtractedComments(Translation $translation, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::EXTRACTED_COMMENTS_THEIRS) {
             $this->deleteExtractedComments();
@@ -581,7 +581,7 @@ class Translation
      * 
      * @return self
      */
-    public function mergeFlags(Translation $translation, $options = Merge::DEFAULT)
+    public function mergeFlags(Translation $translation, $options = Merge::DEFAULTS)
     {
         if ($options & Merge::FLAGS_THEIRS) {
             $this->deleteFlags();

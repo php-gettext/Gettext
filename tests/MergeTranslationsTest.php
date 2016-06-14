@@ -47,7 +47,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testComments()
     {
-        $options = Merge::DEFAULT;
+        $options = Merge::DEFAULTS;
 
         $this->t1->mergeWith($this->t2, $options);
 
@@ -74,7 +74,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testExtractedComments()
     {
-        $options = Merge::DEFAULT;
+        $options = Merge::DEFAULTS;
 
         $this->t1->mergeWith($this->t2, $options);
 
@@ -101,7 +101,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testReferences()
     {
-        $options = Merge::DEFAULT;
+        $options = Merge::DEFAULTS;
 
         $this->t1->mergeWith($this->t2, $options);
 
@@ -128,7 +128,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testFlags()
     {
-        $options = Merge::DEFAULT;
+        $options = Merge::DEFAULTS;
 
         $this->t1->mergeWith($this->t2, $options);
 
@@ -155,7 +155,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testTranslation()
     {
-        $options = Merge::DEFAULT;
+        $options = Merge::DEFAULTS;
 
         $this->t1->mergeWith($this->t2, $options);
 
@@ -166,7 +166,7 @@ class MergeTranslationsTest extends AbstractTest
 
     public function testTranslationOverride()
     {
-        $options = Merge::DEFAULT | Merge::TRANSLATION_OVERRIDE;
+        $options = Merge::DEFAULTS | Merge::TRANSLATION_OVERRIDE;
 
         $this->t1->mergeWith($this->t2, $options);
 
