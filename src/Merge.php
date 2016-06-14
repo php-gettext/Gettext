@@ -30,5 +30,5 @@ class Merge
     const REFERENCES_OURS = 16384;
     const REFERENCES_THEIRS = 32768;
 
-    const DEFAULTS = 1 + 4;
+    const DEFAULTS = 5 //1 + 4;
 }
