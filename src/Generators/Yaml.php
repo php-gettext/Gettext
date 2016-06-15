@@ -11,7 +11,7 @@ class Yaml extends Generator implements GeneratorInterface
     use MultidimensionalArrayTrait;
 
     public static $options = [
-        'includeHeaders' => true,
+        'includeHeaders' => false,
         'indent' => 2,
         'inline' => 4,
     ];

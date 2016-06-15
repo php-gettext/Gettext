@@ -70,6 +70,7 @@ class Translations extends \ArrayObject
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
         ],
+        'headersSorting' => false,
         'defaultDateHeaders' => [
             'POT-Creation-Date',
             'PO-Revision-Date',
@@ -246,7 +247,9 @@ class Translations extends \ArrayObject
      */
     public function getHeaders()
     {
-        ksort($this->headers);
+        if (static::$options['headersSorting']) {
+            ksort($this->headers);
+        }
 
         return $this->headers;
     }

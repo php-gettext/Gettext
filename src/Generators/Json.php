@@ -11,7 +11,7 @@ class Json extends Generator implements GeneratorInterface
 
     public static $options = [
         'json' => 0,
-        'includeHeaders' => true,
+        'includeHeaders' => false,
     ];
 
     /**

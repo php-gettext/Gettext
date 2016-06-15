@@ -13,7 +13,7 @@ class Csv extends Generator implements GeneratorInterface
     use HeadersGeneratorTrait;
 
     public static $options = [
-        'includeHeaders' => true,
+        'includeHeaders' => false,
     ];
 
     /**
