@@ -74,7 +74,7 @@ class Translations extends \ArrayObject
         'defaultDateHeaders' => [
             'POT-Creation-Date',
             'PO-Revision-Date',
-        ]
+        ],
     ];
 
     private $headers;
