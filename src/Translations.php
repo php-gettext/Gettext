@@ -60,7 +60,21 @@ class Translations extends \ArrayObject
     const HEADER_PLURAL = 'Plural-Forms';
     const HEADER_DOMAIN = 'X-Domain';
 
-    public static $insertDate = true;
+    public static $options = [
+        'defaultHeaders' => [
+            'Project-Id-Version' => '',
+            'Report-Msgid-Bugs-To' => '',
+            'Last-Translator' => '',
+            'Language-Team' => '',
+            'MIME-Version' => '1.0',
+            'Content-Type' => 'text/plain; charset=UTF-8',
+            'Content-Transfer-Encoding' => '8bit',
+        ],
+        'defaultDateHeaders' => [
+            'POT-Creation-Date',
+            'PO-Revision-Date',
+        ]
+    ];
 
     private $headers;
 
@@ -69,21 +83,14 @@ class Translations extends \ArrayObject
      */
     public function __construct($input = [], $flags = 0, $iterator_class = 'ArrayIterator')
     {
-        $this->headers = [
-            'Project-Id-Version' => '',
-            'Report-Msgid-Bugs-To' => '',
-            'Last-Translator' => '',
-            'Language-Team' => '',
-            'MIME-Version' => '1.0',
-            'Content-Type' => 'text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding' => '8bit',
-        ];
+        $this->headers = static::$options['defaultHeaders'];
 
-        if (static::$insertDate) {
-            $this->headers['POT-Creation-Date'] = $this->headers['PO-Revision-Date'] = date('c');
+        foreach (static::$options['defaultDateHeaders'] as $header) {
+            $this->headers[$header] = date('c');
         }
 
         $this->headers[self::HEADER_LANGUAGE] = '';
+
         parent::__construct($input, $flags, $iterator_class);
     }
 
