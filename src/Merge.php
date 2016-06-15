@@ -3,7 +3,7 @@
 namespace Gettext;
 
 /**
- * Static class with merge contants
+ * Static class with merge contants.
  */
 class Merge
 {
@@ -33,7 +33,7 @@ class Merge
     const DEFAULTS = 5; //1 + 4
 
     /**
-     * Merge the flags of two translations
+     * Merge the flags of two translations.
      * 
      * @param Translation $from
      * @param Translation $to
@@ -53,7 +53,7 @@ class Merge
     }
 
     /**
-     * Merge the extracted comments of two translations
+     * Merge the extracted comments of two translations.
      * 
      * @param Translation $from
      * @param Translation $to
@@ -73,7 +73,7 @@ class Merge
     }
 
     /**
-     * Merge the comments of two translations
+     * Merge the comments of two translations.
      * 
      * @param Translation $from
      * @param Translation $to
@@ -93,7 +93,7 @@ class Merge
     }
 
     /**
-     * Merge the references of two translations
+     * Merge the references of two translations.
      * 
      * @param Translation $from
      * @param Translation $to
@@ -113,7 +113,7 @@ class Merge
     }
 
     /**
-     * Merge the translations of two translations
+     * Merge the translations of two translations.
      * 
      * @param Translation $from
      * @param Translation $to
@@ -137,7 +137,7 @@ class Merge
     }
 
     /**
-     * Merge the translations of two translations
+     * Merge the translations of two translations.
      * 
      * @param Translations $from
      * @param Translations $to
@@ -167,7 +167,7 @@ class Merge
     }
 
     /**
-     * Merge the headers of two translations
+     * Merge the headers of two translations.
      * 
      * @param Translations $from
      * @param Translations $to

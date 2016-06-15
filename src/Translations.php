@@ -53,7 +53,6 @@ use InvalidArgumentException;
  * @method addFromYamlDictionaryString(array $options = [])
  * @method toYamlDictionaryFile(string $filename, array $options = [])
  * @method toYamlDictionaryString(array $options = [])
- * 
  */
 class Translations extends \ArrayObject
 {
@@ -385,7 +384,7 @@ class Translations extends \ArrayObject
     /**
      * Merges this translations with other translations.
      *
-     * @param Translations $translations        The translations instance to merge with
+     * @param Translations $translations The translations instance to merge with
      * @param int          $options
      * 
      * @return self
@@ -396,5 +395,5 @@ class Translations extends \ArrayObject
         Merge::mergeTranslations($translations, $this, $options);
 
         return $this;
-    }    
+    }
 }
