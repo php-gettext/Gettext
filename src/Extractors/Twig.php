@@ -12,21 +12,20 @@ use Twig_Extensions_Extension_I18n;
  */
 class Twig extends Extractor implements ExtractorInterface
 {
-    /**
-     * Twig instance.
-     *
-     * @var Twig_Environment
-     */
-    private static $twig;
+    public static $options = [
+        'twig' => null
+    ];
 
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        $string = self::getTwig()->compileSource($string);
+        $options += static::$options;
 
-        PhpCode::fromString($string, $translations, $options);
+        $twig = $options['twig'] ?: self::createTwig();
+
+        PhpCode::fromString($twig->compileSource($string), $translations, $options);
     }
 
     /**
@@ -34,14 +33,11 @@ class Twig extends Extractor implements ExtractorInterface
      *
      * @return Twig_Environment
      */
-    private static function getTwig()
+    private static function createTwig()
     {
-        //Initialise twig
-        if (self::$twig === null) {
-            self::$twig = new Twig_Environment(new Twig_Loader_String());
-            self::$twig->addExtension(new Twig_Extensions_Extension_I18n());
-        }
+        $twig = new Twig_Environment(new Twig_Loader_String());
+        $twig->addExtension(new Twig_Extensions_Extension_I18n());
 
-        return self::$twig;
+        return static::$options['twig'] = $twig;
     }
 }
