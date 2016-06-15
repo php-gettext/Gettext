@@ -185,20 +185,21 @@ The available extractors are the following:
 
 Name | Description | Example
 ---- | ----------- | --------
-**Po**             | Gets the messages from PO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
-**Mo**             | Gets the messages from MO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Mo.mo)
-**PhpCode**        | Scans php code looking for all gettext functions (see `translator_functions.php`). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/2/Input.PhpCode.php)
-**JsCode**         | Scans javascript code looking for all gettext functions (the same than PhpCode but for javascript). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/8/Input.JsCode.js)
-**PhpArray**       | Gets the messages from a php file that returns an array. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/PhpArray.php)
-**Jed**            | Gets the messages from a json compatible with [Jed](http://slexaxton.github.com/Jed/). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Jed.json)
-**Blade**          | Scans a Blade template (For laravel users. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/4/Input.Blade.php)
-**Twig**           | To scan a Twig template. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/6/Input.Twig.php)
-**JsonDictionary** | Gets the messages from a json (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/JsonDictionary.json)
-**YamlDictionary** | Gets the messages from a yaml (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/YamlDictionary.yml)
-**CsvDictionary**  | Gets the messages from csv (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/CsvDictionary.csv)
+**Blade**          | Scans a Blade template (For laravel users). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/4/Input.Blade.php)
 **Csv**            | Gets the messages from csv. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Csv.csv)
-**Yaml**           | Gets the messages from yaml. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Yaml.yml)
+**CsvDictionary**  | Gets the messages from csv (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/CsvDictionary.csv)
+**Jed**            | Gets the messages from a json compatible with [Jed](http://slexaxton.github.com/Jed/). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Jed.json)
+**JsCode**         | Scans javascript code looking for all gettext functions (the same than PhpCode but for javascript). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/8/Input.JsCode.js)
+**Json**           | Gets the messages from json. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Json.json)
+**JsonDictionary** | Gets the messages from a json (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/JsonDictionary.json)
+**Mo**             | Gets the messages from MO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Mo.mo)
+**PhpArray**       | Gets the messages from a php file that returns an array. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/PhpArray.php)
+**PhpCode**        | Scans php code looking for all gettext functions (see `translator_functions.php`). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/2/Input.PhpCode.php)
+**Po**             | Gets the messages from PO. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
+**Twig**           | To scan a Twig template. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/6/Input.Twig.php)
 **Xliff**          | Gets the messages from [xliff (2.0)](http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Xliff.xlf)
+**Yaml**           | Gets the messages from yaml. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Yaml.yml)
+**YamlDictionary** | Gets the messages from a yaml (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/YamlDictionary.yml)
 
 ## Generators
 
@@ -231,16 +232,17 @@ The available generators are the following:
 
 Name | Description | Example
 ---- | ----------- | --------
-**Po**             | Exports to Po. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
+**Csv**            | Exports to csv. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Csv.csv)
+**CsvDictionary**  | Exports to csv (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/CsvDictionary.csv)
+**Json**           | Exports to json. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Json.json)
+**JsonDictionary** | Exports to json (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/JsonDictionary.json)
 **Mo**             | Exports to Mo. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Mo.mo)
 **PhpArray**       | Exports to php code that returns an array. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/PhpArray.php)
+**Po**             | Exports to Po. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Po.po)
 **Jed**            | Exports to json format compatible with [Jed](http://slexaxton.github.com/Jed/). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Jed.json)
-**JsonDictionary** | Exports to json (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/JsonDictionary.json)
-**YamlDictionary** | Exports to yaml (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/YamlDictionary.yml)
-**CsvDictionary**  | Exports to csv (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/CsvDictionary.csv)
-**Csv**            | Exports to csv. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Csv.csv)
-**Yaml**           | Exports to yaml. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Yaml.yml)
 **Xliff**          | Exports to [xliff (2.0)](http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Xliff.xlf)
+**Yaml**           | Exports to yaml. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/Yaml.yml)
+**YamlDictionary** | Exports to yaml (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/1/YamlDictionary.yml)
 
 ## Translator
 
@@ -389,6 +391,10 @@ Note, if the second argument is not defined, the default value is `Merge::DEFAUL
 ## Use from CLI
 
 There's a Robo task to use this library from the command line interface: https://github.com/oscarotero/GettextRobo
+
+## Use in the browser
+
+If you want to use your translations in the browser, there's a javascript translator: https://github.com/oscarotero/gettext-translator
 
 ## Contributors
 
