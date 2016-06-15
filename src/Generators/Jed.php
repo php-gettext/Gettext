@@ -7,7 +7,7 @@ use Gettext\Translations;
 class Jed extends Generator implements GeneratorInterface
 {
     public static $options = [
-        'json' => JSON_PRETTY_PRINT,
+        'json' => 0,
     ];
 
     /**

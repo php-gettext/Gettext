@@ -10,7 +10,7 @@ class JsonDictionary extends Generator implements GeneratorInterface
     use DictionaryTrait;
 
     public static $options = [
-        'json' => JSON_PRETTY_PRINT,
+        'json' => 0,
         'includeHeaders' => false,
     ];
 
