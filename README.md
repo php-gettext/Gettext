@@ -399,3 +399,11 @@ If you want to use your translations in the browser, there's a javascript transl
 ## Contributors
 
 Thanks to all [contributors](https://github.com/oscarotero/Gettext/graphs/contributors) specially to [@mlocati](https://github.com/mlocati).
+
+## Donations
+
+If this library is useful for you, consider to donate to the author.
+
+[Buy me a beer :beer:](https://www.paypal.me/oscarotero)
+
+Thanks in advance!
