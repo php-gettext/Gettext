@@ -16,7 +16,8 @@ class Blade extends Extractor implements ExtractorInterface
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        $bladeCompiler = new BladeCompiler(new Filesystem(), null);
+        $cachePath = empty($options['cachePath']) ? sys_get_temp_dir() : $options['cachePath'];
+        $bladeCompiler = new BladeCompiler(new Filesystem(), $cachePath);
         $string = $bladeCompiler->compileString($string);
 
         PhpCode::fromString($string, $translations, $options);
