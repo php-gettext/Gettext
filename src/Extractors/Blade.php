@@ -11,12 +11,15 @@ use Illuminate\View\Compilers\BladeCompiler;
  */
 class Blade extends Extractor implements ExtractorInterface
 {
+    public static $cachePath;
+
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations = null, $file = '')
     {
-        $bladeCompiler = new BladeCompiler(new Filesystem(), null);
+        $cachePath = empty(static::$cachePath) ? sys_get_temp_dir() : static::$cachePath;
+        $bladeCompiler = new BladeCompiler(new Filesystem(), $cachePath);
         $string = $bladeCompiler->compileString($string);
 
         return PhpCode::fromString($string, $translations, $file);
