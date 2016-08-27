@@ -24,7 +24,7 @@ trait MultidimensionalArrayTrait
     private static function toArray(Translations $translations, $includeHeaders, $forceArray = false)
     {
         $pluralForm = $translations->getPluralForms();
-        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
+        $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $messages = [];
 
         if ($includeHeaders) {
@@ -42,7 +42,7 @@ trait MultidimensionalArrayTrait
             }
 
             if ($translation->hasPluralTranslations(true)) {
-                $messages[$context][$original] = $translation->getPluralTranslations($pluralLimit);
+                $messages[$context][$original] = $translation->getPluralTranslations($pluralSize);
                 array_unshift($messages[$context][$original], $translation->getTranslation());
             } elseif ($forceArray) {
                 $messages[$context][$original] = [$translation->getTranslation()];

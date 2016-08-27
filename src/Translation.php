@@ -196,24 +196,24 @@ class Translation
     /**
      * Gets all plural translations.
      * 
-     * @param int $limit
+     * @param int $size
      *
      * @return array
      */
-    public function getPluralTranslations($limit = null)
+    public function getPluralTranslations($size = null)
     {
-        if ($limit === null) {
+        if ($size === null) {
             return $this->pluralTranslation;
         }
 
         $current = count($this->pluralTranslation);
 
-        if ($limit > $current) {
-            return $this->pluralTranslation + array_fill(0, $limit, '');
+        if ($size > $current) {
+            return $this->pluralTranslation + array_fill(0, $size, '');
         }
 
-        if ($limit < $current) {
-            return array_slice($this->pluralTranslation, 0, $limit);
+        if ($size < $current) {
+            return array_slice($this->pluralTranslation, 0, $size);
         }
 
         return $this->pluralTranslation;

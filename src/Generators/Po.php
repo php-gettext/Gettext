@@ -11,6 +11,8 @@ class Po extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations, array $options = [])
     {
+        $pluralForm = $translations->getPluralForms();
+        $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $lines = ['msgid ""', 'msgstr ""'];
 
         foreach ($translations->getHeaders() as $name => $value) {
@@ -53,7 +55,7 @@ class Po extends Generator implements GeneratorInterface
                 self::addLines($lines, 'msgid_plural', $translation->getPlural());
                 self::addLines($lines, 'msgstr[0]', $translation->getTranslation());
 
-                foreach ($translation->getPluralTranslations() as $k => $v) {
+                foreach ($translation->getPluralTranslations($pluralSize) as $k => $v) {
                     self::addLines($lines, 'msgstr['.($k + 1).']', $v);
                 }
             } else {

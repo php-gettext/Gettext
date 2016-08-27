@@ -21,6 +21,7 @@ msgid "one"
 msgid_plural "more"
 msgstr[0] "1"
 msgstr[1] "*"
+msgstr[2] ""
 
 msgid "single"
 msgstr "test"

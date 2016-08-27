@@ -46,7 +46,7 @@ class Mo extends Generator implements GeneratorInterface
         $originalsIndex = [];
         $translationsIndex = [];
         $pluralForm = $translations->getPluralForms();
-        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
+        $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
 
         foreach ($messages as $originalString => $translation) {
             if (is_string($translation)) {
@@ -57,7 +57,7 @@ class Mo extends Generator implements GeneratorInterface
                 if ($translation->hasPlural() && $translation->hasPluralTranslations(true)) {
                     $originalString .= "\x00".$translation->getPlural();
                     $translationString = $translation->getTranslation();
-                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslations($pluralLimit));
+                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslations($pluralSize));
                 } else {
                     $translationString = $translation->getTranslation();
                 }

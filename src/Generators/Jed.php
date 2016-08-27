@@ -39,7 +39,7 @@ class Jed extends Generator implements GeneratorInterface
     private static function buildMessages(Translations $translations)
     {
         $pluralForm = $translations->getPluralForms();
-        $pluralLimit = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
+        $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
         $messages = [];
         $context_glue = '\u0004';
 
@@ -47,7 +47,7 @@ class Jed extends Generator implements GeneratorInterface
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
 
             if ($translation->hasPluralTranslations(true)) {
-                $message = $translation->getPluralTranslations($pluralLimit);
+                $message = $translation->getPluralTranslations($pluralSize);
                 array_unshift($message, $translation->getTranslation());
             } else {
                 $message = [$translation->getTranslation()];
