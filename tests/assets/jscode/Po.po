@@ -9,30 +9,30 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 
-#: ./tests/assets/8/Input.JsCode.js:2
+#: ./tests/assets/jscode/input.js:2
 msgid "Value with simple quotes"
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:3
+#: ./tests/assets/jscode/input.js:3
 msgid "Value with double quotes"
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:4
+#: ./tests/assets/jscode/input.js:4
 msgid "Other value with double quotes"
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:6
+#: ./tests/assets/jscode/input.js:6
 msgid "function inside function"
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:11
+#: ./tests/assets/jscode/input.js:11
 msgid "I can't get response."
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:12
+#: ./tests/assets/jscode/input.js:12
 msgid "Please, try with other interface type."
 msgstr ""
 
-#: ./tests/assets/8/Input.JsCode.js:15
+#: ./tests/assets/jscode/input.js:15
 msgid "I can't get response. Please, try with other interface type."
 msgstr ""

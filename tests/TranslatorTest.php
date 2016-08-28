@@ -11,8 +11,8 @@ class TranslatorTest extends AbstractTest
     {
         $t = new Translator();
 
-        $t->loadTranslations(Translations::fromPoFile(static::asset('1/Po.po')));
-        $t->loadTranslations(Translations::fromPoFile(static::asset('3/Po.po')));
+        $t->loadTranslations(static::get('po/Po'));
+        $t->loadTranslations(static::get('po2/Po'));
 
         $this->assertEquals('test', $t->gettext('single'));
         $this->assertEquals('test', $t->dgettext('', 'single'));
@@ -28,7 +28,7 @@ class TranslatorTest extends AbstractTest
     public function testFunctions()
     {
         $t = new Translator();
-        $t->loadTranslations(Translations::fromPoFile(static::asset('3/Po.po')));
+        $t->loadTranslations(static::get('po2/Po'));
 
         $t->register();
 
@@ -41,7 +41,7 @@ class TranslatorTest extends AbstractTest
     public function testPlural()
     {
         $t = new Translator();
-        $t->loadTranslations(Translations::fromPoFile(static::asset('1/Po.po')));
+        $t->loadTranslations(static::get('po/Po'));
 
         // Test that nplural=3 plural translation check comes up with the correct translation key.
         $this->assertEquals('1 plik',      $t->ngettext('one file', 'multiple files', 1));
@@ -72,9 +72,9 @@ class TranslatorTest extends AbstractTest
 
     public function testHeaders()
     {
-        $po = (new Translator())->loadTranslations(Translations::fromPoFile(static::asset('1/Po.po')));
-        $mo = (new Translator())->loadTranslations(Translations::fromMoFile(static::asset('1/Mo.mo')));
-        $array = (new Translator())->loadTranslations(Translations::fromPhpArrayFile(static::asset('1/PhpArray.php')));
+        $po = (new Translator())->loadTranslations(static::get('po/Po'));
+        $mo = (new Translator())->loadTranslations(static::get('po/Mo'));
+        $array = (new Translator())->loadTranslations(static::get('po/PhpArray'));
 
         $this->assertNotEmpty($po->gettext(''));
         $this->assertEquals($po->gettext(''), $mo->gettext(''));

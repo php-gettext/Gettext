@@ -14,7 +14,7 @@
     <unit id="6c69ee7f211c640419d5366cc076ae46">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:2</note>
+        <note category="reference">./tests/assets/phpcode/input.php:2</note>
       </notes>
       <segment>
         <source>text 1</source>
@@ -24,7 +24,7 @@
     <unit id="00ebab1d2b406caeed222aaf6343f0b3">
       <notes>
         <note category="context">context</note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:7</note>
+        <note category="reference">./tests/assets/phpcode/input.php:7</note>
       </notes>
       <segment>
         <source>text 1 with context</source>
@@ -34,7 +34,7 @@
     <unit id="bb3438fbabd460ea6dbd27d153e2233b">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:8</note>
+        <note category="reference">./tests/assets/phpcode/input.php:8</note>
       </notes>
       <segment>
         <source>text 2</source>
@@ -44,7 +44,7 @@
     <unit id="9da0d4dc2681bf32793a3fd1b8610cb6">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:9</note>
+        <note category="reference">./tests/assets/phpcode/input.php:9</note>
       </notes>
       <segment>
         <source>text 3 (with parenthesis)</source>
@@ -54,7 +54,7 @@
     <unit id="e7a56b0f57aa5adc31713088d33ec0d2">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:10</note>
+        <note category="reference">./tests/assets/phpcode/input.php:10</note>
       </notes>
       <segment>
         <source>text 4 "with double quotes"</source>
@@ -64,7 +64,7 @@
     <unit id="615cfcfa32b34e8057fcbd1651247439">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:11</note>
+        <note category="reference">./tests/assets/phpcode/input.php:11</note>
       </notes>
       <segment>
         <source>text 5 'with escaped single quotes'</source>
@@ -74,7 +74,7 @@
     <unit id="3e220f99f0eed5cc73ab9c599cecc219">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:15</note>
+        <note category="reference">./tests/assets/phpcode/input.php:15</note>
       </notes>
       <segment>
         <source>text 6</source>
@@ -84,7 +84,7 @@
     <unit id="61aa602f3e368d98288056b1d693c431">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:16</note>
+        <note category="reference">./tests/assets/phpcode/input.php:16</note>
       </notes>
       <segment>
         <source>text 7 (with parenthesis)</source>
@@ -94,7 +94,7 @@
     <unit id="477f9325bba9979e86c2db696323e2ba">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:17</note>
+        <note category="reference">./tests/assets/phpcode/input.php:17</note>
       </notes>
       <segment>
         <source>text 8 "with escaped double quotes"</source>
@@ -104,7 +104,7 @@
     <unit id="f9890d4b371274cf0d5917759b6ff419">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:18</note>
+        <note category="reference">./tests/assets/phpcode/input.php:18</note>
       </notes>
       <segment>
         <source>text 9 'with single quotes'</source>
@@ -114,7 +114,7 @@
     <unit id="d122051296e7f3bf7408762c11f3a026">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:19</note>
+        <note category="reference">./tests/assets/phpcode/input.php:19</note>
       </notes>
       <segment>
         <source>text 10 with plural</source>
@@ -124,7 +124,7 @@
     <unit id="77068fef317cd0b0cb032d05bbd04f18">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/2/Input.PhpCode.php:22</note>
+        <note category="reference">./tests/assets/phpcode/input.php:22</note>
       </notes>
       <segment>
         <source><![CDATA[<div id="blog" class="container">

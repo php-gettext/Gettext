@@ -14,7 +14,7 @@
     <unit id="b2bd8daa1a8175bcce69ebeba31c733a">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:2</note>
+        <note category="reference">./tests/assets/jscode/input.js:2</note>
       </notes>
       <segment>
         <source>Value with simple quotes</source>
@@ -24,7 +24,7 @@
     <unit id="d6d74d415cc506bae2a6e1e0cb2f0f17">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:3</note>
+        <note category="reference">./tests/assets/jscode/input.js:3</note>
       </notes>
       <segment>
         <source>Value with double quotes</source>
@@ -34,7 +34,7 @@
     <unit id="4a01bd6288d9a483a9540791bfe397b8">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:4</note>
+        <note category="reference">./tests/assets/jscode/input.js:4</note>
       </notes>
       <segment>
         <source>Other value with double quotes</source>
@@ -44,7 +44,7 @@
     <unit id="7745a8c2977c4d5baed488b12d7b4bc4">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:6</note>
+        <note category="reference">./tests/assets/jscode/input.js:6</note>
       </notes>
       <segment>
         <source>function inside function</source>
@@ -54,7 +54,7 @@
     <unit id="a4985cd254da01d3c965902b7583ff79">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:11</note>
+        <note category="reference">./tests/assets/jscode/input.js:11</note>
       </notes>
       <segment>
         <source>I can't get response.</source>
@@ -64,7 +64,7 @@
     <unit id="66095d380937b68940ddfc33a376d579">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:12</note>
+        <note category="reference">./tests/assets/jscode/input.js:12</note>
       </notes>
       <segment>
         <source>Please, try with other interface type.</source>
@@ -74,7 +74,7 @@
     <unit id="9454f0f070692e154274c4e537f5aa7e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/8/Input.JsCode.js:15</note>
+        <note category="reference">./tests/assets/jscode/input.js:15</note>
       </notes>
       <segment>
         <source>I can't get response. Please, try with other interface type.</source>

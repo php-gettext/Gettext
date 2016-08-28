@@ -7,8 +7,7 @@ use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
-    protected static $directory = '1';
-    protected static $files = [
+    protected static $ext = [
         'Blade' => 'php',
         'Csv' => 'csv',
         'CsvDictionary' => 'csv',
@@ -31,41 +30,51 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         return './tests/assets/'.$file;
     }
 
-    protected static function file($format, $prefix = '')
+    protected static function get($file, $format = null)
     {
-        return static::asset(static::$directory.'/'.$prefix.$format.'.'.static::$files[$format]);
+        if ($format === null) {
+            $format = basename($file);
+        }
+
+        $method = "from{$format}File";
+        $file = static::asset($file.'.'.static::$ext[$format]);
+
+        return Translations::$method($file);
     }
 
-    protected static function getInput($format)
+    protected function assertContent(Translations $translations, $file, $format = null)
     {
+        if ($format === null) {
+            $format = basename($file);
+        }
+
+        $method = "to{$format}String";
+        $content = file_get_contents(static::asset($file.'.'.static::$ext[$format]));
+
+        $this->assertSame($content, $translations->$method());
+    }
+
+    protected static function saveContent(Translations $translations, $file, $format = null)
+    {
+        if ($format === null) {
+            $format = basename($file);
+        }
+
+        $method = "to{$format}String";
+        $file = static::asset($file.'.'.static::$ext[$format]);
+
+        file_put_contents($file, $translations->$method());
+    }
+
+    protected function runTestFormat($file, $countTranslations, $countHeaders = 8)
+    {
+        $format = basename($file);
         $method = "from{$format}File";
 
-        return Translations::$method(static::file($format, 'Input.'));
-    }
+        $translations = Translations::$method(static::asset($file.'.'.static::$ext[$format]));
 
-    protected static function get($format, $prefix = '')
-    {
-        $method = "from{$format}File";
-
-        return Translations::$method(static::file($format, $prefix));
-    }
-
-    protected static function content($format)
-    {
-        return file_get_contents(static::file($format));
-    }
-
-    protected static function save(Translations $translations, $format)
-    {
-        $method = "to{$format}String";
-
-        file_put_contents(static::file($format), $translations->$method());
-    }
-
-    protected function assertContent(Translations $translations, $format)
-    {
-        $method = "to{$format}String";
-
-        $this->assertSame(static::content($format), $translations->$method());
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders(), json_encode($translations->getHeaders(), JSON_PRETTY_PRINT));
+        $this->assertContent($translations, $file);
     }
 }

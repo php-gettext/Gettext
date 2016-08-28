@@ -28,7 +28,7 @@ class TranslationsTest extends AbstractTest
 
     public function testFind()
     {
-        $translations = Translations::fromPhpCodeFile(static::asset('2/Input.PhpCode.php'));
+        $translations = static::get('phpcode/input', 'PhpCode');
 
         //Find by original
         $found = $translations->find(null, 'text 2');
@@ -59,7 +59,7 @@ class TranslationsTest extends AbstractTest
 
     public function testGettersSetters()
     {
-        $translations = Translations::fromPoFile(static::asset('3/Input.Po.po'));
+        $translations = static::get('po2/input', 'Po');
 
         $this->assertEquals('gettext generator test', $translations->getHeader('Project-Id-Version'));
 
@@ -69,22 +69,22 @@ class TranslationsTest extends AbstractTest
 
     public function testMergeDefault()
     {
-        $translations1 = Translations::fromPoFile(static::asset('1/Po.po'));
-        $translations2 = Translations::fromPoFile(static::asset('2/Po.po'));
+        $translations1 = static::get('po/Po');
+        $translations2 = static::get('phpcode/Po');
 
-        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS, $translations1);
-        $this->assertCount(Asset2Test::COUNT_TRANSLATIONS, $translations2);
+        $this->assertCount(3, $translations1);
+        $this->assertCount(12, $translations2);
 
         $translations1->mergeWith($translations2);
 
-        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS + Asset2Test::COUNT_TRANSLATIONS, $translations1);
+        $this->assertCount(15, $translations1);
     }
 
     public function testAdd()
     {
-        $translations = Translations::fromPoFile(static::asset('1/Po.po'));
-        $translations->addFromPoFile(static::asset('2/Po.po'));
+        $translations = static::get('po/Po');
+        $translations->addFromPoFile(static::asset('phpcode/Po.po'));
 
-        $this->assertCount(Asset1Test::COUNT_TRANSLATIONS + Asset2Test::COUNT_TRANSLATIONS, $translations);
+        $this->assertCount(15, $translations);
     }
 }

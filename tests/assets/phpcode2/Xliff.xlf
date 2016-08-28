@@ -14,7 +14,7 @@
     <unit id="ac7938d40cfc2307e2bf325d28e7884e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:2</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:2</note>
       </notes>
       <segment>
         <source>plain</source>
@@ -24,9 +24,9 @@
     <unit id="253d8985229130d432750bac7a9da0f2">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:3</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:4</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:5</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:3</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:4</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:5</note>
       </notes>
       <segment>
         <source>DATE \a\t TIME</source>
@@ -36,7 +36,7 @@
     <unit id="d3502b37925b421bd38a1757b4ee98ac">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:6</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:6</note>
       </notes>
       <segment>
         <source>FIELD	FIELD</source>
@@ -47,7 +47,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">test</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:7</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:7</note>
       </notes>
       <segment>
         <source>text concatenated with 'comments'</source>
@@ -57,7 +57,7 @@
     <unit id="c219ec7070f0b5a15b2f0096eda97702">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:14</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:14</note>
       </notes>
       <segment>
         <source>Stop at the variable</source>
@@ -67,7 +67,7 @@
     <unit id="962491a09ce43604118343d78d4fdb2a">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:19</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:19</note>
       </notes>
       <segment>
         <source>No comments</source>
@@ -78,7 +78,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">All comments</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:22</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:22</note>
       </notes>
       <segment>
         <source>All comments</source>
@@ -89,7 +89,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">i18n Tagged comment</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:26</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:26</note>
       </notes>
       <segment>
         <source>i18n Tagged comment</source>
@@ -100,7 +100,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">i18n Tagged comment inside</note>
-        <note category="reference">./tests/assets/9/Input.PhpCode.php:28</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:28</note>
       </notes>
       <segment>
         <source>i18n Tagged comment inside</source>

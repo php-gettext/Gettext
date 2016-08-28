@@ -8,7 +8,7 @@ class LocalesTest extends AbstractTest
 {
     public function testPlurals()
     {
-        $translations = Translations::fromPoFile(static::asset('1/Po.po'));
+        $translations = static::get('po/Po');
 
         $this->assertInstanceOf('Gettext\\Translations', $translations);
         $this->assertEquals('nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);', $translations->getHeader('Plural-Forms'));
