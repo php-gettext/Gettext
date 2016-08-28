@@ -130,6 +130,7 @@ class JsFunctionsScanner extends FunctionsScanner
                                 $functions[] = array_shift($bufferFunctions);
                             }
 
+                            $this->upStatus();
                             $buffer = '';
                             continue 3;
                     }
@@ -168,8 +169,6 @@ class JsFunctionsScanner extends FunctionsScanner
                     break;
             }
         }
-
-        var_dump($functions);
 
         return $functions;
     }
