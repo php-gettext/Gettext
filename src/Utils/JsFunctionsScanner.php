@@ -144,6 +144,18 @@ class JsFunctionsScanner extends FunctionsScanner
                             $buffer = '';
                             continue 3;
                     }
+
+                case ' ':
+                case '\t':
+                    switch ($this->status()) {
+                        case 'double-quote':
+                        case 'simple-quote':
+                            break;
+
+                        default:
+                            continue 3;
+                    }
+                    break;
             }
 
             switch ($this->status()) {

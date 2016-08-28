@@ -208,6 +208,40 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('jscode/YamlDictionary', $countTranslations);
     }
 
+    public function testJs2Code()
+    {
+        $translations = static::get('jscode2/input', 'JsCode');
+        $countTranslations = 3;
+        $countHeaders = 8;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+
+        $this->assertContent($translations, 'jscode2/Po');
+        $this->assertContent($translations, 'jscode2/Mo');
+        $this->assertContent($translations, 'jscode2/PhpArray');
+        $this->assertContent($translations, 'jscode2/Jed');
+        $this->assertContent($translations, 'jscode2/Json');
+        $this->assertContent($translations, 'jscode2/JsonDictionary');
+        $this->assertContent($translations, 'jscode2/Csv');
+        $this->assertContent($translations, 'jscode2/CsvDictionary');
+        $this->assertContent($translations, 'jscode2/Xliff');
+        $this->assertContent($translations, 'jscode2/Yaml');
+        $this->assertContent($translations, 'jscode2/YamlDictionary');
+
+        $this->runTestFormat('jscode2/Po', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/Mo', 0, $countHeaders);
+        $this->runTestFormat('jscode2/PhpArray', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/Jed', $countTranslations, 10);
+        $this->runTestFormat('jscode2/Xliff', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/Json', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/JsonDictionary', $countTranslations);
+        $this->runTestFormat('jscode2/Csv', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/CsvDictionary', $countTranslations);
+        $this->runTestFormat('jscode2/Yaml', $countTranslations, $countHeaders);
+        $this->runTestFormat('jscode2/YamlDictionary', $countTranslations);
+    }
+
     public function testPhpCode()
     {
         $translations = static::get('phpcode/input', 'PhpCode');
