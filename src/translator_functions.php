@@ -23,6 +23,18 @@ function __($original)
 }
 
 /**
+ * Noop, marks the string for translation but returns it unchanged.
+ *
+ * @param string $original
+ *
+ * @return string
+ */
+function N__($original)
+{
+    return $original;
+}
+
+/**
  * Returns the singular/plural translation of a string.
  *
  * @param string $original
@@ -154,3 +166,4 @@ function dnp__($domain, $context, $original, $plural, $value)
 
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
+
