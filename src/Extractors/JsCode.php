@@ -26,6 +26,7 @@ class JsCode extends Extractor implements ExtractorInterface
             'np__' => 'npgettext',
             'dnpgettext' => 'dnpgettext',
             'dnp__' => 'dnpgettext',
+            'gettext_noop' => 'noop',
         ],
     ];
 
