@@ -11,7 +11,7 @@ class TranslatorTest extends AbstractTest
     {
         $t = new Translator();
         $original = 'original string';
-        $this->assertEquals($original, $t->gettext_noop($original));
+        $this->assertEquals($original, $t->noop($original));
     }
 
     public function testOne()

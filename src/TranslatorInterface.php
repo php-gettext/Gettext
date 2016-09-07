@@ -22,7 +22,7 @@ interface TranslatorInterface
      *
      * @return string
      */
-    public function gettext_noop($original);
+    public function noop($original);
 
     /**
      * Gets a translation using the original string.

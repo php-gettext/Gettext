@@ -29,7 +29,7 @@ function __($original)
  *
  * @return string
  */
-function noop($original)
+function noop__($original)
 {
     return $original;
 }

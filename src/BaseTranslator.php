@@ -10,7 +10,7 @@ abstract class BaseTranslator implements TranslatorInterface
     /**
      * @see TranslatorInterface
      */
-    public function gettext_noop($original)
+    public function noop($original)
     {
         return $original;
     }
