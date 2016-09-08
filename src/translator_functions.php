@@ -166,4 +166,3 @@ function dnp__($domain, $context, $original, $plural, $value)
 
     return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
 }
-
