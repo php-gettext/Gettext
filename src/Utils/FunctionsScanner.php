@@ -35,6 +35,7 @@ abstract class FunctionsScanner
             $domain = $context = $original = $plural = null;
 
             switch ($functions[$name]) {
+                case 'noop':
                 case 'gettext':
                     if (!isset($args[0])) {
                         continue 2;
