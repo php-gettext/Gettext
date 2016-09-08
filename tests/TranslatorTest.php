@@ -7,6 +7,13 @@ use Gettext\Translator;
 
 class TranslatorTest extends AbstractTest
 {
+    public function testNoop()
+    {
+        $t = new Translator();
+        $original = 'original string';
+        $this->assertEquals($original, $t->noop($original));
+    }
+
     public function testOne()
     {
         $t = new Translator();

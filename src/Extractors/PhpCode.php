@@ -31,6 +31,8 @@ class PhpCode extends Extractor implements ExtractorInterface
             'np__' => 'npgettext',
             'dnpgettext' => 'dnpgettext',
             'dnp__' => 'dnpgettext',
+            'noop' => 'noop',
+            'noop__' => 'noop',
         ],
     ];
 

@@ -10,10 +10,19 @@ interface TranslatorInterface
     /**
      * Register this translator as global, to use with the gettext functions __(), p__(), etc.
      * Returns the previous translator if exists.
-     * 
+     *
      * @return TranslatorInterface|null
      */
     public function register();
+
+    /**
+     * Noop, marks the string for translation but returns it unchanged.
+     *
+     * @param string $original
+     *
+     * @return string
+     */
+    public function noop($original);
 
     /**
      * Gets a translation using the original string.

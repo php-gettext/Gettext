@@ -10,6 +10,14 @@ abstract class BaseTranslator implements TranslatorInterface
     /**
      * @see TranslatorInterface
      */
+    public function noop($original)
+    {
+        return $original;
+    }
+
+    /**
+     * @see TranslatorInterface
+     */
     public function register()
     {
         $previous = self::$current;
