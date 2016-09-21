@@ -19,7 +19,7 @@
 __('No comments');
 
 /* All comments */
-__('All comments');
+p__(CONTEXT, 'All comments');
 
 /* i18n Tagged comment */
 

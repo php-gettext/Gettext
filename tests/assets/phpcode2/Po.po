@@ -38,6 +38,7 @@ msgstr ""
 
 #. All comments
 #: ./tests/assets/phpcode2/input.php:22
+msgctxt "my-context"
 msgid "All comments"
 msgstr ""
 

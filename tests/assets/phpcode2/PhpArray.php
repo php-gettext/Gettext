@@ -41,15 +41,18 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
-      'All comments' => 
-      array (
-        0 => '',
-      ),
       'i18n Tagged comment' => 
       array (
         0 => '',
       ),
       'i18n Tagged comment inside' => 
+      array (
+        0 => '',
+      ),
+    ),
+    'my-context' => 
+    array (
+      'All comments' => 
       array (
         0 => '',
       ),

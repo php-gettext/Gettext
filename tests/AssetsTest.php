@@ -278,7 +278,11 @@ class AssetsTest extends AbstractTest
 
     public function testPhpCode2()
     {
-        $translations = static::get('phpcode2/input', 'PhpCode');
+        $translations = static::get('phpcode2/input', 'PhpCode', [
+            'constants' => [
+                'CONTEXT' => 'my-context'
+            ]
+        ]);
         $countTranslations = 9;
         $countHeaders = 8;
 

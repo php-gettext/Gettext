@@ -30,7 +30,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         return './tests/assets/'.$file;
     }
 
-    protected static function get($file, $format = null)
+    protected static function get($file, $format = null, array $options = [])
     {
         if ($format === null) {
             $format = basename($file);
@@ -39,7 +39,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $method = "from{$format}File";
         $file = static::asset($file.'.'.static::$ext[$format]);
 
-        return Translations::$method($file);
+        return Translations::$method($file, $options);
     }
 
     protected function assertContent(Translations $translations, $file, $format = null)
@@ -51,7 +51,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $method = "to{$format}String";
         $content = file_get_contents(static::asset($file.'.'.static::$ext[$format]));
 
-        $this->assertSame($content, $translations->$method());
+        $this->assertSame($content, $translations->$method(), $file);
     }
 
     protected static function saveContent(Translations $translations, $file, $format = null)

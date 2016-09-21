@@ -20,7 +20,7 @@ class JsFunctionsScanner extends FunctionsScanner
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(array $constants = [])
     {
         $length = strlen($this->code);
         $line = 1;

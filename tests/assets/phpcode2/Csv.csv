@@ -13,6 +13,6 @@ Report-Msgid-Bugs-To:
 ,"text concatenated with 'comments'",
 ,"Stop at the variable",
 ,"No comments",
-,"All comments",
+my-context,"All comments",
 ,"i18n Tagged comment",
 ,"i18n Tagged comment inside",

@@ -10,9 +10,11 @@ abstract class FunctionsScanner
     /**
      * Scan and returns the functions and the arguments.
      *
+     * @param array $constants Constants used in the code to replace
+     *
      * @return array
      */
-    abstract public function getFunctions();
+    abstract public function getFunctions(array $constants = []);
 
     /**
      * Search for specific functions and create translations.
@@ -25,7 +27,7 @@ abstract class FunctionsScanner
         $functions = $options['functions'];
         $file = $options['file'];
 
-        foreach ($this->getFunctions() as $function) {
+        foreach ($this->getFunctions($options['constants']) as $function) {
             list($name, $line, $args) = $function;
 
             if (!isset($functions[$name])) {

@@ -58,7 +58,7 @@ class PhpFunctionsScanner extends FunctionsScanner
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(array $constants = [])
     {
         $count = count($this->tokens);
         $bufferFunctions = [];
@@ -95,8 +95,13 @@ class PhpFunctionsScanner extends FunctionsScanner
                         $bufferFunctions[0]->addArgumentChunk(PhpCode::convertString($value[1]));
                     }
                     break;
+
                 case T_STRING:
                     if (isset($bufferFunctions[0])) {
+                        if (isset($constants[$value[1]])) {
+                            $bufferFunctions[0]->addArgumentChunk($constants[$value[1]]);
+                            break;
+                        }
                         $bufferFunctions[0]->stopArgument();
                     }
                     //new function found
@@ -119,6 +124,7 @@ class PhpFunctionsScanner extends FunctionsScanner
                         break;
                     }
                     break;
+
                 case T_COMMENT:
                     if (isset($bufferFunctions[0])) {
                         $comment = $this->parsePhpComment($value[1]);
@@ -127,6 +133,7 @@ class PhpFunctionsScanner extends FunctionsScanner
                         }
                     }
                     break;
+
                 default:
                     if (isset($bufferFunctions[0])) {
                         $bufferFunctions[0]->stopArgument();

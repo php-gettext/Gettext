@@ -74,9 +74,9 @@
         <target></target>
       </segment>
     </unit>
-    <unit id="820ce35c4b7acc9fcff07fb3f96544c7">
+    <unit id="c5b5031f0e780a4445cf20c1936a6d0f">
       <notes>
-        <note category="context"></note>
+        <note category="context">my-context</note>
         <note category="extracted-comment">All comments</note>
         <note category="reference">./tests/assets/phpcode2/input.php:22</note>
       </notes>
