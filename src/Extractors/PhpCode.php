@@ -39,8 +39,9 @@ class PhpCode extends Extractor implements ExtractorInterface
      * - false to not extract comments
      * - empty string to extract all comments
      * - non-empty string to extract comments that start with that string.
+     * - array with strings to extract comments format.
      *
-     * @var string|false
+     * @var string|false|array
      */
     public static $extractComments = false;
 
