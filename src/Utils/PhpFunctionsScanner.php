@@ -23,11 +23,11 @@ class PhpFunctionsScanner extends FunctionsScanner
     /**
      * Enable extracting comments that start with a tag (if $tag is empty all the comments will be extracted).
      *
-     * @param string $tag
+     * @param mixed $tag
      */
     public function enableCommentsExtraction($tag = '')
     {
-        $this->extractComments = (string) $tag;
+        $this->extractComments = $tag;
     }
 
     /**
