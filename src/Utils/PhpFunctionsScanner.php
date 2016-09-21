@@ -150,21 +150,18 @@ class PhpFunctionsScanner extends FunctionsScanner
                 $value = substr($value, 2, -2);
             }
             $value = trim($value);
-            if (
-                $value !== '' 
-                && (
-                    $this->extractComments === '' 
-                    || (
-                        !is_array($this->extractComments) 
-                        && strpos($value, $this->extractComments) === 0
-                    )
-                    || (
-                        is_array($this->extractComments) 
-                        && in_array($value, $this->extractComments)
-                    )
-                )
-            ) {
-                $result = $value;
+            if ($value !== '') {
+                if ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
+                    $result = $value;
+                }
+                elseif (is_array($this->extractComments)) {
+                    foreach ($this->extractComments as $string) {
+                        if (strpos($value, $string) === 0) {
+                            $result = $value;
+                            break;
+                        }
+                    }        
+                }
             }
         }
         return $result;
