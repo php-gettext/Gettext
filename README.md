@@ -396,6 +396,21 @@ There's a Robo task to use this library from the command line interface: https:/
 
 If you want to use your translations in the browser, there's a javascript translator: https://github.com/oscarotero/gettext-translator
 
+## Third party packages
+
+Twig integration:
+
+* [jaimeperez/twig-configurable-i18n](https://packagist.org/packages/jaimeperez/twig-configurable-i18n)
+* [cemerson/translator-twig-extension](https://packagist.org/packages/cemerson/translator-twig-extension)
+
+Framework integration:
+
+* [Laravel 5](https://packagist.org/packages/eusonlito/laravel-gettext)
+* [CakePHP 3](https://packagist.org/packages/k1low/po)
+* [Symfony 2](https://packagist.org/packages/mablae/gettext-bundle)
+
+[add your package](https://github.com/oscarotero/Gettext/issues/new)
+
 ## Contributors
 
 Thanks to all [contributors](https://github.com/oscarotero/Gettext/graphs/contributors) specially to [@mlocati](https://github.com/mlocati).
