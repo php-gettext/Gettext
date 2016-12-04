@@ -81,8 +81,6 @@ echo $t->gettext('apple'); // "Mazá"
 $t->register();
 
 echo __('apple'); // "Mazá"
-
-__e('apple'); // "Mazá"
 ```
 
 To use this translations with the gettext extension:
@@ -301,8 +299,6 @@ To ease the use of translations in your php templates, you can use the provided 
 $t->register();
 
 echo __('apple'); // it's the same than $t->gettext('apple');
-
-__e('apple'); // it's the same than echo $t->gettext('apple');
 ```
 
 You can scan the php files containing these functions and extract the values with the PhpCode extractor:
@@ -311,7 +307,7 @@ You can scan the php files containing these functions and extract the values wit
 <!-- index.php -->
 <html>
 	<body>
-		<?php echo __('Hello world'); ?>
+		<?= __('Hello world'); ?>
 	</body>
 </html>
 ```
