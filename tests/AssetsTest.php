@@ -12,6 +12,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(3, $translations->countTranslated());
 
         $this->assertContent($translations, 'po/Po');
         $this->assertContent($translations, 'po/Mo');
@@ -46,6 +47,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(10, $translations->countTranslated());
 
         $this->assertContent($translations, 'po2/Po');
         $this->assertContent($translations, 'po2/Mo');
@@ -80,6 +82,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(8, $translations->countTranslated());
 
         $this->assertContent($translations, 'po3/Po');
         $this->assertContent($translations, 'po3/Mo');
@@ -114,6 +117,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'blade/Po');
         $this->assertContent($translations, 'blade/Mo');
@@ -148,6 +152,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(10, $translations->countTranslated());
 
         $this->assertContent($translations, 'jed/Po');
         $this->assertContent($translations, 'jed/Mo');
@@ -182,6 +187,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'jscode/Po');
         $this->assertContent($translations, 'jscode/Mo');
@@ -216,6 +222,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'jscode2/Po');
         $this->assertContent($translations, 'jscode2/Mo');
@@ -250,6 +257,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'phpcode/Po');
         $this->assertContent($translations, 'phpcode/Mo');
@@ -288,6 +296,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'phpcode2/Po');
         $this->assertContent($translations, 'phpcode2/Mo');
@@ -322,6 +331,7 @@ class AssetsTest extends AbstractTest
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
 
         $this->assertContent($translations, 'twig/Po');
         $this->assertContent($translations, 'twig/Mo');
