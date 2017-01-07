@@ -423,7 +423,7 @@ class Translations extends ArrayObject
      */
     public function countTranslated()
     {
-        $callback = function($v)
+        $callback = function(Translation $v)
         {
             return ($v->hasTranslation()) ? $v->getTranslation() : null;
         };
