@@ -417,6 +417,21 @@ class Translations extends ArrayObject
     }
 
     /**
+     * Count all elements translated
+     * 
+     * @return integer
+     */
+    public function countTranslated()
+    {
+        $callback = function(Translation $v)
+        {
+            return ($v->hasTranslation()) ? $v->getTranslation() : null;
+        };
+
+        return count(array_filter(get_object_vars($this), $callback));
+    }
+
+    /**
      * Creates and insert/merges a new translation.
      *
      * @param string $context  The translation context
