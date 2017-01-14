@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "illuminate/view": "*",
-        "twig/twig": "*",
+        "twig/twig": "^1.31",
         "twig/extensions": "*",
         "symfony/yaml": "~2"
     },

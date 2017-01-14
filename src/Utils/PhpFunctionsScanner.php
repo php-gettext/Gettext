@@ -148,6 +148,7 @@ class PhpFunctionsScanner extends FunctionsScanner
     protected function parsePhpComment($value)
     {
         $result = null;
+
         if ($this->extractComments !== false) {
             if ($value[0] === '#') {
                 $value = substr($value, 1);
@@ -156,21 +157,23 @@ class PhpFunctionsScanner extends FunctionsScanner
             } else {
                 $value = substr($value, 2, -2);
             }
+
             $value = trim($value);
+
             if ($value !== '') {
-                if ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
-                    $result = $value;
-                }
-                elseif (is_array($this->extractComments)) {
+                if (is_array($this->extractComments)) {
                     foreach ($this->extractComments as $string) {
                         if (strpos($value, $string) === 0) {
                             $result = $value;
                             break;
                         }
                     }        
+                } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
+                    $result = $value;
                 }
             }
         }
+
         return $result;
     }
 }

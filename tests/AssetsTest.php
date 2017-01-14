@@ -288,7 +288,7 @@ class AssetsTest extends AbstractTest
     {
         $translations = static::get('phpcode2/input', 'PhpCode', [
             'constants' => [
-                'CONTEXT' => 'my-context'
+                'CONTEXT' => 'my-context',
             ]
         ]);
         $countTranslations = 9;
@@ -321,6 +321,44 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('phpcode2/CsvDictionary', $countTranslations);
         $this->runTestFormat('phpcode2/Yaml', $countTranslations, $countHeaders);
         $this->runTestFormat('phpcode2/YamlDictionary', $countTranslations);
+    }
+
+    public function testPhpCode3()
+    {
+        $translations = static::get('phpcode3/input', 'PhpCode', [
+            'extractComments' => ['allowed1', 'allowed2'],
+        ]);
+        $countTranslations = 1;
+        $countHeaders = 8;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
+
+        self::saveContent($translations, 'phpcode3/Po');
+        $this->assertContent($translations, 'phpcode3/Po');
+        $this->assertContent($translations, 'phpcode3/Mo');
+        $this->assertContent($translations, 'phpcode3/PhpArray');
+        $this->assertContent($translations, 'phpcode3/Jed');
+        $this->assertContent($translations, 'phpcode3/Json');
+        $this->assertContent($translations, 'phpcode3/JsonDictionary');
+        $this->assertContent($translations, 'phpcode3/Csv');
+        $this->assertContent($translations, 'phpcode3/CsvDictionary');
+        $this->assertContent($translations, 'phpcode3/Xliff');
+        $this->assertContent($translations, 'phpcode3/Yaml');
+        $this->assertContent($translations, 'phpcode3/YamlDictionary');
+
+        $this->runTestFormat('phpcode3/Po', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/Mo', 0, $countHeaders);
+        $this->runTestFormat('phpcode3/PhpArray', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/Jed', $countTranslations, 10);
+        $this->runTestFormat('phpcode3/Xliff', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/Json', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/JsonDictionary', $countTranslations);
+        $this->runTestFormat('phpcode3/Csv', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/CsvDictionary', $countTranslations);
+        $this->runTestFormat('phpcode3/Yaml', $countTranslations, $countHeaders);
+        $this->runTestFormat('phpcode3/YamlDictionary', $countTranslations);
     }
 
     public function testTwig()
