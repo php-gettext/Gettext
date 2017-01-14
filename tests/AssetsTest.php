@@ -8,6 +8,7 @@ class AssetsTest extends AbstractTest
     {
         $translations = static::get('po/input', 'Po');
         $countTranslations = 3;
+        $countTranslated = 3;
         $countHeaders = 9;
 
         $this->assertCount($countTranslations, $translations);
@@ -26,23 +27,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'po/Yaml');
         $this->assertContent($translations, 'po/YamlDictionary');
 
-        $this->runTestFormat('po/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/Mo', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/Jed', $countTranslations, 10);
-        $this->runTestFormat('po/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/JsonDictionary', $countTranslations);
-        $this->runTestFormat('po/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/CsvDictionary', $countTranslations);
-        $this->runTestFormat('po/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('po/YamlDictionary', $countTranslations);
+        $this->runTestFormat('po/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/Mo', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('po/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testPo2()
     {
         $translations = static::get('po2/input', 'Po');
         $countTranslations = 13;
+        $countTranslated = 10;
         $countHeaders = 13;
 
         $this->assertCount($countTranslations, $translations);
@@ -61,23 +63,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'po2/Yaml');
         $this->assertContent($translations, 'po2/YamlDictionary');
 
-        $this->runTestFormat('po2/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/Mo', $countTranslations - 3, $countHeaders);
-        $this->runTestFormat('po2/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/Jed', $countTranslations, 10);
-        $this->runTestFormat('po2/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/JsonDictionary', $countTranslations);
-        $this->runTestFormat('po2/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/CsvDictionary', $countTranslations);
-        $this->runTestFormat('po2/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('po2/YamlDictionary', $countTranslations);
+        $this->runTestFormat('po2/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/Mo', $countTranslations - 3, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('po2/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po2/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po2/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po2/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testPo3()
     {
         $translations = static::get('po3/input', 'Po');
         $countTranslations = 8;
+        $countTranslated = 8;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -96,23 +99,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'po3/Yaml');
         $this->assertContent($translations, 'po3/YamlDictionary');
 
-        $this->runTestFormat('po3/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/Mo', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/Jed', $countTranslations, 10);
-        $this->runTestFormat('po3/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/JsonDictionary', $countTranslations);
-        $this->runTestFormat('po3/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/CsvDictionary', $countTranslations);
-        $this->runTestFormat('po3/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('po3/YamlDictionary', $countTranslations);
+        $this->runTestFormat('po3/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/Mo', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('po3/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po3/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po3/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('po3/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testBlade()
     {
         $translations = static::get('blade/input', 'Blade');
         $countTranslations = 11;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -131,23 +135,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'blade/Yaml');
         $this->assertContent($translations, 'blade/YamlDictionary');
 
-        $this->runTestFormat('blade/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/Mo', 0, $countHeaders);
-        $this->runTestFormat('blade/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/Jed', $countTranslations, 10);
-        $this->runTestFormat('blade/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/JsonDictionary', $countTranslations);
-        $this->runTestFormat('blade/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/CsvDictionary', $countTranslations);
-        $this->runTestFormat('blade/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('blade/YamlDictionary', $countTranslations);
+        $this->runTestFormat('blade/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('blade/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('blade/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('blade/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('blade/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testJed()
     {
         $translations = static::get('jed/input', 'Jed');
         $countTranslations = 13;
+        $countTranslated = 10;
         $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
@@ -166,23 +171,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'jed/Yaml');
         $this->assertContent($translations, 'jed/YamlDictionary');
 
-        $this->runTestFormat('jed/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/Mo', 10, $countHeaders);
-        $this->runTestFormat('jed/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/Jed', $countTranslations, 10);
-        $this->runTestFormat('jed/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/JsonDictionary', $countTranslations);
-        $this->runTestFormat('jed/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/CsvDictionary', $countTranslations);
-        $this->runTestFormat('jed/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('jed/YamlDictionary', $countTranslations);
+        $this->runTestFormat('jed/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/Mo', 10, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('jed/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jed/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jed/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jed/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testJsCode()
     {
         $translations = static::get('jscode/input', 'JsCode');
         $countTranslations = 7;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -201,23 +207,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'jscode/Yaml');
         $this->assertContent($translations, 'jscode/YamlDictionary');
 
-        $this->runTestFormat('jscode/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/Mo', 0, $countHeaders);
-        $this->runTestFormat('jscode/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/Jed', $countTranslations, 10);
-        $this->runTestFormat('jscode/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/JsonDictionary', $countTranslations);
-        $this->runTestFormat('jscode/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/CsvDictionary', $countTranslations);
-        $this->runTestFormat('jscode/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode/YamlDictionary', $countTranslations);
+        $this->runTestFormat('jscode/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('jscode/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jscode/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jscode/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testJs2Code()
     {
         $translations = static::get('jscode2/input', 'JsCode');
         $countTranslations = 3;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -236,23 +243,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'jscode2/Yaml');
         $this->assertContent($translations, 'jscode2/YamlDictionary');
 
-        $this->runTestFormat('jscode2/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/Mo', 0, $countHeaders);
-        $this->runTestFormat('jscode2/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/Jed', $countTranslations, 10);
-        $this->runTestFormat('jscode2/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/JsonDictionary', $countTranslations);
-        $this->runTestFormat('jscode2/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/CsvDictionary', $countTranslations);
-        $this->runTestFormat('jscode2/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('jscode2/YamlDictionary', $countTranslations);
+        $this->runTestFormat('jscode2/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('jscode2/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jscode2/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('jscode2/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('jscode2/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testPhpCode()
     {
         $translations = static::get('phpcode/input', 'PhpCode');
         $countTranslations = 12;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -271,17 +279,17 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'phpcode/Yaml');
         $this->assertContent($translations, 'phpcode/YamlDictionary');
 
-        $this->runTestFormat('phpcode/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/Mo', 0, $countHeaders);
-        $this->runTestFormat('phpcode/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/Jed', $countTranslations, 10);
-        $this->runTestFormat('phpcode/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/JsonDictionary', $countTranslations);
-        $this->runTestFormat('phpcode/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/CsvDictionary', $countTranslations);
-        $this->runTestFormat('phpcode/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode/YamlDictionary', $countTranslations);
+        $this->runTestFormat('phpcode/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('phpcode/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testPhpCode2()
@@ -292,6 +300,7 @@ class AssetsTest extends AbstractTest
             ]
         ]);
         $countTranslations = 9;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -310,17 +319,17 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'phpcode2/Yaml');
         $this->assertContent($translations, 'phpcode2/YamlDictionary');
 
-        $this->runTestFormat('phpcode2/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/Mo', 0, $countHeaders);
-        $this->runTestFormat('phpcode2/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/Jed', $countTranslations, 10);
-        $this->runTestFormat('phpcode2/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/JsonDictionary', $countTranslations);
-        $this->runTestFormat('phpcode2/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/CsvDictionary', $countTranslations);
-        $this->runTestFormat('phpcode2/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode2/YamlDictionary', $countTranslations);
+        $this->runTestFormat('phpcode2/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('phpcode2/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode2/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode2/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode2/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testPhpCode3()
@@ -329,6 +338,7 @@ class AssetsTest extends AbstractTest
             'extractComments' => ['allowed1', 'allowed2'],
         ]);
         $countTranslations = 1;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -348,23 +358,24 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'phpcode3/Yaml');
         $this->assertContent($translations, 'phpcode3/YamlDictionary');
 
-        $this->runTestFormat('phpcode3/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/Mo', 0, $countHeaders);
-        $this->runTestFormat('phpcode3/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/Jed', $countTranslations, 10);
-        $this->runTestFormat('phpcode3/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/JsonDictionary', $countTranslations);
-        $this->runTestFormat('phpcode3/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/CsvDictionary', $countTranslations);
-        $this->runTestFormat('phpcode3/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('phpcode3/YamlDictionary', $countTranslations);
+        $this->runTestFormat('phpcode3/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('phpcode3/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode3/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode3/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode3/YamlDictionary', $countTranslations, $countTranslated);
     }
 
     public function testTwig()
     {
         $translations = static::get('twig/input', 'Twig');
         $countTranslations = 10;
+        $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
@@ -383,16 +394,16 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'twig/Yaml');
         $this->assertContent($translations, 'twig/YamlDictionary');
 
-        $this->runTestFormat('twig/Po', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/Mo', 0, $countHeaders);
-        $this->runTestFormat('twig/PhpArray', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/Jed', $countTranslations, 10);
-        $this->runTestFormat('twig/Xliff', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/Json', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/JsonDictionary', $countTranslations);
-        $this->runTestFormat('twig/Csv', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/CsvDictionary', $countTranslations);
-        $this->runTestFormat('twig/Yaml', $countTranslations, $countHeaders);
-        $this->runTestFormat('twig/YamlDictionary', $countTranslations);
+        $this->runTestFormat('twig/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('twig/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('twig/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('twig/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('twig/YamlDictionary', $countTranslations, $countTranslated);
     }
 }

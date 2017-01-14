@@ -66,7 +66,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         file_put_contents($file, $translations->$method());
     }
 
-    protected function runTestFormat($file, $countTranslations, $countHeaders = 8)
+    protected function runTestFormat($file, $countTranslations, $countTranslated = 0, $countHeaders = 8)
     {
         $format = basename($file);
         $method = "from{$format}File";
@@ -75,6 +75,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders(), json_encode($translations->getHeaders(), JSON_PRETTY_PRINT));
+        $this->assertSame($countTranslated, $translations->countTranslated());
         $this->assertContent($translations, $file);
     }
 }
