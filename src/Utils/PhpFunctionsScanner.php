@@ -16,18 +16,18 @@ class PhpFunctionsScanner extends FunctionsScanner
     /**
      * If not false, comments will be extracted.
      *
-     * @var string|false
+     * @var string|false|array
      */
     protected $extractComments = false;
 
     /**
      * Enable extracting comments that start with a tag (if $tag is empty all the comments will be extracted).
      *
-     * @param string $tag
+     * @param mixed $tag
      */
     public function enableCommentsExtraction($tag = '')
     {
-        $this->extractComments = (string) $tag;
+        $this->extractComments = $tag;
     }
 
     /**
@@ -157,11 +157,20 @@ class PhpFunctionsScanner extends FunctionsScanner
                 $value = substr($value, 2, -2);
             }
             $value = trim($value);
-            if ($value !== '' && ($this->extractComments === '' || strpos($value, $this->extractComments) === 0)) {
-                $result = $value;
+            if ($value !== '') {
+                if ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
+                    $result = $value;
+                }
+                elseif (is_array($this->extractComments)) {
+                    foreach ($this->extractComments as $string) {
+                        if (strpos($value, $string) === 0) {
+                            $result = $value;
+                            break;
+                        }
+                    }        
+                }
             }
         }
-
         return $result;
     }
 }
