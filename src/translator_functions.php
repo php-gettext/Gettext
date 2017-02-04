@@ -19,7 +19,7 @@ function __($original)
 
     $args = array_slice(func_get_args(), 1);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -53,7 +53,7 @@ function n__($original, $plural, $value)
 
     $args = array_slice(func_get_args(), 3);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -74,7 +74,7 @@ function p__($context, $original)
 
     $args = array_slice(func_get_args(), 2);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -95,7 +95,7 @@ function d__($domain, $original)
 
     $args = array_slice(func_get_args(), 2);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -117,7 +117,7 @@ function dp__($domain, $context, $original)
 
     $args = array_slice(func_get_args(), 3);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -140,7 +140,7 @@ function np__($context, $original, $plural, $value)
 
     $args = array_slice(func_get_args(), 4);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
 
 /**
@@ -164,5 +164,5 @@ function dnp__($domain, $context, $original, $plural, $value)
 
     $args = array_slice(func_get_args(), 5);
 
-    return vsprintf($text, is_array($args[0]) ? $args[0] : $args);
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }

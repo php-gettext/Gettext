@@ -110,7 +110,8 @@ echo __('apple'); // "Mazá"
 The benefits of using the functions provided by this library (`__()` instead `_()` or `gettext()`) are:
 
 * You are using the same functions, no matter whether the translations are provided by gettext extension or any other method
-* You can use variables easier because sprintf functionality is included. For example: `__('Hello %s', 'world')` instead `sprintf(_('Hello %s'), 'world')`.
+* You can use variables easier because `sprintf` functionality is included. For example: `__('Hello %s', 'world')` instead `sprintf(_('Hello %s'), 'world')`.
+* You can also use named placeholders if the second argument is an array. For example: `__('Hello %name%', ['%name' => 'world'])` instead of `strtr(_('Hello %name%'), ['%name%' => 'world'])`
 
 ## Translation
 
