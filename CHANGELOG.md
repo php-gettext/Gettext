@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * Added support for named placeholders (using `strtr`). For example:
+
   ```php
   __('Hello :name', [':name' => 'World']);
   ```
 * Added support for Twig v2
+* New function `BaseTranslator::includeFunctions()` to include the functions file without register any translator
 
 ### Fixed
 

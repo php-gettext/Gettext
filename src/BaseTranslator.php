@@ -24,8 +24,16 @@ abstract class BaseTranslator implements TranslatorInterface
 
         self::$current = $this;
 
-        include_once __DIR__.'/translator_functions.php';
+        static::includeFunctions();
 
         return $previous;
+    }
+
+    /**
+     * Include the gettext functions
+     */
+    public static function includeFunctions()
+    {
+        include_once __DIR__.'/translator_functions.php';
     }
 }
