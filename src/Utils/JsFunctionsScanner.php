@@ -102,6 +102,7 @@ class JsFunctionsScanner extends FunctionsScanner
 
                 case '(':
                     switch ($this->status()) {
+                        case 'simple-quote':
                         case 'double-quote':
                         case 'line-comment':
                         case 'block-comment':
