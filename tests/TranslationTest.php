@@ -3,6 +3,7 @@
 namespace Gettext\Tests;
 
 use Gettext\Translation;
+use Gettext\Translations;
 
 class TranslationTest extends AbstractTest
 {
@@ -22,6 +23,20 @@ class TranslationTest extends AbstractTest
 
         $translation->deleteReferences();
         $this->assertCount(0, $translation->getReferences());
+    }
+
+    public function testNoReferences()
+    {
+        $po = static::get('phpcode/input', 'PhpCode')->toPoString(['noLocation' => true]);
+        $translations = Translations::fromPoString($po);
+        $translation = $translations->find(null, 'text 10 with plural');
+
+        $this->assertInstanceOf('Gettext\\Translation', $translation);
+
+        $references = $translation->getReferences();
+
+        $this->assertCount(0, $references);
+        $this->assertFalse($translation->hasReferences());
     }
 
     public function testPlurals()
