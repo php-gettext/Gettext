@@ -40,7 +40,7 @@ class LocalesTest extends AbstractTest
         $this->assertEquals(2, $pluralForms[0]);
         $this->assertEquals('n > 1', $pluralForms[1]);
 
-        $translations->setLanguage('pt_PT');
+        $translations->setLanguage('az');
 
         $pluralForms = $translations->getPluralForms();
         $this->assertEquals(2, $pluralForms[0]);
