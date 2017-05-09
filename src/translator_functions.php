@@ -121,6 +121,29 @@ function dp__($domain, $context, $original)
 }
 
 /**
+ * Returns the translation of a string in a specific domain and context.
+ *
+ * @param string $domain
+ * @param string $original
+ * @param string $plural
+ * @param string $value
+ *
+ * @return string
+ */
+function dn__($domain, $original, $plural, $value)
+{
+    $text = BaseTranslator::$current->dngettext($domain, $original, $plural, $value);
+
+    if (func_num_args() === 4) {
+        return $text;
+    }
+
+    $args = array_slice(func_get_args(), 4);
+
+    return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
+}
+
+/**
  * Returns the singular/plural translation of a string in a specific context.
  *
  * @param string $context

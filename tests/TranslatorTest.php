@@ -135,6 +135,28 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals('Hello John',   d__('errors','Hello %s',['%s' => 'John']));
     }
 
+    public function testDomainPluralFunction()
+    {
+        $translations = new Translations();
+        $translations->setDomain('messages');
+        $translations[] = 
+            (new Translation(null, 'One comment', '%s comments'))
+            ->setTranslation('Un commentaire')
+            ->setPluralTranslations(['%s commentaires']);
+        $t = new Translator();
+        $t->loadTranslations($translations);
+
+        $t->register();
+
+        $this->assertEquals('%s commentaires',          dn__('messages', 'One comment', '%s comments', 3));
+        $this->assertEquals('beaucoup de commentaires', dn__('messages', 'One comment', '%s comments', 3, 'beaucoup de'));
+        $this->assertEquals('0 commentaires', dn__('messages', 'One comment', '%s comments', 3, 0));
+        $this->assertEquals(' commentaires', dn__('messages', 'One comment', '%s comments', 3, null));
+        $this->assertEquals('beaucoup de commentaires', dn__('messages', 'One comment', '%s comments', 3, ['%s' => 'beaucoup de']));
+        $this->assertEquals('One comment', dn__('messages-2', 'One comment', '%s comments', 1, 1));
+        $this->assertEquals('3 comments', dn__('messages-2', 'One comment', '%s comments', 3, 3));
+    }
+
     public function testDomainAndContextFunction()
     {
         $translations = new Translations();
