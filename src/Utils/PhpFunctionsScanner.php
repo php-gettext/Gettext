@@ -167,7 +167,7 @@ class PhpFunctionsScanner extends FunctionsScanner
                             $result = $value;
                             break;
                         }
-                    }        
+                    }
                 } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
                     $result = $value;
                 }

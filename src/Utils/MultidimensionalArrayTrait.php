@@ -5,7 +5,8 @@ namespace Gettext\Utils;
 use Gettext\Translations;
 
 /**
- * Trait used by all generators that exports the translations to multidimensional arrays (context => [original => [translation, plural1, pluraln...]]).
+ * Trait used by all generators that exports the translations to multidimensional arrays
+ * (context => [original => [translation, plural1, pluraln...]]).
  */
 trait MultidimensionalArrayTrait
 {
@@ -14,7 +15,7 @@ trait MultidimensionalArrayTrait
 
     /**
      * Returns a multidimensional array.
-     * 
+     *
      * @param Translations $translations
      * @param bool         $includeHeaders
      * @param bool         $forceArray
@@ -60,7 +61,7 @@ trait MultidimensionalArrayTrait
 
     /**
      * Extract the entries from a multidimensional array.
-     * 
+     *
      * @param array        $messages
      * @param Translations $translations
      */

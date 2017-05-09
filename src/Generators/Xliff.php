@@ -40,22 +40,27 @@ class Xliff extends Generator implements GeneratorInterface
             //Save comments as notes
             $notes = $dom->createElement('notes');
 
-            $notes->appendChild(self::createTextNode($dom, 'note', $translation->getContext()))->setAttribute('category', 'context');
+            $notes->appendChild(self::createTextNode($dom, 'note', $translation->getContext()))
+                ->setAttribute('category', 'context');
 
             foreach ($translation->getComments() as $comment) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $comment))->setAttribute('category', 'comment');
+                $notes->appendChild(self::createTextNode($dom, 'note', $comment))
+                    ->setAttribute('category', 'comment');
             }
 
             foreach ($translation->getExtractedComments() as $comment) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $comment))->setAttribute('category', 'extracted-comment');
+                $notes->appendChild(self::createTextNode($dom, 'note', $comment))
+                    ->setAttribute('category', 'extracted-comment');
             }
 
             foreach ($translation->getFlags() as $flag) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $flag))->setAttribute('category', 'flag');
+                $notes->appendChild(self::createTextNode($dom, 'note', $flag))
+                    ->setAttribute('category', 'flag');
             }
 
             foreach ($translation->getReferences() as $reference) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $reference[0].':'.$reference[1]))->setAttribute('category', 'reference');
+                $notes->appendChild(self::createTextNode($dom, 'note', $reference[0].':'.$reference[1]))
+                    ->setAttribute('category', 'reference');
             }
 
             $unit->appendChild($notes);
@@ -79,7 +84,9 @@ class Xliff extends Generator implements GeneratorInterface
     private static function createTextNode(DOMDocument $dom, $name, $string)
     {
         $node = $dom->createElement($name);
-        $text = (preg_match('/[&<>]/', $string) === 1) ? $dom->createCDATASection($string) : $dom->createTextNode($string);
+        $text = (preg_match('/[&<>]/', $string) === 1)
+             ? $dom->createCDATASection($string)
+             : $dom->createTextNode($string);
         $node->appendChild($text);
 
         return $node;

@@ -16,7 +16,7 @@ class ParsedFunction
 
     /**
      * The line where the function starts.
-     * 
+     *
      * @var int
      */
     protected $line;

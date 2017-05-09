@@ -31,7 +31,7 @@ class Jed extends Generator implements GeneratorInterface
 
     /**
      * Generates an array with all translations.
-     * 
+     *
      * @param Translations $translations
      *
      * @return array
@@ -44,7 +44,8 @@ class Jed extends Generator implements GeneratorInterface
         $context_glue = '\u0004';
 
         foreach ($translations as $translation) {
-            $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '').$translation->getOriginal();
+            $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '')
+                .$translation->getOriginal();
 
             if ($translation->hasPluralTranslations(true)) {
                 $message = $translation->getPluralTranslations($pluralSize);

@@ -135,6 +135,7 @@ class JsFunctionsScanner extends FunctionsScanner
                             $buffer = '';
                             continue 3;
                     }
+                    break;
 
                 case ',':
                     switch ($this->status()) {
@@ -146,6 +147,7 @@ class JsFunctionsScanner extends FunctionsScanner
                             $buffer = '';
                             continue 3;
                     }
+                    break;
 
                 case ' ':
                 case '\t':

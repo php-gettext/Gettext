@@ -26,7 +26,9 @@
         "twig/twig": "^1.31|^2.0",
         "twig/extensions": "*",
         "symfony/yaml": "~2",
-        "phpunit/phpunit": "^4.8|^5.7"
+        "phpunit/phpunit": "^4.8|^5.7",
+        "friendsofphp/php-cs-fixer": "^2.3",
+        "squizlabs/php_codesniffer": "^3.0"
     },
     "suggest": {
         "illuminate/view": "Is necessary if you want to use the Blade extractor",
@@ -45,6 +47,10 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": [
+            "phpunit",
+            "phpcs"
+        ],
+        "cs-fix": "php-cs-fixer fix src"
     }
 }

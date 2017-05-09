@@ -34,7 +34,7 @@ class Merge
 
     /**
      * Merge the flags of two translations.
-     * 
+     *
      * @param Translation $from
      * @param Translation $to
      * @param int         $options
@@ -54,7 +54,7 @@ class Merge
 
     /**
      * Merge the extracted comments of two translations.
-     * 
+     *
      * @param Translation $from
      * @param Translation $to
      * @param int         $options
@@ -74,7 +74,7 @@ class Merge
 
     /**
      * Merge the comments of two translations.
-     * 
+     *
      * @param Translation $from
      * @param Translation $to
      * @param int         $options
@@ -94,7 +94,7 @@ class Merge
 
     /**
      * Merge the references of two translations.
-     * 
+     *
      * @param Translation $from
      * @param Translation $to
      * @param int         $options
@@ -114,7 +114,7 @@ class Merge
 
     /**
      * Merge the translations of two translations.
-     * 
+     *
      * @param Translation $from
      * @param Translation $to
      * @param int         $options
@@ -138,7 +138,7 @@ class Merge
 
     /**
      * Merge the translations of two translations.
-     * 
+     *
      * @param Translations $from
      * @param Translations $to
      * @param int          $options
@@ -168,7 +168,7 @@ class Merge
 
     /**
      * Merge the headers of two translations.
-     * 
+     *
      * @param Translations $from
      * @param Translations $to
      * @param int          $options

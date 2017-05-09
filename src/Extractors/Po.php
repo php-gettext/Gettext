@@ -109,12 +109,16 @@ class Po extends Extractor implements ExtractorInterface
 
                     if (isset($append)) {
                         if ($append === 'Context') {
-                            $translation = $translation->getClone($translation->getContext()."\n".self::convertString($data));
+                            $translation = $translation->getClone($translation->getContext()
+                                ."\n"
+                                .self::convertString($data));
                             break;
                         }
 
                         if ($append === 'Original') {
-                            $translation = $translation->getClone(null, $translation->getOriginal()."\n".self::convertString($data));
+                            $translation = $translation->getClone(null, $translation->getOriginal()
+                                ."\n"
+                                .self::convertString($data));
                             break;
                         }
 

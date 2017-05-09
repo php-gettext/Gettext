@@ -14,7 +14,7 @@ trait DictionaryTrait
 
     /**
      * Returns a plain dictionary with the format [original => translation].
-     * 
+     *
      * @param Translations $translations
      * @param bool         $includeHeaders
      *
@@ -37,7 +37,7 @@ trait DictionaryTrait
 
     /**
      * Extract the entries from a dictionary.
-     * 
+     *
      * @param array        $messages
      * @param Translations $translations
      */

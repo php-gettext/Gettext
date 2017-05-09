@@ -50,7 +50,7 @@ class Translation
      *
      * @param null|string $context  Optional new context
      * @param null|string $original Optional new original
-     * 
+     *
      * @return Translation
      */
     public function getClone($context = null, $original = null)
@@ -115,7 +115,7 @@ class Translation
      * Sets the translation string.
      *
      * @param string $translation
-     * 
+     *
      * @return self
      */
     public function setTranslation($translation)
@@ -149,7 +149,7 @@ class Translation
      * Sets the plural translation string.
      *
      * @param string $plural
-     * 
+     *
      * @return self
      */
     public function setPlural($plural)
@@ -183,7 +183,7 @@ class Translation
      * Set a new plural translation.
      *
      * @param array $plural
-     * 
+     *
      * @return self
      */
     public function setPluralTranslations(array $plural)
@@ -195,7 +195,7 @@ class Translation
 
     /**
      * Gets all plural translations.
-     * 
+     *
      * @param int $size
      *
      * @return array
@@ -221,7 +221,7 @@ class Translation
 
     /**
      * Checks if there are any plural translation.
-     * 
+     *
      * @param bool $checkContent
      *
      * @return bool
@@ -237,7 +237,7 @@ class Translation
 
     /**
      * Removes all plural translations.
-     * 
+     *
      * @return self
      */
     public function deletePluralTranslation()
@@ -272,7 +272,7 @@ class Translation
      *
      * @param string   $filename The file path where the translation has been found
      * @param null|int $line     The line number where the translation has been found
-     * 
+     *
      * @return self
      */
     public function addReference($filename, $line = null)
@@ -305,7 +305,7 @@ class Translation
 
     /**
      * Removes all references.
-     * 
+     *
      * @return self
      */
     public function deleteReferences()
@@ -319,7 +319,7 @@ class Translation
      * Adds a new comment for this translation.
      *
      * @param string $comment
-     * 
+     *
      * @return self
      */
     public function addComment($comment)
@@ -353,7 +353,7 @@ class Translation
 
     /**
      * Removes all comments.
-     * 
+     *
      * @return self
      */
     public function deleteComments()
@@ -367,7 +367,7 @@ class Translation
      * Adds a new extracted comment for this translation.
      *
      * @param string $comment
-     * 
+     *
      * @return self
      */
     public function addExtractedComment($comment)
@@ -401,7 +401,7 @@ class Translation
 
     /**
      * Removes all extracted comments.
-     * 
+     *
      * @return self
      */
     public function deleteExtractedComments()
@@ -415,7 +415,7 @@ class Translation
      * Adds a new flag for this translation.
      *
      * @param string $flag
-     * 
+     *
      * @return self
      */
     public function addFlag($flag)
@@ -449,7 +449,7 @@ class Translation
 
     /**
      * Removes all flags.
-     * 
+     *
      * @return self
      */
     public function deleteFlags()
@@ -464,7 +464,7 @@ class Translation
      *
      * @param Translation $translation The translation to merge with
      * @param int         $options
-     * 
+     *
      * @return self
      */
     public function mergeWith(Translation $translation, $options = Merge::DEFAULTS)

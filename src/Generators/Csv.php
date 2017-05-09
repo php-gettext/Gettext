@@ -49,6 +49,4 @@ class Csv extends Generator implements GeneratorInterface
 
         return $csv;
     }
-
-    
 }

@@ -11,7 +11,7 @@ trait HeadersGeneratorTrait
 {
     /**
      * Returns the headers as a string.
-     * 
+     *
      * @param Translations $translations
      *
      * @return string

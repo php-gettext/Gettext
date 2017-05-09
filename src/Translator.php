@@ -24,7 +24,9 @@ class Translator extends BaseTranslator implements TranslatorInterface
         } elseif (is_string($translations) && is_file($translations)) {
             $translations = include $translations;
         } elseif (!is_array($translations)) {
-            throw new \InvalidArgumentException('Invalid Translator: only arrays, files or instance of Translations are allowed');
+            throw new \InvalidArgumentException(
+                'Invalid Translator: only arrays, files or instance of Translations are allowed'
+            );
         }
 
         $this->addTranslations($translations);
@@ -34,9 +36,9 @@ class Translator extends BaseTranslator implements TranslatorInterface
 
     /**
      * Set the default domain.
-     * 
+     *
      * @param string $domain
-     * 
+     *
      * @return self
      */
     public function defaultDomain($domain)
@@ -184,7 +186,9 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     protected function getTranslation($domain, $context, $original)
     {
-        return isset($this->dictionary[$domain][$context][$original]) ? $this->dictionary[$domain][$context][$original] : false;
+        return isset($this->dictionary[$domain][$context][$original])
+             ? $this->dictionary[$domain][$context][$original]
+             : false;
     }
 
     /**
@@ -204,7 +208,10 @@ class Translator extends BaseTranslator implements TranslatorInterface
         }
 
         if (!isset($this->plurals[$domain]['function'])) {
-            $this->plurals[$domain]['function'] = create_function('$n', self::fixTerseIfs($this->plurals[$domain]['code']));
+            $this->plurals[$domain]['function'] = create_function(
+                '$n',
+                self::fixTerseIfs($this->plurals[$domain]['code'])
+            );
         }
 
         if ($this->plurals[$domain]['count'] <= 2) {

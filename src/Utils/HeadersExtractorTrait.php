@@ -11,7 +11,7 @@ trait HeadersExtractorTrait
 {
     /**
      * Add the headers found to the translations instance.
-     * 
+     *
      * @param string       $headers
      * @param Translations $translations
      *

@@ -63,9 +63,15 @@ class Mo extends Generator implements GeneratorInterface
                 }
             }
 
-            $originalsIndex[] = ['relativeOffset' => strlen($originalsTable), 'length' => strlen($originalString)];
+            $originalsIndex[] = [
+                'relativeOffset' => strlen($originalsTable),
+                'length' => strlen($originalString)
+            ];
             $originalsTable .= $originalString."\x00";
-            $translationsIndex[] = ['relativeOffset' => strlen($translationsTable), 'length' => strlen($translationString)];
+            $translationsIndex[] = [
+                'relativeOffset' => strlen($translationsTable),
+                'length' => strlen($translationString)
+            ];
             $translationsTable .= $translationString."\x00";
         }
 

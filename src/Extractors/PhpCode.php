@@ -74,34 +74,38 @@ class PhpCode extends Extractor implements ExtractorInterface
 
         $value = substr($value, 1, -1);
 
-        return preg_replace_callback('/\\\(n|r|t|v|e|f|\$|"|\\\|x[0-9A-Fa-f]{1,2}|u{[0-9a-f]{1,6}}|[0-7]{1,3})/', function ($match) {
-            switch ($match[1][0]) {
-                case 'n':
-                    return "\n";
-                case 'r':
-                    return "\r";
-                case 't':
-                    return "\t";
-                case 'v':
-                    return "\v";
-                case 'e':
-                    return "\e";
-                case 'f':
-                    return "\f";
-                case '$':
-                    return '$';
-                case '"':
-                    return '"';
-                case '\\':
-                    return '\\';
-                case 'x':
-                    return chr(hexdec(substr($match[0], 1)));
-                case 'u':
-                    return self::unicodeChar(hexdec(substr($match[0], 1)));
-                default:
-                    return chr(octdec($match[0]));
-            }
-        }, $value);
+        return preg_replace_callback(
+            '/\\\(n|r|t|v|e|f|\$|"|\\\|x[0-9A-Fa-f]{1,2}|u{[0-9a-f]{1,6}}|[0-7]{1,3})/',
+            function ($match) {
+                switch ($match[1][0]) {
+                    case 'n':
+                        return "\n";
+                    case 'r':
+                        return "\r";
+                    case 't':
+                        return "\t";
+                    case 'v':
+                        return "\v";
+                    case 'e':
+                        return "\e";
+                    case 'f':
+                        return "\f";
+                    case '$':
+                        return '$';
+                    case '"':
+                        return '"';
+                    case '\\':
+                        return '\\';
+                    case 'x':
+                        return chr(hexdec(substr($match[0], 1)));
+                    case 'u':
+                        return self::unicodeChar(hexdec(substr($match[0], 1)));
+                    default:
+                        return chr(octdec($match[0]));
+                }
+            },
+            $value
+        );
     }
 
     //http://php.net/manual/en/function.chr.php#118804
