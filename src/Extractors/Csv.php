@@ -12,17 +12,24 @@ class Csv extends Extractor implements ExtractorInterface
 {
     use HeadersExtractorTrait;
 
+    public static $options = [
+        'delimiter' => ",",
+        'enclosure' => '"',
+        'escape' => "\\"
+    ];
+
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
+        $options += static::$options;
         $handle = fopen('php://memory', 'w');
 
         fputs($handle, $string);
         rewind($handle);
 
-        while ($row = fgetcsv($handle)) {
+        while ($row = fgetcsv($handle, null, $options['delimiter'], $options['enclosure'], $options['escape'])) {
             $context = array_shift($row);
             $original = array_shift($row);
 
