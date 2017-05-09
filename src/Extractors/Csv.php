@@ -15,7 +15,7 @@ class Csv extends Extractor implements ExtractorInterface
     public static $options = [
         'delimiter' => ",",
         'enclosure' => '"',
-        'escape' => "\\"
+        'escape_char' => "\\"
     ];
 
     /**
@@ -29,7 +29,7 @@ class Csv extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        while ($row = fgetcsv($handle, null, $options['delimiter'], $options['enclosure'], $options['escape'])) {
+        while ($row = self::getcsv($handle, $options)) {
             $context = array_shift($row);
             $original = array_shift($row);
 
@@ -47,5 +47,20 @@ class Csv extends Extractor implements ExtractorInterface
         }
 
         fclose($handle);
+    }
+
+    /**
+     * @param resource $handle
+     * @param array $options
+     *
+     * @return array
+     */
+    private static function getcsv($handle, $options)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) { // >= 5.3
+            return fgetcsv($handle, null, $options['delimiter'], $options['enclosure'], $options['escape_char']);
+        }
+
+        return fgetcsv($handle, null, $options['delimiter'], $options['enclosure']);
     }
 }

@@ -28,7 +28,7 @@ class Csv extends Generator implements GeneratorInterface
         $handle = fopen('php://memory', 'w');
 
         if ($options['includeHeaders']) {
-            fputcsv($handle, ['', '', self::generateHeaders($translations)], $options['delimiter'], $options['enclosure'], $options['escape_char']);
+            self::fputcsv($handle, ['', '', self::generateHeaders($translations)], $options);
         }
 
         foreach ($translations as $translation) {
@@ -38,7 +38,7 @@ class Csv extends Generator implements GeneratorInterface
                 $line = array_merge($line, $translation->getPluralTranslations());
             }
 
-            fputcsv($handle, $line, $options['delimiter'], $options['enclosure'], $options['escape_char']);
+            self::fputcsv($handle, $line, $options);
         }
 
         rewind($handle);
@@ -46,5 +46,21 @@ class Csv extends Generator implements GeneratorInterface
         fclose($handle);
 
         return $csv;
+    }
+
+    /**
+     * @param resource $handle
+     * @param array $fields
+     * @param array $options
+     *
+     * @return bool|int
+     */
+    private static function fputcsv($handle, $fields, $options)
+    {
+        if (version_compare(PHP_VERSION, '5.5.4') >= 0) { // >= 5.5.4
+            return fputcsv($handle, $fields, $options['delimiter'], $options['enclosure'], $options['escape_char']);
+        }
+
+        return fputcsv($handle, $fields, $options['delimiter'], $options['enclosure']);
     }
 }
