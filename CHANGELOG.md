@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * New option `noLocation` to po generator, to omit the references [#143](https://github.com/oscarotero/Gettext/issues/143)
-* New options `delimiter`, `enclosure` and `escape_char` to Csv Extractor and Generator [#145](https://github.com/oscarotero/Gettext/pull/145/)
+* New options `delimiter`, `enclosure` and `escape_char` to Csv and CsvDictionary extractors and generators [#145](https://github.com/oscarotero/Gettext/pull/145/)
 
 ### Fixed
 
-* Improved the code style
+* Improved the code style including php-cs-fixer and php_codesniffer libraries in development
 
 ## [4.3.0] - 2017-03-04
 
