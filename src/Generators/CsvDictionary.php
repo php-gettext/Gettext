@@ -4,13 +4,18 @@ namespace Gettext\Generators;
 
 use Gettext\Translations;
 use Gettext\Utils\DictionaryTrait;
+use Gettext\Utils\CsvTrait;
 
 class CsvDictionary extends Generator implements GeneratorInterface
 {
     use DictionaryTrait;
+    use CsvTrait;
 
     public static $options = [
         'includeHeaders' => false,
+        'delimiter' => ",",
+        'enclosure' => '"',
+        'escape_char' => "\\"
     ];
 
     /**
@@ -22,7 +27,7 @@ class CsvDictionary extends Generator implements GeneratorInterface
         $handle = fopen('php://memory', 'w');
 
         foreach (self::toArray($translations, $options['includeHeaders']) as $original => $translation) {
-            fputcsv($handle, [$original, $translation]);
+            self::fputcsv($handle, [$original, $translation], $options);
         }
 
         rewind($handle);

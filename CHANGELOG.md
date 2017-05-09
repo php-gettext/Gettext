@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * New option `noLocation` to po generator, to omit the references [#143](https://github.com/oscarotero/Gettext/issues/143)
+* New options `delimiter`, `enclosure` and `escape_char` to Csv Extractor and Generator [#145](https://github.com/oscarotero/Gettext/pull/145/)
 
 ## [4.3.0] - 2017-03-04
 
@@ -30,5 +31,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-[UNRELEASED]: https://github.com/oscarotero/Gettext/compare/v4.2.0...master
+[UNRELEASED]: https://github.com/oscarotero/Gettext/compare/v4.3.0...master
 [4.3.0]: https://github.com/oscarotero/Gettext/compare/v4.2.0...v4.3.0
