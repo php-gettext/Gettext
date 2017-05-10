@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [UNRELEASED]
+## [4.4.0] - 2017-05-10
 
 ### Added
 
@@ -36,5 +36,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-[UNRELEASED]: https://github.com/oscarotero/Gettext/compare/v4.3.0...master
+[4.4.0]: https://github.com/oscarotero/Gettext/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/oscarotero/Gettext/compare/v4.2.0...v4.3.0
