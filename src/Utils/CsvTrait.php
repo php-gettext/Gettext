@@ -2,8 +2,6 @@
 
 namespace Gettext\Utils;
 
-use Gettext\Translations;
-
 /*
  * Trait to provide the functionality of read/write csv.
  */
