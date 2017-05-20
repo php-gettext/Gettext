@@ -209,10 +209,8 @@ class Translator extends BaseTranslator implements TranslatorInterface
         }
 
         if (!isset($this->plurals[$domain]['function'])) {
-            $this->plurals[$domain]['function'] = create_function(
-                '$n',
-                self::fixTerseIfs($this->plurals[$domain]['code'])
-            );
+            $code = self::fixTerseIfs($this->plurals[$domain]['code']);
+            $this->plurals[$domain]['function'] = eval("return function (\$n) { $code };");
         }
 
         if ($this->plurals[$domain]['count'] <= 2) {

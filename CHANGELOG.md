@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Fixed a bug where the options was not passed correctly to the merging Translations object [#147](https://github.com/oscarotero/Gettext/issues/147)
 * Unified the plural behaviours between PHP gettext and Translator when the plural translation is unknown [#148](https://github.com/oscarotero/Gettext/issues/148)
+* Removed the deprecated function `create_function()` and use `eval()` instead
 
 ## [4.4.0] - 2017-05-10
 
