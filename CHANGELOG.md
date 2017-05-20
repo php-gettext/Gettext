@@ -44,5 +44,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+[4.4.1]: https://github.com/oscarotero/Gettext/compare/v4.4.0...v4.4.1
 [4.4.0]: https://github.com/oscarotero/Gettext/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/oscarotero/Gettext/compare/v4.2.0...v4.3.0
