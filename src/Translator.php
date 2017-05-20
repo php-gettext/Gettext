@@ -131,8 +131,8 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     public function dnpgettext($domain, $context, $original, $plural, $value)
     {
-        $key = $this->getPluralIndex($domain, $value);
         $translation = $this->getTranslation($domain, $context, $original);
+        $key = $this->getPluralIndex($domain, $value, $translation === false);
 
         if (isset($translation[$key]) && $translation[$key] !== '') {
             return $translation[$key];
@@ -197,13 +197,14 @@ class Translator extends BaseTranslator implements TranslatorInterface
      *
      * @param string $domain
      * @param string $n
+     * @param bool   $fallback set to true to get fallback plural index
      *
      * @return int
      */
-    protected function getPluralIndex($domain, $n)
+    protected function getPluralIndex($domain, $n, $fallback)
     {
-        //Not loaded domain, use a fallback
-        if (!isset($this->plurals[$domain])) {
+        //Not loaded domain or translation, use a fallback
+        if (!isset($this->plurals[$domain]) || $fallback === true) {
             return $n == 1 ? 0 : 1;
         }
 
