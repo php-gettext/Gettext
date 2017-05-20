@@ -159,7 +159,7 @@ class Merge
 
         foreach ($from as $entry) {
             if (($existing = $to->find($entry))) {
-                $existing->mergeWith($entry);
+                $existing->mergeWith($entry, $options);
             } elseif ($options & self::ADD) {
                 $to[] = $entry;
             }
