@@ -70,6 +70,12 @@ class TranslatorTest extends AbstractTest
 
         // Test that non-plural translations the fallback still works.
         $this->assertEquals('more', $t->ngettext('single', 'more', 3));
+
+        $t = new Translator();
+        $t->loadTranslations(static::get('po2/Po'));
+
+        // Test that if the translation is unknown, English plural rules are applied
+        $this->assertEquals('more', $t->ngettext('single', 'more', 21));
     }
 
     public function testPluralFunction()
