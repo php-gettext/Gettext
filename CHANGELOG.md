@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.4.1] - 2017-05-20
+
+### Fixed
+
+* Fixed a bug where the options was not passed correctly to the merging Translations object [#147](https://github.com/oscarotero/Gettext/issues/147)
+* Unified the plural behaviours between PHP gettext and Translator when the plural translation is unknown [#148](https://github.com/oscarotero/Gettext/issues/148)
+
 ## [4.4.0] - 2017-05-10
 
 ### Added
