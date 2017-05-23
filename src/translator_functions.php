@@ -189,3 +189,63 @@ function dnp__($domain, $context, $original, $plural, $value)
 
     return is_array($args[0]) ? strtr($text, $args[0]) : vsprintf($text, $args);
 }
+
+/**
+ * Prints function result
+ *
+ * @see __
+ */
+function __e()
+{
+    echo call_user_func_array('__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see n__
+ */
+function n__e()
+{
+    echo call_user_func_array('n__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see p__
+ */
+function p__e()
+{
+    echo call_user_func_array('p__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see d__
+ */
+function d__e()
+{
+    echo call_user_func_array('d__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see dp__
+ */
+function dp__e()
+{
+    echo call_user_func_array('dp__', func_get_args());
+}
+
+/**
+ * Prints function result
+ *
+ * @see dnp__
+ */
+function dnp__e()
+{
+    echo call_user_func_array('dnp__', func_get_args());
+}
