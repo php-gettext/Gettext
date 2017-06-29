@@ -161,7 +161,7 @@ class Merge
             if (($existing = $to->find($entry))) {
                 $existing->mergeWith($entry, $options);
             } elseif ($options & self::ADD) {
-                $to[] = $entry;
+                $to[] = $entry->getClone();
             }
         }
     }
