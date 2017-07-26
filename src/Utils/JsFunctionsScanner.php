@@ -35,6 +35,13 @@ class JsFunctionsScanner extends FunctionsScanner
             $next = isset($this->code[$pos + 1]) ? $this->code[$pos + 1] : null;
 
             switch ($char) {
+                case '\\':
+                    $prev = $char;
+                    $char = $next;
+                    $pos++;
+                    $next = isset($this->code[$pos]) ? $this->code[$pos] : null;
+                    break;
+
                 case "\n":
                     ++$line;
 
@@ -224,12 +231,6 @@ class JsFunctionsScanner extends FunctionsScanner
     protected static function prepareArgument($argument)
     {
         if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {
-            if ($argument[0] === '"') {
-                $argument = str_replace('\\"', '"', $argument);
-            } else {
-                $argument = str_replace("\\'", "'", $argument);
-            }
-
             return substr($argument, 1, -1);
         }
     }
