@@ -4,11 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [4.4.2] - UNRELEASED
+## [4.4.2] - 2017-07-27
 
 ### Fixed
 
 * Clone the translations in `Translations::mergeWith` to prevent that the translation is referenced in both places. [#152](https://github.com/oscarotero/Gettext/issues/152)
+* Fixed escaped quotes in the javascript extractor [#154](https://github.com/oscarotero/Gettext/pull/154)
 
 ## [4.4.1] - 2017-05-20
 
