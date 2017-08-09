@@ -12,5 +12,6 @@ messages:
     'No comments': ''
     'i18n Tagged comment': ''
     'i18n Tagged comment inside': ''
+    'One comment': ''
   my-context:
     'All comments': ''

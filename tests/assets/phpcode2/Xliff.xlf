@@ -107,5 +107,15 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="84e03baaa4ad6d25771997ef1d50d951">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/phpcode2/input.php:33</note>
+      </notes>
+      <segment>
+        <source>One comment</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

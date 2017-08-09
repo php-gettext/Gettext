@@ -29,3 +29,5 @@ gettext(
     /* i18n Tagged comment inside */
     'i18n Tagged comment inside'
 );
+
+dn__(null, 'One comment', 'Many comments', 2);

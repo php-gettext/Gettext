@@ -93,7 +93,7 @@ class ParsedFunction
     /**
      * Add a string to the current argument.
      *
-     * @param string $chunk
+     * @param string|null $chunk
      */
     public function addArgumentChunk($chunk)
     {
@@ -135,7 +135,7 @@ class ParsedFunction
     {
         $arguments = [];
         for ($i = 0; $i <= $this->argumentIndex; ++$i) {
-            $arguments[$i] = isset($this->arguments[$i]) ? $this->arguments[$i] : '';
+            $arguments[$i] = isset($this->arguments[$i]) ? $this->arguments[$i] : null;
         }
 
         return [

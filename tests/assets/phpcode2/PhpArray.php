@@ -49,6 +49,10 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      'One comment' => 
+      array (
+        0 => '',
+      ),
     ),
     'my-context' => 
     array (
