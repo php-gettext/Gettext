@@ -94,6 +94,14 @@ abstract class FunctionsScanner
                     list($domain, $context, $original, $plural) = $args;
                     break;
 
+                case 'dngettext':
+                    if (!isset($args[3])) {
+                        continue 2;
+                    }
+
+                    list($domain, $original, $plural) = $args;
+                    break;
+
                 default:
                     throw new Exception(sprintf('Not valid function %s', $functions[$name]));
             }
