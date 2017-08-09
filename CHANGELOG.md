@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.4.3] - 2017-08-09
+
+### Fixed
+
+* Handle `NULL` arguments on extract entries in php. For example `dn__(null, 'singular', 'plural')`.
+* Fixed the `PhpCode` and `JsCode` extractors that didn't extract `dn__` and `dngettext` entries [#155](https://github.com/oscarotero/Gettext/pull/155).
+* Fixed the `PhpCode` and `JsCode` extractors that didn't extract `dnpgettext` correctly.
+
 ## [4.4.2] - 2017-07-27
 
 ### Fixed
@@ -51,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+[4.4.3]: https://github.com/oscarotero/Gettext/compare/v4.4.2...v4.4.3
 [4.4.2]: https://github.com/oscarotero/Gettext/compare/v4.4.1...v4.4.2
 [4.4.1]: https://github.com/oscarotero/Gettext/compare/v4.4.0...v4.4.1
 [4.4.0]: https://github.com/oscarotero/Gettext/compare/v4.3.0...v4.4.0
