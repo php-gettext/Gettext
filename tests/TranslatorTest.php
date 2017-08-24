@@ -97,6 +97,23 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals('beaucoup de commentaires', n__('One comment', '%s comments', 3, ['%s' => 'beaucoup de']));
     }
 
+    public function testPluralInjection()
+    {
+        $translations = new Translations();
+        $translations->setPluralForms(2,'fuu_call()');
+        $translations[] =
+            (new Translation(null, 'One comment', '%s comments'))
+            ->setTranslation('Un commentaire')
+            ->setPluralTranslations(['%s commentaires']);
+        $t = new Translator();
+        $t->loadTranslations($translations);
+
+        $t->register();
+
+        $this->setExpectedException('InvalidArgumentException');
+        n__('One comment', '%s comments', 3);
+    }
+
     public function testContextFunction()
     {
         $translations = new Translations();
