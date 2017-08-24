@@ -110,7 +110,7 @@ class TranslatorTest extends AbstractTest
 
         $t->register();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->setExpectedException(\InvalidArgumentException::class);
         n__('One comment', '%s comments', 3);
     }
 
