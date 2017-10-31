@@ -51,7 +51,10 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $method = "to{$format}String";
         $content = file_get_contents(static::asset($file.'.'.static::$ext[$format]));
 
-        $this->assertSame($content, $translations->$method(), $file);
+        // Po reference files are LittleEndian
+        if ($format !== 'Mo' || self::isLittleEndian()) {
+            $this->assertSame($content, $translations->$method(), $file);
+        }
     }
 
     protected static function saveContent(Translations $translations, $file, $format = null)
@@ -77,5 +80,10 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $this->assertCount($countHeaders, $translations->getHeaders(), json_encode($translations->getHeaders(), JSON_PRETTY_PRINT));
         $this->assertSame($countTranslated, $translations->countTranslated());
         $this->assertContent($translations, $file);
+    }
+
+    protected function isLittleEndian()
+    {
+        return pack("s", 0x3031) === "10";
     }
 }
