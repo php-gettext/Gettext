@@ -234,6 +234,9 @@ class Translations extends ArrayObject
      */
     public function setPluralForms($count, $rule)
     {
+        if (preg_match('/[a-z]/i', str_replace('n', '', $rule))) {
+            throw new \InvalidArgumentException('Invalid Plural form: ' . $rule);
+        }
         $this->setHeader(self::HEADER_PLURAL, "nplurals={$count}; plural={$rule};");
 
         return $this;

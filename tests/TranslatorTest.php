@@ -2,6 +2,7 @@
 
 namespace Gettext\Tests;
 
+use Gettext\Languages\Language;
 use Gettext\Translations;
 use Gettext\Translation;
 use Gettext\Translator;
@@ -100,18 +101,18 @@ class TranslatorTest extends AbstractTest
     public function testPluralInjection()
     {
         $translations = new Translations();
-        $translations->setPluralForms(2,'fuu_call()');
-        $translations[] =
-            (new Translation(null, 'One comment', '%s comments'))
-            ->setTranslation('Un commentaire')
-            ->setPluralTranslations(['%s commentaires']);
-        $t = new Translator();
-        $t->loadTranslations($translations);
-
-        $t->register();
-
         $this->setExpectedException('InvalidArgumentException');
-        n__('One comment', '%s comments', 3);
+        $translations->setPluralForms(2, 'fuu_call()');
+    }
+
+    public function testPluralFromValidation()
+    {
+        $translations = new Translations();
+        $languages = Language::getAll();
+
+        foreach ($languages as $language) {
+            $translations->setPluralForms(2, $language->formula);
+        }
     }
 
     public function testContextFunction()
