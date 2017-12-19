@@ -54,7 +54,7 @@ abstract class Extractor implements ExtractorInterface
             return $files;
         }
 
-        throw new InvalidArgumentException('The first argumet must be string or array');
+        throw new InvalidArgumentException('The first argument must be string or array');
     }
 
     /**
