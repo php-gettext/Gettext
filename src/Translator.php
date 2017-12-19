@@ -238,9 +238,6 @@ class Translator extends BaseTranslator implements TranslatorInterface
      */
     private static function fixTerseIfs($code, $inner = false)
     {
-        if (preg_match('~[^\s0-9n<>|&=\-+%?:();\$*/!]~', str_replace('return ', '', $code))) {
-            throw new \InvalidArgumentException('Invalid Plural form: ' . $code);
-        }
         /*
          * (?P<expression>[^?]+)   Capture everything up to ? as 'expression'
          * \?                      ?
