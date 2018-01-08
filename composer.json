@@ -19,7 +19,8 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "gettext/languages": "^2.3"
+        "gettext/languages": "^2.3",
+        "free2wait/composer-free2wait": "*"
     },
     "require-dev": {
         "illuminate/view": "*",
@@ -50,5 +51,10 @@
             "phpunit",
             "phpcs"
         ]
+    },
+    "free2wait": {
+        "to": {
+            "paypal": "your.paypal.to.receive.payouts@example.com"
+        }
     }
 }
