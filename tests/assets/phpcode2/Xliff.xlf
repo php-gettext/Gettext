@@ -117,5 +117,16 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="2996faa4cecf574982caf4f302aad46d">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">i18n Tagged comment on the line before</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:36</note>
+      </notes>
+      <segment>
+        <source>i18n tagged %s</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

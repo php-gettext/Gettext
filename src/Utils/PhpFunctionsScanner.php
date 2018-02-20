@@ -61,10 +61,12 @@ class PhpFunctionsScanner extends FunctionsScanner
     public function getFunctions(array $constants = [])
     {
         $count = count($this->tokens);
-        $bufferFunctions = [];
         /* @var ParsedFunction[] $bufferFunctions */
+        $bufferFunctions = [];
+        /* @var ParsedComment[] $bufferComments */
+        $bufferComments = [];
+        /* @var array $functions */
         $functions = [];
-        /* @var ParsedFunction[] $functions */
 
         for ($k = 0; $k < $count; ++$k) {
             $value = $this->tokens[$k];
@@ -122,6 +124,14 @@ class PhpFunctionsScanner extends FunctionsScanner
                                     $newFunction->addComment($comment);
                                 }
                             }
+
+                            // add comment that was on the line before.
+                            if (isset($bufferComments[0])) {
+	                            if ($bufferComments[0]->getLine() === $value[2] - 1 ) {
+		                            $newFunction->addComment($bufferComments[0]->getComment());
+	                            }
+                            }
+
                             array_unshift($bufferFunctions, $newFunction);
                             $k = $j;
                         }
@@ -130,12 +140,15 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
 
                 case T_COMMENT:
-                    if (isset($bufferFunctions[0])) {
-                        $comment = $this->parsePhpComment($value[1]);
-                        if ($comment !== null) {
-                            $bufferFunctions[0]->addComment($comment);
-                        }
-                    }
+	                $comment = $this->parsePhpComment($value[1]);
+
+	                if ($comment !== null) {
+		                array_unshift( $bufferComments, new ParsedComment($comment, $value[2]));
+
+		                if (isset($bufferFunctions[0])) {
+			                $bufferFunctions[0]->addComment($comment);
+		                }
+	                }
                     break;
 
                 default:

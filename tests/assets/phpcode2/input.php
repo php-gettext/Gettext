@@ -31,3 +31,6 @@ gettext(
 );
 
 dn__(null, 'One comment', 'Many comments', 2);
+
+/* i18n Tagged comment on the line before */
+sprintf( __('i18n tagged %s'), '$var');

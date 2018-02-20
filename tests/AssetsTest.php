@@ -299,13 +299,13 @@ class AssetsTest extends AbstractTest
                 'CONTEXT' => 'my-context',
             ]
         ]);
-        $countTranslations = 10;
+        $countTranslations = 11;
         $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
-        $this->assertEquals(0, $translations->countTranslated());
+        $this->assertEquals($countTranslated, $translations->countTranslated());
 
         $this->assertContent($translations, 'phpcode2/Po');
         $this->assertContent($translations, 'phpcode2/Mo');

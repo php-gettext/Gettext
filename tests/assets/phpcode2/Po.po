@@ -56,3 +56,8 @@ msgstr ""
 msgid "One comment"
 msgid_plural "Many comments"
 msgstr[0] ""
+
+#. i18n Tagged comment on the line before
+#: ./tests/assets/phpcode2/input.php:36
+msgid "i18n tagged %s"
+msgstr ""
