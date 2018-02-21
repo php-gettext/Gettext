@@ -14,7 +14,7 @@ use Twig_Extensions_Extension_I18n;
 class Twig extends Extractor implements ExtractorInterface
 {
     public static $options = [
-        'extractComments' => 'notes',
+        'extractComments' => 'notes:',
         'twig' => null,
     ];
 
