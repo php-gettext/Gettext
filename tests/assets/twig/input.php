@@ -19,6 +19,8 @@
         text 10 with plural
     {% plural 5 %}
         The plural form
+    {% notes %}
+        This is an actual note for translators.
     {% endtrans %}
     </p>
 </div>

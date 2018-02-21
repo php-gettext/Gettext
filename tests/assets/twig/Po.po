@@ -45,7 +45,8 @@ msgstr ""
 msgid "text 9 'with single quotes'"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:65
+#. notes: This is an actual note for translators.
+#: ./tests/assets/twig/input.php:66
 msgid "text 10 with plural"
 msgid_plural "The plural form"
 msgstr[0] ""

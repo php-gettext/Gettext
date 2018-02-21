@@ -13,5 +13,6 @@ messages:
     'i18n Tagged comment': ''
     'i18n Tagged comment inside': ''
     'One comment': ''
+    'i18n tagged %s': ''
   my-context:
     'All comments': ''
