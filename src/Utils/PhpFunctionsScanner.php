@@ -104,26 +104,25 @@ class PhpFunctionsScanner extends FunctionsScanner
                             $bufferFunctions[0]->addArgumentChunk($constants[$value[1]]);
                             break;
                         }
+
                         if (strtolower($value[1]) === 'null') {
                             $bufferFunctions[0]->addArgumentChunk(null);
                             break;
                         }
+
                         $bufferFunctions[0]->stopArgument();
                     }
+
                     //new function found
                     for ($j = $k + 1; $j < $count; ++$j) {
                         $nextToken = $this->tokens[$j];
+
                         if (is_array($nextToken) && $nextToken[0] === T_COMMENT) {
                             continue;
                         }
+
                         if ($nextToken === '(') {
                             $newFunction = new ParsedFunction($value[1], $value[2]);
-                            if ($k > 0 && is_array($this->tokens[$k - 1]) && $this->tokens[$k - 1][0] === T_COMMENT) {
-                                $comment = $this->parsePhpComment($this->tokens[$k - 1][1]);
-                                if ($comment !== null) {
-                                    $newFunction->addComment($comment);
-                                }
-                            }
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {

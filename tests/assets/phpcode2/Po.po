@@ -42,7 +42,6 @@ msgctxt "my-context"
 msgid "All comments"
 msgstr ""
 
-#. i18n Tagged comment
 #: ./tests/assets/phpcode2/input.php:26
 msgid "i18n Tagged comment"
 msgstr ""

@@ -21,7 +21,7 @@ __('No comments');
 /* All comments */
 p__(CONTEXT, 'All comments');
 
-/* i18n Tagged comment */
+/* Invalid i18n Tagged comment */
 
 __('i18n Tagged comment');
 

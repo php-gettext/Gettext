@@ -88,7 +88,6 @@
     <unit id="9aede0a4f92fbfe54f57fb84e89110c4">
       <notes>
         <note category="context"></note>
-        <note category="extracted-comment">i18n Tagged comment</note>
         <note category="reference">./tests/assets/phpcode2/input.php:26</note>
       </notes>
       <segment>
