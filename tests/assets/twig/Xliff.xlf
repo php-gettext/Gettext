@@ -104,7 +104,8 @@
     <unit id="d122051296e7f3bf7408762c11f3a026">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:65</note>
+        <note category="extracted-comment">notes: This is an actual note for translators.</note>
+        <note category="reference">./tests/assets/twig/input.php:66</note>
       </notes>
       <segment>
         <source>text 10 with plural</source>

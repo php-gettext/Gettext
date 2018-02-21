@@ -11,6 +11,7 @@ Gettext\Translations::$options['defaultDateHeaders'] = [];
 Gettext\Translations::$options['headersSorting'] = true;
 
 Gettext\Extractors\PhpCode::$options['extractComments'] = '';
+Gettext\Extractors\Twig::$options['extractComments'] = 'notes:';
 
 Gettext\Generators\Csv::$options['includeHeaders'] = true;
 
