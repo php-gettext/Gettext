@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Changed the comment extraction to be compatible with gettext behaviour: the comment must be placed in the line preceding the function [#161](https://github.com/oscarotero/Gettext/issues/161).
 
+### Security
+
+- Validate eval input from plural forms [#156](https://github.com/oscarotero/Gettext/pull/156)
+
 ## [4.4.3] - 2017-08-09
 
 ### Fixed
