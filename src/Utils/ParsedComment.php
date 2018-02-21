@@ -33,23 +33,23 @@ class ParsedComment
         $this->line = $line;
     }
 
-	/**
-	 * Return the comment's line number.
-	 *
-	 * @return int Line number.
-	 */
-	public function getLine()
-	{
-		return $this->line;
+    /**
+     * Return the comment's line number.
+     *
+     * @return int Line number.
+     */
+    public function getLine()
+    {
+        return $this->line;
     }
 
-	/**
-	 * Return the actual comment string.
-	 *
-	 * @return string The comment.
-	 */
-	public function getComment()
-	{
-		return $this->comment;
+    /**
+     * Return the actual comment string.
+     *
+     * @return string The comment.
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

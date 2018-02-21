@@ -127,9 +127,9 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {
-	                            if ($bufferComments[0]->getLine() === $value[2] - 1 ) {
-		                            $newFunction->addComment($bufferComments[0]->getComment());
-	                            }
+                                if ($bufferComments[0]->getLine() === $value[2] - 1) {
+                                    $newFunction->addComment($bufferComments[0]->getComment());
+                                }
                             }
 
                             array_unshift($bufferFunctions, $newFunction);
@@ -140,15 +140,15 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
 
                 case T_COMMENT:
-	                $comment = $this->parsePhpComment($value[1]);
+                    $comment = $this->parsePhpComment($value[1]);
 
-	                if ($comment !== null) {
-		                array_unshift( $bufferComments, new ParsedComment($comment, $value[2]));
+                    if ($comment !== null) {
+                        array_unshift($bufferComments, new ParsedComment($comment, $value[2]));
 
-		                if (isset($bufferFunctions[0])) {
-			                $bufferFunctions[0]->addComment($comment);
-		                }
-	                }
+                        if (isset($bufferFunctions[0])) {
+                            $bufferFunctions[0]->addComment($comment);
+                        }
+                    }
                     break;
 
                 default:
