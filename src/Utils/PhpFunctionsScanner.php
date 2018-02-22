@@ -126,7 +126,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {
-                            	$commentLine = $bufferComments[0]->getLine();
+                                $commentLine = $bufferComments[0]->getLine();
                                 if ($commentLine === $value[2] - 1 || $commentLine === $value[2]) {
                                     $newFunction->addComment($bufferComments[0]->getComment());
                                 }
