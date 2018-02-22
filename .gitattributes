@@ -1,6 +1,9 @@
-/tests/      export-ignore
-/phpunit.xml export-ignore
-.*           export-ignore
+/tests/         export-ignore
+/phpunit.xml    export-ignore
+.*              export-ignore
+CHANGELOG.md    export-ignore
+CONTRIBUTING.md export-ignore
+phpcs.xml       export-ignore
 
 # Set the line ending configuration
 * text=lf
