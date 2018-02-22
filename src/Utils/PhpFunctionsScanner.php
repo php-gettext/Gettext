@@ -126,7 +126,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {
-                                if ($bufferComments[0]->getLine() === $value[2] - 1) {
+                                if ($bufferComments[0]->getLine() === $value[2] - 1 || $bufferComments[0]->getLine() === $value[2]) {
                                     $newFunction->addComment($bufferComments[0]->getComment());
                                 }
                             }
@@ -142,7 +142,9 @@ class PhpFunctionsScanner extends FunctionsScanner
                     $comment = $this->parsePhpComment($value[1]);
 
                     if ($comment !== null) {
-                        array_unshift($bufferComments, new ParsedComment($comment, $value[2]));
+                        // Count the last line of a multi-line comment.
+                        $lineNumber = $value[2] + substr_count($value[1], "\n");
+                        array_unshift($bufferComments, new ParsedComment($comment, $lineNumber));
 
                         if (isset($bufferFunctions[0])) {
                             $bufferFunctions[0]->addComment($comment);
@@ -165,28 +167,35 @@ class PhpFunctionsScanner extends FunctionsScanner
     {
         $result = null;
 
-        if ($this->extractComments !== false) {
-            if ($value[0] === '#') {
-                $value = substr($value, 1);
-            } elseif ($value[1] === '/') {
-                $value = substr($value, 2);
-            } else {
-                $value = substr($value, 2, -2);
+        if ($this->extractComments === false) {
+            return null;
+        }
+
+        $lines = array_map(function ($line) {
+            if ('' === trim($line)) {
+                return null;
             }
 
-            $value = trim($value);
+            $line = ltrim($line, '#*/ ');
+            $line = rtrim($line, '#*/ ');
 
-            if ($value !== '') {
-                if (is_array($this->extractComments)) {
-                    foreach ($this->extractComments as $string) {
-                        if (strpos($value, $string) === 0) {
-                            $result = $value;
-                            break;
-                        }
+            return trim($line);
+        }, explode("\n", $value));
+
+        // Remove empty lines.
+        $lines = array_filter($lines);
+        $value = implode(' ', $lines);
+
+        if ($value !== '') {
+            if (is_array($this->extractComments)) {
+                foreach ($this->extractComments as $string) {
+                    if (stripos($value, $string) === 0) {
+                        $result = $value;
+                        break;
                     }
-                } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
-                    $result = $value;
                 }
+            } elseif ($this->extractComments === '' || stripos($value, $this->extractComments) === 0) {
+                $result = $value;
             }
         }
 

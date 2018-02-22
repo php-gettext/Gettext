@@ -10,7 +10,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 
 #. allowed1 Comment 1
-#. allowed2 Comment 2
+#. Allowed2 Comment 2
 #: ./tests/assets/phpcode3/input.php:3
 msgid "Translation with comments"
+msgstr ""
+
+#. allowed2: only this should get extracted.
+#: ./tests/assets/phpcode3/input.php:11
+msgid "Foo"
 msgstr ""

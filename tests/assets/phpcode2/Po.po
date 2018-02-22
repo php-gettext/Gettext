@@ -60,3 +60,13 @@ msgstr[0] ""
 #: ./tests/assets/phpcode2/input.php:36
 msgid "i18n tagged %s"
 msgstr ""
+
+#. Translators: This is a multi-line comment.
+#: ./tests/assets/phpcode2/input.php:42
+msgid "foo"
+msgstr ""
+
+#. translators: this should get extracted.
+#: ./tests/assets/phpcode2/input.php:44
+msgid "bar"
+msgstr ""

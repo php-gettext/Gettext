@@ -21,6 +21,10 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      'Foo' => 
+      array (
+        0 => '',
+      ),
     ),
   ),
 );
