@@ -190,12 +190,12 @@ class PhpFunctionsScanner extends FunctionsScanner
         if ($value !== '') {
             if (is_array($this->extractComments)) {
                 foreach ($this->extractComments as $string) {
-                    if (stripos($value, $string) === 0) {
+                    if (strpos($value, $string) === 0) {
                         $result = $value;
                         break;
                     }
                 }
-            } elseif ($this->extractComments === '' || stripos($value, $this->extractComments) === 0) {
+            } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
                 $result = $value;
             }
         }

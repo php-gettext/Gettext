@@ -15,7 +15,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">allowed1 Comment 1</note>
-        <note category="extracted-comment">Allowed2 Comment 2</note>
+        <note category="extracted-comment">allowed2 Comment 2</note>
         <note category="reference">./tests/assets/phpcode3/input.php:3</note>
       </notes>
       <segment>
