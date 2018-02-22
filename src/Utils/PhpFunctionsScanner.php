@@ -126,9 +126,10 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {
-                                $commentLine = $bufferComments[0]->getLine();
-                                if ($commentLine === $value[2] - 1 || $commentLine === $value[2]) {
-                                    $newFunction->addComment($bufferComments[0]->getComment());
+                                $comment = $bufferComments[0];
+
+                                if ($comment->isRelatedWith($newFunction)) {
+                                    $newFunction->addComment($comment->getComment());
                                 }
                             }
 
@@ -140,15 +141,16 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
 
                 case T_COMMENT:
-                    $comment = $this->parsePhpComment($value[1]);
+                    $commentText = $this->parsePhpComment($value[1]);
 
-                    if ($comment !== null) {
-                        // Count the last line of a multi-line comment.
-                        $lineNumber = $value[2] + substr_count($value[1], "\n");
-                        array_unshift($bufferComments, new ParsedComment($comment, $lineNumber));
+                    if ($commentText) {
+                        $lastLine = $value[2] + substr_count($value[1], "\n");
+                        $comment = new ParsedComment($this->parsePhpComment($value[1]), $value[2], $lastLine);
+                        array_unshift($bufferComments, $comment);
 
+                        // The comment is inside the function call.
                         if (isset($bufferFunctions[0])) {
-                            $bufferFunctions[0]->addComment($comment);
+                            $bufferFunctions[0]->addComment($comment->getComment());
                         }
                     }
                     break;
@@ -164,6 +166,15 @@ class PhpFunctionsScanner extends FunctionsScanner
         return $functions;
     }
 
+    /**
+     * Extract the actual text from a PHP comment.
+     *
+     * If set, only returns comments that match the prefix(es).
+     *
+     * @param string $value The PHP comment.
+     *
+     * @return null|string Comment text or null if comment extraction is disabled or if there is a prefix mismatch.
+     */
     protected function parsePhpComment($value)
     {
         $result = null;

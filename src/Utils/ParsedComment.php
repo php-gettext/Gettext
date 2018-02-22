@@ -15,32 +15,51 @@ class ParsedComment
     protected $comment;
 
     /**
-     * The line where the function starts.
+     * The line where the comment starts.
      *
      * @var int
      */
-    protected $line;
+    protected $firstLine;
+
+    /**
+     * The line where the comment ends.
+     *
+     * @var int
+     */
+    protected $lastLine;
 
     /**
      * Initializes the instance.
      *
      * @param string $comment The comment itself.
-     * @param int    $line The line where the comment starts.
+     * @param int    $firstLine The line where the comment starts.
+     * @param int    $lastLine The line where the comment ends.
      */
-    public function __construct($comment, $line)
+    public function __construct($comment, $firstLine, $lastLine)
     {
         $this->comment = $comment;
-        $this->line = $line;
+        $this->firstLine = $firstLine;
+        $this->lastLine = $lastLine;
     }
 
     /**
-     * Return the comment's line number.
+     * Return the line where the comment starts.
      *
      * @return int Line number.
      */
-    public function getLine()
+    public function getFirstLine()
     {
-        return $this->line;
+        return $this->firstLine;
+    }
+
+    /**
+     * Return the line where the comment ends.
+     *
+     * @return int Line number.
+     */
+    public function getLastLine()
+    {
+        return $this->lastLine;
     }
 
     /**
@@ -51,5 +70,16 @@ class ParsedComment
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Whether this comment is related with a given function.
+     *
+     * @param ParsedFunction $function The function to check.
+     * @return bool Whether the comment is related or not.
+     */
+    public function isRelatedWith(ParsedFunction $function)
+    {
+        return $this->getLastLine() === $function->getLine() || $this->getLastLine() === $function->getLine() - 1;
     }
 }
