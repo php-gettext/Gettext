@@ -119,7 +119,7 @@ class ParsedComment
      * @param array $prefixes An array of prefixes to check.
      * @return bool Whether the comment matches the prefixes or not.
      */
-    public function checkPrefixes($prefixes)
+    public function checkPrefixes(array $prefixes)
     {
         if ('' === $this->comment) {
             return false;
