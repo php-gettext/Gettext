@@ -141,11 +141,9 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
 
                 case T_COMMENT:
-                    $commentText = $this->parsePhpComment($value[1]);
+                    $comment = $this->parsePhpComment($value[1], $value[2]);
 
-                    if ($commentText) {
-                        $lastLine = $value[2] + substr_count($value[1], "\n");
-                        $comment = new ParsedComment($this->parsePhpComment($value[1]), $value[2], $lastLine);
+                    if ($comment) {
                         array_unshift($bufferComments, $comment);
 
                         // The comment is inside the function call.
@@ -172,45 +170,25 @@ class PhpFunctionsScanner extends FunctionsScanner
      * If set, only returns comments that match the prefix(es).
      *
      * @param string $value The PHP comment.
+     * @param int $line Line number.
      *
-     * @return null|string Comment text or null if comment extraction is disabled or if there is a prefix mismatch.
+     * @return null|ParsedComment Comment or null if comment extraction is disabled or if there is a prefix mismatch.
      */
-    protected function parsePhpComment($value)
+    protected function parsePhpComment($value, $line)
     {
-        $result = null;
-
         if ($this->extractComments === false) {
             return null;
         }
 
-        $lines = array_map(function ($line) {
-            if ('' === trim($line)) {
-                return null;
-            }
+        //this returns a comment or null
+        $comment = ParsedComment::create($value, $line);
 
-            $line = ltrim($line, '#*/ ');
-            $line = rtrim($line, '#*/ ');
+        $prefixes = array_filter((array) $this->extractComments);
 
-            return trim($line);
-        }, explode("\n", $value));
-
-        // Remove empty lines.
-        $lines = array_filter($lines);
-        $value = implode(' ', $lines);
-
-        if ($value !== '') {
-            if (is_array($this->extractComments)) {
-                foreach ($this->extractComments as $string) {
-                    if (strpos($value, $string) === 0) {
-                        $result = $value;
-                        break;
-                    }
-                }
-            } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
-                $result = $value;
-            }
+        if ($comment && $comment->checkPrefixes($prefixes)) {
+            return $comment;
         }
 
-        return $result;
+        return null;
     }
 }

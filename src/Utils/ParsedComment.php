@@ -43,6 +43,36 @@ class ParsedComment
     }
 
     /**
+     * Create new object from raw comment data.
+     *
+     * @param string $value The PHP comment string.
+     * @param int $line The line where the comment starts.
+     *
+     * @return self The parsed comment.
+     */
+    public static function create($value, $line)
+    {
+        $lastLine = $line + substr_count($value, "\n");
+
+        $lines = array_map(function ($line) {
+            if ('' === trim($line)) {
+                return null;
+            }
+
+            $line = ltrim($line, '#*/ ');
+            $line = rtrim($line, '#*/ ');
+
+            return trim($line);
+        }, explode("\n", $value));
+
+        // Remove empty lines.
+        $lines = array_filter($lines);
+        $value = implode(' ', $lines);
+
+        return new self($value, $line, $lastLine);
+    }
+
+    /**
      * Return the line where the comment starts.
      *
      * @return int Line number.
@@ -81,5 +111,30 @@ class ParsedComment
     public function isRelatedWith(ParsedFunction $function)
     {
         return $this->getLastLine() === $function->getLine() || $this->getLastLine() === $function->getLine() - 1;
+    }
+
+    /**
+     * Whether the comment matches the required prefixes.
+     *
+     * @param array $prefixes An array of prefixes to check.
+     * @return bool Whether the comment matches the prefixes or not.
+     */
+    public function checkPrefixes($prefixes)
+    {
+        if ('' === $this->comment) {
+            return false;
+        }
+
+        if (empty($prefixes)) {
+            return true;
+        }
+
+        foreach ($prefixes as $prefix) {
+            if (strpos($this->comment, $prefix) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
