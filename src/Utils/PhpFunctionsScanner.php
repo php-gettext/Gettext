@@ -126,8 +126,10 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                             // add comment that was on the line before.
                             if (isset($bufferComments[0])) {
-                                if ($bufferComments[0]->getLine() === $value[2] - 1) {
-                                    $newFunction->addComment($bufferComments[0]->getComment());
+                                $comment = $bufferComments[0];
+
+                                if ($comment->isRelatedWith($newFunction)) {
+                                    $newFunction->addComment($comment->getComment());
                                 }
                             }
 
@@ -139,13 +141,14 @@ class PhpFunctionsScanner extends FunctionsScanner
                     break;
 
                 case T_COMMENT:
-                    $comment = $this->parsePhpComment($value[1]);
+                    $comment = $this->parsePhpComment($value[1], $value[2]);
 
-                    if ($comment !== null) {
-                        array_unshift($bufferComments, new ParsedComment($comment, $value[2]));
+                    if ($comment) {
+                        array_unshift($bufferComments, $comment);
 
+                        // The comment is inside the function call.
                         if (isset($bufferFunctions[0])) {
-                            $bufferFunctions[0]->addComment($comment);
+                            $bufferFunctions[0]->addComment($comment->getComment());
                         }
                     }
                     break;
@@ -161,35 +164,31 @@ class PhpFunctionsScanner extends FunctionsScanner
         return $functions;
     }
 
-    protected function parsePhpComment($value)
+    /**
+     * Extract the actual text from a PHP comment.
+     *
+     * If set, only returns comments that match the prefix(es).
+     *
+     * @param string $value The PHP comment.
+     * @param int $line Line number.
+     *
+     * @return null|ParsedComment Comment or null if comment extraction is disabled or if there is a prefix mismatch.
+     */
+    protected function parsePhpComment($value, $line)
     {
-        $result = null;
-
-        if ($this->extractComments !== false) {
-            if ($value[0] === '#') {
-                $value = substr($value, 1);
-            } elseif ($value[1] === '/') {
-                $value = substr($value, 2);
-            } else {
-                $value = substr($value, 2, -2);
-            }
-
-            $value = trim($value);
-
-            if ($value !== '') {
-                if (is_array($this->extractComments)) {
-                    foreach ($this->extractComments as $string) {
-                        if (strpos($value, $string) === 0) {
-                            $result = $value;
-                            break;
-                        }
-                    }
-                } elseif ($this->extractComments === '' || strpos($value, $this->extractComments) === 0) {
-                    $result = $value;
-                }
-            }
+        if ($this->extractComments === false) {
+            return null;
         }
 
-        return $result;
+        //this returns a comment or null
+        $comment = ParsedComment::create($value, $line);
+
+        $prefixes = array_filter((array) $this->extractComments);
+
+        if ($comment && $comment->checkPrefixes($prefixes)) {
+            return $comment;
+        }
+
+        return null;
     }
 }

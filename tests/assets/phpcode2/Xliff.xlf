@@ -127,5 +127,27 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="acbd18db4cc2f85cedef654fccc4a4d8">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">Translators: This is a multi-line comment.</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:42</note>
+      </notes>
+      <segment>
+        <source>foo</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="37b51d194a7513e45b56f6524f2d51f2">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">translators: this should get extracted.</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:44</note>
+      </notes>
+      <segment>
+        <source>bar</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

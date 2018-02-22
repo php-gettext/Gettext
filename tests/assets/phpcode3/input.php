@@ -7,3 +7,5 @@ __(
 /*not-allowed Comment 3 */
 	'Translation with comments'
 );
+
+/* allowed1: boo */ /* allowed2: only this should get extracted. */ /* some other comment */ $bar = strtolower( __( 'Foo' ) );

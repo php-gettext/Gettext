@@ -23,5 +23,16 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="1356c67d7ad1638d816bfb822dd2c25d">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">allowed2: only this should get extracted.</note>
+        <note category="reference">./tests/assets/phpcode3/input.php:11</note>
+      </notes>
+      <segment>
+        <source>Foo</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -299,7 +299,7 @@ class AssetsTest extends AbstractTest
                 'CONTEXT' => 'my-context',
             ]
         ]);
-        $countTranslations = 11;
+        $countTranslations = 13;
         $countTranslated = 0;
         $countHeaders = 8;
 
@@ -337,7 +337,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('phpcode3/input', 'PhpCode', [
             'extractComments' => ['allowed1', 'allowed2'],
         ]);
-        $countTranslations = 1;
+        $countTranslations = 2;
         $countTranslated = 0;
         $countHeaders = 8;
 

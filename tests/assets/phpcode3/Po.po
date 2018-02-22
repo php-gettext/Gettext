@@ -14,3 +14,8 @@ msgstr ""
 #: ./tests/assets/phpcode3/input.php:3
 msgid "Translation with comments"
 msgstr ""
+
+#. allowed2: only this should get extracted.
+#: ./tests/assets/phpcode3/input.php:11
+msgid "Foo"
+msgstr ""

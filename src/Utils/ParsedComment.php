@@ -15,32 +15,81 @@ class ParsedComment
     protected $comment;
 
     /**
-     * The line where the function starts.
+     * The line where the comment starts.
      *
      * @var int
      */
-    protected $line;
+    protected $firstLine;
+
+    /**
+     * The line where the comment ends.
+     *
+     * @var int
+     */
+    protected $lastLine;
 
     /**
      * Initializes the instance.
      *
      * @param string $comment The comment itself.
-     * @param int    $line The line where the comment starts.
+     * @param int    $firstLine The line where the comment starts.
+     * @param int    $lastLine The line where the comment ends.
      */
-    public function __construct($comment, $line)
+    public function __construct($comment, $firstLine, $lastLine)
     {
         $this->comment = $comment;
-        $this->line = $line;
+        $this->firstLine = $firstLine;
+        $this->lastLine = $lastLine;
     }
 
     /**
-     * Return the comment's line number.
+     * Create new object from raw comment data.
+     *
+     * @param string $value The PHP comment string.
+     * @param int $line The line where the comment starts.
+     *
+     * @return self The parsed comment.
+     */
+    public static function create($value, $line)
+    {
+        $lastLine = $line + substr_count($value, "\n");
+
+        $lines = array_map(function ($line) {
+            if ('' === trim($line)) {
+                return null;
+            }
+
+            $line = ltrim($line, '#*/ ');
+            $line = rtrim($line, '#*/ ');
+
+            return trim($line);
+        }, explode("\n", $value));
+
+        // Remove empty lines.
+        $lines = array_filter($lines);
+        $value = implode(' ', $lines);
+
+        return new self($value, $line, $lastLine);
+    }
+
+    /**
+     * Return the line where the comment starts.
      *
      * @return int Line number.
      */
-    public function getLine()
+    public function getFirstLine()
     {
-        return $this->line;
+        return $this->firstLine;
+    }
+
+    /**
+     * Return the line where the comment ends.
+     *
+     * @return int Line number.
+     */
+    public function getLastLine()
+    {
+        return $this->lastLine;
     }
 
     /**
@@ -51,5 +100,41 @@ class ParsedComment
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Whether this comment is related with a given function.
+     *
+     * @param ParsedFunction $function The function to check.
+     * @return bool Whether the comment is related or not.
+     */
+    public function isRelatedWith(ParsedFunction $function)
+    {
+        return $this->getLastLine() === $function->getLine() || $this->getLastLine() === $function->getLine() - 1;
+    }
+
+    /**
+     * Whether the comment matches the required prefixes.
+     *
+     * @param array $prefixes An array of prefixes to check.
+     * @return bool Whether the comment matches the prefixes or not.
+     */
+    public function checkPrefixes(array $prefixes)
+    {
+        if ('' === $this->comment) {
+            return false;
+        }
+
+        if (empty($prefixes)) {
+            return true;
+        }
+
+        foreach ($prefixes as $prefix) {
+            if (strpos($this->comment, $prefix) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -121,6 +121,17 @@ class ParsedFunction
         }
         $this->comments[] = $comment;
     }
+
+    /**
+     * Return the line the function starts.
+     *
+     * @return int Line number.
+     */
+    public function getLine()
+    {
+        return $this->line;
+    }
+
     /**
      * A closing parenthesis was found: return the final data.
      * The array returned has the following values:
