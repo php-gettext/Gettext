@@ -121,7 +121,7 @@ function dp__($domain, $context, $original)
 }
 
 /**
- * Returns the translation of a string in a specific domain and context.
+ * Returns the singular/plural translation of a string in a specific domain.
  *
  * @param string $domain
  * @param string $original
