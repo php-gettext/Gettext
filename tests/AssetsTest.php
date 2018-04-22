@@ -15,6 +15,12 @@ class AssetsTest extends AbstractTest
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(3, $translations->countTranslated());
 
+        $disabled = $translations->find('', 'one');
+        $this->assertTrue($disabled->isDisabled());
+
+        $disabled = $translations->find('', 'single');
+        $this->assertFalse($disabled->isDisabled());
+
         $this->assertContent($translations, 'po/Po');
         $this->assertContent($translations, 'po/Mo');
         $this->assertContent($translations, 'po/PhpArray');
