@@ -16,6 +16,7 @@ class Translation
     protected $comments = [];
     protected $extractedComments = [];
     protected $flags = [];
+    protected $disabled = false;
 
     /**
      * Generates the id of a translation (context + glue + original).
@@ -89,6 +90,29 @@ class Translation
     public function is($context, $original = '')
     {
         return (($this->context === $context) && ($this->original === $original)) ? true : false;
+    }
+
+    /**
+     * Enable or disable the translation
+     *
+     * @param bool $disabled
+     *
+     * @return self
+     */
+    public function setDisabled($disabled) {
+        $this->disabled = (bool) $disabled;
+
+        return $this;
+    }
+
+    /**
+     * Returns whether the translation is disabled
+     *
+     * @return bool
+     */
+    public function isDisabled()
+    {
+        return $this->disabled;
     }
 
     /**
