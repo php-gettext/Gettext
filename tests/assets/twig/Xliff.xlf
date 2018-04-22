@@ -14,7 +14,7 @@
     <unit id="6c69ee7f211c640419d5366cc076ae46">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:22</note>
+        <note category="reference">./tests/assets/twig/input.php:26</note>
       </notes>
       <segment>
         <source>text 1</source>
@@ -24,7 +24,7 @@
     <unit id="bb3438fbabd460ea6dbd27d153e2233b">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:29</note>
+        <note category="reference">./tests/assets/twig/input.php:33</note>
       </notes>
       <segment>
         <source>text 2</source>
@@ -34,7 +34,7 @@
     <unit id="9da0d4dc2681bf32793a3fd1b8610cb6">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:33</note>
+        <note category="reference">./tests/assets/twig/input.php:37</note>
       </notes>
       <segment>
         <source>text 3 (with parenthesis)</source>
@@ -44,7 +44,7 @@
     <unit id="e7a56b0f57aa5adc31713088d33ec0d2">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:37</note>
+        <note category="reference">./tests/assets/twig/input.php:41</note>
       </notes>
       <segment>
         <source>text 4 "with double quotes"</source>
@@ -54,7 +54,7 @@
     <unit id="615cfcfa32b34e8057fcbd1651247439">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:41</note>
+        <note category="reference">./tests/assets/twig/input.php:45</note>
       </notes>
       <segment>
         <source>text 5 'with escaped single quotes'</source>
@@ -64,7 +64,7 @@
     <unit id="3e220f99f0eed5cc73ab9c599cecc219">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:48</note>
+        <note category="reference">./tests/assets/twig/input.php:52</note>
       </notes>
       <segment>
         <source>text 6</source>
@@ -74,7 +74,7 @@
     <unit id="61aa602f3e368d98288056b1d693c431">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:52</note>
+        <note category="reference">./tests/assets/twig/input.php:56</note>
       </notes>
       <segment>
         <source>text 7 (with parenthesis)</source>
@@ -84,7 +84,7 @@
     <unit id="477f9325bba9979e86c2db696323e2ba">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:56</note>
+        <note category="reference">./tests/assets/twig/input.php:60</note>
       </notes>
       <segment>
         <source>text 8 "with escaped double quotes"</source>
@@ -94,7 +94,7 @@
     <unit id="f9890d4b371274cf0d5917759b6ff419">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/twig/input.php:60</note>
+        <note category="reference">./tests/assets/twig/input.php:64</note>
       </notes>
       <segment>
         <source>text 9 'with single quotes'</source>
@@ -105,7 +105,7 @@
       <notes>
         <note category="context"></note>
         <note category="extracted-comment">notes: This is an actual note for translators.</note>
-        <note category="reference">./tests/assets/twig/input.php:66</note>
+        <note category="reference">./tests/assets/twig/input.php:70</note>
       </notes>
       <segment>
         <source>text 10 with plural</source>
