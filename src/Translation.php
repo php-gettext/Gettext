@@ -99,7 +99,8 @@ class Translation
      *
      * @return self
      */
-    public function setDisabled($disabled) {
+    public function setDisabled($disabled)
+    {
         $this->disabled = (bool) $disabled;
 
         return $this;
