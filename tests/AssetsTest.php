@@ -388,7 +388,12 @@ class AssetsTest extends AbstractTest
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(0, $translations->countTranslated());
 
-        $this->assertContent($translations, 'twig/Po');
+        //Ignored in php5 because the line numbers doesn't match due different version of twig
+        if (PHP_MAJOR_VERSION >= 7) {
+            $this->assertContent($translations, 'twig/Po');
+            $this->assertContent($translations, 'twig/Xliff');
+        }
+
         $this->assertContent($translations, 'twig/Mo');
         $this->assertContent($translations, 'twig/PhpArray');
         $this->assertContent($translations, 'twig/Jed');
@@ -396,7 +401,6 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'twig/JsonDictionary');
         $this->assertContent($translations, 'twig/Csv');
         $this->assertContent($translations, 'twig/CsvDictionary');
-        $this->assertContent($translations, 'twig/Xliff');
         $this->assertContent($translations, 'twig/Yaml');
         $this->assertContent($translations, 'twig/YamlDictionary');
 
