@@ -29,6 +29,10 @@ trait DictionaryTrait
         }
 
         foreach ($translations as $translation) {
+            if ($translation->isDisabled()) {
+                continue;
+            }
+
             $messages[$translation->getOriginal()] = $translation->getTranslation();
         }
 

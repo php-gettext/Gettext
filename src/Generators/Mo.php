@@ -26,7 +26,7 @@ class Mo extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
-            if (!$translation->hasTranslation()) {
+            if (!$translation->hasTranslation() || $translation->isDisabled()) {
                 continue;
             }
 

@@ -35,6 +35,10 @@ trait MultidimensionalArrayTrait
         }
 
         foreach ($translations as $translation) {
+            if ($translation->isDisabled()) {
+                continue;
+            }
+
             $context = $translation->getContext();
             $original = $translation->getOriginal();
 
