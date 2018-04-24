@@ -109,7 +109,7 @@ class TranslatorTest extends AbstractTest
 
         foreach ($languages as $language) {
             $result = $translations->setPluralForms(2, $language->formula);
-            $this->assertInstanceOf(Translations::class, $result);
+            $this->assertInstanceOf('Gettext\Translations', $result);
         }
     }
 
