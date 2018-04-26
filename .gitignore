@@ -6,3 +6,6 @@ composer.lock
 /.settings/
 /.buildpath
 /.project
+
+# PhpStorm-specific files
+/.idea/
