@@ -5,7 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [4.4.4] - 2017-08-09
+Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
+
+## [4.5.0] - 2018-04-23
+
+### Added
+
+- Support for disabled translations
+
+### Fixed
+
+- Added php-7.2 to travis
+- Fixed po tests on bigendian [#159](https://github.com/oscarotero/Gettext/issues/159)
+- Improved comment estraction [#166](https://github.com/oscarotero/Gettext/issues/166)
+- Fixed incorrect docs to dn__ function [#170](https://github.com/oscarotero/Gettext/issues/170)
+- Ignored phpcs.xml file on export [#168](https://github.com/oscarotero/Gettext/issues/168)
+- Improved `@method` docs in `Translations` [#175](https://github.com/oscarotero/Gettext/issues/175)
+
+## [4.4.4] - 2018-02-21
 
 ### Fixed
 
@@ -65,10 +82,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Fixed a bug related with the javascript source extraction with single quotes
 
----
 
-Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
-
+[4.5.0]: https://github.com/oscarotero/Gettext/compare/v4.4.4...v4.5.0
 [4.4.4]: https://github.com/oscarotero/Gettext/compare/v4.4.3...v4.4.4
 [4.4.3]: https://github.com/oscarotero/Gettext/compare/v4.4.2...v4.4.3
 [4.4.2]: https://github.com/oscarotero/Gettext/compare/v4.4.1...v4.4.2

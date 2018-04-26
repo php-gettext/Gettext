@@ -34,16 +34,16 @@ class AssetsTest extends AbstractTest
         $this->assertContent($translations, 'po/YamlDictionary');
 
         $this->runTestFormat('po/Po', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/Mo', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/PhpArray', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('po/Mo', $countTranslations - 1, $countTranslated - 1, $countHeaders);
+        $this->runTestFormat('po/PhpArray', $countTranslations - 1, $countTranslated - 1, $countHeaders);
+        $this->runTestFormat('po/Jed', $countTranslations - 1, $countTranslated - 1, 10);
         $this->runTestFormat('po/Xliff', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/Json', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/JsonDictionary', $countTranslations, $countTranslated);
-        $this->runTestFormat('po/Csv', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/CsvDictionary', $countTranslations, $countTranslated);
-        $this->runTestFormat('po/Yaml', $countTranslations, $countTranslated, $countHeaders);
-        $this->runTestFormat('po/YamlDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('po/Json', $countTranslations - 1, $countTranslated - 1, $countHeaders);
+        $this->runTestFormat('po/JsonDictionary', $countTranslations - 1, $countTranslated - 1);
+        $this->runTestFormat('po/Csv', $countTranslations - 1, $countTranslated - 1, $countHeaders);
+        $this->runTestFormat('po/CsvDictionary', $countTranslations - 1, $countTranslated - 1);
+        $this->runTestFormat('po/Yaml', $countTranslations - 1, $countTranslated - 1, $countHeaders);
+        $this->runTestFormat('po/YamlDictionary', $countTranslations - 1, $countTranslated - 1);
     }
 
     public function testPo2()
@@ -351,7 +351,6 @@ class AssetsTest extends AbstractTest
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(0, $translations->countTranslated());
 
-        self::saveContent($translations, 'phpcode3/Po');
         $this->assertContent($translations, 'phpcode3/Po');
         $this->assertContent($translations, 'phpcode3/Mo');
         $this->assertContent($translations, 'phpcode3/PhpArray');

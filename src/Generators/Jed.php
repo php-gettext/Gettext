@@ -44,6 +44,10 @@ class Jed extends Generator implements GeneratorInterface
         $context_glue = '\u0004';
 
         foreach ($translations as $translation) {
+            if ($translation->isDisabled()) {
+                continue;
+            }
+            
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '')
                 .$translation->getOriginal();
 

@@ -24,12 +24,6 @@ Report-Msgid-Bugs-To:
         1 => '2,3,4 pliki',
         2 => '5-21 plików',
       ),
-      'one' => 
-      array (
-        0 => '1',
-        1 => '*',
-        2 => '',
-      ),
       'single' => 
       array (
         0 => 'test',

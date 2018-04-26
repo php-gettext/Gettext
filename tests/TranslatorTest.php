@@ -64,11 +64,6 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals('5-21 plików', $t->ngettext('one file', 'multiple files', 5));
         $this->assertEquals('5-21 plików', $t->ngettext('one file', 'multiple files', 6));
 
-        // Test that when less then the nplural translations are available it still works.
-        $this->assertEquals('1', $t->ngettext('one', 'more', 1));
-        $this->assertEquals('*', $t->ngettext('one', 'more', 2));
-        $this->assertEquals('*', $t->ngettext('one', 'more', 3));
-
         // Test that non-plural translations the fallback still works.
         $this->assertEquals('more', $t->ngettext('single', 'more', 3));
 

@@ -34,6 +34,10 @@ class Csv extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
+            if ($translation->isDisabled()) {
+                continue;
+            }
+
             $line = [$translation->getContext(), $translation->getOriginal(), $translation->getTranslation()];
 
             if ($translation->hasPluralTranslations(true)) {
