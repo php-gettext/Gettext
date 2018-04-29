@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Gettext\Utils;
-
 
 class VueJsFunctionScanner extends JsFunctionsScanner
 {

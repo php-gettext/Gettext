@@ -221,5 +221,4 @@ class VueJs extends JsCode implements ExtractorInterface
 
         return $matched;
     }
-
 }
