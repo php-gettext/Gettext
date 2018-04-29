@@ -20,7 +20,8 @@ abstract class FunctionsScanner
      * Search for specific functions and create translations.
      *
      * @param Translations $translations The translations instance where save the values
-     * @param array        $options      The extractor options
+     * @param array $options The extractor options
+     * @throws Exception
      */
     public function saveGettextFunctions(Translations $translations, array $options)
     {

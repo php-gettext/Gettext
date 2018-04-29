@@ -37,6 +37,7 @@ class JsCode extends Extractor implements ExtractorInterface
 
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {

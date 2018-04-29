@@ -23,6 +23,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         'Xliff' => 'xlf',
         'Yaml' => 'yml',
         'YamlDictionary' => 'yml',
+        'VueJs' => 'vue',
     ];
 
     protected static function asset($file)
@@ -30,6 +31,12 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         return './tests/assets/'.$file;
     }
 
+    /**
+     * @param string $file
+     * @param string|null $format
+     * @param array $options
+     * @return Translations
+     */
     protected static function get($file, $format = null, array $options = [])
     {
         if ($format === null) {
@@ -74,6 +81,7 @@ abstract class AbstractTest extends PHPUnit_Framework_TestCase
         $format = basename($file);
         $method = "from{$format}File";
 
+        /** @var Translations $translations */
         $translations = Translations::$method(static::asset($file.'.'.static::$ext[$format]));
 
         $this->assertCount($countTranslations, $translations);
