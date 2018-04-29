@@ -21,6 +21,14 @@ class VueJs extends JsCode implements ExtractorInterface
     {
         $options += self::$options;
 
+        // Ok, this is the weirdest hack, but let me explain:
+        // On Linux (Mac is fine), when converting HTML to DOM, new lines get trimmed after the first tag.
+        // So if there are new lines between <template> and next element, they are lost
+        // So we insert a "." which is a text node, and it will prevent that newlines are stripped between elements.
+        // Same thing happens between template and script tag.
+        $string = str_replace('<template>', '<template>.', $string);
+        $string = str_replace('</template>', '</template>.', $string);
+
         // Normalize newlines
         $string = str_replace(["\r\n", "\n\r", "\r"], "\n", $string);
 
