@@ -21,6 +21,9 @@ class VueJs extends JsCode implements ExtractorInterface
     {
         $options += self::$options;
 
+        // Normalize newlines
+        $string = str_replace(["\r\n", "\n\r", "\r"], "\n", $string);
+
         // VueJS files are valid HTML files, we will operate with the DOM here
         $dom = self::convertHtmlToDom($string);
 
@@ -93,7 +96,7 @@ class VueJs extends JsCode implements ExtractorInterface
         $fakeAttributeJs = self::getTemplateAttributeFakeJs($dom);
 
         // 1 line offset is necessary because parent template element was ignored when converting to DOM
-        self::getScriptTranslationsFromString($fakeAttributeJs, $translations, $options, 1);
+        self::getScriptTranslationsFromString($fakeAttributeJs, $translations, $options, $lineOffset);
 
         // Build a JS string from template element content expressions
         $fakeTemplateJs = self::getTemplateFakeJs($dom);
@@ -174,7 +177,7 @@ class VueJs extends JsCode implements ExtractorInterface
     private static function getTemplateFakeJs(DOMElement $dom)
     {
         $fakeJs = '';
-        $lines = explode("\n", str_replace(["\r\n", "\n\r", "\r"], "\n", $dom->textContent));
+        $lines = explode("\n", $dom->textContent);
 
         // Build a fake JS file from template by extracting JS expressions within each template line
         foreach ($lines as $line) {

@@ -9,125 +9,125 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 
-#: ./tests/assets/vuejs/input.vue:45
+#: ./tests/assets/vuejs/input.vue:42
 msgid "js-expr1"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:45
+#: ./tests/assets/vuejs/input.vue:42
 msgid "js-expr2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:47
+#: ./tests/assets/vuejs/input.vue:44
 msgid "js-alert"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:50
+#: ./tests/assets/vuejs/input.vue:47
 msgid "js-single"
 msgid_plural "js-plural"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:54
+#: ./tests/assets/vuejs/input.vue:51
 msgid "js-obj-single"
 msgid_plural "js-obj-plural"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:57
+#: ./tests/assets/vuejs/input.vue:54
 msgctxt "some-context"
 msgid "js-action"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:59
+#: ./tests/assets/vuejs/input.vue:56
 msgid "js-return"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:6
+#: ./tests/assets/vuejs/input.vue:4
 msgid "t-cond-attribute"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:7
+#: ./tests/assets/vuejs/input.vue:5
 msgid "t-attribute"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:7
+#: ./tests/assets/vuejs/input.vue:5
 msgid "t-same-line-s"
 msgid_plural "t-same-line-p"
 msgstr[0] ""
 
+#: ./tests/assets/vuejs/input.vue:9
+#: ./tests/assets/vuejs/input.vue:10
 #: ./tests/assets/vuejs/input.vue:11
-#: ./tests/assets/vuejs/input.vue:12
-#: ./tests/assets/vuejs/input.vue:13
 msgid "multi-occurrence"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:18
+#: ./tests/assets/vuejs/input.vue:16
 msgid "t-singular2"
 msgid_plural "t-plural2"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:33
+#: ./tests/assets/vuejs/input.vue:31
 msgid "t-v-bind"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:35
+#: ./tests/assets/vuejs/input.vue:33
 msgctxt "context"
 msgid "t-action"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:5
+#: ./tests/assets/vuejs/input.vue:3
 msgid "t-text"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:16
+#: ./tests/assets/vuejs/input.vue:14
 msgid "t-singular"
 msgid_plural "t-plural"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:20
+#: ./tests/assets/vuejs/input.vue:18
 msgid "t-tag"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:20
+#: ./tests/assets/vuejs/input.vue:18
 msgid "t-tag-sibling"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:22
+#: ./tests/assets/vuejs/input.vue:20
 msgid "t-expr1"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:22
+#: ./tests/assets/vuejs/input.vue:20
 msgid "t-expr2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:24
+#: ./tests/assets/vuejs/input.vue:22
 msgid "t-\"quotes\""
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:24
+#: ./tests/assets/vuejs/input.vue:22
 msgid "t-\"quotes\"-2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:25
+#: ./tests/assets/vuejs/input.vue:23
 msgid "t-'quotes'"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:25
+#: ./tests/assets/vuejs/input.vue:23
 msgid "t-'quotes'-2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:27
+#: ./tests/assets/vuejs/input.vue:25
 msgid "t-spaces-expr"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:27
+#: ./tests/assets/vuejs/input.vue:25
 msgid "t-spaces-expr2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:30
+#: ./tests/assets/vuejs/input.vue:28
 msgid "t-p1(parentheses)"
 msgid_plural "t-p2(parentheses)"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:37
+#: ./tests/assets/vuejs/input.vue:35
 msgctxt "context2"
 msgid "t-action2"
 msgstr ""

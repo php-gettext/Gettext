@@ -14,7 +14,7 @@
     <unit id="38dbba24eb02d64da6159a778a36d73a">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:45</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:42</note>
       </notes>
       <segment>
         <source>js-expr1</source>
@@ -24,7 +24,7 @@
     <unit id="e8955f4e596af6cbcdfb35f22ba26dbd">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:45</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:42</note>
       </notes>
       <segment>
         <source>js-expr2</source>
@@ -34,7 +34,7 @@
     <unit id="4819d163f4b26023f7ba7d6a20d8473e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:47</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:44</note>
       </notes>
       <segment>
         <source>js-alert</source>
@@ -44,7 +44,7 @@
     <unit id="8a33b4fd199bcbc69fbdf4c7bce48b90">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:50</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:47</note>
       </notes>
       <segment>
         <source>js-single</source>
@@ -54,7 +54,7 @@
     <unit id="b81ee1ffb034bd2cf1ec589349c4d069">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:54</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:51</note>
       </notes>
       <segment>
         <source>js-obj-single</source>
@@ -64,7 +64,7 @@
     <unit id="db5923b843960d8cc6e2064bb2d4fbc2">
       <notes>
         <note category="context">some-context</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:57</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:54</note>
       </notes>
       <segment>
         <source>js-action</source>
@@ -74,7 +74,7 @@
     <unit id="526e26ae7627d2587e7217f4cad5ff2a">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:59</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:56</note>
       </notes>
       <segment>
         <source>js-return</source>
@@ -84,7 +84,7 @@
     <unit id="167cfa209e6ba63cd50992bd2ab741c3">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:6</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:4</note>
       </notes>
       <segment>
         <source>t-cond-attribute</source>
@@ -94,7 +94,7 @@
     <unit id="d275814dc7a656f88454d5bc7d8eb5da">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:7</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:5</note>
       </notes>
       <segment>
         <source>t-attribute</source>
@@ -104,7 +104,7 @@
     <unit id="6c3f77f1c324aacb1c8c80319cb8f170">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:7</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:5</note>
       </notes>
       <segment>
         <source>t-same-line-s</source>
@@ -114,9 +114,9 @@
     <unit id="398b352621f301ca41b02198c1f926a2">
       <notes>
         <note category="context"></note>
+        <note category="reference">./tests/assets/vuejs/input.vue:9</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:10</note>
         <note category="reference">./tests/assets/vuejs/input.vue:11</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:12</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:13</note>
       </notes>
       <segment>
         <source>multi-occurrence</source>
@@ -126,7 +126,7 @@
     <unit id="5a2ac7ba2aab4bb907f49f5724e3c14e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:18</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:16</note>
       </notes>
       <segment>
         <source>t-singular2</source>
@@ -136,7 +136,7 @@
     <unit id="7b7e6cd8070b9dcac177649472138849">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:33</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:31</note>
       </notes>
       <segment>
         <source>t-v-bind</source>
@@ -146,7 +146,7 @@
     <unit id="1d2ec94066f0806e2071efeddb437a27">
       <notes>
         <note category="context">context</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:35</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:33</note>
       </notes>
       <segment>
         <source>t-action</source>
@@ -156,7 +156,7 @@
     <unit id="89585a1f45ac926e8807a68a4d9b1ad9">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:5</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:3</note>
       </notes>
       <segment>
         <source>t-text</source>
@@ -166,7 +166,7 @@
     <unit id="0c3fe4b083729439c177251c387d5722">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:16</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:14</note>
       </notes>
       <segment>
         <source>t-singular</source>
@@ -176,7 +176,7 @@
     <unit id="6aa34a68242522e44c0419156355d77c">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:20</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:18</note>
       </notes>
       <segment>
         <source>t-tag</source>
@@ -186,7 +186,7 @@
     <unit id="f1572ac8793983c12d77ca95b5439579">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:20</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:18</note>
       </notes>
       <segment>
         <source>t-tag-sibling</source>
@@ -196,7 +196,7 @@
     <unit id="1e2b7bf8dddc699ce30d062f371faa71">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:22</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:20</note>
       </notes>
       <segment>
         <source>t-expr1</source>
@@ -206,7 +206,7 @@
     <unit id="ae8dcfa6e3b199115287892230ee2217">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:22</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:20</note>
       </notes>
       <segment>
         <source>t-expr2</source>
@@ -216,7 +216,7 @@
     <unit id="4f7ba53180002572cbbb9b77e583c255">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:24</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:22</note>
       </notes>
       <segment>
         <source>t-"quotes"</source>
@@ -226,7 +226,7 @@
     <unit id="20206167de0e59217b5086cf5562861b">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:24</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:22</note>
       </notes>
       <segment>
         <source>t-"quotes"-2</source>
@@ -236,7 +236,7 @@
     <unit id="7e6d5373c05c755a4bd9149ac2937f7c">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:25</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:23</note>
       </notes>
       <segment>
         <source>t-'quotes'</source>
@@ -246,7 +246,7 @@
     <unit id="14e39df45a5b551f5dedf6255b3142b8">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:25</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:23</note>
       </notes>
       <segment>
         <source>t-'quotes'-2</source>
@@ -256,7 +256,7 @@
     <unit id="6614954d9a3cc6c61452432d75b520d5">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:27</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:25</note>
       </notes>
       <segment>
         <source>t-spaces-expr</source>
@@ -266,7 +266,7 @@
     <unit id="524ef804254308d2bc29cb9fefc0851e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:27</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:25</note>
       </notes>
       <segment>
         <source>t-spaces-expr2</source>
@@ -276,7 +276,7 @@
     <unit id="7b21dc6606de3c09ef56b3e82fa464f5">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:30</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:28</note>
       </notes>
       <segment>
         <source>t-p1(parentheses)</source>
@@ -286,7 +286,7 @@
     <unit id="1a06c92a79f4c651752827864aa98311">
       <notes>
         <note category="context">context2</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:37</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:35</note>
       </notes>
       <segment>
         <source>t-action2</source>
