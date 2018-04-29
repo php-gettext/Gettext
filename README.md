@@ -203,7 +203,7 @@ Name | Description | Example
 **Xliff**          | Gets the messages from [xliff (2.0)](http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/po/Xliff.xlf)
 **Yaml**           | Gets the messages from yaml. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/po/Yaml.yml)
 **YamlDictionary** | Gets the messages from a yaml (without plurals and context). | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/po/YamlDictionary.yml)
-**VueJs**          | Gets the messages from a VueJs templates. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/vuejs/input.vue)
+**VueJs**          | Gets the messages from a VueJs template. | [example](https://github.com/oscarotero/Gettext/blob/master/tests/assets/vuejs/input.vue)
 
 ## Generators
 
