@@ -6,7 +6,7 @@ use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use Gettext\Translations;
-use Gettext\Utils\VueJsFunctionScanner;
+use Gettext\Utils\JsFunctionsScanner;
 
 /**
  * Class to get gettext strings from VueJS template files.
@@ -38,14 +38,24 @@ class VueJs extends JsCode implements ExtractorInterface
         // Parse the script part as a regular JS code
         $script = $dom->getElementsByTagName('script')->item(0);
         if ($script) {
-            self::getScriptTranslationsFromString($script->textContent, $translations, $options, $script->getLineNo());
+            self::getScriptTranslationsFromString(
+                $script->textContent,
+                $translations,
+                $options,
+                $script->getLineNo() - 1
+            );
         }
 
         // Template part is parsed separately, all variables will be extracted
         // and handled as a regular JS code
         $template = $dom->getElementsByTagName('template')->item(0);
         if ($template) {
-            self::getTemplateTranslations($template, $translations, $options, $template->getLineNo());
+            self::getTemplateTranslations(
+                $template,
+                $translations,
+                $options,
+                $template->getLineNo() - 1
+            );
         }
     }
 
@@ -80,8 +90,8 @@ class VueJs extends JsCode implements ExtractorInterface
         array $options = [],
         $lineOffset = 0
     ) {
-        $functions = new VueJsFunctionScanner($scriptContents);
-        $functions->lineOffset = $lineOffset;
+        $functions = new JsFunctionsScanner($scriptContents);
+        $options['lineOffset'] = $lineOffset;
         $functions->saveGettextFunctions($translations, $options);
     }
 
