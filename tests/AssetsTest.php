@@ -303,7 +303,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('phpcode2/input', 'PhpCode', [
             'constants' => [
                 'CONTEXT' => 'my-context',
-            ]
+            ],
         ]);
         $countTranslations = 13;
         $countTranslated = 0;
@@ -415,4 +415,41 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('twig/Yaml', $countTranslations, $countTranslated, $countHeaders);
         $this->runTestFormat('twig/YamlDictionary', $countTranslations, $countTranslated);
     }
+
+    public function testVueJs()
+    {
+        $translations = static::get('vuejs/input', 'VueJs');
+        $countTranslations = 28;
+        $countTranslated = 0;
+        $countHeaders = 8;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
+
+        $this->assertContent($translations, 'vuejs/Po');
+        $this->assertContent($translations, 'vuejs/Mo');
+        $this->assertContent($translations, 'vuejs/PhpArray');
+        $this->assertContent($translations, 'vuejs/Jed');
+        $this->assertContent($translations, 'vuejs/Json');
+        $this->assertContent($translations, 'vuejs/JsonDictionary');
+        $this->assertContent($translations, 'vuejs/Csv');
+        $this->assertContent($translations, 'vuejs/CsvDictionary');
+        $this->assertContent($translations, 'vuejs/Xliff');
+        $this->assertContent($translations, 'vuejs/Yaml');
+        $this->assertContent($translations, 'vuejs/YamlDictionary');
+
+        $this->runTestFormat('vuejs/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('vuejs/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('vuejs/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('vuejs/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('vuejs/YamlDictionary', $countTranslations, $countTranslated);
+    }
+
 }

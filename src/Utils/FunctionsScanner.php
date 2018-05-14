@@ -20,7 +20,8 @@ abstract class FunctionsScanner
      * Search for specific functions and create translations.
      *
      * @param Translations $translations The translations instance where save the values
-     * @param array        $options      The extractor options
+     * @param array $options The extractor options
+     * @throws Exception
      */
     public function saveGettextFunctions(Translations $translations, array $options)
     {
@@ -29,6 +30,10 @@ abstract class FunctionsScanner
 
         foreach ($this->getFunctions($options['constants']) as $function) {
             list($name, $line, $args) = $function;
+
+            if (isset($options['lineOffset'])) {
+                $line += $options['lineOffset'];
+            }
 
             if (!isset($functions[$name])) {
                 continue;
@@ -106,7 +111,7 @@ abstract class FunctionsScanner
                     throw new Exception(sprintf('Not valid function %s', $functions[$name]));
             }
 
-            if ((string) $original !== '' && ($domain === null || $domain === $translations->getDomain())) {
+            if ((string)$original !== '' && ($domain === null || $domain === $translations->getDomain())) {
                 $translation = $translations->insert($context, $original, $plural);
                 $translation->addReference($file, $line);
 

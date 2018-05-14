@@ -14,7 +14,8 @@ class JsFunctionsScanner extends FunctionsScanner
      */
     public function __construct($code)
     {
-        $this->code = $code;
+        // Normalize newline characters
+        $this->code = str_replace(["\r\n", "\n\r", "\r"], "\n", $code);
     }
 
     /**
