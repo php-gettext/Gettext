@@ -115,9 +115,15 @@ abstract class FunctionsScanner
                 continue;
             }
 
-            $domainMatches = $domain === null || $domain === $translations->getDomain();
+            $isDefaultDomain = $domain === null;
+            $isMatchingDomain = $domain === $translations->getDomain();
 
-            if (!$domainMatches) {
+            if (!empty($options['domainOnly']) && $isDefaultDomain) {
+                // If we want to find translations for a specific domain, skip default domain messages
+                continue;
+            }
+
+            if (!$isDefaultDomain && !$isMatchingDomain) {
                 continue;
             }
 

@@ -2,10 +2,10 @@
 
 namespace Gettext;
 
-use Gettext\Languages\Language;
-use BadMethodCallException;
-use InvalidArgumentException;
 use ArrayObject;
+use BadMethodCallException;
+use Gettext\Languages\Language;
+use InvalidArgumentException;
 
 /**
  * Class to manage a collection of translations.
@@ -114,6 +114,8 @@ class Translations extends ArrayObject
             'POT-Creation-Date',
             'PO-Revision-Date',
         ],
+        'domain' => null,
+        'domainOnly' => false, // Indicates if we want to search only for strings within domain
     ];
 
     private $headers;
@@ -146,7 +148,13 @@ class Translations extends ArrayObject
             throw new BadMethodCallException("The method $name does not exists");
         }
 
-        return call_user_func_array([new static(), 'add'.ucfirst($name)], $arguments);
+        $translations = new static();
+
+        if (!empty($arguments[1]['domain'])) {
+            $translations->setDomain($arguments[1]['domain']);
+        }
+
+        return call_user_func_array([$translations, 'add' . ucfirst($name)], $arguments);
     }
 
     /**
