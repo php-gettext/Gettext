@@ -2,6 +2,9 @@
 
 namespace Gettext\Tests;
 
+use Gettext\Extractors\PhpCode;
+use Gettext\Translations;
+
 class AssetsTest extends AbstractTest
 {
     public function testPo()
@@ -457,8 +460,10 @@ class AssetsTest extends AbstractTest
      */
     public function testPhpCode4()
     {
-        $translations = static::get('phpcode4/input', 'PhpCode', [
-            'domain' => 'domain1',
+        $translations = new Translations;
+        $translations->setDomain('domain1');
+
+        PhpCode::fromFile(static::asset('phpcode4/input.php'), $translations, [
             'domainOnly' => true,
         ]);
 
