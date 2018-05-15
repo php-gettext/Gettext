@@ -111,14 +111,22 @@ abstract class FunctionsScanner
                     throw new Exception(sprintf('Not valid function %s', $functions[$name]));
             }
 
-            if ((string)$original !== '' && ($domain === null || $domain === $translations->getDomain())) {
-                $translation = $translations->insert($context, $original, $plural);
-                $translation->addReference($file, $line);
+            if ((string)$original === '') {
+                continue;
+            }
 
-                if (isset($function[3])) {
-                    foreach ($function[3] as $extractedComment) {
-                        $translation->addExtractedComment($extractedComment);
-                    }
+            $domainMatches = $domain === null || $domain === $translations->getDomain();
+
+            if (!$domainMatches) {
+                continue;
+            }
+
+            $translation = $translations->insert($context, $original, $plural);
+            $translation->addReference($file, $line);
+
+            if (isset($function[3])) {
+                foreach ($function[3] as $extractedComment) {
+                    $translation->addExtractedComment($extractedComment);
                 }
             }
         }
