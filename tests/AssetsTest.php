@@ -2,6 +2,9 @@
 
 namespace Gettext\Tests;
 
+use Gettext\Extractors\PhpCode;
+use Gettext\Translations;
+
 class AssetsTest extends AbstractTest
 {
     public function testPo()
@@ -450,6 +453,51 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('vuejs/CsvDictionary', $countTranslations, $countTranslated);
         $this->runTestFormat('vuejs/Yaml', $countTranslations, $countTranslated, $countHeaders);
         $this->runTestFormat('vuejs/YamlDictionary', $countTranslations, $countTranslated);
+    }
+
+    /**
+     * Test specific domain translation extraction excluding default domain messages
+     */
+    public function testPhpCode4()
+    {
+        $translations = new Translations;
+        $translations->setDomain('domain1');
+
+        PhpCode::fromFile(static::asset('phpcode4/input.php'), $translations, [
+            'domainOnly' => true,
+        ]);
+
+        $countHeaders = 9;
+        $countTranslated = 0;
+        $countTranslations = 4;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
+
+        $this->assertContent($translations, 'phpcode4/Po');
+        $this->assertContent($translations, 'phpcode4/Mo');
+        $this->assertContent($translations, 'phpcode4/PhpArray');
+        $this->assertContent($translations, 'phpcode4/Jed');
+        $this->assertContent($translations, 'phpcode4/Json');
+        $this->assertContent($translations, 'phpcode4/JsonDictionary');
+        $this->assertContent($translations, 'phpcode4/Csv');
+        $this->assertContent($translations, 'phpcode4/CsvDictionary');
+        $this->assertContent($translations, 'phpcode4/Xliff');
+        $this->assertContent($translations, 'phpcode4/Yaml');
+        $this->assertContent($translations, 'phpcode4/YamlDictionary');
+
+        $this->runTestFormat('phpcode4/Po', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/Mo', 0, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/PhpArray', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/Jed', $countTranslations, $countTranslated, 10);
+        $this->runTestFormat('phpcode4/Xliff', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/Json', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/JsonDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode4/Csv', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/CsvDictionary', $countTranslations, $countTranslated);
+        $this->runTestFormat('phpcode4/Yaml', $countTranslations, $countTranslated, $countHeaders);
+        $this->runTestFormat('phpcode4/YamlDictionary', $countTranslations, $countTranslated);
     }
 
 }
