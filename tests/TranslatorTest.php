@@ -93,10 +93,12 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals('beaucoup de commentaires', n__('One comment', '%s comments', 3, ['%s' => 'beaucoup de']));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testPluralInjection()
     {
         $translations = new Translations();
-        $this->setExpectedException('InvalidArgumentException');
         $translations->setPluralForms(2, 'fuu_call()');
     }
 
@@ -106,7 +108,8 @@ class TranslatorTest extends AbstractTest
         $languages = Language::getAll();
 
         foreach ($languages as $language) {
-            $translations->setPluralForms(2, $language->formula);
+            $result = $translations->setPluralForms(2, $language->formula);
+            $this->assertInstanceOf('Gettext\Translations', $result);
         }
     }
 
