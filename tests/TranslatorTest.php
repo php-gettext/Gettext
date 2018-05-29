@@ -262,8 +262,6 @@ class TranslatorTest extends AbstractTest
         $mo = (new Translator())->loadTranslations(static::get('po/Mo'));
         $array = (new Translator())->loadTranslations(static::get('po/PhpArray'));
 
-        $this->assertNotEmpty($po->gettext(''));
-        $this->assertEquals($po->gettext(''), $mo->gettext(''));
-        $this->assertEquals($po->gettext(''), $array->gettext(''));
+        $this->assertEmpty($po->gettext(''));
     }
 }
