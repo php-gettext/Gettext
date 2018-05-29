@@ -28,7 +28,7 @@
     {{ngettext('t-p1(parentheses)', 't-p2(parentheses)', (true || false ? 1 : (1+1)))}}
     regular text { test {something} test }
 
-    <a v-bind:title='gettext("t-v-bind")'></a>
+    <a v-on:click='alert(gettext("t-v-bind"))'></a>
 
     <a v-bind:title='pgettext("context", "t-action")'></a>
 
