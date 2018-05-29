@@ -169,12 +169,10 @@ class VueJs extends JsCode implements ExtractorInterface
                 /** @var DOMAttr $domAttr */
                 $domAttr = $attrList->item($j);
 
+                $attr = $domAttr->name;
+
                 // Check if this is a dynamic vue attribute
-                if (
-                    strpos($domAttr->name, ':') === 0
-                    || strpos($domAttr->name, 'v-bind:') === 0
-                    || strpos($domAttr->name, 'v-on:') === 0
-                ) {
+                if (strpos($attr, ':') === 0 || strpos($attr, 'v-bind:') === 0 || strpos($attr, 'v-on:') === 0) {
                     $line = $domAttr->getLineNo();
                     $expressionByLine += [$line => []];
                     $expressionByLine[$line][] = $domAttr->value;
