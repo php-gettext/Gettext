@@ -20,6 +20,14 @@ class VueJs extends JsCode implements ExtractorInterface
     public static function fromString($string, Translations $translations, array $options = [])
     {
         $options += self::$options;
+        $options += [
+            // HTML attribute prefixes we parse as JS which could contain translations (are JS expressions)
+            'attributePrefixes' => [
+                ':',
+                'v-bind:',
+                'v-on:',
+            ],
+        ];
 
         // Ok, this is the weirdest hack, but let me explain:
         // On Linux (Mac is fine), when converting HTML to DOM, new lines get trimmed after the first tag.
@@ -111,7 +119,7 @@ class VueJs extends JsCode implements ExtractorInterface
         $lineOffset = 0
     ) {
         // Build a JS string from all template attribute expressions
-        $fakeAttributeJs = self::getTemplateAttributeFakeJs($dom);
+        $fakeAttributeJs = self::getTemplateAttributeFakeJs($options, $dom);
 
         // 1 line offset is necessary because parent template element was ignored when converting to DOM
         self::getScriptTranslationsFromString($fakeAttributeJs, $translations, $options, $lineOffset);
@@ -125,12 +133,13 @@ class VueJs extends JsCode implements ExtractorInterface
      * Extract JS expressions from element attribute bindings (excluding text within elements)
      * For example: <span :title="__('extract this')"> skip element content </span>
      *
+     * @param array $options
      * @param DOMElement $dom
      * @return string JS code
      */
-    private static function getTemplateAttributeFakeJs(DOMElement $dom)
+    private static function getTemplateAttributeFakeJs(array $options, DOMElement $dom)
     {
-        $expressionsByLine = self::getVueAttributeExpressions($dom);
+        $expressionsByLine = self::getVueAttributeExpressions($options['attributePrefixes'], $dom);
 
         $maxLines = max(array_keys($expressionsByLine));
         $fakeJs = '';
@@ -148,12 +157,16 @@ class VueJs extends JsCode implements ExtractorInterface
     /**
      * Loop DOM element recursively and parse out all dynamic vue attributes which are basically JS expressions
      *
+     * @param array $attributePrefixes List of attribute prefixes we parse as JS (may contain translations)
      * @param DOMElement $dom
      * @param array $expressionByLine [lineNumber => [jsExpression, ..], ..]
      * @return array [lineNumber => [jsExpression, ..], ..]
      */
-    private static function getVueAttributeExpressions(DOMElement $dom, array &$expressionByLine = [])
-    {
+    private static function getVueAttributeExpressions(
+        array $attributePrefixes,
+        DOMElement $dom,
+        array &$expressionByLine = []
+    ) {
         $children = $dom->childNodes;
 
         for ($i = 0; $i < $children->length; $i++) {
@@ -170,7 +183,7 @@ class VueJs extends JsCode implements ExtractorInterface
                 $domAttr = $attrList->item($j);
 
                 // Check if this is a dynamic vue attribute
-                if (strpos($domAttr->name, ':') === 0 || strpos($domAttr->name, 'v-bind:') === 0) {
+                if (self::isAttributeMatching($domAttr->name, $attributePrefixes)) {
                     $line = $domAttr->getLineNo();
                     $expressionByLine += [$line => []];
                     $expressionByLine[$line][] = $domAttr->value;
@@ -178,11 +191,28 @@ class VueJs extends JsCode implements ExtractorInterface
             }
 
             if ($node->hasChildNodes()) {
-                $expressionByLine = self::getVueAttributeExpressions($node, $expressionByLine);
+                $expressionByLine = self::getVueAttributeExpressions($attributePrefixes, $node, $expressionByLine);
             }
         }
 
         return $expressionByLine;
+    }
+
+    /**
+     * Check if this attribute name should be parsed for translations
+     *
+     * @param string $attributeName
+     * @param string[] $attributePrefixes
+     * @return bool
+     */
+    private static function isAttributeMatching($attributeName, $attributePrefixes)
+    {
+        foreach ($attributePrefixes as $prefix) {
+            if (strpos($attributeName, $prefix) === 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
