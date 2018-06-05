@@ -141,6 +141,10 @@ class VueJs extends JsCode implements ExtractorInterface
     {
         $expressionsByLine = self::getVueAttributeExpressions($options['attributePrefixes'], $dom);
 
+        if (empty($expressionsByLine)) {
+            return '';
+        }
+
         $maxLines = max(array_keys($expressionsByLine));
         $fakeJs = '';
 
