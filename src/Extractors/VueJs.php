@@ -43,14 +43,16 @@ class VueJs extends JsCode implements ExtractorInterface
         // VueJS files are valid HTML files, we will operate with the DOM here
         $dom = self::convertHtmlToDom($string);
 
+        $script = self::extractScriptTag($string);
+
         // Parse the script part as a regular JS code
-        $script = $dom->getElementsByTagName('script')->item(0);
         if ($script) {
+            $scriptLineNumber = $dom->getElementsByTagName('script')->item(0)->getLineNo();
             self::getScriptTranslationsFromString(
-                $script->textContent,
+                $script,
                 $translations,
                 $options,
-                $script->getLineNo() - 1
+                $scriptLineNumber - 1
             );
         }
 
@@ -65,6 +67,22 @@ class VueJs extends JsCode implements ExtractorInterface
                 $template->getLineNo() - 1
             );
         }
+    }
+
+    /**
+     * Extracts script tag contents using regex instead of DOM operations.
+     * If we parse using DOM, some contents may change, for example, tags within strings will be stripped
+     *
+     * @param $string
+     * @return bool|string
+     */
+    private static function extractScriptTag($string)
+    {
+        if (preg_match('#<\s*?script\b[^>]*>(.*?)</script\b[^>]*>#s', $string, $matches)) {
+            return $matches[1];
+        }
+
+        return '';
     }
 
     /**

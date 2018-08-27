@@ -9,7 +9,7 @@ messages:
     js-alert: ''
     js-single: ''
     js-obj-single: ''
-    js-return: ''
+    '<span>js-return</span><br>': ''
     t-cond-attribute: ''
     t-attribute: ''
     t-same-line-s: ''

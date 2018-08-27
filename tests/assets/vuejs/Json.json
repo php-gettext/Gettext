@@ -21,7 +21,7 @@
             "js-obj-single": [
                 ""
             ],
-            "js-return": [
+            "<span>js-return<\/span><br>": [
                 ""
             ],
             "t-cond-attribute": [

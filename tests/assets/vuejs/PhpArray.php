@@ -37,7 +37,7 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
-      'js-return' => 
+      '<span>js-return</span><br>' => 
       array (
         0 => '',
       ),

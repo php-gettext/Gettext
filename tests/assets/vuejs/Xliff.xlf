@@ -71,13 +71,13 @@
         <target></target>
       </segment>
     </unit>
-    <unit id="526e26ae7627d2587e7217f4cad5ff2a">
+    <unit id="165738b03fc41d793cf080ad7f3bf5e3">
       <notes>
         <note category="context"></note>
         <note category="reference">./tests/assets/vuejs/input.vue:56</note>
       </notes>
       <segment>
-        <source>js-return</source>
+        <source><![CDATA[<span>js-return</span><br>]]></source>
         <target></target>
       </segment>
     </unit>

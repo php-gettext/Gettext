@@ -23,7 +23,7 @@
         "some-context\\u0004js-action": [
             ""
         ],
-        "js-return": [
+        "<span>js-return<\/span><br>": [
             ""
         ],
         "t-cond-attribute": [
