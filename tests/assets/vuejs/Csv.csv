@@ -13,7 +13,7 @@ Report-Msgid-Bugs-To:
 ,js-single,
 ,js-obj-single,
 some-context,js-action,
-,js-return,
+,<span>js-return</span><br>,
 ,t-cond-attribute,
 ,t-attribute,
 ,t-same-line-s,

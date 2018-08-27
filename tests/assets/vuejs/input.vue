@@ -53,7 +53,7 @@
 
                 var string = 'something' + this.p__('some-context', 'js-action');
 
-                return this.gettext('js-return');
+                return this.gettext('<span>js-return</span><br>');
             }
         },
     }

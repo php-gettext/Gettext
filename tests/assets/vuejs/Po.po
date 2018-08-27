@@ -37,7 +37,7 @@ msgid "js-action"
 msgstr ""
 
 #: ./tests/assets/vuejs/input.vue:56
-msgid "js-return"
+msgid "<span>js-return</span><br>"
 msgstr ""
 
 #: ./tests/assets/vuejs/input.vue:4
