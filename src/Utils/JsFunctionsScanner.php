@@ -165,6 +165,7 @@ class JsFunctionsScanner extends FunctionsScanner
                             break;
 
                         default:
+                            $buffer = '';
                             continue 3;
                     }
                     break;

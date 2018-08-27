@@ -41,5 +41,15 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="d2f5d66aeec6be1cf1471f1754fd59d2">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/jscode2/input.js:8</note>
+      </notes>
+      <segment>
+        <source>my translate 3</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

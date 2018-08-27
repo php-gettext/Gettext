@@ -232,7 +232,7 @@ class AssetsTest extends AbstractTest
     public function testJs2Code()
     {
         $translations = static::get('jscode2/input', 'JsCode');
-        $countTranslations = 3;
+        $countTranslations = 4;
         $countTranslated = 0;
         $countHeaders = 8;
 

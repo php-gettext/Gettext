@@ -22,3 +22,7 @@ msgstr ""
 msgid "%s message"
 msgid_plural "%s messages"
 msgstr[0] ""
+
+#: ./tests/assets/jscode2/input.js:8
+msgid "my translate 3"
+msgstr ""

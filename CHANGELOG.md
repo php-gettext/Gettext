@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.6.1] - 2018-08-27
+
+### Fixed
+
+- VueJS DOM parsing [#188]
+- Javascript parser was unable to extract some functions [#187]
+
 ## [4.6.0] - 2018-06-26
 
 ### Added
@@ -93,6 +100,8 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 
 - Fixed a bug related with the javascript source extraction with single quotes
 
+[#188]: https://github.com/oscarotero/Gettext/issues/188
+[#187]: https://github.com/oscarotero/Gettext/issues/187
 [#178]: https://github.com/oscarotero/Gettext/issues/178
 [#182]: https://github.com/oscarotero/Gettext/issues/182
 [#177]: https://github.com/oscarotero/Gettext/issues/177
@@ -112,6 +121,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#145]: https://github.com/oscarotero/Gettext/issues/145
 [#146]: https://github.com/oscarotero/Gettext/issues/146
 
+[4.6.1]: https://github.com/oscarotero/Gettext/compare/v4.6.0...v4.6.1
 [4.6.0]: https://github.com/oscarotero/Gettext/compare/v4.5.0...v4.6.0
 [4.5.0]: https://github.com/oscarotero/Gettext/compare/v4.4.4...v4.5.0
 [4.4.4]: https://github.com/oscarotero/Gettext/compare/v4.4.3...v4.4.4
