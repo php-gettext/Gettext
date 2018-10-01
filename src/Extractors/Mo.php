@@ -11,10 +11,6 @@ use Gettext\Utils\StringReader;
  */
 class Mo extends Extractor implements ExtractorInterface
 {
-    const MAGIC1 = -1794895138;
-    const MAGIC2 = -569244523;
-    const MAGIC3 = 2500072158;
-
     /**
      * {@inheritdoc}
      */
@@ -23,13 +19,17 @@ class Mo extends Extractor implements ExtractorInterface
         $stream = new StringReader($string);
         $magic = self::readInt($stream, 'V');
 
-        if (($magic === self::MAGIC1) || ($magic === self::MAGIC3)) { //to make sure it works for 64-bit platforms
-            $byteOrder = 'V'; //low endian
-        } elseif ($magic === (self::MAGIC2 & 0xFFFFFFFF)) {
-            $byteOrder = 'N'; //big endian
-        } else {
-            throw new Exception('Not MO file');
-        }
+		$magic_little = (int) - 1794895138;
+		$magic_little_64 = (int) 2500072158;
+		$magic_big = ((int) - 569244523) & 0xFFFFFFFF;
+
+		if ($magic_little == $magic || $magic_little_64 == $magic) { //to make sure it works for 64-bit platforms
+			$byteOrder = 'V'; //low endian
+		} else if ($magic_big == $magic) {
+			$byteOrder = 'N'; //big endian
+		} else {
+			throw new Exception('Not MO file');
+		}
 
         self::readInt($stream, $byteOrder);
 
