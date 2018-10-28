@@ -381,7 +381,7 @@ class AssetsTest extends AbstractTest
 
     public function testTwig()
     {
-        $translations = static::get('twig/input', 'Twig');
+        $translations = static::get('twig/input', 'Twig', ['ast' => FALSE]);
         $countTranslations = 10;
         $countTranslated = 0;
         $countHeaders = 8;
@@ -417,6 +417,22 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('twig/CsvDictionary', $countTranslations, $countTranslated);
         $this->runTestFormat('twig/Yaml', $countTranslations, $countTranslated, $countHeaders);
         $this->runTestFormat('twig/YamlDictionary', $countTranslations, $countTranslated);
+    }
+
+    public function testTimberTwig()
+    {
+        require_once('vendor/timber/timber/lib/Timber.php');
+        $translations = Translations::fromTwigFile('./tests/assets/twig-timber/input.php');
+        $countTranslations = 11;
+        $countTranslated = 0;
+        $countHeaders = 8;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
+
+        $this->assertContent($translations, 'twig-timber/Po');
+        $this->runTestFormat('twig-timber/Po', $countTranslations, $countTranslated, $countHeaders);
     }
 
     public function testVueJs()

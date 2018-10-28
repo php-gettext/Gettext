@@ -16,6 +16,20 @@ class Twig extends Extractor implements ExtractorInterface
     public static $options = [
         'extractComments' => 'notes:',
         'twig' => null,
+        'ast' => [
+            'constants' => [],
+            'functions' => [
+                // WordPress defaults
+                '__'              => 'text_domain',
+                '_e'              => 'text_domain',
+                '_x'              => 'text_context_domain',
+                '_ex'             => 'text_context_domain',
+                '_n'              => 'single_plural_number_domain',
+                '_nx'             => 'single_plural_number_context_domain',
+                '_n_noop'         => 'single_plural_domain',
+                '_nx_noop'        => 'single_plural_context_domain'
+            ]
+        ]
     ];
 
     /**
@@ -42,4 +56,17 @@ class Twig extends Extractor implements ExtractorInterface
 
         return static::$options['twig'] = $twig;
     }
+
+    /**
+     * Register intoa Twig instance additional functions recognized by Timber,
+     * the Twig for WordPress library.
+     *
+     * @return NULL
+     */
+    private static function enableTimber() {
+        $timber = new \Timber\Twig();
+        $timber->add_timber_functions(static::$options['twig']);
+        $timber->add_timber_filters(static::$options['twig']);
+    }
+
 }
