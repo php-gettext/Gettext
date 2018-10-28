@@ -7,6 +7,7 @@ use Twig_Loader_Array;
 use Twig_Environment;
 use Twig_Source;
 use Twig_Extensions_Extension_I18n;
+use Gettext\Utils\TwigFunctionsScanner;
 
 /**
  * Class to get gettext strings from twig files returning arrays.
@@ -38,10 +39,20 @@ class Twig extends Extractor implements ExtractorInterface
     public static function fromString($string, Translations $translations, array $options = [])
     {
         $options += static::$options;
-
         $twig = $options['twig'] ?: self::createTwig();
 
-        PhpCode::fromString($twig->compileSource(new Twig_Source($string, '')), $translations, $options);
+        if ($options['ast'] !== FALSE) {
+            static::enableTimber();
+            $func_names = array_keys(self::$options['ast']['functions']);
+            if (isset($options['file'])) {
+                $functions = new TwigFunctionsScanner(['filename' => $options['file']], $twig, $func_names);
+            } else {
+                $functions = new TwigFunctionsScanner(['content' => $string], $twig, $func_names);
+            }
+            $functions->saveGettextFunctions($translations, array_merge($options, $options['ast']));
+        } else {
+            PhpCode::fromString($twig->compileSource(new Twig_Source($string, '')), $translations, $options);
+        }
     }
 
     /**
