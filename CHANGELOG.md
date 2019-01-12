@@ -12,6 +12,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 - New option `facade` in blade extractor to use a facade instead create a blade compiler [#197], [#198]
 
 ### Fixed
+- Added php-7.3 to travis
 - Added VueJS extractor method docblocks for IDEs [#191]
 
 ## [4.6.1] - 2018-08-27
