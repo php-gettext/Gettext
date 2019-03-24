@@ -60,7 +60,7 @@ abstract class AbstractTest extends TestCase
 
         // Po reference files are LittleEndian
         if ($format !== 'Mo' || self::isLittleEndian()) {
-            $this->assertSame($content, $translations->$method(), $file);
+            $this->assertSame(trim($content), trim($translations->$method()), $file);
         }
     }
 
