@@ -37,11 +37,21 @@ class JsFunctionsScanner extends FunctionsScanner
 
             switch ($char) {
                 case '\\':
-                    $prev = $char;
-                    $char = $next;
-                    $pos++;
-                    $next = isset($this->code[$pos]) ? $this->code[$pos] : null;
-                    break;
+                    switch ($this->status()) {
+                        case 'simple-quote':
+                            break 2;
+                        case 'double-quote':
+                            break 2;
+
+                        default:
+
+                            $prev = $char;
+                            $char = $next;
+                            $pos++;
+                            $next = isset($this->code[$pos]) ? $this->code[$pos] : null;
+
+                            break;
+                    }
 
                 case "\n":
                     ++$line;
@@ -232,8 +242,21 @@ class JsFunctionsScanner extends FunctionsScanner
      */
     protected static function prepareArgument($argument)
     {
-        if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {
-            return substr($argument, 1, -1);
+        $argument = isset($argument) ? $argument : '';
+
+        if (!$argument) {
+            return null;
         }
+
+        if ($argument[0] === '"' || $argument[0] === "'") {
+            $argument = substr($argument, 1, -1);
+        }
+
+        $replace = [
+            '\n' => "\n",
+            '\t' => "\t",
+        ];
+
+        return str_replace(array_keys($replace), array_values($replace), $argument);
     }
 }
