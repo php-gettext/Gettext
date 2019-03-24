@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: \n"
+"Language-Team: \n"
+"Last-Translator: \n"
+"MIME-Version: 1.0\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+
+#: ./tests/assets/jscode3/input.js:1
+msgid ""
+"some message\n"
+"with new line"
+msgstr ""
+
+#: ./tests/assets/jscode3/input.js:3
+msgid ""
+"some message\n"
+"with new line and\n"
+"\"%1$s\" two placeholders \"%2$s\""
+msgstr ""

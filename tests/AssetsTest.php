@@ -265,6 +265,23 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('jscode2/YamlDictionary', $countTranslations, $countTranslated);
     }
 
+    public function testJs3Code()
+    {
+        $translations = static::get('jscode3/input', 'JsCode');
+        $countTranslations = 2;
+        $countTranslated = 0;
+        $countHeaders = 8;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(0, $translations->countTranslated());
+
+        $this->assertContent($translations, 'jscode3/Po');
+        $this->assertContent($translations, 'jscode3/Json');
+
+        $this->runTestFormat('jscode3/Po', $countTranslations, $countTranslated, $countHeaders);
+    }
+
     public function testPhpCode()
     {
         $translations = static::get('phpcode/input', 'PhpCode');
