@@ -104,7 +104,7 @@ class JsFunctionsScanner extends FunctionsScanner
      */
     private function getArguments(Node $node)
     {
-        return array_map(function($argument) {
+        return array_map(function ($argument) {
             return $this->getArgumentValue($argument);
         }, $node->getArguments());
     }
