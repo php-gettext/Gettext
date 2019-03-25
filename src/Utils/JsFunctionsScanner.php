@@ -54,7 +54,7 @@ class JsFunctionsScanner extends FunctionsScanner
      *
      * @return bool
      */
-    private function isCallExpression(Node $node) : bool
+    private function isCallExpression(Node $node)
     {
         return $node instanceof CallExpression || $node->getType() === 'CallExpression';
     }
@@ -90,7 +90,7 @@ class JsFunctionsScanner extends FunctionsScanner
      *
      * @return int
      */
-    private function getStartingLineNumber(Node $node) : int
+    private function getStartingLineNumber(Node $node)
     {
         return $node->getLocation()->getStart()->getLine();
     }
@@ -102,7 +102,7 @@ class JsFunctionsScanner extends FunctionsScanner
      *
      * @return array
      */
-    private function getArguments(Node $node) :  array
+    private function getArguments(Node $node)
     {
         return array_map(function($argument) {
             return $this->getArgumentValue($argument);
