@@ -19,7 +19,8 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "gettext/languages": "^2.3"
+        "gettext/languages": "^2.3",
+        "mck89/peast": "^1.9"
     },
     "require-dev": {
         "illuminate/view": "*",

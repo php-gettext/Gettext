@@ -2,10 +2,15 @@
 
 namespace Gettext\Utils;
 
+use Peast\Peast;
+use Peast\Syntax\Node\CallExpression;
+use Peast\Syntax\Node\MemberExpression;
+use Peast\Syntax\Node\Node;
+use Peast\Traverser;
+
 class JsFunctionsScanner extends FunctionsScanner
 {
-    protected $code;
-    protected $status = [];
+    private $ast;
 
     /**
      * Constructor.
@@ -14,249 +19,109 @@ class JsFunctionsScanner extends FunctionsScanner
      */
     public function __construct($code)
     {
-        // Normalize newline characters
-        $this->code = str_replace(["\r\n", "\n\r", "\r"], "\n", $code);
+        $this->ast = Peast::latest($code, [
+            'sourceType' => Peast::SOURCE_TYPE_MODULE,
+            'jsx' => true,
+        ])->parse();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions(array $constants = [])
     {
-        $length = strlen($this->code);
-        $line = 1;
-        $buffer = '';
         $functions = [];
-        $bufferFunctions = [];
-        $char = null;
 
-        for ($pos = 0; $pos < $length; ++$pos) {
-            $prev = $char;
-            $char = $this->code[$pos];
-            $next = isset($this->code[$pos + 1]) ? $this->code[$pos + 1] : null;
-
-            switch ($char) {
-                case '\\':
-                    switch ($this->status()) {
-                        case 'simple-quote':
-                            break 2;
-                        case 'double-quote':
-                            break 2;
-
-                        default:
-
-                            $prev = $char;
-                            $char = $next;
-                            $pos++;
-                            $next = isset($this->code[$pos]) ? $this->code[$pos] : null;
-
-                            break;
-                    }
-
-                case "\n":
-                    ++$line;
-
-                    if ($this->status('line-comment')) {
-                        $this->upStatus();
-                    }
-                    break;
-
-                case '/':
-                    switch ($this->status()) {
-                        case 'simple-quote':
-                        case 'double-quote':
-                        case 'line-comment':
-                            break;
-
-                        case 'block-comment':
-                            if ($prev === '*') {
-                                $this->upStatus();
-                            }
-                            break;
-
-                        default:
-                            if ($next === '/') {
-                                $this->downStatus('line-comment');
-                            } elseif ($next === '*') {
-                                $this->downStatus('block-comment');
-                            }
-                            break;
-                    }
-                    break;
-
-                case "'":
-                    switch ($this->status()) {
-                        case 'simple-quote':
-                            $this->upStatus();
-                            break;
-
-                        case 'line-comment':
-                        case 'block-comment':
-                        case 'double-quote':
-                            break;
-
-                        default:
-                            $this->downStatus('simple-quote');
-                            break;
-                    }
-                    break;
-
-                case '"':
-                    switch ($this->status()) {
-                        case 'double-quote':
-                            $this->upStatus();
-                            break;
-
-                        case 'line-comment':
-                        case 'block-comment':
-                        case 'simple-quote':
-                            break;
-
-                        default:
-                            $this->downStatus('double-quote');
-                            break;
-                    }
-                    break;
-
-                case '(':
-                    switch ($this->status()) {
-                        case 'simple-quote':
-                        case 'double-quote':
-                        case 'line-comment':
-                        case 'block-comment':
-                        case 'line-comment':
-                            break;
-
-                        default:
-                            if ($buffer && preg_match('/(\w+)$/', $buffer, $matches)) {
-                                $this->downStatus('function');
-                                array_unshift($bufferFunctions, [$matches[1], $line, []]);
-                                $buffer = '';
-                                continue 3;
-                            }
-                            break;
-                    }
-                    break;
-
-                case ')':
-                    switch ($this->status()) {
-                        case 'function':
-                            if (($argument = self::prepareArgument($buffer))) {
-                                $bufferFunctions[0][2][] = $argument;
-                            }
-
-                            if (!empty($bufferFunctions)) {
-                                $functions[] = array_shift($bufferFunctions);
-                            }
-
-                            $this->upStatus();
-                            $buffer = '';
-                            continue 3;
-                    }
-                    break;
-
-                case ',':
-                    switch ($this->status()) {
-                        case 'function':
-                            if (($argument = self::prepareArgument($buffer))) {
-                                $bufferFunctions[0][2][] = $argument;
-                            }
-
-                            $buffer = '';
-                            continue 3;
-                    }
-                    break;
-
-                case ' ':
-                case '\t':
-                    switch ($this->status()) {
-                        case 'double-quote':
-                        case 'simple-quote':
-                            break;
-
-                        default:
-                            $buffer = '';
-                            continue 3;
-                    }
-                    break;
+        $traverser = new Traverser;
+        $traverser->addFunction(function ($node) use (&$functions) {
+            if (!$this->isCallExpression($node)) {
+                return;
             }
 
-            switch ($this->status()) {
-                case 'line-comment':
-                case 'block-comment':
-                    break;
+            $functions[] = [
+                $this->getNodeName($node),
+                $this->getStartingLineNumber($node),
+                $this->getArguments($node),
+            ];
+        });
 
-                default:
-                    $buffer .= $char;
-                    break;
-            }
-        }
+        $traverser->traverse($this->ast);
 
         return $functions;
     }
 
     /**
-     * Get the current context of the scan.
+     * Checks if given $node is a CallExpression.
      *
-     * @param null|string $match To check whether the current status is this value
+     * @param Node $node
      *
-     * @return string|bool
+     * @return bool
      */
-    protected function status($match = null)
+    private function isCallExpression(Node $node) : bool
     {
-        $status = isset($this->status[0]) ? $this->status[0] : null;
-
-        if ($match !== null) {
-            return $status === $match;
-        }
-
-        return $status;
+        return $node instanceof CallExpression || $node->getType() === 'CallExpression';
     }
 
     /**
-     * Add a new status to the stack.
+     * Returns given $node's name.
      *
-     * @param string $status
-     */
-    protected function downStatus($status)
-    {
-        array_unshift($this->status, $status);
-    }
-
-    /**
-     * Removes and return the current status.
+     * @param Node $node
      *
      * @return string|null
      */
-    protected function upStatus()
+    private function getNodeName(Node $node)
     {
-        return array_shift($this->status);
+        if (method_exists($node, 'getCallee')) {
+            return $this->getNodeName($node->getCallee());
+        }
+
+        if ($node instanceof MemberExpression && $node->getProperty() instanceof Node) {
+            return $this->getNodeName($node->getProperty());
+        }
+
+        if (method_exists($node, 'getName')) {
+            return $node->getName();
+        }
+
+        return null;
     }
 
     /**
-     * Prepares the arguments found in functions.
+     * Returns the starting line number of given $node.
      *
-     * @param string $argument
+     * @param Node $node
      *
-     * @return string
+     * @return int
      */
-    protected static function prepareArgument($argument)
+    private function getStartingLineNumber(Node $node) : int
     {
-        $argument = isset($argument) ? $argument : '';
+        return $node->getLocation()->getStart()->getLine();
+    }
 
-        if (!$argument) {
-            return null;
+    /**
+     * Returns an array of arguments for given $node.
+     *
+     * @param Node $node
+     *
+     * @return array
+     */
+    private function getArguments(Node $node) :  array
+    {
+        return array_map(function($argument) {
+            return $this->getArgumentValue($argument);
+        }, $node->getArguments());
+    }
+
+    /**
+     * Returns argument value of given $node.
+     *
+     * @param Node $node
+     *
+     * @return string|null
+     */
+    private function getArgumentValue(Node $node)
+    {
+        if ($node->getType() === 'Literal') {
+            return $node->getValue();
         }
 
-        if ($argument[0] === '"' || $argument[0] === "'") {
-            $argument = substr($argument, 1, -1);
-        }
-
-        $replace = [
-            '\n' => "\n",
-            '\t' => "\t",
-        ];
-
-        return str_replace(array_keys($replace), array_values($replace), $argument);
+        return null;
     }
 }
