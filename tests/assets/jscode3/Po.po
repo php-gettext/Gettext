@@ -21,3 +21,11 @@ msgid ""
 "with new line and\n"
 "\"%1$s\" two placeholders \"%2$s\""
 msgstr ""
+
+#: ./tests/assets/jscode3/input.js:43
+msgid "Select image ..."
+msgstr ""
+
+#: ./tests/assets/jscode3/input.js:47
+msgid "Delete image"
+msgstr ""

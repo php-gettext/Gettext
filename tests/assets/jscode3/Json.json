@@ -11,6 +11,12 @@
             ],
             "some message\nwith new line and\n\"%1$s\" two placeholders \"%2$s\"": [
                 ""
+            ],
+            "Select image ...": [
+                ""
+            ],
+            "Delete image": [
+                ""
             ]
         }
     }

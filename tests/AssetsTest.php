@@ -268,7 +268,7 @@ class AssetsTest extends AbstractTest
     public function testJs3Code()
     {
         $translations = static::get('jscode3/input', 'JsCode');
-        $countTranslations = 2;
+        $countTranslations = 4;
         $countTranslated = 0;
         $countHeaders = 8;
 
