@@ -32,7 +32,8 @@ Report-Msgid-Bugs-To:
     ),
     'some context' => 
     array (
-      'some message in a context' => 
+      'some "message" in 
+a context' => 
       array (
         0 => '',
       ),

@@ -1,5 +1,5 @@
 gettext("some message");
-pgettext("some context", "some message in a context");
+pgettext("some context", "some \"message\" in \na context");
 ngettext("%s message", "%s messages", 2);
 
 (function(){

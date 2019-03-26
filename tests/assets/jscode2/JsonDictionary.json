@@ -1,6 +1,6 @@
 {
     "some message": "",
-    "some message in a context": "",
+    "some \"message\" in \na context": "",
     "%s message": "",
     "my translate 3": ""
 }

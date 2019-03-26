@@ -8,7 +8,7 @@
         "some message": [
             ""
         ],
-        "some context\\u0004some message in a context": [
+        "some context\\u0004some \"message\" in \na context": [
             ""
         ],
         "%s message": [

@@ -239,7 +239,6 @@ class AssetsTest extends AbstractTest
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(0, $translations->countTranslated());
-
         $this->assertContent($translations, 'jscode2/Po');
         $this->assertContent($translations, 'jscode2/Mo');
         $this->assertContent($translations, 'jscode2/PhpArray');

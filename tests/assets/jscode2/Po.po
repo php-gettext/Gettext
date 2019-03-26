@@ -15,7 +15,9 @@ msgstr ""
 
 #: ./tests/assets/jscode2/input.js:2
 msgctxt "some context"
-msgid "some message in a context"
+msgid ""
+"some \"message\" in \n"
+"a context"
 msgstr ""
 
 #: ./tests/assets/jscode2/input.js:3

@@ -17,7 +17,7 @@
             ]
         },
         "some context": {
-            "some message in a context": [
+            "some \"message\" in \na context": [
                 ""
             ]
         }

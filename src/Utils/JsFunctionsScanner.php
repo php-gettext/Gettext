@@ -37,6 +37,20 @@ class JsFunctionsScanner extends FunctionsScanner
 
             switch ($char) {
                 case '\\':
+                    switch ($this->status()) {
+                        case 'simple-quote':
+                            if ($next !== "'") {
+                                break 2;
+                            }
+                            break;
+
+                        case 'double-quote':
+                            if ($next !== '"') {
+                                break 2;
+                            }
+                            break;
+                    }
+                    
                     $prev = $char;
                     $char = $next;
                     $pos++;
@@ -233,7 +247,46 @@ class JsFunctionsScanner extends FunctionsScanner
     protected static function prepareArgument($argument)
     {
         if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {
-            return substr($argument, 1, -1);
+            return static::convertString(substr($argument, 1, -1));
         }
+    }
+
+    /**
+     * Decodes a string with an argument.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected static function convertString($value)
+    {
+        if (strpos($value, '\\') === false) {
+            return $value;
+        }
+
+        return preg_replace_callback(
+            '/\\\(n|r|t|v|e|f|"|\\\)/',
+            function ($match) {
+                switch ($match[1][0]) {
+                    case 'n':
+                        return "\n";
+                    case 'r':
+                        return "\r";
+                    case 't':
+                        return "\t";
+                    case 'v':
+                        return "\v";
+                    case 'e':
+                        return "\e";
+                    case 'f':
+                        return "\f";
+                    case '"':
+                        return '"';
+                    case '\\':
+                        return '\\';
+                }
+            },
+            $value
+        );
     }
 }

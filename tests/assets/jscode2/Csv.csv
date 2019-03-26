@@ -8,6 +8,7 @@ Project-Id-Version:
 Report-Msgid-Bugs-To: 
 "
 ,"some message",
-"some context","some message in a context",
+"some context","some ""message"" in 
+a context",
 ,"%s message",
 ,"my translate 3",
