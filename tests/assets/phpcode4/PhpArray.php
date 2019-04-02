@@ -1,6 +1,6 @@
 <?php return array (
   'domain' => 'domain1',
-  'plural-forms' => NULL,
+  'plural-forms' => null,
   'messages' => 
   array (
     '' => 
