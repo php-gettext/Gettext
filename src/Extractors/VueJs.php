@@ -135,8 +135,7 @@ class VueJs extends JsCode implements ExtractorInterface
         Translations $translations,
         array $options = [],
         $lineOffset = 0
-    )
-    {
+    ) {
         $functions = new JsFunctionsScanner($scriptContents);
         $options['lineOffset'] = $lineOffset;
         $functions->saveGettextFunctions($translations, $options);
@@ -156,8 +155,7 @@ class VueJs extends JsCode implements ExtractorInterface
         Translations $translations,
         array $options,
         $lineOffset = 0
-    )
-    {
+    ) {
         // Build a JS string from all template attribute expressions
         $fakeAttributeJs = self::getTemplateAttributeFakeJs($options, $dom);
 
@@ -243,8 +241,8 @@ class VueJs extends JsCode implements ExtractorInterface
         $fakeJs = '';
 
         for ($line = 1; $line <= $maxLines; $line++) {
-            if (isset($expressionsByLine[ $line ])) {
-                $fakeJs .= implode("; ", $expressionsByLine[ $line ]);
+            if (isset($expressionsByLine[$line])) {
+                $fakeJs .= implode("; ", $expressionsByLine[$line]);
             }
             $fakeJs .= "\n";
         }
@@ -264,8 +262,7 @@ class VueJs extends JsCode implements ExtractorInterface
         array $attributePrefixes,
         DOMElement $dom,
         array &$expressionByLine = []
-    )
-    {
+    ) {
         $children = $dom->childNodes;
 
         for ($i = 0; $i < $children->length; $i++) {
@@ -284,7 +281,7 @@ class VueJs extends JsCode implements ExtractorInterface
                 if (self::isAttributeMatching($domAttr->name, $attributePrefixes)) {
                     $line = $domAttr->getLineNo();
                     $expressionByLine += [$line => []];
-                    $expressionByLine[ $line ][] = $domAttr->value;
+                    $expressionByLine[$line][] = $domAttr->value;
                 }
             }
 
