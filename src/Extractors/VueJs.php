@@ -27,6 +27,25 @@ class VueJs extends JsCode implements ExtractorInterface
                 'v-bind:',
                 'v-on:',
             ],
+            // HTML Tags to parse
+            'tagNames' => [
+                'translate',
+            ],
+            // HTML tags to parse when attribute exists
+            'tagAttributes' => [
+                'v-translate'
+            ],
+            // Comments
+            'commentAttributes' => [
+                'translate-comment'
+            ],
+            'contextAttributes' => [
+                'translate-context'
+            ],
+            // Attribute with plural content
+            'pluralAttributes' => [
+                'translate-plural'
+            ]
         ];
 
         // Ok, this is the weirdest hack, but let me explain:
@@ -67,6 +86,7 @@ class VueJs extends JsCode implements ExtractorInterface
                 $template->getLineNo() - 1
             );
         }
+
     }
 
     /**
@@ -115,7 +135,8 @@ class VueJs extends JsCode implements ExtractorInterface
         Translations $translations,
         array $options = [],
         $lineOffset = 0
-    ) {
+    )
+    {
         $functions = new JsFunctionsScanner($scriptContents);
         $options['lineOffset'] = $lineOffset;
         $functions->saveGettextFunctions($translations, $options);
@@ -135,7 +156,8 @@ class VueJs extends JsCode implements ExtractorInterface
         Translations $translations,
         array $options,
         $lineOffset = 0
-    ) {
+    )
+    {
         // Build a JS string from all template attribute expressions
         $fakeAttributeJs = self::getTemplateAttributeFakeJs($options, $dom);
 
@@ -145,6 +167,60 @@ class VueJs extends JsCode implements ExtractorInterface
         // Build a JS string from template element content expressions
         $fakeTemplateJs = self::getTemplateFakeJs($dom);
         self::getScriptTranslationsFromString($fakeTemplateJs, $translations, $options, $lineOffset);
+
+        self::getTagTranslations($options, $dom, $translations);
+    }
+
+    /**
+     * @param array $options
+     * @param DOMElement $dom
+     * @param Translations $translations
+     */
+    private static function getTagTranslations(array $options, DOMElement $dom, Translations $translations)
+    {
+        $children = $dom->childNodes;
+        for ($i = 0; $i < $children->length; $i++) {
+            $node = $children->item($i);
+
+            if (!($node instanceof DOMElement)) {
+                continue;
+            }
+            $translatable = false;
+            if (\in_array($node->tagName, $options['tagNames'])) {
+                $translatable = true;
+            }
+            $attrList = $node->attributes;
+            $context = null;
+            $plural = "";
+            $comment = null;
+            for ($j = 0; $j < $attrList->length; $j++) {
+                /** @var DOMAttr $domAttr */
+                $domAttr = $attrList->item($j);
+                // Check if this is a dynamic vue attribute
+                if (\in_array($domAttr->name, $options['tagAttributes'])) {
+                    $translatable = true;
+                }
+                if (\in_array($domAttr->name, $options['contextAttributes'])) {
+                    $context = $domAttr->value;
+                }
+                if (\in_array($domAttr->name, $options['pluralAttributes'])) {
+                    $plural = $domAttr->value;
+                }
+                if (\in_array($domAttr->name, $options['commentAttributes'])) {
+                    $comment = $domAttr->value;
+                }
+            }
+            if ($translatable) {
+                $translation = $translations->insert($context, \trim($node->textContent), $plural);
+                $translation->addReference($options['file'], $node->getLineNo());
+                if ($comment) {
+                    $translation->addExtractedComment($comment);
+                }
+            }
+            if ($node->hasChildNodes()) {
+                self::getTagTranslations($options, $node, $translations);
+            }
+        }
     }
 
     /**
@@ -167,8 +243,8 @@ class VueJs extends JsCode implements ExtractorInterface
         $fakeJs = '';
 
         for ($line = 1; $line <= $maxLines; $line++) {
-            if (isset($expressionsByLine[$line])) {
-                $fakeJs .= implode("; ", $expressionsByLine[$line]);
+            if (isset($expressionsByLine[ $line ])) {
+                $fakeJs .= implode("; ", $expressionsByLine[ $line ]);
             }
             $fakeJs .= "\n";
         }
@@ -188,7 +264,8 @@ class VueJs extends JsCode implements ExtractorInterface
         array $attributePrefixes,
         DOMElement $dom,
         array &$expressionByLine = []
-    ) {
+    )
+    {
         $children = $dom->childNodes;
 
         for ($i = 0; $i < $children->length; $i++) {
@@ -197,7 +274,6 @@ class VueJs extends JsCode implements ExtractorInterface
             if (!($node instanceof DOMElement)) {
                 continue;
             }
-
             $attrList = $node->attributes;
 
             for ($j = 0; $j < $attrList->length; $j++) {
@@ -208,7 +284,7 @@ class VueJs extends JsCode implements ExtractorInterface
                 if (self::isAttributeMatching($domAttr->name, $attributePrefixes)) {
                     $line = $domAttr->getLineNo();
                     $expressionByLine += [$line => []];
-                    $expressionByLine[$line][] = $domAttr->value;
+                    $expressionByLine[ $line ][] = $domAttr->value;
                 }
             }
 

@@ -29,6 +29,9 @@ messages:
     t-spaces-expr: ''
     t-spaces-expr2: ''
     t-p1(parentheses): ''
+    t-tag-2: ''
+    v-translate-attribute: ''
+    v-translate-attribute-single: ''
   some-context:
     js-action: ''
   context:
