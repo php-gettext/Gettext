@@ -39,6 +39,9 @@ class VueJs extends JsCode implements ExtractorInterface
             'commentAttributes' => [
                 'translate-comment'
             ],
+            'contextAttributes' => [
+                'translate-context'
+            ],
             // Attribute with plural content
             'pluralAttributes' => [
                 'translate-plural'

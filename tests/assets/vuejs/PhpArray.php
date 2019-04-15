@@ -117,6 +117,18 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      't-tag-2' => 
+      array (
+        0 => '',
+      ),
+      'v-translate-attribute' => 
+      array (
+        0 => '',
+      ),
+      'v-translate-attribute-single' => 
+      array (
+        0 => '',
+      ),
     ),
     'some-context' => 
     array (

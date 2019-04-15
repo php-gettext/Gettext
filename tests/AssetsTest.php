@@ -421,7 +421,7 @@ class AssetsTest extends AbstractTest
     public function testVueJs()
     {
         $translations = static::get('vuejs/input', 'VueJs');
-        $countTranslations = 28;
+        $countTranslations = 31;
         $countTranslated = 0;
         $countHeaders = 8;
 
