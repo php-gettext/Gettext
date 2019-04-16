@@ -33,6 +33,13 @@
     <a v-bind:title='pgettext("context", "t-action")'></a>
 
     <div>{{pgettext('context2', 't-action2')}}</div>
+
+    <translate>t-tag-2</translate>
+
+    <span v-translate>v-translate-attribute</span>
+
+    <span v-translate translate-plural="v-translate-attribute-plural">v-translate-attribute-single</span>
+
 </template>
 
 <script>

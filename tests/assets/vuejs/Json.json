@@ -80,6 +80,15 @@
             ],
             "t-p1(parentheses)": [
                 ""
+            ],
+            "t-tag-2": [
+                ""
+            ],
+            "v-translate-attribute": [
+                ""
+            ],
+            "v-translate-attribute-single": [
+                ""
             ]
         },
         "some-context": {
