@@ -86,7 +86,6 @@ class VueJs extends JsCode implements ExtractorInterface
                 $template->getLineNo() - 1
             );
         }
-
     }
 
     /**
