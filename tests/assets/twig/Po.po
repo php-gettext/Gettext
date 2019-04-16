@@ -9,44 +9,44 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 
-#: ./tests/assets/twig/input.php:26
+#: ./tests/assets/twig/input.php:38
 msgid "text 1"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:33
+#: ./tests/assets/twig/input.php:45
 msgid "text 2"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:37
+#: ./tests/assets/twig/input.php:49
 msgid "text 3 (with parenthesis)"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:41
+#: ./tests/assets/twig/input.php:53
 msgid "text 4 \"with double quotes\""
 msgstr ""
 
-#: ./tests/assets/twig/input.php:45
+#: ./tests/assets/twig/input.php:57
 msgid "text 5 'with escaped single quotes'"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:52
+#: ./tests/assets/twig/input.php:64
 msgid "text 6"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:56
+#: ./tests/assets/twig/input.php:68
 msgid "text 7 (with parenthesis)"
 msgstr ""
 
-#: ./tests/assets/twig/input.php:60
+#: ./tests/assets/twig/input.php:72
 msgid "text 8 \"with escaped double quotes\""
 msgstr ""
 
-#: ./tests/assets/twig/input.php:64
+#: ./tests/assets/twig/input.php:76
 msgid "text 9 'with single quotes'"
 msgstr ""
 
 #. notes: This is an actual note for translators.
-#: ./tests/assets/twig/input.php:70
+#: ./tests/assets/twig/input.php:82
 msgid "text 10 with plural"
 msgid_plural "The plural form"
 msgstr[0] ""
