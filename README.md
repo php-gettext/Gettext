@@ -227,7 +227,7 @@ $translations = Gettext\Translations::fromPhpCodeFile('templates/index.php');
 $translations->toPoFile('locales/en.po');
 
 //Export to a po string
-$content = $translatons->toPoString();
+$content = $translations->toPoString();
 file_put_contents('locales/en.po', $content);
 ```
 
