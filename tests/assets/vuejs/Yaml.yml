@@ -16,6 +16,7 @@ messages:
     multi-occurrence: ''
     t-singular2: ''
     t-v-bind: ''
+    t-v-text: ''
     t-text: ''
     t-singular: ''
     t-tag: ''

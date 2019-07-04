@@ -9,34 +9,34 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 
-#: ./tests/assets/vuejs/input.vue:49
+#: ./tests/assets/vuejs/input.vue:51
 msgid "js-expr1"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:49
+#: ./tests/assets/vuejs/input.vue:51
 msgid "js-expr2"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:51
+#: ./tests/assets/vuejs/input.vue:53
 msgid "js-alert"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:54
+#: ./tests/assets/vuejs/input.vue:56
 msgid "js-single"
 msgid_plural "js-plural"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:58
+#: ./tests/assets/vuejs/input.vue:60
 msgid "js-obj-single"
 msgid_plural "js-obj-plural"
 msgstr[0] ""
 
-#: ./tests/assets/vuejs/input.vue:61
+#: ./tests/assets/vuejs/input.vue:63
 msgctxt "some-context"
 msgid "js-action"
 msgstr ""
 
-#: ./tests/assets/vuejs/input.vue:63
+#: ./tests/assets/vuejs/input.vue:65
 msgid "<span>js-return</span><br>"
 msgstr ""
 
@@ -71,6 +71,10 @@ msgstr ""
 #: ./tests/assets/vuejs/input.vue:33
 msgctxt "context"
 msgid "t-action"
+msgstr ""
+
+#: ./tests/assets/vuejs/input.vue:43
+msgid "t-v-text"
 msgstr ""
 
 #: ./tests/assets/vuejs/input.vue:3

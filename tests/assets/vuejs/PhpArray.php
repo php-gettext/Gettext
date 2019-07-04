@@ -65,6 +65,10 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      't-v-text' => 
+      array (
+        0 => '',
+      ),
       't-text' => 
       array (
         0 => '',

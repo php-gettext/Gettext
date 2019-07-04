@@ -40,6 +40,8 @@
 
     <span v-translate translate-plural="v-translate-attribute-plural">v-translate-attribute-single</span>
 
+    <label :v-text="__('t-v-text')"></label>
+
 </template>
 
 <script>
