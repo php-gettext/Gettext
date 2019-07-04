@@ -26,6 +26,7 @@ class VueJs extends JsCode implements ExtractorInterface
                 ':',
                 'v-bind:',
                 'v-on:',
+                'v-text',
             ],
             // HTML Tags to parse
             'tagNames' => [
