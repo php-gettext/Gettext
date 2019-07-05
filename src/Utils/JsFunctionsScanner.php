@@ -49,6 +49,12 @@ class JsFunctionsScanner extends FunctionsScanner
                                 break 2;
                             }
                             break;
+
+                        case 'back-tick':
+                            if ($next !== '`') {
+                                break 2;
+                            }
+                            break;
                     }
                     
                     $prev = $char;
@@ -69,6 +75,7 @@ class JsFunctionsScanner extends FunctionsScanner
                     switch ($this->status()) {
                         case 'simple-quote':
                         case 'double-quote':
+                        case 'back-tick':
                         case 'line-comment':
                             break;
 
@@ -97,6 +104,7 @@ class JsFunctionsScanner extends FunctionsScanner
                         case 'line-comment':
                         case 'block-comment':
                         case 'double-quote':
+                        case 'back-tick':
                             break;
 
                         default:
@@ -114,6 +122,7 @@ class JsFunctionsScanner extends FunctionsScanner
                         case 'line-comment':
                         case 'block-comment':
                         case 'simple-quote':
+                        case 'back-tick':
                             break;
 
                         default:
@@ -122,13 +131,31 @@ class JsFunctionsScanner extends FunctionsScanner
                     }
                     break;
 
+                case '`':
+                    switch ($this->status()) {
+                        case 'back-tick':
+                            $this->upStatus();
+                            break;
+
+                        case 'line-comment':
+                        case 'block-comment':
+                        case 'simple-quote':
+                        case 'double-quote':
+                            break;
+
+                        default:
+                            $this->downStatus('back-tick');
+                            break;
+                    }
+                    break;
+
                 case '(':
                     switch ($this->status()) {
                         case 'simple-quote':
                         case 'double-quote':
+                        case 'back-tick':
                         case 'line-comment':
                         case 'block-comment':
-                        case 'line-comment':
                             break;
 
                         default:
@@ -176,6 +203,7 @@ class JsFunctionsScanner extends FunctionsScanner
                     switch ($this->status()) {
                         case 'double-quote':
                         case 'simple-quote':
+                        case 'back-tick':
                             break;
 
                         default:
@@ -246,7 +274,7 @@ class JsFunctionsScanner extends FunctionsScanner
      */
     protected static function prepareArgument($argument)
     {
-        if ($argument && ($argument[0] === '"' || $argument[0] === "'")) {
+        if ($argument && in_array($argument[0], ['"', "'", '`'], true)) {
             return static::convertString(substr($argument, 1, -1));
         }
     }
