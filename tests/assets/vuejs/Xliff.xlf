@@ -153,23 +153,23 @@
         <target></target>
       </segment>
     </unit>
-    <unit id="daad8e925a18ba86fb4d313c9f5f6851">
-      <notes>
-        <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:43</note>
-      </notes>
-      <segment>
-        <source>t-v-text</source>
-        <target></target>
-      </segment>
-    </unit>
     <unit id="b919d0af5720cc8fc708afa7e33bb16c">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:45</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:37</note>
       </notes>
       <segment>
         <source>back-tick-in-tag</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="daad8e925a18ba86fb4d313c9f5f6851">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/vuejs/input.vue:47</note>
+      </notes>
+      <segment>
+        <source>t-v-text</source>
         <target></target>
       </segment>
     </unit>
@@ -316,7 +316,7 @@
     <unit id="f0190d1513aa17c45b9b8f784938cd28">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:46</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:38</note>
       </notes>
       <segment>
         <source>back-tick-in-mustache</source>
@@ -326,7 +326,7 @@
     <unit id="366e5ec376b0ffdf583eeb223e42ff79">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:37</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:41</note>
       </notes>
       <segment>
         <source>t-tag-2</source>
@@ -336,7 +336,7 @@
     <unit id="1326b21a1daa0935a04ae1abe5204028">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:39</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:43</note>
       </notes>
       <segment>
         <source>v-translate-attribute</source>
@@ -346,7 +346,7 @@
     <unit id="6d605b588286108b6b7271ffad83c1ba">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:41</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:45</note>
       </notes>
       <segment>
         <source>v-translate-attribute-single</source>

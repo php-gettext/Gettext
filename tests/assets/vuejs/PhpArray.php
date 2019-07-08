@@ -65,11 +65,11 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
-      't-v-text' => 
+      'back-tick-in-tag' => 
       array (
         0 => '',
       ),
-      'back-tick-in-tag' => 
+      't-v-text' => 
       array (
         0 => '',
       ),
