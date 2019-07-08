@@ -50,6 +50,9 @@
         "t-v-text": [
             ""
         ],
+        "back-tick-in-tag": [
+            ""
+        ],
         "t-text": [
             ""
         ],
@@ -90,6 +93,9 @@
             ""
         ],
         "context2\\u0004t-action2": [
+            ""
+        ],
+        "back-tick-in-mustache": [
             ""
         ],
         "t-tag-2": [

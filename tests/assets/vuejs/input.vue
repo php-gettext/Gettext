@@ -42,6 +42,10 @@
 
     <label :v-text="__('t-v-text')"></label>
 
+    <span :title="__(`back-tick-in-tag`)">
+        {{__(`back-tick-in-mustache`)}}
+    </span>
+
 </template>
 
 <script>

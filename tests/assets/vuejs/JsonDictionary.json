@@ -14,6 +14,7 @@
     "t-v-bind": "",
     "t-action": "",
     "t-v-text": "",
+    "back-tick-in-tag": "",
     "t-text": "",
     "t-singular": "",
     "t-tag": "",
@@ -28,6 +29,7 @@
     "t-spaces-expr2": "",
     "t-p1(parentheses)": "",
     "t-action2": "",
+    "back-tick-in-mustache": "",
     "t-tag-2": "",
     "v-translate-attribute": "",
     "v-translate-attribute-single": ""

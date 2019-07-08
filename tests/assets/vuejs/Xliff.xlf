@@ -14,7 +14,7 @@
     <unit id="38dbba24eb02d64da6159a778a36d73a">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:51</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:55</note>
       </notes>
       <segment>
         <source>js-expr1</source>
@@ -24,7 +24,7 @@
     <unit id="e8955f4e596af6cbcdfb35f22ba26dbd">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:51</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:55</note>
       </notes>
       <segment>
         <source>js-expr2</source>
@@ -34,7 +34,7 @@
     <unit id="4819d163f4b26023f7ba7d6a20d8473e">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:53</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:57</note>
       </notes>
       <segment>
         <source>js-alert</source>
@@ -44,7 +44,7 @@
     <unit id="8a33b4fd199bcbc69fbdf4c7bce48b90">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:56</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:60</note>
       </notes>
       <segment>
         <source>js-single</source>
@@ -54,7 +54,7 @@
     <unit id="b81ee1ffb034bd2cf1ec589349c4d069">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:60</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:64</note>
       </notes>
       <segment>
         <source>js-obj-single</source>
@@ -64,7 +64,7 @@
     <unit id="db5923b843960d8cc6e2064bb2d4fbc2">
       <notes>
         <note category="context">some-context</note>
-        <note category="reference">./tests/assets/vuejs/input.vue:63</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:67</note>
       </notes>
       <segment>
         <source>js-action</source>
@@ -74,7 +74,7 @@
     <unit id="165738b03fc41d793cf080ad7f3bf5e3">
       <notes>
         <note category="context"></note>
-        <note category="reference">./tests/assets/vuejs/input.vue:65</note>
+        <note category="reference">./tests/assets/vuejs/input.vue:69</note>
       </notes>
       <segment>
         <source><![CDATA[<span>js-return</span><br>]]></source>
@@ -160,6 +160,16 @@
       </notes>
       <segment>
         <source>t-v-text</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="b919d0af5720cc8fc708afa7e33bb16c">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/vuejs/input.vue:45</note>
+      </notes>
+      <segment>
+        <source>back-tick-in-tag</source>
         <target></target>
       </segment>
     </unit>
@@ -300,6 +310,16 @@
       </notes>
       <segment>
         <source>t-action2</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="f0190d1513aa17c45b9b8f784938cd28">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/vuejs/input.vue:46</note>
+      </notes>
+      <segment>
+        <source>back-tick-in-mustache</source>
         <target></target>
       </segment>
     </unit>
