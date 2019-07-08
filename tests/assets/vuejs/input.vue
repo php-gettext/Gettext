@@ -34,6 +34,10 @@
 
     <div>{{pgettext('context2', 't-action2')}}</div>
 
+    <span :title="__(`back-tick-in-tag`)">
+        {{__(`back-tick-in-mustache`)}}
+    </span>
+
     <translate>t-tag-2</translate>
 
     <span v-translate>v-translate-attribute</span>

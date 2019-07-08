@@ -42,6 +42,9 @@
             "t-v-bind": [
                 ""
             ],
+            "back-tick-in-tag": [
+                ""
+            ],
             "t-v-text": [
                 ""
             ],
@@ -82,6 +85,9 @@
                 ""
             ],
             "t-p1(parentheses)": [
+                ""
+            ],
+            "back-tick-in-mustache": [
                 ""
             ],
             "t-tag-2": [
