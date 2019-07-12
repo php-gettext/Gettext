@@ -65,6 +65,10 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      'foo bar' => 
+      array (
+        0 => '',
+      ),
     ),
     'my-context' => 
     array (

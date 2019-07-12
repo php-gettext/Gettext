@@ -42,3 +42,11 @@ sprintf( __('i18n tagged %s'), '$var');
 __( 'foo' );
 
 /* translators: this should get extracted. */ $foo = __( 'bar' );
+
+function foo() {
+	/*
+	 * translators: this comment is
+	 * indented with a tab.
+	 */
+	__( 'foo bar' );
+}

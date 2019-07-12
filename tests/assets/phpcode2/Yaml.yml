@@ -16,5 +16,6 @@ messages:
     'i18n tagged %s': ''
     foo: ''
     bar: ''
+    'foo bar': ''
   my-context:
     'All comments': ''
