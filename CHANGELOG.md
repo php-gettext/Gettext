@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.6.3] - 2019-07-15
+### Added
+- Some VueJs extraction improvements and additions [#205], [#213]
+
+### Fixed
+- Multiline extractions in jsCode [#200]
+- Support for js template literals [#214]
+- Fixed tabs in PHP comments [#215]
+
 ## [4.6.2] - 2019-01-12
 ### Added
 - New option `facade` in blade extractor to use a facade instead create a blade compiler [#197], [#198]
@@ -108,7 +117,13 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#191]: https://github.com/oscarotero/Gettext/issues/191
 [#197]: https://github.com/oscarotero/Gettext/issues/197
 [#198]: https://github.com/oscarotero/Gettext/issues/198
+[#200]: https://github.com/oscarotero/Gettext/issues/200
+[#205]: https://github.com/oscarotero/Gettext/issues/205
+[#213]: https://github.com/oscarotero/Gettext/issues/213
+[#214]: https://github.com/oscarotero/Gettext/issues/214
+[#215]: https://github.com/oscarotero/Gettext/issues/215
 
+[4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
 [4.6.2]: https://github.com/oscarotero/Gettext/compare/v4.6.1...v4.6.2
 [4.6.1]: https://github.com/oscarotero/Gettext/compare/v4.6.0...v4.6.1
 [4.6.0]: https://github.com/oscarotero/Gettext/compare/v4.5.0...v4.6.0
