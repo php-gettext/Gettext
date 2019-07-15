@@ -307,7 +307,7 @@ class AssetsTest extends AbstractTest
                 'CONTEXT' => 'my-context',
             ],
         ]);
-        $countTranslations = 13;
+        $countTranslations = 14;
         $countTranslated = 0;
         $countHeaders = 8;
 

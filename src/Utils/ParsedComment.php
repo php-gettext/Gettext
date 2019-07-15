@@ -59,8 +59,8 @@ class ParsedComment
                 return null;
             }
 
-            $line = ltrim($line, '#*/ ');
-            $line = rtrim($line, '#*/ ');
+            $line = ltrim($line, "#*/ \t");
+            $line = rtrim($line, "#*/ \t");
 
             return trim($line);
         }, explode("\n", $value));

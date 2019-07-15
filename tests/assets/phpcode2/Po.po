@@ -70,3 +70,8 @@ msgstr ""
 #: ./tests/assets/phpcode2/input.php:44
 msgid "bar"
 msgstr ""
+
+#. translators: this comment is indented with a tab.
+#: ./tests/assets/phpcode2/input.php:51
+msgid "foo bar"
+msgstr ""
