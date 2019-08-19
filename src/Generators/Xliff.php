@@ -3,6 +3,7 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
+use Gettext\XliffTranslation;
 use DOMDocument;
 
 class Xliff extends Generator implements GeneratorInterface
@@ -35,7 +36,11 @@ class Xliff extends Generator implements GeneratorInterface
 
         foreach ($translations as $translation) {
             $unit = $dom->createElement('unit');
-            $unit->setAttribute('id', md5($translation->getContext().$translation->getOriginal()));
+            if ($translation instanceof XliffTranslation) {
+                $unit->setAttribute('id', $translation->getUnitId());
+            } else {
+                $unit->setAttribute('id', md5($translation->getContext().$translation->getOriginal()));
+            }
 
             //Save comments as notes
             $notes = $dom->createElement('notes');
