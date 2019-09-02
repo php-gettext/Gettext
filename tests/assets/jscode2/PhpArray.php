@@ -25,10 +25,15 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      'my translate 3' => 
+      array (
+        0 => '',
+      ),
     ),
     'some context' => 
     array (
-      'some message in a context' => 
+      'some "message" in 
+a context' => 
       array (
         0 => '',
       ),

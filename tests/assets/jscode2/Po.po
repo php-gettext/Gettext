@@ -15,10 +15,16 @@ msgstr ""
 
 #: ./tests/assets/jscode2/input.js:2
 msgctxt "some context"
-msgid "some message in a context"
+msgid ""
+"some \"message\" in \n"
+"a context"
 msgstr ""
 
 #: ./tests/assets/jscode2/input.js:3
 msgid "%s message"
 msgid_plural "%s messages"
 msgstr[0] ""
+
+#: ./tests/assets/jscode2/input.js:8
+msgid "my translate 3"
+msgstr ""

@@ -26,7 +26,27 @@ class VueJs extends JsCode implements ExtractorInterface
                 ':',
                 'v-bind:',
                 'v-on:',
+                'v-text',
             ],
+            // HTML Tags to parse
+            'tagNames' => [
+                'translate',
+            ],
+            // HTML tags to parse when attribute exists
+            'tagAttributes' => [
+                'v-translate'
+            ],
+            // Comments
+            'commentAttributes' => [
+                'translate-comment'
+            ],
+            'contextAttributes' => [
+                'translate-context'
+            ],
+            // Attribute with plural content
+            'pluralAttributes' => [
+                'translate-plural'
+            ]
         ];
 
         // Ok, this is the weirdest hack, but let me explain:
@@ -43,14 +63,16 @@ class VueJs extends JsCode implements ExtractorInterface
         // VueJS files are valid HTML files, we will operate with the DOM here
         $dom = self::convertHtmlToDom($string);
 
+        $script = self::extractScriptTag($string);
+
         // Parse the script part as a regular JS code
-        $script = $dom->getElementsByTagName('script')->item(0);
         if ($script) {
+            $scriptLineNumber = $dom->getElementsByTagName('script')->item(0)->getLineNo();
             self::getScriptTranslationsFromString(
-                $script->textContent,
+                $script,
                 $translations,
                 $options,
-                $script->getLineNo() - 1
+                $scriptLineNumber - 1
             );
         }
 
@@ -65,6 +87,22 @@ class VueJs extends JsCode implements ExtractorInterface
                 $template->getLineNo() - 1
             );
         }
+    }
+
+    /**
+     * Extracts script tag contents using regex instead of DOM operations.
+     * If we parse using DOM, some contents may change, for example, tags within strings will be stripped
+     *
+     * @param $string
+     * @return bool|string
+     */
+    private static function extractScriptTag($string)
+    {
+        if (preg_match('#<\s*?script\b[^>]*>(.*?)</script\b[^>]*>#s', $string, $matches)) {
+            return $matches[1];
+        }
+
+        return '';
     }
 
     /**
@@ -127,6 +165,60 @@ class VueJs extends JsCode implements ExtractorInterface
         // Build a JS string from template element content expressions
         $fakeTemplateJs = self::getTemplateFakeJs($dom);
         self::getScriptTranslationsFromString($fakeTemplateJs, $translations, $options, $lineOffset);
+
+        self::getTagTranslations($options, $dom, $translations);
+    }
+
+    /**
+     * @param array $options
+     * @param DOMElement $dom
+     * @param Translations $translations
+     */
+    private static function getTagTranslations(array $options, DOMElement $dom, Translations $translations)
+    {
+        $children = $dom->childNodes;
+        for ($i = 0; $i < $children->length; $i++) {
+            $node = $children->item($i);
+
+            if (!($node instanceof DOMElement)) {
+                continue;
+            }
+            $translatable = false;
+            if (\in_array($node->tagName, $options['tagNames'])) {
+                $translatable = true;
+            }
+            $attrList = $node->attributes;
+            $context = null;
+            $plural = "";
+            $comment = null;
+            for ($j = 0; $j < $attrList->length; $j++) {
+                /** @var DOMAttr $domAttr */
+                $domAttr = $attrList->item($j);
+                // Check if this is a dynamic vue attribute
+                if (\in_array($domAttr->name, $options['tagAttributes'])) {
+                    $translatable = true;
+                }
+                if (\in_array($domAttr->name, $options['contextAttributes'])) {
+                    $context = $domAttr->value;
+                }
+                if (\in_array($domAttr->name, $options['pluralAttributes'])) {
+                    $plural = $domAttr->value;
+                }
+                if (\in_array($domAttr->name, $options['commentAttributes'])) {
+                    $comment = $domAttr->value;
+                }
+            }
+            if ($translatable) {
+                $translation = $translations->insert($context, \trim($node->textContent), $plural);
+                $translation->addReference($options['file'], $node->getLineNo());
+                if ($comment) {
+                    $translation->addExtractedComment($comment);
+                }
+            }
+            if ($node->hasChildNodes()) {
+                self::getTagTranslations($options, $node, $translations);
+            }
+        }
     }
 
     /**
@@ -179,7 +271,6 @@ class VueJs extends JsCode implements ExtractorInterface
             if (!($node instanceof DOMElement)) {
                 continue;
             }
-
             $attrList = $node->attributes;
 
             for ($j = 0; $j < $attrList->length; $j++) {

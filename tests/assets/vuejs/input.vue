@@ -33,6 +33,19 @@
     <a v-bind:title='pgettext("context", "t-action")'></a>
 
     <div>{{pgettext('context2', 't-action2')}}</div>
+
+    <span :title="__(`back-tick-in-tag`)">
+        {{__(`back-tick-in-mustache`)}}
+    </span>
+
+    <translate>t-tag-2</translate>
+
+    <span v-translate>v-translate-attribute</span>
+
+    <span v-translate translate-plural="v-translate-attribute-plural">v-translate-attribute-single</span>
+
+    <label :v-text="__('t-v-text')"></label>
+
 </template>
 
 <script>
@@ -53,7 +66,7 @@
 
                 var string = 'something' + this.p__('some-context', 'js-action');
 
-                return this.gettext('js-return');
+                return this.gettext('<span>js-return</span><br>');
             }
         },
     }

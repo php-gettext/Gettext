@@ -232,14 +232,13 @@ class AssetsTest extends AbstractTest
     public function testJs2Code()
     {
         $translations = static::get('jscode2/input', 'JsCode');
-        $countTranslations = 3;
+        $countTranslations = 4;
         $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(0, $translations->countTranslated());
-
         $this->assertContent($translations, 'jscode2/Po');
         $this->assertContent($translations, 'jscode2/Mo');
         $this->assertContent($translations, 'jscode2/PhpArray');
@@ -308,7 +307,7 @@ class AssetsTest extends AbstractTest
                 'CONTEXT' => 'my-context',
             ],
         ]);
-        $countTranslations = 13;
+        $countTranslations = 14;
         $countTranslated = 0;
         $countHeaders = 8;
 
@@ -422,13 +421,15 @@ class AssetsTest extends AbstractTest
     public function testVueJs()
     {
         $translations = static::get('vuejs/input', 'VueJs');
-        $countTranslations = 28;
+
+        $countTranslations = 34;
         $countTranslated = 0;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
         $this->assertEquals(0, $translations->countTranslated());
+
 
         $this->assertContent($translations, 'vuejs/Po');
         $this->assertContent($translations, 'vuejs/Mo');

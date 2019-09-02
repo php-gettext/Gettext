@@ -3,7 +3,6 @@ Gettext
 
 [![Build Status](https://travis-ci.org/oscarotero/Gettext.png?branch=master)](https://travis-ci.org/oscarotero/Gettext)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oscarotero/Gettext/?branch=master)
-[![Reference Status](https://www.versioneye.com/php/gettext:gettext/reference_badge.svg?style=flat)](https://www.versioneye.com/php/gettext:gettext/references)
 [![Latest Stable Version](https://poser.pugx.org/gettext/gettext/v/stable.svg)](https://packagist.org/packages/gettext/gettext)
 [![Total Downloads](https://poser.pugx.org/gettext/gettext/downloads.svg)](https://packagist.org/packages/gettext/gettext)
 [![Monthly Downloads](https://poser.pugx.org/gettext/gettext/d/monthly.png)](https://packagist.org/packages/gettext/gettext)
@@ -149,10 +148,10 @@ $translations = new Gettext\Translations();
 $translations[] = new Gettext\Translation('comments', 'One comment', '%s comments');
 
 //Or using the "insert" method
-$insertedTranslation = $translations->insert('comments', 'One comments', '%s comments');
+$insertedTranslation = $translations->insert('comments', 'One comment', '%s comments');
 
 //Find a specific translation
-$translation = $translations->find('comments', 'One comments');
+$translation = $translations->find('comments', 'One comment');
 
 //Edit headers, domain, etc
 $translations->setHeader('Last-Translator', 'Oscar Otero');
@@ -228,7 +227,7 @@ $translations = Gettext\Translations::fromPhpCodeFile('templates/index.php');
 $translations->toPoFile('locales/en.po');
 
 //Export to a po string
-$content = $translatons->toPoString();
+$content = $translations->toPoString();
 file_put_contents('locales/en.po', $content);
 ```
 

@@ -23,7 +23,7 @@
         "some-context\\u0004js-action": [
             ""
         ],
-        "js-return": [
+        "<span>js-return<\/span><br>": [
             ""
         ],
         "t-cond-attribute": [
@@ -45,6 +45,12 @@
             ""
         ],
         "context\\u0004t-action": [
+            ""
+        ],
+        "back-tick-in-tag": [
+            ""
+        ],
+        "t-v-text": [
             ""
         ],
         "t-text": [
@@ -87,6 +93,18 @@
             ""
         ],
         "context2\\u0004t-action2": [
+            ""
+        ],
+        "back-tick-in-mustache": [
+            ""
+        ],
+        "t-tag-2": [
+            ""
+        ],
+        "v-translate-attribute": [
+            ""
+        ],
+        "v-translate-attribute-single": [
             ""
         ]
     }

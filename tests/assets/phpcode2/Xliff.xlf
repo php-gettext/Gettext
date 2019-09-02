@@ -149,5 +149,16 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="327b6f07435811239bc47e1544353273">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">translators: this comment is indented with a tab.</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:51</note>
+      </notes>
+      <segment>
+        <source>foo bar</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

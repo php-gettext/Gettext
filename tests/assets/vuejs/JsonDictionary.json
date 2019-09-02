@@ -5,7 +5,7 @@
     "js-single": "",
     "js-obj-single": "",
     "js-action": "",
-    "js-return": "",
+    "<span>js-return<\/span><br>": "",
     "t-cond-attribute": "",
     "t-attribute": "",
     "t-same-line-s": "",
@@ -13,6 +13,8 @@
     "t-singular2": "",
     "t-v-bind": "",
     "t-action": "",
+    "back-tick-in-tag": "",
+    "t-v-text": "",
     "t-text": "",
     "t-singular": "",
     "t-tag": "",
@@ -26,5 +28,9 @@
     "t-spaces-expr": "",
     "t-spaces-expr2": "",
     "t-p1(parentheses)": "",
-    "t-action2": ""
+    "t-action2": "",
+    "back-tick-in-mustache": "",
+    "t-tag-2": "",
+    "v-translate-attribute": "",
+    "v-translate-attribute-single": ""
 }

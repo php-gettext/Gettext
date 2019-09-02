@@ -37,7 +37,7 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
-      'js-return' => 
+      '<span>js-return</span><br>' => 
       array (
         0 => '',
       ),
@@ -62,6 +62,14 @@ Report-Msgid-Bugs-To:
         0 => '',
       ),
       't-v-bind' => 
+      array (
+        0 => '',
+      ),
+      'back-tick-in-tag' => 
+      array (
+        0 => '',
+      ),
+      't-v-text' => 
       array (
         0 => '',
       ),
@@ -114,6 +122,22 @@ Report-Msgid-Bugs-To:
         0 => '',
       ),
       't-p1(parentheses)' => 
+      array (
+        0 => '',
+      ),
+      'back-tick-in-mustache' => 
+      array (
+        0 => '',
+      ),
+      't-tag-2' => 
+      array (
+        0 => '',
+      ),
+      'v-translate-attribute' => 
+      array (
+        0 => '',
+      ),
+      'v-translate-attribute-single' => 
       array (
         0 => '',
       ),
