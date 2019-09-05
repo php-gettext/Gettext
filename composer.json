@@ -33,7 +33,8 @@
         "illuminate/view": "Is necessary if you want to use the Blade extractor",
         "twig/twig": "Is necessary if you want to use the Twig extractor",
         "twig/extensions": "Is necessary if you want to use the Twig extractor",
-        "symfony/yaml": "Is necessary if you want to use the Yaml extractor/generator"
+        "symfony/yaml": "Is necessary if you want to use the Yaml extractor/generator",
+        "ext-dom": "Is necessary if you want to use JavaScript/VueJS extractor"
     },
     "autoload": {
         "psr-4": {
