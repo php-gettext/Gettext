@@ -19,12 +19,22 @@ abstract class FunctionsScanner
     /**
      * Search for specific functions and create translations.
      *
-     * @param Translations $translations The translations instance where save the values
+     * You can pass multiple translation with different domains and value found will be sorted respectively.
+     *
+     * @param Translations|Translations[] $translations One or multiple domain translations instances where to save the values
      * @param array $options The extractor options
      * @throws Exception
      */
-    public function saveGettextFunctions(Translations $translations, array $options)
+    public function saveGettextFunctions($translations, array $options)
     {
+        $translations = is_array($translations) ? $translations : [$translations];
+
+        /** @var Translations[] $translationByDomain */
+        $translationByDomain = array_reduce($translations, function (&$carry, Translations $translations) {
+            $carry[$translations->getDomain()] = $translations;
+            return $carry;
+        }, []);
+
         $functions = $options['functions'];
         $file = $options['file'];
 
@@ -52,18 +62,19 @@ abstract class FunctionsScanner
             }
 
             $isDefaultDomain = $domain === null;
-            $isMatchingDomain = $domain === $translations->getDomain();
+
+            $domainTranslations = isset($translationByDomain[$domain]) ? $translationByDomain[$domain] : false;
 
             if (!empty($options['domainOnly']) && $isDefaultDomain) {
                 // If we want to find translations for a specific domain, skip default domain messages
                 continue;
             }
 
-            if (!$isDefaultDomain && !$isMatchingDomain) {
+            if (!$isDefaultDomain && !$domainTranslations) {
                 continue;
             }
 
-            $translation = $translations->insert($context, $original, $plural);
+            $translation = $domainTranslations->insert($context, $original, $plural);
             $translation->addReference($file, $line);
 
             if (isset($function[3])) {
