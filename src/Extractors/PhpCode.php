@@ -156,7 +156,6 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
 
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public static function fromFileMultiple($file, array $translations, array $options = [])
     {

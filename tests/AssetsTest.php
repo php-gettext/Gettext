@@ -501,4 +501,26 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('phpcode4/YamlDictionary', $countTranslations, $countTranslated);
     }
 
+    public function testPhpCode5MultipleDomainScanning()
+    {
+        $tDomainNone = new Translations; // Scan for non-domain strings
+        $tDomain1 = (new Translations)->setDomain('domain1');
+        $tDomain2 = (new Translations)->setDomain('domain2');
+        $tDomain3 = (new Translations)->setDomain('domain3');
+        $tDomainMissing = (new Translations)->setDomain('domainEmpty');
+
+        $allTranslations = [
+            'domainNone' => $tDomainNone,
+            'domain1' => $tDomain1,
+            'domain2' => $tDomain2,
+            'domain3' => $tDomain3,
+            'domainMissing' => $tDomainMissing,
+        ];
+
+        PhpCode::fromFileMultiple(static::asset('phpcode5/input.php'), array_values($allTranslations));
+
+        foreach ($allTranslations as $file => $translations) {
+            $this->assertContent($translations, 'phpcode5/' . $file, 'Po');
+        }
+    }
 }
