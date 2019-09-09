@@ -69,6 +69,18 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
     }
 
     /**
+     * @inheritDoc
+     */
+    public static function fromFileMultiple($file, array $translations, array $options = [])
+    {
+        foreach (self::getFiles($file) as $file) {
+            $options['file'] = $file;
+            static::fromStringMultiple(self::readFile($file), $translations, $options);
+        }
+    }
+
+
+    /**
      * Decodes a T_CONSTANT_ENCAPSED_STRING string.
      *
      * @param string $value
@@ -121,7 +133,6 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
         );
     }
 
-
     /**
      * @param $dec
      * @return string|null
@@ -152,16 +163,5 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
         }
 
         return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromFileMultiple($file, array $translations, array $options = [])
-    {
-        foreach (self::getFiles($file) as $file) {
-            $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
-        }
     }
 }

@@ -29,7 +29,7 @@ abstract class FunctionsScanner
     {
         $translations = is_array($translations) ? $translations : [$translations];
 
-        /** @var Translations[] $translationByDomain */
+        /** @var Translations[] $translationByDomain [domain => translations, ..] */
         $translationByDomain = array_reduce($translations, function (&$carry, Translations $translations) {
             $carry[$translations->getDomain()] = $translations;
             return $carry;

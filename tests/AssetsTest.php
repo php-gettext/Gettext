@@ -503,7 +503,7 @@ class AssetsTest extends AbstractTest
 
     public function testPhpCode5MultipleDomainScanning()
     {
-        $tDomainNone = new Translations; // Scan for non-domain strings
+        $tDomainNone = new Translations; // Non-domain strings
         $tDomain1 = (new Translations)->setDomain('domain1');
         $tDomain2 = (new Translations)->setDomain('domain2');
         $tDomain3 = (new Translations)->setDomain('domain3');
