@@ -21,7 +21,7 @@ abstract class FunctionsScanner
      *
      * You can pass multiple translation with different domains and value found will be sorted respectively.
      *
-     * @param Translations|Translations[] $translations One or multiple domain translations instances where to save the values
+     * @param Translations|Translations[] $translations Multiple domain translations instances where to save the values
      * @param array $options The extractor options
      * @throws Exception
      */
