@@ -507,7 +507,7 @@ class AssetsTest extends AbstractTest
         $tDomain1 = (new Translations)->setDomain('domain1');
         $tDomain2 = (new Translations)->setDomain('domain2');
         $tDomain3 = (new Translations)->setDomain('domain3');
-        $tDomainMissing = (new Translations)->setDomain('domainEmpty');
+        $tDomainMissing = (new Translations)->setDomain('domainMissing'); // No translations for this domain
 
         $allTranslations = [
             'domainNone' => $tDomainNone,
