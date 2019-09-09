@@ -3,6 +3,7 @@
 namespace Gettext\Tests;
 
 use Gettext\Extractors\PhpCode;
+use Gettext\Extractors\VueJs;
 use Gettext\Translations;
 
 class AssetsTest extends AbstractTest
@@ -509,6 +510,7 @@ class AssetsTest extends AbstractTest
         $tDomain3 = (new Translations)->setDomain('domain3');
         $tDomainMissing = (new Translations)->setDomain('domainMissing'); // No translations for this domain
 
+        /** @var Translations[] $allTranslations */
         $allTranslations = [
             'domainNone' => $tDomainNone,
             'domain1' => $tDomain1,
@@ -521,6 +523,28 @@ class AssetsTest extends AbstractTest
 
         foreach ($allTranslations as $file => $translations) {
             $this->assertContent($translations, 'phpcode5/' . $file, 'Po');
+        }
+    }
+
+    public function testVueJs2MultipleDomainScanning()
+    {
+        $tDomainNone = new Translations; // Non-domain strings
+        $tDomain1 = (new Translations)->setDomain('domain1');
+        $tDomain2 = (new Translations)->setDomain('domain2');
+        $tDomainMissing = (new Translations)->setDomain('domainMissing'); // No translations for this domain
+
+        /** @var Translations[] $allTranslations */
+        $allTranslations = [
+            'domainNone' => $tDomainNone,
+            'domain1' => $tDomain1,
+            'domain2' => $tDomain2,
+            'domainMissing' => $tDomainMissing,
+        ];
+
+        VueJs::fromFileMultiple(static::asset('vuejs2/input.vue'), array_values($allTranslations));
+
+        foreach ($allTranslations as $file => $translations) {
+            $this->assertContent($translations, 'vuejs2/' . $file, 'Po');
         }
     }
 }
