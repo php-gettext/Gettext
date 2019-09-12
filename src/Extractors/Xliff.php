@@ -4,7 +4,6 @@ namespace Gettext\Extractors;
 
 use Gettext\Translations;
 use Gettext\Translation;
-use Gettext\XliffTranslation;
 use SimpleXMLElement;
 
 /**
@@ -34,9 +33,9 @@ class Xliff extends Extractor implements ExtractorInterface
                         $targets[] = (string) $target;
                     }
 
-                    $translation = new XliffTranslation(null, (string) $segment->source);
+                    $translation = new Translation(null, (string) $segment->source);
                     if (isset($unit['id'])) {
-                        $translation->setUnitId((string) $unit['id']);
+                        $translation->addComment("XLIFF_UNIT_ID: $unit[id]");
                     }
                     $translation->setTranslation(array_shift($targets));
                     $translation->setPluralTranslations($targets);

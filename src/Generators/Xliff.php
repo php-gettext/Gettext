@@ -3,7 +3,6 @@
 namespace Gettext\Generators;
 
 use Gettext\Translations;
-use Gettext\XliffTranslation;
 use DOMDocument;
 
 class Xliff extends Generator implements GeneratorInterface
@@ -35,12 +34,17 @@ class Xliff extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
-            $unit = $dom->createElement('unit');
-            if ($translation instanceof XliffTranslation) {
-                $unit->setAttribute('id', $translation->getUnitId());
-            } else {
-                $unit->setAttribute('id', md5($translation->getContext().$translation->getOriginal()));
+            //Find an XLIFF unit ID, if one is available; otherwise generate
+            $unitId = md5($translation->getContext().$translation->getOriginal());
+            foreach ($translation->getComments() as $comment) {
+                if (!preg_match('/XLIFF_UNIT_ID: (.*)/', $comment, $matches)) {
+                    continue;
+                }
+                $unitId = $matches[1];
             }
+
+            $unit = $dom->createElement('unit');
+            $unit->setAttribute('id', $unitId);
 
             //Save comments as notes
             $notes = $dom->createElement('notes');
@@ -49,6 +53,11 @@ class Xliff extends Generator implements GeneratorInterface
                 ->setAttribute('category', 'context');
 
             foreach ($translation->getComments() as $comment) {
+                //Skip XLIFF unit ID comments.
+                if (preg_match('/XLIFF_UNIT_ID: (.*)/', $comment)) {
+                    continue;
+                }
+
                 $notes->appendChild(self::createTextNode($dom, 'note', $comment))
                     ->setAttribute('category', 'comment');
             }
