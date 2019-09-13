@@ -2,11 +2,14 @@
 
 namespace Gettext\Generators;
 
+use Gettext\Translation;
 use Gettext\Translations;
 use DOMDocument;
 
 class Xliff extends Generator implements GeneratorInterface
 {
+    const UNIT_ID_REGEXP = '/XLIFF_UNIT_ID: (.*)/';
+
     /**
      * {@inheritdoc}
      */
@@ -35,13 +38,7 @@ class Xliff extends Generator implements GeneratorInterface
 
         foreach ($translations as $translation) {
             //Find an XLIFF unit ID, if one is available; otherwise generate
-            $unitId = md5($translation->getContext().$translation->getOriginal());
-            foreach ($translation->getComments() as $comment) {
-                if (!preg_match('/XLIFF_UNIT_ID: (.*)/', $comment, $matches)) {
-                    continue;
-                }
-                $unitId = $matches[1];
-            }
+            $unitId = self::getUnitID($translation)?:md5($translation->getContext().$translation->getOriginal());
 
             $unit = $dom->createElement('unit');
             $unit->setAttribute('id', $unitId);
@@ -54,7 +51,7 @@ class Xliff extends Generator implements GeneratorInterface
 
             foreach ($translation->getComments() as $comment) {
                 //Skip XLIFF unit ID comments.
-                if (preg_match('/XLIFF_UNIT_ID: (.*)/', $comment)) {
+                if (preg_match(self::UNIT_ID_REGEXP, $comment)) {
                     continue;
                 }
 
@@ -104,5 +101,22 @@ class Xliff extends Generator implements GeneratorInterface
         $node->appendChild($text);
 
         return $node;
+    }
+
+    /**
+     * Gets the translation's unit ID, if one is available.
+     *
+     * @param Translation $translation
+     *
+     * @return string|null
+     */
+    public static function getUnitID(Translation $translation)
+    {
+        foreach ($translation->getComments() as $comment) {
+            if (preg_match(self::UNIT_ID_REGEXP, $comment, $matches)) {
+                return $matches[1];
+            }
+        }
+        return null;
     }
 }
