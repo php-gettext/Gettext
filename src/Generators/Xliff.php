@@ -8,7 +8,7 @@ use DOMDocument;
 
 class Xliff extends Generator implements GeneratorInterface
 {
-    const UNIT_ID_REGEXP = '/XLIFF_UNIT_ID: (.*)/';
+    const UNIT_ID_REGEXP = '/^XLIFF_UNIT_ID: (.*)$/';
 
     /**
      * {@inheritdoc}
