@@ -547,4 +547,26 @@ class AssetsTest extends AbstractTest
             $this->assertContent($translations, 'vuejs2/' . $file, 'Po');
         }
     }
+
+    public function testXliff()
+    {
+        $translations = static::get('xliff/Xliff', 'Xliff');
+        $countTranslations = 2;
+        $countTranslated = 2;
+        $countHeaders = 9;
+
+        $this->assertCount($countTranslations, $translations);
+        $this->assertCount($countHeaders, $translations->getHeaders());
+        $this->assertEquals(2, $translations->countTranslated());
+
+        $translation1 = $translations->find(null, 'one file');
+        $this->assertEquals(\Gettext\Generators\Xliff::getUnitID($translation1), 'custom.unit.id');
+
+        $translation2 = $translations->find(null, 'one');
+        $this->assertEquals(\Gettext\Generators\Xliff::getUnitID($translation2), 'second.custom.unit.id');
+
+        $this->assertContent($translations, 'xliff/Po');
+
+        $this->runTestFormat('xliff/Po', $countTranslations, $countTranslated, $countHeaders);
+    }
 }

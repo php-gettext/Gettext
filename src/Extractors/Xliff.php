@@ -34,6 +34,9 @@ class Xliff extends Extractor implements ExtractorInterface
                     }
 
                     $translation = new Translation(null, (string) $segment->source);
+                    if (isset($unit['id'])) {
+                        $translation->addComment("XLIFF_UNIT_ID: $unit[id]");
+                    }
                     $translation->setTranslation(array_shift($targets));
                     $translation->setPluralTranslations($targets);
 

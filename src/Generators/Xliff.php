@@ -2,11 +2,14 @@
 
 namespace Gettext\Generators;
 
+use Gettext\Translation;
 use Gettext\Translations;
 use DOMDocument;
 
 class Xliff extends Generator implements GeneratorInterface
 {
+    const UNIT_ID_REGEXP = '/^XLIFF_UNIT_ID: (.*)$/';
+
     /**
      * {@inheritdoc}
      */
@@ -34,8 +37,11 @@ class Xliff extends Generator implements GeneratorInterface
         }
 
         foreach ($translations as $translation) {
+            //Find an XLIFF unit ID, if one is available; otherwise generate
+            $unitId = self::getUnitID($translation)?:md5($translation->getContext().$translation->getOriginal());
+
             $unit = $dom->createElement('unit');
-            $unit->setAttribute('id', md5($translation->getContext().$translation->getOriginal()));
+            $unit->setAttribute('id', $unitId);
 
             //Save comments as notes
             $notes = $dom->createElement('notes');
@@ -44,6 +50,11 @@ class Xliff extends Generator implements GeneratorInterface
                 ->setAttribute('category', 'context');
 
             foreach ($translation->getComments() as $comment) {
+                //Skip XLIFF unit ID comments.
+                if (preg_match(self::UNIT_ID_REGEXP, $comment)) {
+                    continue;
+                }
+
                 $notes->appendChild(self::createTextNode($dom, 'note', $comment))
                     ->setAttribute('category', 'comment');
             }
@@ -90,5 +101,22 @@ class Xliff extends Generator implements GeneratorInterface
         $node->appendChild($text);
 
         return $node;
+    }
+
+    /**
+     * Gets the translation's unit ID, if one is available.
+     *
+     * @param Translation $translation
+     *
+     * @return string|null
+     */
+    public static function getUnitID(Translation $translation)
+    {
+        foreach ($translation->getComments() as $comment) {
+            if (preg_match(self::UNIT_ID_REGEXP, $comment, $matches)) {
+                return $matches[1];
+            }
+        }
+        return null;
     }
 }
