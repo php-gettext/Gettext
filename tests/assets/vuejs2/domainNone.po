@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: \n"
+"Language-Team: \n"
+"Last-Translator: \n"
+"MIME-Version: 1.0\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+
+#: ./tests/assets/vuejs2/input.vue:10
+msgid "no domain 3"
+msgstr ""
+
+#: ./tests/assets/vuejs2/input.vue:2
+msgid "no domain 1"
+msgstr ""
+
+#: ./tests/assets/vuejs2/input.vue:3
+msgid "no domain 2"
+msgstr ""
