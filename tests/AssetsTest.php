@@ -578,6 +578,8 @@ class AssetsTest extends AbstractTest
             }
         }
 
+        // Converting from an XLIFF that contains duplicate <source> elements
+        // to a PO file will result in the loss of the duplicates.
         $this->runTestFormat('xliff/Po', $countTranslations-1, $countTranslated-1, $countHeaders);
     }
 }
