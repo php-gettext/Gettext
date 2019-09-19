@@ -548,25 +548,38 @@ class AssetsTest extends AbstractTest
         }
     }
 
-    public function testXliff()
+    public function testXliffUnitIds()
     {
-        $translations = static::get('xliff/Xliff', 'Xliff');
-        $countTranslations = 2;
-        $countTranslated = 2;
+        $translations = static::get('xliff/Xliff', 'Xliff', ['unitid_as_id' => true]);
+        $countTranslations = 3;
+        $countTranslated = 3;
         $countHeaders = 9;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
-        $this->assertEquals(2, $translations->countTranslated());
+        $this->assertEquals($countTranslated, $translations->countTranslated());
 
-        $translation1 = $translations->find(null, 'one file');
-        $this->assertEquals(\Gettext\Generators\Xliff::getUnitID($translation1), 'custom.unit.id');
+        foreach ($translations as $translation) {
+            switch (\Gettext\Generators\Xliff::getUnitID($translation)) {
+                case 'custom.unit.id':
+                    $this->assertEquals($translation->getOriginal(), 'one file');
+                    $this->assertEquals($translation->getTranslation(), '1 plik');
+                    break;
+                case 'second.custom.unit.id':
+                    $this->assertEquals($translation->getOriginal(), 'one');
+                    $this->assertEquals($translation->getTranslation(), '1');
+                    break;
+                case 'duplicate.source.unit.id':
+                    $this->assertEquals($translation->getOriginal(), 'one');
+                    $this->assertEquals($translation->getTranslation(), 'uno');
+                    break;
+                default:
+                    $this->assertFalse(true);
+            }
+        }
 
-        $translation2 = $translations->find(null, 'one');
-        $this->assertEquals(\Gettext\Generators\Xliff::getUnitID($translation2), 'second.custom.unit.id');
-
-        $this->assertContent($translations, 'xliff/Po');
-
-        $this->runTestFormat('xliff/Po', $countTranslations, $countTranslated, $countHeaders);
+        // Converting from an XLIFF that contains duplicate <source> elements
+        // to a PO file will result in the loss of the duplicates.
+        $this->runTestFormat('xliff/Po', $countTranslations-1, $countTranslated-1, $countHeaders);
     }
 }

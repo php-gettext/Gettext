@@ -31,5 +31,14 @@
         <target>1</target>
       </segment>
     </unit>
+    <unit id="duplicate.source.unit.id">
+      <notes>
+        <note category="context"></note>
+      </notes>
+      <segment>
+        <source>one</source>
+        <target>uno</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

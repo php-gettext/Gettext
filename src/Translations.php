@@ -413,6 +413,7 @@ class Translations extends ArrayObject
      *
      * @param string|Translation $context  The context of the translation or a translation instance
      * @param string             $original The original string
+     * @warning Translations with custom identifiers (e.g. XLIFF unit IDs) cannot be found using this function.
      *
      * @return Translation|false
      */
