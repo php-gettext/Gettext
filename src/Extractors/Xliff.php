@@ -11,11 +11,18 @@ use SimpleXMLElement;
  */
 class Xliff extends Extractor implements ExtractorInterface
 {
+
+    public static $options = [
+        'unitid_as_id' => false
+    ];
+
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
+        $options += static::$options;
+
         $xml = new SimpleXMLElement($string, null, false);
 
         foreach ($xml->file as $file) {
@@ -37,7 +44,9 @@ class Xliff extends Extractor implements ExtractorInterface
                     if (isset($unit['id'])) {
                         $unitId = (string) $unit['id'];
                         $translation->addComment("XLIFF_UNIT_ID: $unitId");
-                        $translation->setId($unitId);
+                        if ($options['unitid_as_id']) {
+                            $translation->setId($unitId);
+                        }
                     }
                     $translation->setTranslation(array_shift($targets));
                     $translation->setPluralTranslations($targets);

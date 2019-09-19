@@ -548,9 +548,9 @@ class AssetsTest extends AbstractTest
         }
     }
 
-    public function testXliff()
+    public function testXliffUnitIds()
     {
-        $translations = static::get('xliff/Xliff', 'Xliff');
+        $translations = static::get('xliff/Xliff', 'Xliff', ['unitid_as_id' => true]);
         $countTranslations = 3;
         $countTranslated = 3;
         $countHeaders = 9;
