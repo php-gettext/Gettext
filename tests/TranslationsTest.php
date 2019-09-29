@@ -2,6 +2,8 @@
 
 namespace Gettext\Tests;
 
+use Gettext\Generators\Generator;
+
 use Gettext\Translation;
 use Gettext\Translations;
 
@@ -86,5 +88,15 @@ class TranslationsTest extends AbstractTest
         $translations->addFromPoFile(static::asset('phpcode/Po.po'));
 
         $this->assertCount(15, $translations);
+    }
+
+    public function testNormalize()
+    {
+        Translations::$options['normalizeLineBreaks'] = "\n";
+        $translation = new Translation('', 'Test');
+        $translation->setTranslation("Test\n\rTest");
+        $translation = Generator::filterTranslation($translation);
+
+        $this->assertEquals($translation->getTranslation(), "Test\nTest");
     }
 }
