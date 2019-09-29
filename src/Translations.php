@@ -114,6 +114,7 @@ class Translations extends ArrayObject
             'Content-Transfer-Encoding' => '8bit',
         ],
         'headersSorting' => false,
+        'normalizeLineBreaks' => false,
         'defaultDateHeaders' => [
             'POT-Creation-Date',
             'PO-Revision-Date',
