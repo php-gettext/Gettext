@@ -114,7 +114,7 @@ class Translations extends ArrayObject
             'Content-Transfer-Encoding' => '8bit',
         ],
         'headersSorting' => false,
-        'normalizeLineBreaks' => false,
+        'normalizeLineBreaks' => null,
         'defaultDateHeaders' => [
             'POT-Creation-Date',
             'PO-Revision-Date',
@@ -407,6 +407,50 @@ class Translations extends ArrayObject
         $domain = $this->getDomain();
 
         return (is_string($domain) && ($domain !== '')) ? true : false;
+    }
+
+    /**
+     * Set the line break normalization value
+     *
+     * @param string|null
+     *
+     * @return self
+     */
+    public function setNormalizeLineBreaks($normalize)
+    {
+        self::$options['normalizeLineBreaks'] = $normalize;
+
+        return $this;
+    }
+
+    /**
+     * Returns the line break normalization value
+     *
+     * @return string|null
+     */
+    public function getNormalizeLineBreaks()
+    {
+        return self::$options['normalizeLineBreaks'];
+    }
+
+    /**
+     * Filters the translations to normalize it.
+     *
+     * @return self
+     */
+    public function filter()
+    {
+        if (!empty(Translations::$options['normalizeLineBreaks'])) {
+            foreach ($this as $translation) {
+                $text = $translation->getTranslation();
+
+                $text = preg_replace("/\n\r?/", Translations::$options['normalizeLineBreaks'], $text);
+
+                $translation->setTranslation($text);
+            }
+        }
+
+        return $this;
     }
 
     /**

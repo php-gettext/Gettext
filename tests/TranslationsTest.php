@@ -2,8 +2,6 @@
 
 namespace Gettext\Tests;
 
-use Gettext\Generators\Generator;
-
 use Gettext\Translation;
 use Gettext\Translations;
 
@@ -92,11 +90,12 @@ class TranslationsTest extends AbstractTest
 
     public function testNormalize()
     {
-        Translations::$options['normalizeLineBreaks'] = "\n";
-        $translation = new Translation('', 'Test');
-        $translation->setTranslation("Test\n\rTest");
-        $translation = Generator::filterTranslation($translation);
+        $translations = static::get('po/Po');
+        $translation = $translations->find(null, 'single');
+        $translation->setTranslation("test\n\rtest");
+        $translations->setNormalizeLineBreaks("\n");
+        $translations->filter();
 
-        $this->assertEquals($translation->getTranslation(), "Test\nTest");
+        $this->assertEquals($translation->getTranslation(), "test\ntest");
     }
 }

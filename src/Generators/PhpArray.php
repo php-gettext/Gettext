@@ -18,7 +18,7 @@ class PhpArray extends Generator implements GeneratorInterface
      */
     public static function toString(Translations $translations, array $options = [])
     {
-        $array = self::generate($translations, $options);
+        $array = self::generate($translations->filter(), $options);
 
         return '<?php return '.var_export($array, true).';';
     }

@@ -25,7 +25,7 @@ class Jed extends Generator implements GeneratorInterface
                     'lang' => $translations->getLanguage() ?: 'en',
                     'plural-forms' => $translations->getHeader('Plural-Forms') ?: 'nplurals=2; plural=(n != 1);',
                 ],
-            ] + self::buildMessages($translations),
+            ] + self::buildMessages($translations->filter()),
         ], $options['json']);
     }
 
@@ -47,6 +47,8 @@ class Jed extends Generator implements GeneratorInterface
             if ($translation->isDisabled()) {
                 continue;
             }
+
+            $translation->filter();
             
             $key = ($translation->hasContext() ? $translation->getContext().$context_glue : '')
                 .$translation->getOriginal();

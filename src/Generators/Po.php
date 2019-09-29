@@ -36,7 +36,7 @@ class Po extends Generator implements GeneratorInterface
         }
 
         //Translations
-        foreach ($translations as $translation) {
+        foreach ($translations->filter() as $translation) {
             if ($translation->hasComments()) {
                 foreach ($translation->getComments() as $comment) {
                     $lines[] = '# '.$comment;

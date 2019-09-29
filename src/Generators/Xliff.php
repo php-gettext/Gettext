@@ -33,7 +33,7 @@ class Xliff extends Generator implements GeneratorInterface
             $file->appendChild($notes);
         }
 
-        foreach ($translations as $translation) {
+        foreach ($translations->filter() as $translation) {
             $unit = $dom->createElement('unit');
             $unit->setAttribute('id', md5($translation->getContext().$translation->getOriginal()));
 

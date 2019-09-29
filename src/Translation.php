@@ -502,4 +502,20 @@ class Translation
 
         return $this;
     }
+
+    /**
+     * Filters the translation
+     *
+     * @return self
+     */
+    public function filter()
+    {
+        $normalize = Translations::$options['normalizeLineBreaks'];
+
+        if (!empty($normalize)) {
+            $this->translation = preg_replace("/\n\r?/", $normalize, $this->translation);
+        }
+
+        return $this;
+    }
 }
