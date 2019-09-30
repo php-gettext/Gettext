@@ -7,6 +7,7 @@ namespace Gettext;
  */
 class Translation
 {
+    protected $id;
     protected $context;
     protected $original;
     protected $translation = '';
@@ -70,13 +71,29 @@ class Translation
     }
 
     /**
+     * Sets the id of this translation.
+     * @warning The use of this function to set a custom ID will prevent
+     *  Translations::find from matching this translation.
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+    /**
      * Returns the id of this translation.
      *
      * @return string
      */
     public function getId()
     {
-        return static::generateId($this->context, $this->original);
+        if ($this->id === null) {
+            return static::generateId($this->context, $this->original);
+        }
+        return $this->id;
     }
 
     /**
