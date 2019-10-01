@@ -19,12 +19,22 @@ abstract class FunctionsScanner
     /**
      * Search for specific functions and create translations.
      *
-     * @param Translations $translations The translations instance where save the values
+     * You can pass multiple translation with different domains and value found will be sorted respectively.
+     *
+     * @param Translations|Translations[] $translations Multiple domain translations instances where to save the values
      * @param array $options The extractor options
      * @throws Exception
      */
-    public function saveGettextFunctions(Translations $translations, array $options)
+    public function saveGettextFunctions($translations, array $options)
     {
+        $translations = is_array($translations) ? $translations : [$translations];
+
+        /** @var Translations[] $translationByDomain [domain => translations, ..] */
+        $translationByDomain = array_reduce($translations, function (&$carry, Translations $translations) {
+            $carry[$translations->getDomain()] = $translations;
+            return $carry;
+        }, []);
+
         $functions = $options['functions'];
         $file = $options['file'];
 
@@ -39,95 +49,32 @@ abstract class FunctionsScanner
                 continue;
             }
 
-            $domain = $context = $original = $plural = null;
+            $deconstructed = $this->deconstructArgs($functions[$name], $args);
 
-            switch ($functions[$name]) {
-                case 'noop':
-                case 'gettext':
-                    if (!isset($args[0])) {
-                        continue 2;
-                    }
-
-                    $original = $args[0];
-                    break;
-
-                case 'ngettext':
-                    if (!isset($args[1])) {
-                        continue 2;
-                    }
-
-                    list($original, $plural) = $args;
-                    break;
-
-                case 'pgettext':
-                    if (!isset($args[1])) {
-                        continue 2;
-                    }
-
-                    list($context, $original) = $args;
-                    break;
-
-                case 'dgettext':
-                    if (!isset($args[1])) {
-                        continue 2;
-                    }
-
-                    list($domain, $original) = $args;
-                    break;
-
-                case 'dpgettext':
-                    if (!isset($args[2])) {
-                        continue 2;
-                    }
-
-                    list($domain, $context, $original) = $args;
-                    break;
-
-                case 'npgettext':
-                    if (!isset($args[2])) {
-                        continue 2;
-                    }
-
-                    list($context, $original, $plural) = $args;
-                    break;
-
-                case 'dnpgettext':
-                    if (!isset($args[3])) {
-                        continue 2;
-                    }
-
-                    list($domain, $context, $original, $plural) = $args;
-                    break;
-
-                case 'dngettext':
-                    if (!isset($args[2])) {
-                        continue 2;
-                    }
-
-                    list($domain, $original, $plural) = $args;
-                    break;
-
-                default:
-                    throw new Exception(sprintf('Not valid function %s', $functions[$name]));
+            if (!$deconstructed) {
+                continue;
             }
+
+            list($domain, $context, $original, $plural) = $deconstructed;
 
             if ((string)$original === '') {
                 continue;
             }
 
             $isDefaultDomain = $domain === null;
-            $isMatchingDomain = $domain === $translations->getDomain();
+
+            $domainTranslations = isset($translationByDomain[$domain]) ? $translationByDomain[$domain] : false;
 
             if (!empty($options['domainOnly']) && $isDefaultDomain) {
                 // If we want to find translations for a specific domain, skip default domain messages
                 continue;
             }
 
-            if (!$isDefaultDomain && !$isMatchingDomain) {
+            if (!$isDefaultDomain && !$domainTranslations) {
                 continue;
             }
 
-            $translation = $translations->insert($context, $original, $plural);
+            $translation = $domainTranslations->insert($context, $original, $plural);
             $translation->addReference($file, $line);
 
             if (isset($function[3])) {
@@ -136,5 +83,85 @@ abstract class FunctionsScanner
                 }
             }
         }
+    }
+
+    /**
+     * Deconstruct arguments to translation values
+     *
+     * @param $function
+     * @param $args
+     * @return array|null
+     * @throws Exception
+     */
+    private function deconstructArgs($function, $args)
+    {
+        $domain = null;
+        $context = null;
+        $original = null;
+        $plural = null;
+
+        switch ($function) {
+            case 'noop':
+            case 'gettext':
+                if (!isset($args[0])) {
+                    return null;
+                }
+
+                $original = $args[0];
+                break;
+            case 'ngettext':
+                if (!isset($args[1])) {
+                    return null;
+                }
+
+                list($original, $plural) = $args;
+                break;
+            case 'pgettext':
+                if (!isset($args[1])) {
+                    return null;
+                }
+
+                list($context, $original) = $args;
+                break;
+            case 'dgettext':
+                if (!isset($args[1])) {
+                    return null;
+                }
+
+                list($domain, $original) = $args;
+                break;
+            case 'dpgettext':
+                if (!isset($args[2])) {
+                    return null;
+                }
+
+                list($domain, $context, $original) = $args;
+                break;
+            case 'npgettext':
+                if (!isset($args[2])) {
+                    return null;
+                }
+
+                list($context, $original, $plural) = $args;
+                break;
+            case 'dnpgettext':
+                if (!isset($args[3])) {
+                    return null;
+                }
+
+                list($domain, $context, $original, $plural) = $args;
+                break;
+            case 'dngettext':
+                if (!isset($args[2])) {
+                    return null;
+                }
+
+                list($domain, $original, $plural) = $args;
+                break;
+            default:
+                throw new Exception(sprintf('Not valid function %s', $function));
+        }
+
+        return [$domain, $context, $original, $plural];
     }
 }
