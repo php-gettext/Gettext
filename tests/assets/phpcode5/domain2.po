@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: \n"
+"Language-Team: \n"
+"Last-Translator: \n"
+"MIME-Version: 1.0\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"X-Domain: domain2\n"
+
+#: ./tests/assets/phpcode5/input.php:8
+msgid "domain2 Text"
+msgid_plural "domain2 Text plural"
+msgstr[0] ""
+
+#: ./tests/assets/phpcode5/input.php:9
+msgid "domain2 Text Separate"
+msgstr ""
