@@ -136,6 +136,7 @@ class Po extends Generator implements GeneratorInterface
                 "\x00" => '',
                 '\\' => '\\\\',
                 "\t" => '\t',
+                "\r" => '\r',
                 "\n" => '\n',
                 '"' => '\\"',
             ]
