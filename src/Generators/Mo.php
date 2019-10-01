@@ -25,7 +25,7 @@ class Mo extends Generator implements GeneratorInterface
             $messages[''] = self::generateHeaders($translations);
         }
 
-        foreach ($translations->filter() as $translation) {
+        foreach ($translations as $translation) {
             if (!$translation->hasTranslation() || $translation->isDisabled()) {
                 continue;
             }

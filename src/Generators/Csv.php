@@ -33,7 +33,7 @@ class Csv extends Generator implements GeneratorInterface
             self::fputcsv($handle, ['', '', self::generateHeaders($translations)], $options);
         }
 
-        foreach ($translations->filter() as $translation) {
+        foreach ($translations as $translation) {
             if ($translation->isDisabled()) {
                 continue;
             }

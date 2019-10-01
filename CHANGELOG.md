@@ -7,11 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [4.7.0] - Unreleased
-### Added
-- Support for UnitID in Xliff [#221]
-- Support for scan multiple domains at the same time [#223]
-
 ## [4.6.3] - 2019-07-15
 ### Added
 - Some VueJs extraction improvements and additions [#205], [#213]
@@ -127,10 +122,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#213]: https://github.com/oscarotero/Gettext/issues/213
 [#214]: https://github.com/oscarotero/Gettext/issues/214
 [#215]: https://github.com/oscarotero/Gettext/issues/215
-[#221]: https://github.com/oscarotero/Gettext/issues/221
-[#223]: https://github.com/oscarotero/Gettext/issues/223
 
-[4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...HEAD
 [4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
 [4.6.2]: https://github.com/oscarotero/Gettext/compare/v4.6.1...v4.6.2
 [4.6.1]: https://github.com/oscarotero/Gettext/compare/v4.6.0...v4.6.1

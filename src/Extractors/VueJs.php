@@ -1,72 +1,23 @@
 <?php
-/** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace Gettext\Extractors;
 
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
-use DOMNode;
-use Exception;
 use Gettext\Translations;
 use Gettext\Utils\JsFunctionsScanner;
 
 /**
  * Class to get gettext strings from VueJS template files.
  */
-class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInterface
+class VueJs extends JsCode implements ExtractorInterface
 {
-    public static $options = [
-        'constants' => [],
-
-        'functions' => [
-            'gettext' => 'gettext',
-            '__' => 'gettext',
-            'ngettext' => 'ngettext',
-            'n__' => 'ngettext',
-            'pgettext' => 'pgettext',
-            'p__' => 'pgettext',
-            'dgettext' => 'dgettext',
-            'd__' => 'dgettext',
-            'dngettext' => 'dngettext',
-            'dn__' => 'dngettext',
-            'dpgettext' => 'dpgettext',
-            'dp__' => 'dpgettext',
-            'npgettext' => 'npgettext',
-            'np__' => 'npgettext',
-            'dnpgettext' => 'dnpgettext',
-            'dnp__' => 'dnpgettext',
-            'noop' => 'noop',
-            'noop__' => 'noop',
-        ],
-    ];
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    public static function fromFileMultiple($file, array $translations, array $options = [])
-    {
-        foreach (self::getFiles($file) as $file) {
-            $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
-        }
-    }
-
     /**
      * @inheritdoc
-     * @throws Exception
+     * @throws \Exception
      */
     public static function fromString($string, Translations $translations, array $options = [])
-    {
-        self::fromStringMultiple($string, [$translations], $options);
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    public static function fromStringMultiple($string, array $translations, array $options = [])
     {
         $options += self::$options;
         $options += [
@@ -83,19 +34,19 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
             ],
             // HTML tags to parse when attribute exists
             'tagAttributes' => [
-                'v-translate',
+                'v-translate'
             ],
             // Comments
             'commentAttributes' => [
-                'translate-comment',
+                'translate-comment'
             ],
             'contextAttributes' => [
-                'translate-context',
+                'translate-context'
             ],
             // Attribute with plural content
             'pluralAttributes' => [
-                'translate-plural',
-            ],
+                'translate-plural'
+            ]
         ];
 
         // Ok, this is the weirdest hack, but let me explain:
@@ -174,14 +125,14 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
      * Extract translations from script part
      *
      * @param string $scriptContents Only script tag contents, not the whole template
-     * @param Translations|Translations[] $translations One or multiple domain Translation objects
+     * @param Translations $translations
      * @param array $options
      * @param int $lineOffset Number of lines the script is offset in the vue template file
-     * @throws Exception
+     * @throws \Exception
      */
     private static function getScriptTranslationsFromString(
         $scriptContents,
-        $translations,
+        Translations $translations,
         array $options = [],
         $lineOffset = 0
     ) {
@@ -193,15 +144,15 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
     /**
      * Parse template to extract all translations (element content and dynamic element attributes)
      *
-     * @param DOMNode $dom
-     * @param Translations|Translations[] $translations One or multiple domain Translation objects
+     * @param DOMElement $dom
+     * @param Translations $translations
      * @param array $options
      * @param int $lineOffset Line number where the template part starts in the vue file
-     * @throws Exception
+     * @throws \Exception
      */
     private static function getTemplateTranslations(
-        DOMNode $dom,
-        $translations,
+        DOMElement $dom,
+        Translations $translations,
         array $options,
         $lineOffset = 0
     ) {
@@ -220,14 +171,11 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
 
     /**
      * @param array $options
-     * @param DOMNode $dom
-     * @param Translations|Translations[] $translations
+     * @param DOMElement $dom
+     * @param Translations $translations
      */
-    private static function getTagTranslations(array $options, DOMNode $dom, $translations)
+    private static function getTagTranslations(array $options, DOMElement $dom, Translations $translations)
     {
-        // Since tag scanning does not support domains, we always use the first translation given
-        $translations = is_array($translations) ? reset($translations) : $translations;
-
         $children = $dom->childNodes;
         for ($i = 0; $i < $children->length; $i++) {
             $node = $children->item($i);
@@ -235,44 +183,38 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
             if (!($node instanceof DOMElement)) {
                 continue;
             }
-
             $translatable = false;
-
-            if (in_array($node->tagName, $options['tagNames'], true)) {
+            if (\in_array($node->tagName, $options['tagNames'])) {
                 $translatable = true;
             }
-
             $attrList = $node->attributes;
             $context = null;
             $plural = "";
             $comment = null;
-
             for ($j = 0; $j < $attrList->length; $j++) {
                 /** @var DOMAttr $domAttr */
                 $domAttr = $attrList->item($j);
                 // Check if this is a dynamic vue attribute
-                if (in_array($domAttr->name, $options['tagAttributes'])) {
+                if (\in_array($domAttr->name, $options['tagAttributes'])) {
                     $translatable = true;
                 }
-                if (in_array($domAttr->name, $options['contextAttributes'])) {
+                if (\in_array($domAttr->name, $options['contextAttributes'])) {
                     $context = $domAttr->value;
                 }
-                if (in_array($domAttr->name, $options['pluralAttributes'])) {
+                if (\in_array($domAttr->name, $options['pluralAttributes'])) {
                     $plural = $domAttr->value;
                 }
-                if (in_array($domAttr->name, $options['commentAttributes'])) {
+                if (\in_array($domAttr->name, $options['commentAttributes'])) {
                     $comment = $domAttr->value;
                 }
             }
-
             if ($translatable) {
-                $translation = $translations->insert($context, trim($node->textContent), $plural);
+                $translation = $translations->insert($context, \trim($node->textContent), $plural);
                 $translation->addReference($options['file'], $node->getLineNo());
                 if ($comment) {
                     $translation->addExtractedComment($comment);
                 }
             }
-
             if ($node->hasChildNodes()) {
                 self::getTagTranslations($options, $node, $translations);
             }
@@ -284,10 +226,10 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
      * For example: <span :title="__('extract this')"> skip element content </span>
      *
      * @param array $options
-     * @param DOMNode $dom
+     * @param DOMElement $dom
      * @return string JS code
      */
-    private static function getTemplateAttributeFakeJs(array $options, DOMNode $dom)
+    private static function getTemplateAttributeFakeJs(array $options, DOMElement $dom)
     {
         $expressionsByLine = self::getVueAttributeExpressions($options['attributePrefixes'], $dom);
 
@@ -312,13 +254,13 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
      * Loop DOM element recursively and parse out all dynamic vue attributes which are basically JS expressions
      *
      * @param array $attributePrefixes List of attribute prefixes we parse as JS (may contain translations)
-     * @param DOMNode $dom
+     * @param DOMElement $dom
      * @param array $expressionByLine [lineNumber => [jsExpression, ..], ..]
      * @return array [lineNumber => [jsExpression, ..], ..]
      */
     private static function getVueAttributeExpressions(
         array $attributePrefixes,
-        DOMNode $dom,
+        DOMElement $dom,
         array &$expressionByLine = []
     ) {
         $children = $dom->childNodes;
@@ -372,10 +314,10 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
      * Extract JS expressions from within template elements (excluding attributes)
      * For example: <span :title="skip attributes"> {{__("extract element content")}} </span>
      *
-     * @param DOMNode $dom
+     * @param DOMElement $dom
      * @return string JS code
      */
-    private static function getTemplateFakeJs(DOMNode $dom)
+    private static function getTemplateFakeJs(DOMElement $dom)
     {
         $fakeJs = '';
         $lines = explode("\n", $dom->textContent);

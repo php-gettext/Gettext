@@ -3,7 +3,6 @@
 namespace Gettext\Tests;
 
 use Gettext\Extractors\PhpCode;
-use Gettext\Extractors\VueJs;
 use Gettext\Translations;
 
 class AssetsTest extends AbstractTest
@@ -502,84 +501,4 @@ class AssetsTest extends AbstractTest
         $this->runTestFormat('phpcode4/YamlDictionary', $countTranslations, $countTranslated);
     }
 
-    public function testPhpCode5MultipleDomainScanning()
-    {
-        $tDomainNone = new Translations; // Non-domain strings
-        $tDomain1 = (new Translations)->setDomain('domain1');
-        $tDomain2 = (new Translations)->setDomain('domain2');
-        $tDomain3 = (new Translations)->setDomain('domain3');
-        $tDomainMissing = (new Translations)->setDomain('domainMissing'); // No translations for this domain
-
-        /** @var Translations[] $allTranslations */
-        $allTranslations = [
-            'domainNone' => $tDomainNone,
-            'domain1' => $tDomain1,
-            'domain2' => $tDomain2,
-            'domain3' => $tDomain3,
-            'domainMissing' => $tDomainMissing,
-        ];
-
-        PhpCode::fromFileMultiple(static::asset('phpcode5/input.php'), array_values($allTranslations));
-
-        foreach ($allTranslations as $file => $translations) {
-            $this->assertContent($translations, 'phpcode5/' . $file, 'Po');
-        }
-    }
-
-    public function testVueJs2MultipleDomainScanning()
-    {
-        $tDomainNone = new Translations; // Non-domain strings
-        $tDomain1 = (new Translations)->setDomain('domain1');
-        $tDomain2 = (new Translations)->setDomain('domain2');
-        $tDomainMissing = (new Translations)->setDomain('domainMissing'); // No translations for this domain
-
-        /** @var Translations[] $allTranslations */
-        $allTranslations = [
-            'domainNone' => $tDomainNone,
-            'domain1' => $tDomain1,
-            'domain2' => $tDomain2,
-            'domainMissing' => $tDomainMissing,
-        ];
-
-        VueJs::fromFileMultiple(static::asset('vuejs2/input.vue'), array_values($allTranslations));
-
-        foreach ($allTranslations as $file => $translations) {
-            $this->assertContent($translations, 'vuejs2/' . $file, 'Po');
-        }
-    }
-
-    public function testXliffUnitIds()
-    {
-        $translations = static::get('xliff/Xliff', 'Xliff', ['unitid_as_id' => true]);
-        $countTranslations = 3;
-        $countTranslated = 3;
-        $countHeaders = 9;
-
-        $this->assertCount($countTranslations, $translations);
-        $this->assertCount($countHeaders, $translations->getHeaders());
-        $this->assertEquals($countTranslated, $translations->countTranslated());
-
-        foreach ($translations as $translation) {
-            switch (\Gettext\Generators\Xliff::getUnitID($translation)) {
-                case 'custom.unit.id':
-                    $this->assertEquals($translation->getOriginal(), 'one file');
-                    $this->assertEquals($translation->getTranslation(), '1 plik');
-                    break;
-                case 'second.custom.unit.id':
-                    $this->assertEquals($translation->getOriginal(), 'one');
-                    $this->assertEquals($translation->getTranslation(), '1');
-                    break;
-                case 'duplicate.source.unit.id':
-                    $this->assertEquals($translation->getOriginal(), 'one');
-                    $this->assertEquals($translation->getTranslation(), 'uno');
-                    break;
-                default:
-                    $this->assertFalse(true);
-            }
-        }
-
-        // Converting from an XLIFF that contains duplicate <source> elements
-        // to a PO file will result in the loss of the duplicates.
-        $this->runTestFormat('xliff/Po', $countTranslations-1, $countTranslated-1, $countHeaders);
-    }
 }

@@ -7,7 +7,6 @@ namespace Gettext;
  */
 class Translation
 {
-    protected $id;
     protected $context;
     protected $original;
     protected $translation = '';
@@ -71,29 +70,13 @@ class Translation
     }
 
     /**
-     * Sets the id of this translation.
-     * @warning The use of this function to set a custom ID will prevent
-     *  Translations::find from matching this translation.
-     *
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-
-    /**
      * Returns the id of this translation.
      *
      * @return string
      */
     public function getId()
     {
-        if ($this->id === null) {
-            return static::generateId($this->context, $this->original);
-        }
-        return $this->id;
+        return static::generateId($this->context, $this->original);
     }
 
     /**
@@ -516,22 +499,6 @@ class Translation
         Merge::mergeComments($translation, $this, $options);
         Merge::mergeExtractedComments($translation, $this, $options);
         Merge::mergeFlags($translation, $this, $options);
-
-        return $this;
-    }
-
-    /**
-     * Filters the translation
-     *
-     * @return self
-     */
-    public function filter()
-    {
-        $normalize = Translations::$options['normalizeLineBreaks'];
-
-        if (!empty($normalize)) {
-            $this->translation = preg_replace("/\n\r?/", $normalize, $this->translation);
-        }
 
         return $this;
     }

@@ -114,7 +114,6 @@ class Translations extends ArrayObject
             'Content-Transfer-Encoding' => '8bit',
         ],
         'headersSorting' => false,
-        'normalizeLineBreaks' => null,
         'defaultDateHeaders' => [
             'POT-Creation-Date',
             'PO-Revision-Date',
@@ -410,55 +409,10 @@ class Translations extends ArrayObject
     }
 
     /**
-     * Set the line break normalization value
-     *
-     * @param string|null
-     *
-     * @return self
-     */
-    public function setNormalizeLineBreaks($normalize)
-    {
-        self::$options['normalizeLineBreaks'] = $normalize;
-
-        return $this;
-    }
-
-    /**
-     * Returns the line break normalization value
-     *
-     * @return string|null
-     */
-    public function getNormalizeLineBreaks()
-    {
-        return self::$options['normalizeLineBreaks'];
-    }
-
-    /**
-     * Filters the translations to normalize it.
-     *
-     * @return self
-     */
-    public function filter()
-    {
-        if (!empty(Translations::$options['normalizeLineBreaks'])) {
-            foreach ($this as $translation) {
-                $text = $translation->getTranslation();
-
-                $text = preg_replace("/\n\r?/", Translations::$options['normalizeLineBreaks'], $text);
-
-                $translation->setTranslation($text);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Search for a specific translation.
      *
      * @param string|Translation $context  The context of the translation or a translation instance
      * @param string             $original The original string
-     * @warning Translations with custom identifiers (e.g. XLIFF unit IDs) cannot be found using this function.
      *
      * @return Translation|false
      */

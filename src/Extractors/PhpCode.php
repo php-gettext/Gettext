@@ -2,20 +2,19 @@
 
 namespace Gettext\Extractors;
 
-use Exception;
 use Gettext\Translations;
 use Gettext\Utils\PhpFunctionsScanner;
 
 /**
  * Class to get gettext strings from php files returning arrays.
  */
-class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInterface
+class PhpCode extends Extractor implements ExtractorInterface
 {
     public static $options = [
-        // - false: to not extract comments
-        // - empty string: to extract all comments
-        // - non-empty string: to extract comments that start with that string
-        // - array with strings to extract comments format.
+         // - false: to not extract comments
+         // - empty string: to extract all comments
+         // - non-empty string: to extract comments that start with that string
+         // - array with strings to extract comments format.
         'extractComments' => false,
 
         'constants' => [],
@@ -44,18 +43,8 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
 
     /**
      * {@inheritdoc}
-     * @throws Exception
      */
     public static function fromString($string, Translations $translations, array $options = [])
-    {
-        self::fromStringMultiple($string, [$translations], $options);
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    public static function fromStringMultiple($string, array $translations, array $options = [])
     {
         $options += static::$options;
 
@@ -67,18 +56,6 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
 
         $functions->saveGettextFunctions($translations, $options);
     }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromFileMultiple($file, array $translations, array $options = [])
-    {
-        foreach (self::getFiles($file) as $file) {
-            $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
-        }
-    }
-
 
     /**
      * Decodes a T_CONSTANT_ENCAPSED_STRING string.
@@ -133,11 +110,7 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
         );
     }
 
-    /**
-     * @param $dec
-     * @return string|null
-     * @see http://php.net/manual/en/function.chr.php#118804
-     */
+    //http://php.net/manual/en/function.chr.php#118804
     private static function unicodeChar($dec)
     {
         if ($dec < 0x80) {
@@ -146,22 +119,20 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
 
         if ($dec < 0x0800) {
             return chr(0xC0 + ($dec >> 6))
-                . chr(0x80 + ($dec & 0x3f));
+                .chr(0x80 + ($dec & 0x3f));
         }
 
         if ($dec < 0x010000) {
             return chr(0xE0 + ($dec >> 12))
-                . chr(0x80 + (($dec >> 6) & 0x3f))
-                . chr(0x80 + ($dec & 0x3f));
+                    .chr(0x80 + (($dec >> 6) & 0x3f))
+                    .chr(0x80 + ($dec & 0x3f));
         }
 
         if ($dec < 0x200000) {
             return chr(0xF0 + ($dec >> 18))
-                . chr(0x80 + (($dec >> 12) & 0x3f))
-                . chr(0x80 + (($dec >> 6) & 0x3f))
-                . chr(0x80 + ($dec & 0x3f));
+                    .chr(0x80 + (($dec >> 12) & 0x3f))
+                    .chr(0x80 + (($dec >> 6) & 0x3f))
+                    .chr(0x80 + ($dec & 0x3f));
         }
-
-        return null;
     }
 }

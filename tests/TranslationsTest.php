@@ -87,15 +87,4 @@ class TranslationsTest extends AbstractTest
 
         $this->assertCount(15, $translations);
     }
-
-    public function testNormalize()
-    {
-        $translations = static::get('po/Po');
-        $translation = $translations->find(null, 'single');
-        $translation->setTranslation("test\n\rtest");
-        $translations->setNormalizeLineBreaks("\n");
-        $translations->filter();
-
-        $this->assertEquals($translation->getTranslation(), "test\ntest");
-    }
 }

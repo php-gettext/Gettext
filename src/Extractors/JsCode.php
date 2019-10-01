@@ -2,14 +2,13 @@
 
 namespace Gettext\Extractors;
 
-use Exception;
 use Gettext\Translations;
 use Gettext\Utils\JsFunctionsScanner;
 
 /**
  * Class to get gettext strings from javascript files.
  */
-class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInterface
+class JsCode extends Extractor implements ExtractorInterface
 {
     public static $options = [
         'constants' => [],
@@ -37,35 +36,14 @@ class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInte
     ];
 
     /**
-     * @inheritdoc
-     * @throws Exception
+     * {@inheritdoc}
+     * @throws \Exception
      */
     public static function fromString($string, Translations $translations, array $options = [])
-    {
-        self::fromStringMultiple($string, [$translations], $options);
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    public static function fromStringMultiple($string, array $translations, array $options = [])
     {
         $options += static::$options;
 
         $functions = new JsFunctionsScanner($string);
         $functions->saveGettextFunctions($translations, $options);
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    public static function fromFileMultiple($file, array $translations, array $options = [])
-    {
-        foreach (self::getFiles($file) as $file) {
-            $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
-        }
     }
 }

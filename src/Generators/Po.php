@@ -2,14 +2,12 @@
 
 namespace Gettext\Generators;
 
-use Gettext\Translation;
 use Gettext\Translations;
 
 class Po extends Generator implements GeneratorInterface
 {
     public static $options = [
         'noLocation' => false,
-        'sortOutput' => false
     ];
 
     /**
@@ -29,14 +27,8 @@ class Po extends Generator implements GeneratorInterface
 
         $lines[] = '';
 
-        if ($options['sortOutput']) {
-            $translations->uasort(function (Translation $translation1, Translation $translation2) {
-                return strcmp($translation1->getOriginal(), $translation2->getTranslation());
-            });
-        }
-
         //Translations
-        foreach ($translations->filter() as $translation) {
+        foreach ($translations as $translation) {
             if ($translation->hasComments()) {
                 foreach ($translation->getComments() as $comment) {
                     $lines[] = '# '.$comment;

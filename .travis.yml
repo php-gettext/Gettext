@@ -1,6 +1,5 @@
 language: php
 sudo: false
-dist: trusty
 
 env:
   - COMPOSER_DISABLE_XDEBUG_WARN=1
