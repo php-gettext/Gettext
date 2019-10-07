@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [4.7.0] - Unreleased
+## [4.7.0] - 2019-10-07
 ### Added
 - Support for UnitID in Xliff [#221] [#224] [#225]
 - Support for scan multiple domains at the same time [#223]
