@@ -9,8 +9,11 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 
 ## [4.7.0] - Unreleased
 ### Added
-- Support for UnitID in Xliff [#221]
+- Support for UnitID in Xliff [#221] [#224] [#225]
 - Support for scan multiple domains at the same time [#223]
+
+### Fixed
+- New lines in windows [#218] [#226]
 
 ## [4.6.3] - 2019-07-15
 ### Added
@@ -127,8 +130,12 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#213]: https://github.com/oscarotero/Gettext/issues/213
 [#214]: https://github.com/oscarotero/Gettext/issues/214
 [#215]: https://github.com/oscarotero/Gettext/issues/215
+[#218]: https://github.com/oscarotero/Gettext/issues/218
 [#221]: https://github.com/oscarotero/Gettext/issues/221
 [#223]: https://github.com/oscarotero/Gettext/issues/223
+[#224]: https://github.com/oscarotero/Gettext/issues/224
+[#225]: https://github.com/oscarotero/Gettext/issues/225
+[#226]: https://github.com/oscarotero/Gettext/issues/226
 
 [4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...HEAD
 [4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
