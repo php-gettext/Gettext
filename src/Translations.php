@@ -436,7 +436,7 @@ class Translations extends ArrayObject
     public function countTranslated()
     {
         $c = 0;
-		foreach($this as $v) {
+        foreach ($this as $v) {
             if ($v->hasTranslation()) {
                 $c++;
             }
