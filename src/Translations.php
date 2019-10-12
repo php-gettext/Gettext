@@ -435,11 +435,13 @@ class Translations extends ArrayObject
      */
     public function countTranslated()
     {
-        $callback = function (Translation $v) {
-            return ($v->hasTranslation()) ? $v->getTranslation() : null;
-        };
-
-        return count(array_filter(get_object_vars($this), $callback));
+        $c = 0;
+        foreach ($this as $v) {
+            if ($v->hasTranslation()) {
+                $c++;
+            }
+        }
+        return $c;
     }
 
     /**
