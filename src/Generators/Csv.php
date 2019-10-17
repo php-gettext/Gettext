@@ -30,7 +30,7 @@ class Csv extends Generator implements GeneratorInterface
         $handle = fopen('php://memory', 'w');
 
         if ($options['includeHeaders']) {
-            self::fputcsv($handle, ['', '', self::generateHeaders($translations)], $options);
+            static::fputcsv($handle, ['', '', static::generateHeaders($translations)], $options);
         }
 
         foreach ($translations as $translation) {
@@ -44,7 +44,7 @@ class Csv extends Generator implements GeneratorInterface
                 $line = array_merge($line, $translation->getPluralTranslations());
             }
 
-            self::fputcsv($handle, $line, $options);
+            static::fputcsv($handle, $line, $options);
         }
 
         rewind($handle);
