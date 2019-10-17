@@ -42,7 +42,7 @@ class Translation
      * @param string $plural   The original plural string
      * @return static New Translation instance
      */
-    public function create($context, $original, $plural = '')
+    public static function create($context, $original, $plural = '')
     {
         return new static($context, $original, $plural);
     }
