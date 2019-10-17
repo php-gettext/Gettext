@@ -26,8 +26,8 @@ class CsvDictionary extends Generator implements GeneratorInterface
         $options += static::$options;
         $handle = fopen('php://memory', 'w');
 
-        foreach (self::toArray($translations, $options['includeHeaders']) as $original => $translation) {
-            self::fputcsv($handle, [$original, $translation], $options);
+        foreach (static::toArray($translations, $options['includeHeaders']) as $original => $translation) {
+            static::fputcsv($handle, [$original, $translation], $options);
         }
 
         rewind($handle);
