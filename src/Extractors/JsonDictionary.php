@@ -20,7 +20,7 @@ class JsonDictionary extends Extractor implements ExtractorInterface
         $messages = json_decode($string, true);
 
         if (is_array($messages)) {
-            self::fromArray($messages, $translations);
+            static::fromArray($messages, $translations);
         }
     }
 }
