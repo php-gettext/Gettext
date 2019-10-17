@@ -120,13 +120,19 @@ class Translations extends ArrayObject
         ],
     ];
 
-    private $headers;
+    protected $headers;
+
+    protected $translationClass;
 
     /**
      * @see ArrayObject::__construct()
      */
-    public function __construct($input = [], $flags = 0, $iterator_class = 'ArrayIterator')
-    {
+    public function __construct(
+        $input = [],
+        $flags = 0,
+        $iterator_class = 'ArrayIterator',
+        $translationClass = 'Gettext\Translation'
+    ) {
         $this->headers = static::$options['defaultHeaders'];
 
         foreach (static::$options['defaultDateHeaders'] as $header) {
@@ -134,6 +140,8 @@ class Translations extends ArrayObject
         }
 
         $this->headers[self::HEADER_LANGUAGE] = '';
+
+        $this->translationClass = $translationClass;
 
         parent::__construct($input, $flags, $iterator_class);
     }
@@ -455,7 +463,7 @@ class Translations extends ArrayObject
      */
     public function insert($context, $original, $plural = '')
     {
-        return $this->offsetSet(null, new Translation($context, $original, $plural));
+        return $this->offsetSet(null, $this->createNewTranslation($context, $original, $plural));
     }
 
     /**
@@ -472,5 +480,19 @@ class Translations extends ArrayObject
         Merge::mergeTranslations($translations, $this, $options);
 
         return $this;
+    }
+
+    /**
+     * Create a new instance of a Translation object.
+     *
+     * @param string $context  The context of the translation
+     * @param string $original The original string
+     * @param string $plural   The original plural string
+     * @return Translation New Translation instance
+     */
+    public function createNewTranslation($context, $original, $plural = '')
+    {
+        $factoryMethod = "{$this->translationClass}::create";
+        return $factoryMethod($context, $original, $plural);
     }
 }
