@@ -42,7 +42,7 @@ class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInte
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        self::fromStringMultiple($string, [$translations], $options);
+        static::fromStringMultiple($string, [$translations], $options);
     }
 
     /**
@@ -63,9 +63,9 @@ class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInte
      */
     public static function fromFileMultiple($file, array $translations, array $options = [])
     {
-        foreach (self::getFiles($file) as $file) {
+        foreach (static::getFiles($file) as $file) {
             $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
+            static::fromStringMultiple(static::readFile($file), $translations, $options);
         }
     }
 }
