@@ -31,11 +31,11 @@ class CsvDictionary extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        while ($row = self::fgetcsv($handle, $options)) {
+        while ($row = static::fgetcsv($handle, $options)) {
             list($original, $translation) = $row + ['', ''];
 
             if ($original === '') {
-                self::extractHeaders($translation, $translations);
+                static::extractHeaders($translation, $translations);
                 continue;
             }
 
