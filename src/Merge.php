@@ -5,7 +5,7 @@ namespace Gettext;
 /**
  * Static class with merge contants.
  */
-class Merge
+final class Merge
 {
     const ADD = 1;
     const REMOVE = 2;
