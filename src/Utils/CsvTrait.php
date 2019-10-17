@@ -7,20 +7,20 @@ namespace Gettext\Utils;
  */
 trait CsvTrait
 {
-    private static $csvEscapeChar;
+    protected static $csvEscapeChar;
 
     /**
      * Check whether support the escape_char argument to fgetcsv/fputcsv or not
      *
      * @return bool
      */
-    private static function supportsCsvEscapeChar()
+    protected static function supportsCsvEscapeChar()
     {
-        if (self::$csvEscapeChar === null) {
-            self::$csvEscapeChar = version_compare(PHP_VERSION, '5.5.4') >= 0;
+        if (static::$csvEscapeChar === null) {
+            static::$csvEscapeChar = version_compare(PHP_VERSION, '5.5.4') >= 0;
         }
 
-        return self::$csvEscapeChar;
+        return static::$csvEscapeChar;
     }
 
     /**
@@ -29,9 +29,9 @@ trait CsvTrait
      *
      * @return array
      */
-    private static function fgetcsv($handle, $options)
+    protected static function fgetcsv($handle, $options)
     {
-        if (self::supportsCsvEscapeChar()) {
+        if (static::supportsCsvEscapeChar()) {
             return fgetcsv($handle, 0, $options['delimiter'], $options['enclosure'], $options['escape_char']);
         }
 
@@ -45,9 +45,9 @@ trait CsvTrait
      *
      * @return bool|int
      */
-    private static function fputcsv($handle, $fields, $options)
+    protected static function fputcsv($handle, $fields, $options)
     {
-        if (self::supportsCsvEscapeChar()) {
+        if (static::supportsCsvEscapeChar()) {
             return fputcsv($handle, $fields, $options['delimiter'], $options['enclosure'], $options['escape_char']);
         }
 
