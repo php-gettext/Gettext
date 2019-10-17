@@ -9,7 +9,7 @@ use DOMElement;
 use DOMNode;
 use Exception;
 use Gettext\Translations;
-use Gettext\Utils\JsFunctionsScanner;
+use Gettext\Utils\FunctionsScanner;
 
 /**
  * Class to get gettext strings from VueJS template files.
@@ -40,6 +40,8 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
             'noop__' => 'noop',
         ],
     ];
+
+    protected static $functionsScannerClass = 'Gettext\Utils\JsFunctionsScanner';
 
     /**
      * @inheritDoc
@@ -185,7 +187,8 @@ class VueJs extends Extractor implements ExtractorInterface, ExtractorMultiInter
         array $options = [],
         $lineOffset = 0
     ) {
-        $functions = new JsFunctionsScanner($scriptContents);
+        /** @var FunctionsScanner $functions */
+        $functions = new static::$functionsScannerClass($scriptContents);
         $options['lineOffset'] = $lineOffset;
         $functions->saveGettextFunctions($translations, $options);
     }
