@@ -21,6 +21,6 @@ class JsonDictionary extends Generator implements GeneratorInterface
     {
         $options += static::$options;
 
-        return json_encode(self::toArray($translations, $options['includeHeaders']), $options['json']);
+        return json_encode(static::toArray($translations, $options['includeHeaders']), $options['json']);
     }
 }
