@@ -54,20 +54,20 @@ class Po extends Generator implements GeneratorInterface
             $prefix = $translation->isDisabled() ? '#~ ' : '';
 
             if ($translation->hasContext()) {
-                $lines[] = $prefix.'msgctxt '.self::convertString($translation->getContext());
+                $lines[] = $prefix.'msgctxt '.static::convertString($translation->getContext());
             }
 
-            self::addLines($lines, $prefix.'msgid', $translation->getOriginal());
+            static::addLines($lines, $prefix.'msgid', $translation->getOriginal());
 
             if ($translation->hasPlural()) {
-                self::addLines($lines, $prefix.'msgid_plural', $translation->getPlural());
-                self::addLines($lines, $prefix.'msgstr[0]', $translation->getTranslation());
+                static::addLines($lines, $prefix.'msgid_plural', $translation->getPlural());
+                static::addLines($lines, $prefix.'msgstr[0]', $translation->getTranslation());
 
                 foreach ($translation->getPluralTranslations($pluralSize) as $k => $v) {
-                    self::addLines($lines, $prefix.'msgstr['.($k + 1).']', $v);
+                    static::addLines($lines, $prefix.'msgstr['.($k + 1).']', $v);
                 }
             } else {
-                self::addLines($lines, $prefix.'msgstr', $translation->getTranslation());
+                static::addLines($lines, $prefix.'msgstr', $translation->getTranslation());
             }
 
             $lines[] = '';
@@ -83,16 +83,16 @@ class Po extends Generator implements GeneratorInterface
      *
      * @return string
      */
-    private static function multilineQuote($string)
+    protected static function multilineQuote($string)
     {
         $lines = explode("\n", $string);
         $last = count($lines) - 1;
 
         foreach ($lines as $k => $line) {
             if ($k === $last) {
-                $lines[$k] = self::convertString($line);
+                $lines[$k] = static::convertString($line);
             } else {
-                $lines[$k] = self::convertString($line."\n");
+                $lines[$k] = static::convertString($line."\n");
             }
         }
 
@@ -106,9 +106,9 @@ class Po extends Generator implements GeneratorInterface
      * @param string $name
      * @param string $value
      */
-    private static function addLines(array &$lines, $name, $value)
+    protected static function addLines(array &$lines, $name, $value)
     {
-        $newLines = self::multilineQuote($value);
+        $newLines = static::multilineQuote($value);
 
         if (count($newLines) === 1) {
             $lines[] = $name.' '.$newLines[0];
