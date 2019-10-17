@@ -492,7 +492,7 @@ class Translations extends ArrayObject
      */
     public function createNewTranslation($context, $original, $plural = '')
     {
-        $factoryMethod = "{$this->translationClass}::create";
-        return $factoryMethod($context, $original, $plural);
+        $class = $this->translationClass;
+        return $class::create($context, $original, $plural);
     }
 }
