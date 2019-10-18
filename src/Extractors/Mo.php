@@ -15,12 +15,15 @@ class Mo extends Extractor implements ExtractorInterface
     const MAGIC2 = -569244523;
     const MAGIC3 = 2500072158;
 
+    protected static $stringReaderClass = 'Gettext\Utils\StringReader';
+
     /**
      * {@inheritdoc}
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        $stream = new StringReader($string);
+        /** @var StringReader $stream */
+        $stream = new static::$stringReaderClass($string);
         $magic = static::readInt($stream, 'V');
 
         if (($magic === static::MAGIC1) || ($magic === static::MAGIC3)) { //to make sure it works for 64-bit platforms

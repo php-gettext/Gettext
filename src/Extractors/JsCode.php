@@ -4,7 +4,7 @@ namespace Gettext\Extractors;
 
 use Exception;
 use Gettext\Translations;
-use Gettext\Utils\JsFunctionsScanner;
+use Gettext\Utils\FunctionsScanner;
 
 /**
  * Class to get gettext strings from javascript files.
@@ -36,6 +36,8 @@ class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInte
         ],
     ];
 
+    protected static $functionsScannerClass = 'Gettext\Utils\JsFunctionsScanner';
+
     /**
      * @inheritdoc
      * @throws Exception
@@ -53,7 +55,8 @@ class JsCode extends Extractor implements ExtractorInterface, ExtractorMultiInte
     {
         $options += static::$options;
 
-        $functions = new JsFunctionsScanner($string);
+        /** @var FunctionsScanner $functions */
+        $functions = new static::$functionsScannerClass($string);
         $functions->saveGettextFunctions($translations, $options);
     }
 

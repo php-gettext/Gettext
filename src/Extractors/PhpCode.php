@@ -4,7 +4,7 @@ namespace Gettext\Extractors;
 
 use Exception;
 use Gettext\Translations;
-use Gettext\Utils\PhpFunctionsScanner;
+use Gettext\Utils\FunctionsScanner;
 
 /**
  * Class to get gettext strings from php files returning arrays.
@@ -42,6 +42,8 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
         ],
     ];
 
+    protected static $functionsScannerClass = 'Gettext\Utils\PhpFunctionsScanner';
+
     /**
      * {@inheritdoc}
      * @throws Exception
@@ -59,7 +61,8 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
     {
         $options += static::$options;
 
-        $functions = new PhpFunctionsScanner($string);
+        /** @var FunctionsScanner $functions */
+        $functions = new static::$functionsScannerClass($string);
 
         if ($options['extractComments'] !== false) {
             $functions->enableCommentsExtraction($options['extractComments']);
