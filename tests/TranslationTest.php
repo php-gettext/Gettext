@@ -3,70 +3,56 @@
 namespace Gettext\Tests;
 
 use Gettext\Translation;
-use Gettext\Translations;
+use Gettext\Comments;
+use Gettext\Flags;
+use Gettext\References;
+use PHPUnit\Framework\TestCase;
 
-class TranslationTest extends AbstractTest
+class TranslationTest extends TestCase
 {
-    public function testReferences()
+    public function testTranslation()
     {
-        $translations = static::get('phpcode/input', 'PhpCode');
-        $translation = $translations->find(null, 'text 10 with plural');
+        $translation = Translation::create('foo', 'bar');
 
-        $this->assertInstanceOf('Gettext\\Translation', $translation);
+        $this->assertSame('foo', $translation->getContext());
+        $this->assertSame('bar', $translation->getOriginal());
+        $this->assertSame("foo\004bar", $translation->getId());
+        $this->assertFalse($translation->isTranslated());
 
-        $references = $translation->getReferences();
+        $translation->translate('This is the translation');
+        $this->assertSame('This is the translation', $translation->getTranslation());
+        $this->assertTrue($translation->isTranslated());
 
-        $this->assertCount(1, $references);
-        $this->assertTrue($translation->hasReferences());
-        $this->assertEquals(static::asset('phpcode/input.php'), $references[0][0]);
-        $this->assertEquals(19, $references[0][1]);
+        $translation->setPlural('bars');
+        $this->assertSame('bars', $translation->getPlural());
 
-        $translation->deleteReferences();
-        $this->assertCount(0, $translation->getReferences());
-    }
+        $translation->translatePlural('bars-1', 'bars-2');
+        $this->assertSame(['bars-1', 'bars-2'], $translation->getPluralTranslations());
 
-    public function testNoReferences()
-    {
-        $po = static::get('phpcode/input', 'PhpCode')->toPoString(['noLocation' => true]);
-        $translations = Translations::fromPoString($po);
-        $translation = $translations->find(null, 'text 10 with plural');
+        $this->assertFalse($translation->isDisabled());
 
-        $this->assertInstanceOf('Gettext\\Translation', $translation);
+        $translation->disable();
+        $this->assertTrue($translation->isDisabled());
 
-        $references = $translation->getReferences();
+        $translation->disable(false);
+        $this->assertFalse($translation->isDisabled());
 
-        $this->assertCount(0, $references);
-        $this->assertFalse($translation->hasReferences());
-    }
+        $this->assertInstanceOf(Comments::class, $translation->getComments());
+        $this->assertInstanceOf(Comments::class, $translation->getExtractedComments());
+        $this->assertInstanceOf(Flags::class, $translation->getFlags());
+        $this->assertInstanceOf(References::class, $translation->getReferences());
 
-    public function testPlurals()
-    {
-        $translations = static::get('phpcode/input', 'PhpCode');
-        $translation = $translations->find(null, 'text 10 with plural');
+        $clone = clone $translation;
 
-        $this->assertTrue($translation->hasPlural());
-        $this->assertTrue($translation->is('', 'text 10 with plural'));
+        $this->assertInstanceOf(Comments::class, $clone->getComments());
+        $this->assertInstanceOf(Comments::class, $clone->getExtractedComments());
+        $this->assertInstanceOf(Flags::class, $clone->getFlags());
+        $this->assertInstanceOf(References::class, $clone->getReferences());
 
-        $translation = $translations->find(null, 'text 2');
+        $this->assertNotSame($translation->getComments(), $clone->getComments());
+        $this->assertNotSame($translation->getExtractedComments(), $clone->getExtractedComments());
+        $this->assertNotSame($translation->getFlags(), $clone->getFlags());
+        $this->assertNotSame($translation->getReferences(), $clone->getReferences());
 
-        $this->assertFalse($translation->hasPlural());
-
-        $translation->setPluralTranslations(['texts 2']);
-
-        $pluralTranslations = $translation->getPluralTranslations();
-        $this->assertCount(1, $pluralTranslations);
-        $this->assertEquals('texts 2', $pluralTranslations[0]);
-    }
-
-    public function testMerge()
-    {
-        $one = new Translation(null, '1 child');
-        $two = new Translation(null, '1 child');
-        $two->setTranslation('1 fillo');
-
-        $one->mergeWith($two);
-
-        $this->assertEquals('1 child', $one->getOriginal());
-        $this->assertEquals('1 fillo', $one->getTranslation());
     }
 }

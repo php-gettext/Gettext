@@ -18,22 +18,12 @@
         "issues": "https://github.com/oscarotero/Gettext/issues"
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": "^7.2",
         "gettext/languages": "^2.3"
     },
     "require-dev": {
-        "illuminate/view": "*",
-        "twig/twig": "^1.31|^2.0",
-        "twig/extensions": "*",
-        "symfony/yaml": "~2",
-        "phpunit/phpunit": "^4.8|^5.7|^6.5",
+        "phpunit/phpunit": "^8.0",
         "squizlabs/php_codesniffer": "^3.0"
-    },
-    "suggest": {
-        "illuminate/view": "Is necessary if you want to use the Blade extractor",
-        "twig/twig": "Is necessary if you want to use the Twig extractor",
-        "twig/extensions": "Is necessary if you want to use the Twig extractor",
-        "symfony/yaml": "Is necessary if you want to use the Yaml extractor/generator"
     },
     "autoload": {
         "psr-4": {
