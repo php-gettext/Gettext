@@ -20,7 +20,7 @@ class Translation
     protected $comments;
     protected $extractedComments;
 
-    public static function create(string $context, $original): Translation
+    public static function create(string $context, string $original): Translation
     {
         $id = "{$context}\004{$original}";
         $translation = new static($id);

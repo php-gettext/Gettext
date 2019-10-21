@@ -1,6 +1,5 @@
 vendor
 composer.lock
-.php_cs.cache
 *.cache
 
 # Eclipse-specific files
