@@ -25,7 +25,7 @@ class Twig extends Extractor implements ExtractorInterface
     {
         $options += static::$options;
 
-        $twig = $options['twig'] ?: self::createTwig();
+        $twig = $options['twig'] ?: static::createTwig();
 
         PhpCode::fromString($twig->compileSource(new Twig_Source($string, '')), $translations, $options);
     }
@@ -35,7 +35,7 @@ class Twig extends Extractor implements ExtractorInterface
      *
      * @return Twig_Environment
      */
-    private static function createTwig()
+    protected static function createTwig()
     {
         $twig = new Twig_Environment(new Twig_Loader_Array(['' => '']));
         $twig->addExtension(new Twig_Extensions_Extension_I18n());

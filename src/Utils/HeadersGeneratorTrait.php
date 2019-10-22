@@ -16,7 +16,7 @@ trait HeadersGeneratorTrait
      *
      * @return string
      */
-    private static function generateHeaders(Translations $translations)
+    protected static function generateHeaders(Translations $translations)
     {
         $headers = '';
 

@@ -31,12 +31,12 @@ class Csv extends Extractor implements ExtractorInterface
         fputs($handle, $string);
         rewind($handle);
 
-        while ($row = self::fgetcsv($handle, $options)) {
+        while ($row = static::fgetcsv($handle, $options)) {
             $context = array_shift($row);
             $original = array_shift($row);
 
             if ($context === '' && $original === '') {
-                self::extractHeaders(array_shift($row), $translations);
+                static::extractHeaders(array_shift($row), $translations);
                 continue;
             }
 

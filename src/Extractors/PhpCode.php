@@ -50,7 +50,7 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
      */
     public static function fromString($string, Translations $translations, array $options = [])
     {
-        self::fromStringMultiple($string, [$translations], $options);
+        static::fromStringMultiple($string, [$translations], $options);
     }
 
     /**
@@ -76,9 +76,9 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
      */
     public static function fromFileMultiple($file, array $translations, array $options = [])
     {
-        foreach (self::getFiles($file) as $file) {
+        foreach (static::getFiles($file) as $file) {
             $options['file'] = $file;
-            static::fromStringMultiple(self::readFile($file), $translations, $options);
+            static::fromStringMultiple(static::readFile($file), $translations, $options);
         }
     }
 
@@ -127,7 +127,7 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
                     case 'x':
                         return chr(hexdec(substr($match[1], 1)));
                     case 'u':
-                        return self::unicodeChar(hexdec(substr($match[1], 1)));
+                        return static::unicodeChar(hexdec(substr($match[1], 1)));
                     default:
                         return chr(octdec($match[1]));
                 }
@@ -141,7 +141,7 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
      * @return string|null
      * @see http://php.net/manual/en/function.chr.php#118804
      */
-    private static function unicodeChar($dec)
+    protected static function unicodeChar($dec)
     {
         if ($dec < 0x80) {
             return chr($dec);

@@ -6,16 +6,16 @@ use Gettext\Generators\PhpArray;
 
 class Translator extends BaseTranslator implements TranslatorInterface
 {
-    private $domain;
-    private $dictionary = [];
-    private $plurals = [];
+    protected $domain;
+    protected $dictionary = [];
+    protected $plurals = [];
 
     /**
      * Loads translation from a Translations instance, a file on an array.
      *
      * @param Translations|string|array $translations
      *
-     * @return self
+     * @return static
      */
     public function loadTranslations($translations)
     {
@@ -39,7 +39,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
      *
      * @param string $domain
      *
-     * @return self
+     * @return static
      */
     public function defaultDomain($domain)
     {
@@ -209,7 +209,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
         }
 
         if (!isset($this->plurals[$domain]['function'])) {
-            $code = self::fixTerseIfs($this->plurals[$domain]['code']);
+            $code = static::fixTerseIfs($this->plurals[$domain]['code']);
             $this->plurals[$domain]['function'] = eval("return function (\$n) { $code };");
         }
 
@@ -257,7 +257,7 @@ class Translator extends BaseTranslator implements TranslatorInterface
         $failure = $matches['failure'];
 
         // Go look for another terse if in the failure state.
-        $failure = self::fixTerseIfs($failure, true);
+        $failure = static::fixTerseIfs($failure, true);
         $code = $expression.' ? '.$success.' : '.$failure;
 
         if ($inner) {

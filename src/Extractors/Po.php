@@ -27,11 +27,11 @@ class Po extends Extractor implements ExtractorInterface
 
         for ($n = count($lines); $i < $n; ++$i) {
             $line = trim($lines[$i]);
-            $line = self::fixMultiLines($line, $lines, $i);
+            $line = static::fixMultiLines($line, $lines, $i);
 
             if ($line === '') {
                 if ($translation->is('', '')) {
-                    self::extractHeaders($translation->getTranslation(), $translations);
+                    static::extractHeaders($translation->getTranslation(), $translations);
                 } elseif ($translation->hasOriginal()) {
                     $translations[] = $translation;
                 }
@@ -80,35 +80,35 @@ class Po extends Extractor implements ExtractorInterface
                     break;
 
                 case 'msgctxt':
-                    $translation = $translation->getClone(self::convertString($data));
+                    $translation = $translation->getClone(static::convertString($data));
                     $append = 'Context';
                     break;
 
                 case 'msgid':
-                    $translation = $translation->getClone(null, self::convertString($data));
+                    $translation = $translation->getClone(null, static::convertString($data));
                     $append = 'Original';
                     break;
 
                 case 'msgid_plural':
-                    $translation->setPlural(self::convertString($data));
+                    $translation->setPlural(static::convertString($data));
                     $append = 'Plural';
                     break;
 
                 case 'msgstr':
                 case 'msgstr[0]':
-                    $translation->setTranslation(self::convertString($data));
+                    $translation->setTranslation(static::convertString($data));
                     $append = 'Translation';
                     break;
 
                 case 'msgstr[1]':
-                    $translation->setPluralTranslations([self::convertString($data)]);
+                    $translation->setPluralTranslations([static::convertString($data)]);
                     $append = 'PluralTranslation';
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
                         $p = $translation->getPluralTranslations();
-                        $p[] = self::convertString($data);
+                        $p[] = static::convertString($data);
 
                         $translation->setPluralTranslations($p);
                         $append = 'PluralTranslation';
@@ -119,27 +119,27 @@ class Po extends Extractor implements ExtractorInterface
                         if ($append === 'Context') {
                             $translation = $translation->getClone($translation->getContext()
                                 ."\n"
-                                .self::convertString($data));
+                                .static::convertString($data));
                             break;
                         }
 
                         if ($append === 'Original') {
                             $translation = $translation->getClone(null, $translation->getOriginal()
                                 ."\n"
-                                .self::convertString($data));
+                                .static::convertString($data));
                             break;
                         }
 
                         if ($append === 'PluralTranslation') {
                             $p = $translation->getPluralTranslations();
-                            $p[] = array_pop($p)."\n".self::convertString($data);
+                            $p[] = array_pop($p)."\n".static::convertString($data);
                             $translation->setPluralTranslations($p);
                             break;
                         }
 
                         $getMethod = 'get'.$append;
                         $setMethod = 'set'.$append;
-                        $translation->$setMethod($translation->$getMethod()."\n".self::convertString($data));
+                        $translation->$setMethod($translation->$getMethod()."\n".static::convertString($data));
                     }
                     break;
             }
@@ -159,7 +159,7 @@ class Po extends Extractor implements ExtractorInterface
      *
      * @return string
      */
-    private static function fixMultiLines($line, array $lines, &$i)
+    protected static function fixMultiLines($line, array $lines, &$i)
     {
         for ($j = $i, $t = count($lines); $j < $t; ++$j) {
             if (substr($line, -1, 1) == '"'

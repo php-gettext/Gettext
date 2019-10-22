@@ -17,19 +17,19 @@ trait HeadersExtractorTrait
      *
      * @return array
      */
-    private static function extractHeaders($headers, Translations $translations)
+    protected static function extractHeaders($headers, Translations $translations)
     {
         $headers = explode("\n", $headers);
         $currentHeader = null;
 
         foreach ($headers as $line) {
-            $line = self::convertString($line);
+            $line = static::convertString($line);
 
             if ($line === '') {
                 continue;
             }
 
-            if (self::isHeaderDefinition($line)) {
+            if (static::isHeaderDefinition($line)) {
                 $header = array_map('trim', explode(':', $line, 2));
                 $currentHeader = $header[0];
                 $translations->setHeader($currentHeader, $header[1]);
@@ -48,7 +48,7 @@ trait HeadersExtractorTrait
      *
      * @return bool
      */
-    private static function isHeaderDefinition($line)
+    protected static function isHeaderDefinition($line)
     {
         return (bool) preg_match('/^[\w-]+:/', $line);
     }

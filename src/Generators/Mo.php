@@ -22,7 +22,7 @@ class Mo extends Generator implements GeneratorInterface
         $messages = [];
 
         if ($options['includeHeaders']) {
-            $messages[''] = self::generateHeaders($translations);
+            $messages[''] = static::generateHeaders($translations);
         }
 
         foreach ($translations as $translation) {

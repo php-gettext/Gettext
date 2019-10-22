@@ -24,7 +24,7 @@ class YamlDictionary extends Generator implements GeneratorInterface
         $options += static::$options;
 
         return YamlDumper::dump(
-            self::toArray($translations, $options['includeHeaders']),
+            static::toArray($translations, $options['includeHeaders']),
             $options['inline'],
             $options['indent']
         );

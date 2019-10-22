@@ -29,7 +29,7 @@ class Xliff extends Generator implements GeneratorInterface
         $notes = $dom->createElement('notes');
 
         foreach ($translations->getHeaders() as $name => $value) {
-            $notes->appendChild(self::createTextNode($dom, 'note', $value))->setAttribute('id', $name);
+            $notes->appendChild(static::createTextNode($dom, 'note', $value))->setAttribute('id', $name);
         }
 
         if ($notes->hasChildNodes()) {
@@ -38,7 +38,7 @@ class Xliff extends Generator implements GeneratorInterface
 
         foreach ($translations as $translation) {
             //Find an XLIFF unit ID, if one is available; otherwise generate
-            $unitId = self::getUnitID($translation)?:md5($translation->getContext().$translation->getOriginal());
+            $unitId = static::getUnitID($translation)?:md5($translation->getContext().$translation->getOriginal());
 
             $unit = $dom->createElement('unit');
             $unit->setAttribute('id', $unitId);
@@ -46,43 +46,43 @@ class Xliff extends Generator implements GeneratorInterface
             //Save comments as notes
             $notes = $dom->createElement('notes');
 
-            $notes->appendChild(self::createTextNode($dom, 'note', $translation->getContext()))
+            $notes->appendChild(static::createTextNode($dom, 'note', $translation->getContext()))
                 ->setAttribute('category', 'context');
 
             foreach ($translation->getComments() as $comment) {
                 //Skip XLIFF unit ID comments.
-                if (preg_match(self::UNIT_ID_REGEXP, $comment)) {
+                if (preg_match(static::UNIT_ID_REGEXP, $comment)) {
                     continue;
                 }
 
-                $notes->appendChild(self::createTextNode($dom, 'note', $comment))
+                $notes->appendChild(static::createTextNode($dom, 'note', $comment))
                     ->setAttribute('category', 'comment');
             }
 
             foreach ($translation->getExtractedComments() as $comment) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $comment))
+                $notes->appendChild(static::createTextNode($dom, 'note', $comment))
                     ->setAttribute('category', 'extracted-comment');
             }
 
             foreach ($translation->getFlags() as $flag) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $flag))
+                $notes->appendChild(static::createTextNode($dom, 'note', $flag))
                     ->setAttribute('category', 'flag');
             }
 
             foreach ($translation->getReferences() as $reference) {
-                $notes->appendChild(self::createTextNode($dom, 'note', $reference[0].':'.$reference[1]))
+                $notes->appendChild(static::createTextNode($dom, 'note', $reference[0].':'.$reference[1]))
                     ->setAttribute('category', 'reference');
             }
 
             $unit->appendChild($notes);
 
             $segment = $unit->appendChild($dom->createElement('segment'));
-            $segment->appendChild(self::createTextNode($dom, 'source', $translation->getOriginal()));
-            $segment->appendChild(self::createTextNode($dom, 'target', $translation->getTranslation()));
+            $segment->appendChild(static::createTextNode($dom, 'source', $translation->getOriginal()));
+            $segment->appendChild(static::createTextNode($dom, 'target', $translation->getTranslation()));
 
             foreach ($translation->getPluralTranslations() as $plural) {
                 if ($plural !== '') {
-                    $segment->appendChild(self::createTextNode($dom, 'target', $plural));
+                    $segment->appendChild(static::createTextNode($dom, 'target', $plural));
                 }
             }
 
@@ -92,7 +92,7 @@ class Xliff extends Generator implements GeneratorInterface
         return $dom->saveXML();
     }
 
-    private static function createTextNode(DOMDocument $dom, $name, $string)
+    protected static function createTextNode(DOMDocument $dom, $name, $string)
     {
         $node = $dom->createElement($name);
         $text = (preg_match('/[&<>]/', $string) === 1)
@@ -113,7 +113,7 @@ class Xliff extends Generator implements GeneratorInterface
     public static function getUnitID(Translation $translation)
     {
         foreach ($translation->getComments() as $comment) {
-            if (preg_match(self::UNIT_ID_REGEXP, $comment, $matches)) {
+            if (preg_match(static::UNIT_ID_REGEXP, $comment, $matches)) {
                 return $matches[1];
             }
         }
