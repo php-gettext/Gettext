@@ -33,6 +33,21 @@ class Translation
     }
 
     /**
+     * Create a new instance of a Translation object.
+     *
+     * This is a factory method that will work even when Translation is extended.
+     *
+     * @param string $context  The context of the translation
+     * @param string $original The original string
+     * @param string $plural   The original plural string
+     * @return static New Translation instance
+     */
+    public static function create($context, $original, $plural = '')
+    {
+        return new static($context, $original, $plural);
+    }
+
+    /**
      * Construct.
      *
      * @param string $context  The context of the translation

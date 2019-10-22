@@ -23,7 +23,7 @@ class Po extends Extractor implements ExtractorInterface
         $lines = explode("\n", $string);
         $i = 0;
 
-        $translation = new Translation('', '');
+        $translation = $translations->createNewTranslation('', '');
 
         for ($n = count($lines); $i < $n; ++$i) {
             $line = trim($lines[$i]);
@@ -36,7 +36,7 @@ class Po extends Extractor implements ExtractorInterface
                     $translations[] = $translation;
                 }
 
-                $translation = new Translation('', '');
+                $translation = $translations->createNewTranslation('', '');
                 continue;
             }
 
