@@ -2,8 +2,8 @@
 
 namespace Gettext\Tests;
 
-use Gettext\Extractor\ParsedFunction;
-use Gettext\Extractor\ParsedComment;
+use Gettext\Scanner\ParsedFunction;
+use Gettext\Scanner\ParsedComment;
 use PHPUnit\Framework\TestCase;
 
 class ParsedFunctionsAndCommentsTest extends TestCase

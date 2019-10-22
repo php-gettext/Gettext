@@ -5,7 +5,6 @@ namespace Gettext;
 use Gettext\Languages\Language;
 use BadMethodCallException;
 use InvalidArgumentException;
-use JsonSerializable;
 use IteratorAggregate;
 use ArrayIterator;
 use Countable;
@@ -13,14 +12,18 @@ use Countable;
 /**
  * Class to manage a collection of translations under the same domain.
  */
-class Translations implements JsonSerializable, Countable, IteratorAggregate
+class Translations implements Countable, IteratorAggregate
 {
     protected $translations = [];
     protected $headers;
 
-    public function __construct()
+    public function __construct(string $domain = null)
     {
         $this->headers = new Headers();
+
+        if (isset($domain)) {
+            $this->setDomain($domain);
+        }
     }
 
     public function __clone()
@@ -30,6 +33,16 @@ class Translations implements JsonSerializable, Countable, IteratorAggregate
         }
 
         $this->headers = clone $this->headers;
+    }
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->translations);
+    }
+
+    public function count(): int
+    {
+        return count($this->translations);
     }
 
     public function getHeaders(): Headers
@@ -43,7 +56,18 @@ class Translations implements JsonSerializable, Countable, IteratorAggregate
 
         $this->translations[$id] = $translation;
 
-        return $value;
+        return $this;
+    }
+
+    public function remove(Translation $translation): self
+    {
+        $key = array_search($translation, $this->translations);
+
+        if ($key !== false) {
+            unset($this->translations[$key]);
+        }
+
+        return $this;
     }
 
     public function setDomain(string $domain): self
@@ -76,5 +100,16 @@ class Translations implements JsonSerializable, Countable, IteratorAggregate
     public function getLanguage(): ?string
     {
         return $this->getHeaders()->getLanguage();
+    }
+
+    public function find(callable $validator): ?Translation
+    {
+        foreach ($this->translations as $translation) {
+            if ($validator($translation)) {
+                return $translation;
+            }
+        }
+
+        return null;
     }
 }

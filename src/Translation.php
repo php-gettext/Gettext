@@ -20,14 +20,20 @@ class Translation
     protected $comments;
     protected $extractedComments;
 
-    public static function create(string $context, string $original): Translation
+    public static function create(?string $context, string $original): Translation
     {
-        $id = "{$context}\004{$original}";
+        $id = static::generateId($context, $original);
+
         $translation = new static($id);
         $translation->context = $context;
         $translation->original = $original;
 
         return $translation;
+    }
+
+    protected static function generateId(?string $context, string $original): string
+    {
+        return "{$context}\004{$original}";
     }
 
     protected function __construct(string $id)
@@ -58,9 +64,27 @@ class Translation
         return $this->context;
     }
 
+    public function withContext(?string $context): Translation
+    {
+        $clone = clone $this;
+        $clone->context = $context;
+        $clone->id = static::generateId($clone->getContext(), $clone->getOriginal());
+
+        return $clone;
+    }
+
     public function getOriginal(): ?string
     {
         return $this->original;
+    }
+
+    public function withOriginal(string $original): Translation
+    {
+        $clone = clone $this;
+        $clone->original = $original;
+        $clone->id = static::generateId($clone->getContext(), $clone->getOriginal());
+
+        return $clone;
     }
 
     public function setPlural(string $plural): self
