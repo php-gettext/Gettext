@@ -59,7 +59,7 @@ msgstr "Polje tipa: %ss"
 msgid "Integer"
 msgstr "Cijeo broj"
 
-#: /var/www/test/test.php:96
+#: /var/www/test/test.php:96 /var/www/test/test.php:97 /var/www/test/test2.php:98
 msgid "{test1}"
 msgstr ""
 "test1\n"

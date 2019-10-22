@@ -13,7 +13,7 @@ class Translation
     protected $original;
     protected $translation;
     protected $plural;
-    protected $pluralTranslation = [];
+    protected $pluralTranslations = [];
     protected $disabled = false;
     protected $references;
     protected $flags;

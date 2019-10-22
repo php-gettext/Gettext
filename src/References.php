@@ -19,7 +19,7 @@ class References implements JsonSerializable, Countable, IteratorAggregate
     {
         $fileReferences = $this->references[$filename] ?? [];
 
-        if (!in_array($line, $fileReferences)) {
+        if (isset($line) && !in_array($line, $fileReferences)) {
             $fileReferences[] = $line;
         }
 
@@ -30,7 +30,7 @@ class References implements JsonSerializable, Countable, IteratorAggregate
 
     public function jsonSerialize()
     {
-        return $this->references;
+        return $this->toArray();
     }
 
     public function getIterator()
@@ -41,7 +41,12 @@ class References implements JsonSerializable, Countable, IteratorAggregate
     public function count(): int
     {
         return array_reduce($this->references, function ($carry, $item) {
-            return $carry + count($item);
+            return $carry + (count($item) ?: 1);
         }, 0);
+    }
+
+    public function toArray(): array
+    {
+        return $this->references;
     }
 }

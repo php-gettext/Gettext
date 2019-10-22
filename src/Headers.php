@@ -55,12 +55,12 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
 
     public function jsonSerialize()
     {
-        return $this->headers;
+        return $this->toArray();
     }
 
     public function getIterator()
     {
-        return new ArrayIterator($this->headers);
+        return new ArrayIterator($this->toArray());
     }
 
     public function count(): int
@@ -111,5 +111,10 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
         }
 
         return null;
+    }
+
+    public function toArray(): array
+    {
+        return $this->headers;
     }
 }

@@ -26,7 +26,7 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
 
     public function jsonSerialize()
     {
-        return $this->comments;
+        return $this->toArray();
     }
 
     public function getIterator()
@@ -37,5 +37,10 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
     public function count(): int
     {
         return count($this->comments);
+    }
+
+    public function toArray(): array
+    {
+        return $this->comments;
     }
 }

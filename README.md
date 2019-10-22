@@ -12,21 +12,14 @@ Gettext
 
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
-Gettext is a PHP (>=5.4) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
+Gettext is a PHP (^7.2) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
 ## Installation
 
-With composer (recomended):
+With composer:
 
 ```
 composer require gettext/gettext
-```
-
-If you don't use composer in your project, you have to download and place this package in a directory of your project. You need to install also [gettext/languages](https://github.com/mlocati/cldr-to-gettext-plural-rules). Then, include the autoloaders of both projects in any place of your php code:
-
-```php
-include_once "libs/gettext/src/autoloader.php";
-include_once "libs/cldr-to-gettext-plural-rules/src/autoloader.php";
 ```
 
 ## Classes and functions
@@ -34,19 +27,22 @@ include_once "libs/cldr-to-gettext-plural-rules/src/autoloader.php";
 This package contains the following classes:
 
 * `Gettext\Translation` - A translation definition
-* `Gettext\Translations` - A collection of translations
-* `Gettext\Extractors\*` - Import translations from various sources (po, mo, php, js, etc)
-* `Gettext\Generators\*` - Export translations to various formats (po, mo, php, json, etc)
+* `Gettext\Translations` - A collection of translations (under the same domain)
+* `Gettext\Scanner\*` - Scan files to extract translations (php, js, twig templates, ...)
+* `Gettext\Loader\*` - Load translations from different formats (po, mo, json, ...)
+* `Gettext\Generator\*` - Export translations to various formats (po, mo, json, ...)
 * `Gettext\Translator` - To use the translations in your php templates instead the [gettext extension](http://php.net/gettext)
 * `Gettext\GettextTranslator` - To use the [gettext extension](http://php.net/gettext)
 
 ## Usage example
 
 ```php
-use Gettext\Translations;
+use Gettext\Loader\PoLoader;
+use Gettext\Generator\MoGenerator;
 
 //import from a .po file:
-$translations = Translations::fromPoFile('locales/gl.po');
+$loader = new PoLoader();
+$translations = $loader->loadFile('locales/gl.po');
 
 //edit some translations:
 $translation = $translations->find(null, 'apple');
@@ -55,11 +51,9 @@ if ($translation) {
 	$translation->setTranslation('Mazá');
 }
 
-//export to a php array:
-$translations->toPhpArrayFile('locales/gl.php');
-
-//and to a .mo file
-$translations->toMoFile('Locale/gl/LC_MESSAGES/messages.mo');
+//export to a .mo file:
+$generator = new MoGenerator();
+$generator->generateFile($translations, 'Locale/gl/LC_MESSAGES/messages.mo');
 ```
 
 If you want use this translations in your php templates without using the gettext extension:

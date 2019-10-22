@@ -18,7 +18,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(11, $functions);
 
         //fn1
-        $function = $functions[0];
+        $function = array_shift($functions);
         $this->assertSame('fn1', $function->getName());
         $this->assertSame(3, $function->countArguments());
         $this->assertSame(['arg1', 'arg2', '3'], $function->getArguments());
@@ -28,7 +28,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn2
-        $function = $functions[1];
+        $function = array_shift($functions);
         $this->assertSame('fn2', $function->getName());
         $this->assertSame(1, $function->countArguments());
         $this->assertSame(5, $function->getLine());
@@ -37,7 +37,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn4
-        $function = $functions[2];
+        $function = array_shift($functions);
         $this->assertSame('fn4', $function->getName());
         $this->assertSame(1, $function->countArguments());
         $this->assertSame(['arg4'], $function->getArguments());
@@ -47,7 +47,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn5
-        $function = $functions[3];
+        $function = array_shift($functions);
         $this->assertSame('fn5', $function->getName());
         $this->assertSame(2, $function->countArguments());
         $this->assertSame(['6', '7.5'], $function->getArguments());
@@ -57,7 +57,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn3
-        $function = $functions[4];
+        $function = array_shift($functions);
         $this->assertSame('fn3', $function->getName());
         $this->assertSame(3, $function->countArguments());
         $this->assertSame([null, 'arg5', null], $function->getArguments());
@@ -67,7 +67,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn6
-        $function = $functions[5];
+        $function = array_shift($functions);
         $this->assertSame('fn6', $function->getName());
         $this->assertSame(1, $function->countArguments());
         $this->assertSame([null], $function->getArguments());
@@ -77,7 +77,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn7
-        $function = $functions[6];
+        $function = array_shift($functions);
         $this->assertSame('fn7', $function->getName());
         $this->assertSame(1, $function->countArguments());
         $this->assertSame([null], $function->getArguments());
@@ -87,7 +87,7 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(0, $function->getComments());
 
         //fn9
-        $function = $functions[7];
+        $function = array_shift($functions);
         $this->assertSame('fn9', $function->getName());
         $this->assertSame(1, $function->countArguments());
         $this->assertSame(['arg8'], $function->getArguments());
@@ -97,14 +97,14 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(1, $function->getComments());
 
         $comments = $function->getComments();
-        $comment = $comments[0];
+        $comment = array_shift($comments);
         $this->assertSame(10, $comment->getLine());
         $this->assertSame(10, $comment->getLastLine());
         $this->assertSame('ALLOW: This is a comment to fn9', $comment->getComment());
 
 
         //fn10
-        $function = $functions[8];
+        $function = array_shift($functions);
         $this->assertSame('fn10', $function->getName());
         $this->assertSame(0, $function->countArguments());
         $this->assertSame(13, $function->getLine());
@@ -113,13 +113,13 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(1, $function->getComments());
 
         $comments = $function->getComments();
-        $comment = $comments[0];
+        $comment = array_shift($comments);
         $this->assertSame(13, $comment->getLine());
         $this->assertSame(13, $comment->getLastLine());
         $this->assertSame('Comment to fn10', $comment->getComment());
 
         //fn11
-        $function = $functions[9];
+        $function = array_shift($functions);
         $this->assertSame('fn11', $function->getName());
         $this->assertSame(2, $function->countArguments());
         $this->assertSame(['arg9', 'arg10'], $function->getArguments());
@@ -129,23 +129,23 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(3, $function->getComments());
 
         $comments = $function->getComments();
-        $comment = $comments[0];
+        $comment = array_shift($comments);
         $this->assertSame(15, $comment->getLine());
         $this->assertSame(15, $comment->getLastLine());
         $this->assertSame('Related comment 1', $comment->getComment());
 
-        $comment = $comments[1];
+        $comment = array_shift($comments);
         $this->assertSame(16, $comment->getLine());
         $this->assertSame(16, $comment->getLastLine());
         $this->assertSame('ALLOW: Related comment 2', $comment->getComment());
 
-        $comment = $comments[2];
+        $comment = array_shift($comments);
         $this->assertSame(16, $comment->getLine());
         $this->assertSame(16, $comment->getLastLine());
         $this->assertSame('Related comment 3', $comment->getComment());
 
         //fn12
-        $function = $functions[10];
+        $function = array_shift($functions);
         $this->assertSame('fn12', $function->getName());
         $this->assertSame(2, $function->countArguments());
         $this->assertSame(['arg11', 'arg12'], $function->getArguments());
@@ -157,22 +157,22 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertCount(4, $function->getComments());
 
         $comments = $function->getComments();
-        $comment = $comments[0];
+        $comment = array_shift($comments);
         $this->assertSame(18, $comment->getLine());
         $this->assertSame(19, $comment->getLastLine());
         $this->assertSame("Related comment\nnumber one", $comment->getComment());
 
-        $comment = $comments[1];
+        $comment = array_shift($comments);
         $this->assertSame(21, $comment->getLine());
         $this->assertSame(21, $comment->getLastLine());
         $this->assertSame('Related comment 2', $comment->getComment());
 
-        $comment = $comments[2];
+        $comment = array_shift($comments);
         $this->assertSame(23, $comment->getLine());
         $this->assertSame(23, $comment->getLastLine());
         $this->assertSame('ALLOW: Related comment 3', $comment->getComment());
 
-        $comment = $comments[3];
+        $comment = array_shift($comments);
         $this->assertSame(25, $comment->getLine());
         $this->assertSame(25, $comment->getLastLine());
         $this->assertSame('Related comment 4', $comment->getComment());
@@ -212,5 +212,35 @@ class PhpFunctionsScannerTest extends TestCase
         $this->assertSame(23, $comment->getLine());
         $this->assertSame(23, $comment->getLastLine());
         $this->assertSame('ALLOW: Related comment 3', $comment->getComment());
+    }
+
+    public function stringDecodeProvider()
+    {
+        return [
+            ['"test"', 'test'],
+            ["'test'", 'test'],
+            ["'DATE \a\\t TIME'", 'DATE \a\t TIME'],
+            ["'DATE \a\\t TIME$'", 'DATE \a\t TIME$'],
+            ["'DATE \a\\t TIME\$'", 'DATE \a\t TIME$'],
+            ["'DATE \a\\t TIME\$a'", 'DATE \a\t TIME$a'],
+            ['"FIELD\\tFIELD"', "FIELD\tFIELD"],
+            ['"$"', '$'],
+            ['"Hi $"', 'Hi $'],
+            ['"$ hi"', '$ hi'],
+            ['"Hi\t$name"', "Hi\t\$name"],
+            ['"Hi\\\\"', 'Hi\\'],
+            ['"{$obj->name}"', '{$obj->name}'],
+            ['"a\x20b $c"', 'a b $c'],
+            ['"a\x01b\2 \1 \01 \001 \r \n \t \v \f"', "a\1b\2 \1 \1 \1 \r \n \t \v \f"],
+            ['"$ \$a \""', '$ $a "'],
+        ];
+    }
+
+    /**
+     * @dataProvider stringDecodeProvider
+     */
+    public function testStringDecode($source, $decoded)
+    {
+        $this->assertSame($decoded, PhpFunctionsScanner::decode($source));
     }
 }

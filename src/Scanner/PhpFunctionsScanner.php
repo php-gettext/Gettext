@@ -167,7 +167,7 @@ class PhpFunctionsScanner implements FunctionsScannerInterface
     /**
      * Decodes a T_CONSTANT_ENCAPSED_STRING string.
      */
-    protected static function decode(string $value): string
+    public static function decode(string $value): string
     {
         if (strpos($value, '\\') === false) {
             return substr($value, 1, -1);

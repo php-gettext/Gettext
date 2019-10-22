@@ -7,11 +7,7 @@ use Gettext\Translations;
 
 interface LoaderInterface
 {
-    public function setTranslations(Translations $translations): void;
+    public function loadFile(string $filename, Translations $translations = null): Translations;
 
-    public function getTranslations(): Translations;
-
-    public function loadFile(string $filename): void;
-
-    public function loadString(string $string): void;
+    public function loadString(string $string, Translations $translations = null): Translations;
 }

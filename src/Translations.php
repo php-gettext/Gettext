@@ -37,7 +37,7 @@ class Translations implements Countable, IteratorAggregate
 
     public function getIterator()
     {
-        return new ArrayIterator($this->translations);
+        return new ArrayIterator($this->toArray());
     }
 
     public function count(): int
@@ -102,14 +102,19 @@ class Translations implements Countable, IteratorAggregate
         return $this->getHeaders()->getLanguage();
     }
 
-    public function find(callable $validator): ?Translation
+    public function find(?string $context, string $original): ?Translation
     {
         foreach ($this->translations as $translation) {
-            if ($validator($translation)) {
+            if ($translation->getContext() === $context && $translation->getOriginal() === $original) {
                 return $translation;
             }
         }
 
         return null;
+    }
+
+    public function toArray(): array
+    {
+        return array_values($this->translations);
     }
 }

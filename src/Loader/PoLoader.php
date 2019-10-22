@@ -12,15 +12,15 @@ final class PoLoader extends Loader
 {
     use HeadersLoaderTrait;
 
-    public function loadString(string $string): void
+    public function loadString(string $string, Translations $translations = null): Translations
     {
-        $translations = $this->getTranslations();
+        $translations = parent::loadString($string, $translations);
 
         $lines = explode("\n", $string);
         $i = 0;
         $append = null;
 
-        $translation = $this->createTranslation('', '');
+        $translation = $this->createTranslation(null, '');
 
         for ($n = count($lines); $i < $n; ++$i) {
             $line = trim($lines[$i]);
@@ -31,7 +31,7 @@ final class PoLoader extends Loader
                     $translations->add($translation);
                 }
 
-                $translation = $this->createTranslation('', '');
+                $translation = $this->createTranslation(null, '');
                 continue;
             }
 
@@ -79,35 +79,35 @@ final class PoLoader extends Loader
                     break;
 
                 case 'msgctxt':
-                    $translation = $translation->withContext(self::convertString($data));
+                    $translation = $translation->withContext(static::decode($data));
                     $append = 'Context';
                     break;
 
                 case 'msgid':
-                    $translation = $translation->withOriginal(self::convertString($data));
+                    $translation = $translation->withOriginal(static::decode($data));
                     $append = 'Original';
                     break;
 
                 case 'msgid_plural':
-                    $translation->setPlural(self::convertString($data));
+                    $translation->setPlural(static::decode($data));
                     $append = 'Plural';
                     break;
 
                 case 'msgstr':
                 case 'msgstr[0]':
-                    $translation->translate(self::convertString($data));
+                    $translation->translate(static::decode($data));
                     $append = 'Translation';
                     break;
 
                 case 'msgstr[1]':
-                    $translation->translatePlural(self::convertString($data));
+                    $translation->translatePlural(static::decode($data));
                     $append = 'PluralTranslation';
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
                         $p = $translation->getPluralTranslations();
-                        $p[] = self::convertString($data);
+                        $p[] = static::decode($data);
 
                         $translation->translatePlural(...$p);
                         $append = 'PluralTranslation';
@@ -116,32 +116,32 @@ final class PoLoader extends Loader
 
                     if (isset($append)) {
                         if ($append === 'Context') {
-                            $context = $translation->getContext()."\n".self::convertString($data);
+                            $context = $translation->getContext()."\n".static::decode($data);
                             $translation = $translation->withContext($context);
                             break;
                         }
 
                         if ($append === 'Original') {
-                            $original = $translation->getOriginal()."\n".self::convertString($data);
+                            $original = $translation->getOriginal()."\n".static::decode($data);
                             $translation = $translation->withOriginal($original);
                             break;
                         }
 
                         if ($append === 'Plural') {
-                            $plural = $translation->getPlural()."\n".self::convertString($data);
+                            $plural = $translation->getPlural()."\n".static::decode($data);
                             $translation->setPlural($plural);
                             break;
                         }
 
                         if ($append === 'Translation') {
-                            $text = $translation->getTranslation()."\n".self::convertString($data);
+                            $text = $translation->getTranslation()."\n".static::decode($data);
                             $translation->translate($text);
                             break;
                         }
 
                         if ($append === 'PluralTranslation') {
                             $p = $translation->getPluralTranslations();
-                            $p[] = array_pop($p)."\n".self::convertString($data);
+                            $p[] = array_pop($p)."\n".static::decode($data);
                             $translation->translatePlural(...$p);
                             break;
                         }
@@ -155,12 +155,10 @@ final class PoLoader extends Loader
         }
 
         //Headers
-        $translation = $translations->find(function ($translation) {
-            return $translation->getOriginal() === '';
-        });
+        $translation = $translations->find(null, '');
 
         if (!$translation) {
-            return;
+            return $translations;
         }
 
         $translations->remove($translation);
@@ -169,6 +167,8 @@ final class PoLoader extends Loader
         foreach (static::parseHeaders($translation->getTranslation()) as $name => $value) {
             $headers->set($name, $value);
         }
+
+        return $translations;
     }
 
     /**
@@ -194,7 +194,7 @@ final class PoLoader extends Loader
     /**
      * Convert a string from its PO representation.
      */
-    private static function convertString(string $value): string
+    public static function decode(string $value): string
     {
         if (!$value) {
             return '';

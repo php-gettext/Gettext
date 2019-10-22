@@ -12,32 +12,21 @@ use Exception;
  */
 abstract class Loader implements LoaderInterface
 {
-    protected $translations;
-
-    public function __construct(Translations $translations = null)
-    {
-        $this->setTranslations($translations ?: new Translations());
-    }
-
-    public function setTranslations(Translations $translations): void
-    {
-        $this->translations = $translations;
-    }
-
-    public function getTranslations(): Translations
-    {
-        return $this->translations;
-    }
-
-    public function loadFile(string $filename): void
+    public function loadFile(string $filename, Translations $translations = null): Translations
     {
         $string = static::readFile($filename);
-
-        $this->loadString($string);
+        
+        return $this->loadString($string, $translations);
     }
 
-    public function loadString(string $string): void
+    public function loadString(string $string, Translations $translations = null): Translations
     {
+        return $translations ?: $this->createTranslations();
+    }
+
+    protected function createTranslations(): Translations
+    {
+        return new Translations();
     }
 
     protected function createTranslation(?string $context, string $original, string $plural = null): ?Translation

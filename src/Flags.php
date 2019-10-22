@@ -26,7 +26,7 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
 
     public function jsonSerialize()
     {
-        return $this->flags;
+        return $this->toArray();
     }
 
     public function getIterator()
@@ -37,5 +37,10 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
     public function count(): int
     {
         return count($this->flags);
+    }
+
+    public function toArray(): array
+    {
+        return $this->flags;
     }
 }
