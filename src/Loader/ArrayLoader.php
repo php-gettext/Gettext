@@ -50,7 +50,7 @@ final class ArrayLoader extends Loader
                     $string = is_array($value) ? array_shift($value) : $value;
                     $headers = $translations->getHeaders();
 
-                    foreach (static::parseHeaders($string) as $name => $value) {
+                    foreach (self::parseHeaders($string) as $name => $value) {
                         $headers->set($name, $value);
                     }
                     continue;

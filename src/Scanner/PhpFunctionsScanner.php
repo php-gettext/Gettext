@@ -29,13 +29,12 @@ class PhpFunctionsScanner implements FunctionsScannerInterface
     public function scan(string $code, string $filename = null): array
     {
         $tokens = static::tokenize($code);
-        $total = count($tokens);
+        $token = current($tokens);
 
         $bufferFunctions = [];
         $lastComment = null;
         $functions = [];
 
-        $token = current($tokens);
         $lastLine = 1;
 
         while ($token !== false) {

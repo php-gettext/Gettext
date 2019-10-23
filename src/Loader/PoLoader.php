@@ -50,7 +50,7 @@ final class PoLoader extends Loader
             $data = $splitLine[1] ?? '';
 
             if ($key === '#~') {
-                $translation->setDisabled(true);
+                $translation->disable();
 
                 $splitLine = preg_split('/\s+/', $data, 2);
                 $key = $splitLine[0];
@@ -86,30 +86,30 @@ final class PoLoader extends Loader
                     break;
 
                 case 'msgctxt':
-                    $translation = $translation->withContext(static::decode($data));
+                    $translation = $translation->withContext(self::decode($data));
                     break;
 
                 case 'msgid':
-                    $translation = $translation->withOriginal(static::decode($data));
+                    $translation = $translation->withOriginal(self::decode($data));
                     break;
 
                 case 'msgid_plural':
-                    $translation->setPlural(static::decode($data));
+                    $translation->setPlural(self::decode($data));
                     break;
 
                 case 'msgstr':
                 case 'msgstr[0]':
-                    $translation->translate(static::decode($data));
+                    $translation->translate(self::decode($data));
                     break;
 
                 case 'msgstr[1]':
-                    $translation->translatePlural(static::decode($data));
+                    $translation->translatePlural(self::decode($data));
                     break;
 
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
                         $p = $translation->getPluralTranslations();
-                        $p[] = static::decode($data);
+                        $p[] = self::decode($data);
 
                         $translation->translatePlural(...$p);
                         break;
@@ -134,7 +134,7 @@ final class PoLoader extends Loader
         $translations->remove($translation);
         $headers = $translations->getHeaders();
 
-        foreach (static::parseHeaders($translation->getTranslation()) as $name => $value) {
+        foreach (self::parseHeaders($translation->getTranslation()) as $name => $value) {
             $headers->set($name, $value);
         }
 
