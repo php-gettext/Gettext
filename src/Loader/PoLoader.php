@@ -17,91 +17,93 @@ final class PoLoader extends Loader
         $translations = parent::loadString($string, $translations);
 
         $lines = explode("\n", $string);
-        $i = 0;
-        $append = null;
-
+        $line = current($lines);
         $translation = $this->createTranslation(null, '');
 
-        for ($n = count($lines); $i < $n; ++$i) {
-            $line = trim($lines[$i]);
-            $line = self::fixMultiLines($line, $lines, $i);
+        while ($line !== false) {
+            $line = trim($line);
+            $nextLine = next($lines);
+            
+            //Multiline
+            while (
+                substr($line, -1, 1) === '"'
+                && $nextLine !== false
+                && substr(trim($nextLine), 0, 1) === '"'
+            ) {
+                $line = substr($line, 0, -1).substr(trim($nextLine), 1);
+                $nextLine = next($lines);
+            }
 
+            //End of translation
             if ($line === '') {
                 if (!self::isEmpty($translation)) {
                     $translations->add($translation);
                 }
 
                 $translation = $this->createTranslation(null, '');
+                $line = $nextLine;
                 continue;
             }
 
             $splitLine = preg_split('/\s+/', $line, 2);
             $key = $splitLine[0];
-            $data = isset($splitLine[1]) ? $splitLine[1] : '';
+            $data = $splitLine[1] ?? '';
 
             if ($key === '#~') {
                 $translation->setDisabled(true);
 
                 $splitLine = preg_split('/\s+/', $data, 2);
                 $key = $splitLine[0];
-                $data = isset($splitLine[1]) ? $splitLine[1] : '';
+                $data = $splitLine[1] ?? '';
             }
 
             if ($data === '') {
+                $line = $nextLine;
                 continue;
             }
 
             switch ($key) {
                 case '#':
                     $translation->getComments()->add($data);
-                    $append = null;
                     break;
 
                 case '#.':
                     $translation->getExtractedComments()->add($data);
-                    $append = null;
                     break;
 
                 case '#,':
                     foreach (array_map('trim', explode(',', trim($data))) as $value) {
                         $translation->getFlags()->add($value);
                     }
-                    $append = null;
                     break;
 
                 case '#:':
                     foreach (preg_split('/\s+/', trim($data)) as $value) {
                         if (preg_match('/^(.+)(:(\d*))?$/U', $value, $matches)) {
-                            $translation->getReferences()->add($matches[1], isset($matches[3]) ? $matches[3] : null);
+                            $translation->getReferences()->add($matches[1], $matches[3] ?? null);
                         }
                     }
-                    $append = null;
                     break;
 
                 case 'msgctxt':
                     $translation = $translation->withContext(static::decode($data));
-                    $append = 'Context';
                     break;
 
                 case 'msgid':
                     $translation = $translation->withOriginal(static::decode($data));
-                    $append = 'Original';
                     break;
 
                 case 'msgid_plural':
                     $translation->setPlural(static::decode($data));
-                    $append = 'Plural';
                     break;
 
                 case 'msgstr':
                 case 'msgstr[0]':
                     $translation->translate(static::decode($data));
-                    $append = 'Translation';
                     break;
 
                 case 'msgstr[1]':
                     $translation->translatePlural(static::decode($data));
-                    $append = 'PluralTranslation';
                     break;
 
                 default:
@@ -110,44 +112,12 @@ final class PoLoader extends Loader
                         $p[] = static::decode($data);
 
                         $translation->translatePlural(...$p);
-                        $append = 'PluralTranslation';
                         break;
-                    }
-
-                    if (isset($append)) {
-                        if ($append === 'Context') {
-                            $context = $translation->getContext()."\n".static::decode($data);
-                            $translation = $translation->withContext($context);
-                            break;
-                        }
-
-                        if ($append === 'Original') {
-                            $original = $translation->getOriginal()."\n".static::decode($data);
-                            $translation = $translation->withOriginal($original);
-                            break;
-                        }
-
-                        if ($append === 'Plural') {
-                            $plural = $translation->getPlural()."\n".static::decode($data);
-                            $translation->setPlural($plural);
-                            break;
-                        }
-
-                        if ($append === 'Translation') {
-                            $text = $translation->getTranslation()."\n".static::decode($data);
-                            $translation->translate($text);
-                            break;
-                        }
-
-                        if ($append === 'PluralTranslation') {
-                            $p = $translation->getPluralTranslations();
-                            $p[] = array_pop($p)."\n".static::decode($data);
-                            $translation->translatePlural(...$p);
-                            break;
-                        }
                     }
                     break;
             }
+
+            $line = $nextLine;
         }
 
         if (!self::isEmpty($translation)) {
@@ -169,26 +139,6 @@ final class PoLoader extends Loader
         }
 
         return $translations;
-    }
-
-    /**
-     * Gets one string from multiline strings.
-     */
-    private static function fixMultiLines(string $line, array $lines, int &$i): string
-    {
-        for ($j = $i, $t = count($lines); $j < $t; ++$j) {
-            if (substr($line, -1, 1) == '"'
-                && isset($lines[$j + 1])
-                && substr(trim($lines[$j + 1]), 0, 1) == '"'
-            ) {
-                $line = substr($line, 0, -1).substr(trim($lines[$j + 1]), 1);
-            } else {
-                $i = $j;
-                break;
-            }
-        }
-
-        return $line;
     }
 
     /**

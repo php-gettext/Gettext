@@ -92,7 +92,7 @@ class Translations implements Countable, IteratorAggregate
 
         $this->getHeaders()
             ->setLanguage($language)
-            ->setPluralForms(count($info->categories), $info->formula);
+            ->setPluralForm(count($info->categories), $info->formula);
 
         return $this;
     }

@@ -135,9 +135,19 @@ class Translation
         return $this;
     }
 
-    public function getPluralTranslations(): array
+    public function getPluralTranslations(int $size = null): array
     {
-        return $this->pluralTranslations;
+        if ($size === null) {
+            return $this->pluralTranslations;
+        }
+
+        $length = count($this->pluralTranslations);
+
+        if ($size > $length) {
+            return $this->pluralTranslations + array_fill(0, $size, '');
+        }
+
+        return array_slice($this->pluralTranslations, 0, $size);
     }
 
     public function getReferences(): References

@@ -13,7 +13,7 @@ class PhpFunctionsScanner implements FunctionsScannerInterface
      * 
      * @param bool|array $comments Boolean to enable/disable. Array to filter comments by prefixes
      */
-    public function includeComments($comments = true): void
+    public function includeComments($comments): void
     {
         $this->comments = $comments;
     }

@@ -16,7 +16,7 @@ trait HeadersLoaderTrait
         $name = null;
 
         foreach ($lines as $line) {
-            $line = self::convertString($line);
+            $line = self::decode($line);
 
             if ($line === '') {
                 continue;
@@ -38,7 +38,7 @@ trait HeadersLoaderTrait
     }
 
     /**
-     * Checks if it is a header definition line. Useful for distguishing between header definitions
+     * Checks if it is a header definition line. Useful for distinguishing between header definitions
      * and possible continuations of a header entry.
      */
     private static function isHeaderDefinition(string $line): bool
@@ -49,8 +49,8 @@ trait HeadersLoaderTrait
     /**
      * Normalize a string.
      */
-    private static function convertString(string $value): string
+    public static function decode(string $value): string
     {
-        return $value;
+        return trim($value);
     }
 }

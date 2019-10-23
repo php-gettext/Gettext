@@ -1,37 +1,40 @@
 <?php
 
-namespace Gettext\Generators;
+namespace Gettext\Generator;
 
 use Gettext\Translations;
-use Gettext\Utils\HeadersGeneratorTrait;
+use Gettext\Translation;
 
-class Mo extends Generator implements GeneratorInterface
+final class MoGenerator extends Generator
 {
-    use HeadersGeneratorTrait;
+    private $includeHeaders = true;
 
-    public static $options = [
-        'includeHeaders' => true,
-    ];
-
-    /**
-     * {@parentDoc}.
-     */
-    public static function toString(Translations $translations, array $options = [])
+    public function includeHeaders(bool $includeHeaders = true): void
     {
-        $options += static::$options;
+        $this->includeHeaders = $includeHeaders;
+    }
+
+    public function generateString(Translations $translations): string
+    {
         $messages = [];
 
-        if ($options['includeHeaders']) {
-            $messages[''] = self::generateHeaders($translations);
+        if ($this->includeHeaders) {
+            $lines = [];
+
+            foreach ($translations->getHeaders() as $name => $value) {
+                $lines[] = sprintf('%s: %s', $name, $value);
+            }
+
+            $messages[''] = implode("\n", $lines);
         }
 
         foreach ($translations as $translation) {
-            if (!$translation->hasTranslation() || $translation->isDisabled()) {
+            if (!$translation->getTranslation() || $translation->isDisabled()) {
                 continue;
             }
 
-            if ($translation->hasContext()) {
-                $originalString = $translation->getContext()."\x04".$translation->getOriginal();
+            if ($context = $translation->getContext()) {
+                $originalString = "{$context}\x04{$translation->getOriginal()}";
             } else {
                 $originalString = $translation->getOriginal();
             }
@@ -45,22 +48,17 @@ class Mo extends Generator implements GeneratorInterface
         $translationsTable = '';
         $originalsIndex = [];
         $translationsIndex = [];
-        $pluralForm = $translations->getPluralForms();
+        $pluralForm = $translations->getHeaders()->getPluralForm();
         $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
 
         foreach ($messages as $originalString => $translation) {
             if (is_string($translation)) {
-                // Headers
                 $translationString = $translation;
+            } elseif (self::hasPluralTranslations($translation)) {
+                $originalString .= "\x00{$translation->getPlural()}";
+                $translationString = "{$translation->getTranslation()}\x00".implode("\x00", $translation->getPluralTranslations($pluralSize));
             } else {
-                /* @var $translation \Gettext\Translation */
-                if ($translation->hasPlural() && $translation->hasPluralTranslations(true)) {
-                    $originalString .= "\x00".$translation->getPlural();
-                    $translationString = $translation->getTranslation();
-                    $translationString .= "\x00".implode("\x00", $translation->getPluralTranslations($pluralSize));
-                } else {
-                    $translationString = $translation->getTranslation();
-                }
+                $translationString = $translation->getTranslation();
             }
 
             $originalsIndex[] = [
@@ -136,5 +134,14 @@ class Mo extends Generator implements GeneratorInterface
         $mo .= $translationsTable;
 
         return $mo;
+    }
+
+    private static function hasPluralTranslations(Translation $translation): bool
+    {
+        if (!$translation->getPlural()) {
+            return false;
+        }
+
+        return implode('', $translation->getPluralTranslations()) !== '';
     }
 }
