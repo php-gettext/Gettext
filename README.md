@@ -48,7 +48,7 @@ $translations = $loader->loadFile('locales/gl.po');
 $translation = $translations->find(null, 'apple');
 
 if ($translation) {
-	$translation->setTranslation('Mazá');
+    $translation->setTranslation('Mazá');
 }
 
 //export to a .mo file:
@@ -98,7 +98,7 @@ $translations->setDomain('my-blog');
 
 ## Loaders
 
-The loaders allows to get gettext values from any format. For example, to scan a .po file:
+The loaders allows to get gettext values from any format. For example, to load a .po file:
 
 ```php
 $loader = new Gettext\Loader\PoLoader();
@@ -153,19 +153,23 @@ use Gettext\Translations;
 
 //Create a new scanner, adding a translation for each domain we want to get:
 $phpScanner = new PhpScanner(
-	new Translations('domain1'),
-	new Translations('domain2'),
-	new Translations('domain3')
+    new Translations('domain1'),
+    new Translations('domain2'),
+    new Translations('domain3')
 );
 
 //Scan files
 foreach ($filesToScan as $file) {
-	$phpScanner->scanFile($file);
+    $phpScanner->scanFile($file);
 }
 
 //Get the translations
 list($domain1, $domain2, $domain3) = $phpScanner->getTranslations();
 ```
+
+This package includes the following scanners:
+
+- `PhpScanner`
 
 ## Contributors
 
