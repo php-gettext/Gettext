@@ -57,7 +57,8 @@ final class MoGenerator extends Generator
                 $translationString = $translation;
             } elseif (self::hasPluralTranslations($translation)) {
                 $originalString .= "\x00{$translation->getPlural()}";
-                $translationString = "{$translation->getTranslation()}\x00".implode("\x00", $translation->getPluralTranslations($pluralSize));
+                $translationString = "{$translation->getTranslation()}\x00"
+                    .implode("\x00", $translation->getPluralTranslations($pluralSize));
             } else {
                 $translationString = $translation->getTranslation();
             }

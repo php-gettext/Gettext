@@ -39,6 +39,7 @@
         "test": [
             "phpunit",
             "phpcs"
-        ]
+        ],
+        "codefix": "phpcbf"
     }
 }

@@ -157,9 +157,9 @@ class PhpScanner extends Scanner
         if ($function->countArguments() < $minLength) {
             throw new Exception(
                 sprintf(
-                    'Invalid gettext function in %s:%d. At least %d arguments are required', 
-                    $function->getFilename(), 
-                    $function->getLine(), 
+                    'Invalid gettext function in %s:%d. At least %d arguments are required',
+                    $function->getFilename(),
+                    $function->getLine(),
                     $minLength
                 )
             );
@@ -170,8 +170,8 @@ class PhpScanner extends Scanner
         if (in_array(null, $arguments, true)) {
             throw new Exception(
                 sprintf(
-                    'Invalid gettext function in %s:%d. Some required arguments are not valid', 
-                    $function->getFilename(), 
+                    'Invalid gettext function in %s:%d. Some required arguments are not valid',
+                    $function->getFilename(),
                     $function->getLine()
                 )
             );

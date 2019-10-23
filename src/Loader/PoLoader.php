@@ -26,8 +26,7 @@ final class PoLoader extends Loader
             $nextLine = next($lines);
             
             //Multiline
-            while (
-                substr($line, -1, 1) === '"'
+            while (substr($line, -1, 1) === '"'
                 && $nextLine !== false
                 && substr(trim($nextLine), 0, 1) === '"'
             ) {

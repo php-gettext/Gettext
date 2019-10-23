@@ -54,8 +54,12 @@ abstract class Scanner implements ScannerInterface
     {
     }
 
-    protected function saveTranslation(?string $domain, ?string $context, string $original, string $plural = null): ?Translation
-    {
+    protected function saveTranslation(
+        ?string $domain,
+        ?string $context,
+        string $original,
+        string $plural = null
+    ): ?Translation {
         if (is_null($domain)) {
             $domain = $this->defaultDomain;
         }

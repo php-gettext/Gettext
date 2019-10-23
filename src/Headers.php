@@ -111,7 +111,9 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     {
         $header = $this->get(self::HEADER_PLURAL);
 
-        if (!empty($header) && preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)) {
+        if (!empty($header) &&
+            preg_match('/^nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*([^;]+)\s*;$/', $header, $matches)
+        ) {
             return [intval($matches[1]), $matches[2]];
         }
 
