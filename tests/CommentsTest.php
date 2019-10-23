@@ -29,4 +29,17 @@ class CommentsTest extends TestCase
         $this->assertSame(['foo', 'bar'], $comments->jsonSerialize());
         $this->assertCount(2, $comments);
     }
+
+    public function testMergeComments()
+    {
+        $comments1 = new Comments('one', 'two', 'three');
+        $comments2 = new Comments('three', 'four', 'five');
+
+        $merged = $comments1->mergeWith($comments2);
+
+        $this->assertCount(5, $merged);
+        $this->assertSame(['one', 'two', 'three', 'four', 'five'], $merged->toArray());
+        $this->assertNotSame($comments1, $merged);
+        $this->assertNotSame($comments2, $merged);
+    }
 }

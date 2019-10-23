@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Gettext\Loader;
 
@@ -80,7 +81,8 @@ final class PoLoader extends Loader
                 case '#:':
                     foreach (preg_split('/\s+/', trim($data)) as $value) {
                         if (preg_match('/^(.+)(:(\d*))?$/U', $value, $matches)) {
-                            $translation->getReferences()->add($matches[1], $matches[3] ?? null);
+                            $line = isset($matches[3]) ? intval($matches[3]) : null;
+                            $translation->getReferences()->add($matches[1], $line);
                         }
                     }
                     break;

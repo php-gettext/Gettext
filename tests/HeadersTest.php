@@ -80,4 +80,19 @@ class HeadersTest extends TestCase
         $this->assertSame('nplurals=2; plural=(n=1);', $headers->get(Headers::HEADER_PLURAL));
         $this->assertSame([2, '(n=1)'], $headers->getPluralForm());
     }
+
+    public function testMergeHeaders()
+    {
+        $headers1 = new Headers(['X-Domain' => 'foo', 'Language' => 'gl_ES']);
+        $headers2 = new Headers(['Translator' => 'Oscar Otero', 'Language' => 'ru']);
+        $merged = $headers1->mergeWith($headers2);
+
+        $this->assertCount(3, $merged);
+        $this->assertSame('foo', $merged->get('X-Domain'));
+        $this->assertSame('Oscar Otero', $merged->get('Translator'));
+        $this->assertSame('ru', $merged->get('Language'));
+
+        $this->assertNotSame($headers1, $merged);
+        $this->assertNotSame($headers2, $merged);
+    }
 }

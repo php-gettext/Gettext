@@ -19,6 +19,11 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     const HEADER_DOMAIN = 'X-Domain';
 
     protected $headers = [];
+
+    public function __construct(array $headers = [])
+    {
+        $this->headers = $headers;
+    }
     
     public function set(string $name, string $value): self
     {
@@ -116,5 +121,13 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     public function toArray(): array
     {
         return $this->headers;
+    }
+
+    public function mergeWith(Headers $headers): Headers
+    {
+        $merged = clone $this;
+        $merged->headers = $headers->headers + $merged->headers;
+        
+        return $merged;
     }
 }

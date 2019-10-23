@@ -169,4 +169,27 @@ class Translation
     {
         return $this->extractedComments;
     }
+
+    public function mergeWith(Translation $translation): Translation
+    {
+        $merged = clone $this;
+        $merged->references = $merged->references->mergeWith($translation->references);
+        $merged->flags = $merged->flags->mergeWith($translation->flags);
+        $merged->comments = $merged->comments->mergeWith($translation->comments);
+        $merged->extractedComments = $merged->extractedComments->mergeWith($translation->extractedComments);
+
+        if (!$merged->translation) {
+            $merged->translation = $translation->translation;
+        }
+
+        if (!$merged->plural) {
+            $merged->plural = $translation->plural;
+        }
+
+        if (!$merged->pluralTranslations) {
+            $merged->pluralTranslations = $translation->pluralTranslations;
+        }
+
+        return $merged;
+    }
 }

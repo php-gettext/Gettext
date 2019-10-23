@@ -15,10 +15,19 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
 {
     protected $comments = [];
 
-    public function add(string $comment): self
+    public function __construct(string ...$comments)
     {
-        if (!in_array($comment, $this->comments)) {
-            $this->comments[] = $comment;
+        if ($comments) {
+            $this->add(...$comments);
+        }
+    }
+
+    public function add(string ...$comments): self
+    {
+        foreach ($comments as $comment) {
+            if (!in_array($comment, $this->comments)) {
+                $this->comments[] = $comment;
+            }
         }
 
         return $this;
@@ -42,5 +51,13 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
     public function toArray(): array
     {
         return $this->comments;
+    }
+
+    public function mergeWith(Comments $comments): Comments
+    {
+        $merged = clone $this;
+        $merged->add(...$comments->comments);
+        
+        return $merged;
     }
 }

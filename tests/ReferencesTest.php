@@ -34,4 +34,33 @@ class ReferencesTest extends TestCase
             $this->assertSame([34, 44], $lines);
         }
     }
+
+    public function testMergeReferences()
+    {
+        $references1 = new References();
+        $references2 = new References();
+
+        $references1
+            ->add('filename.php', 34)
+            ->add('filename.php', 56)
+            ->add('filename3.php')
+            ->add('filename2.php', 10);
+
+        $references2
+            ->add('filename.php', 34)
+            ->add('filename.php', 44)
+            ->add('filename2.php')
+            ->add('filename4.php')
+            ->add('filename3.php', 10);
+        
+        $merged = $references1->mergeWith($references2);
+
+        $this->assertCount(6, $merged);
+        $this->assertSame([
+            'filename.php' => [34, 56, 44],
+            'filename3.php' => [10],
+            'filename2.php' => [10],
+            'filename4.php' => [],
+        ], $merged->toArray());
+    }
 }

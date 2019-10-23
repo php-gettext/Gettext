@@ -15,7 +15,7 @@ class References implements JsonSerializable, Countable, IteratorAggregate
 {
     protected $references = [];
 
-    public function add(string $filename, ?int $line): self
+    public function add(string $filename, int $line = null): self
     {
         $fileReferences = $this->references[$filename] ?? [];
 
@@ -48,5 +48,23 @@ class References implements JsonSerializable, Countable, IteratorAggregate
     public function toArray(): array
     {
         return $this->references;
+    }
+
+    public function mergeWith(References $references): References
+    {
+        $merged = clone $this;
+
+        foreach ($references as $filename => $lines) {
+            if (empty($lines)) {
+                $merged->add($filename, null);
+                continue;
+            }
+
+            foreach ($lines as $line) {
+                $merged->add($filename, $line);
+            }
+        }
+        
+        return $merged;
     }
 }
