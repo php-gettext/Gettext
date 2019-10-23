@@ -50,9 +50,7 @@ abstract class Scanner implements ScannerInterface
         $this->scanString($string, $filename);
     }
 
-    public function scanString(string $string, string $filename = null): void
-    {
-    }
+    abstract public function scanString(string $string, string $filename = null): void;
 
     protected function saveTranslation(
         ?string $domain,
