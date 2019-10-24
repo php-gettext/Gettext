@@ -36,9 +36,27 @@ class Translations implements Countable, IteratorAggregate
         $this->headers = clone $this->headers;
     }
 
+    public function toArray(): array
+    {
+        return [
+            'headers' => $this->headers->toArray(),
+            'translations' => array_map(
+                function ($translation) {
+                    return $translation->toArray();
+                },
+                array_values($this->translations)
+            )
+        ];
+    }
+
     public function getIterator()
     {
-        return new ArrayIterator($this->toArray());
+        return new ArrayIterator($this->translations);
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 
     public function count(): int
@@ -114,8 +132,30 @@ class Translations implements Countable, IteratorAggregate
         return null;
     }
 
-    public function toArray(): array
+    public function mergeWith(Translations $translations, int $strategy = 0): Translations
     {
-        return array_values($this->translations);
+        $merged = clone $this;
+
+        if ($strategy & Merge::HEADERS_THEIRS) {
+            $merged->headers = clone $translations->headers;
+        } elseif (!($strategy & Merge::HEADERS_OURS)) {
+            $merged->headers = $merged->headers->mergeWith($translations->headers);
+        }
+
+        foreach ($translations as $id => $translation) {
+            if (isset($merged->translations[$id])) {
+                $translation = $merged->translations[$id]->mergeWith($translation, $strategy);
+            }
+
+            $merged->add($translation);
+        }
+
+        if ($strategy & Merge::TRANSLATIONS_THEIRS) {
+            $merged->translations = array_intersect_key($merged->translations, $translations->translations);
+        } elseif ($strategy & Merge::TRANSLATIONS_OURS) {
+            $merged->translations = array_intersect_key($merged->translations, $this->translations);
+        }
+
+        return $merged;
     }
 }

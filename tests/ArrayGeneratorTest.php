@@ -44,17 +44,17 @@ class ArrayGeneratorTest extends TestCase
             'plural-forms' => 'nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);',
             'messages' => [
                 '' => [
-                    '' => 'X-Domain: testingdomain
-Language: ru
-Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);
-Content-Transfer-Encoding: 8bit
+                    '' => 'Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset=UTF-8
+Language: ru
 Language-Team: 
 Last-Translator: 
 MIME-Version: 1.0
 PO-Revision-Date: 
 POT-Creation-Date: 
-Project-Id-Version: gettext generator test',
+Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);
+Project-Id-Version: gettext generator test
+X-Domain: testingdomain',
                     'Ensure this value has at least %(limit_value)d character (it has %sd).' => null,
                     '%ss must be unique for %ss %ss.' => '%ss mora da bude jedinstven za %ss %ss.',
                 ],

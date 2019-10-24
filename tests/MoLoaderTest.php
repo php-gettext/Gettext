@@ -16,7 +16,7 @@ class MoLoaderTest extends TestCase
         
         $this->assertCount(10, $translations);
         
-        $array = $translations->toArray();
+        $array = $translations->getTranslations();
 
         $this->translation1(array_shift($array));
         $this->translation2(array_shift($array));

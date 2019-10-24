@@ -11,8 +11,8 @@ class Translation
     protected $id;
     protected $context;
     protected $original;
-    protected $translation;
     protected $plural;
+    protected $translation;
     protected $pluralTranslations = [];
     protected $disabled = false;
     protected $references;
@@ -52,6 +52,23 @@ class Translation
         $this->flags = clone $this->flags;
         $this->comments = clone $this->comments;
         $this->extractedComments = clone $this->extractedComments;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'context' => $this->context,
+            'original' => $this->original,
+            'translation' => $this->translation,
+            'plural' => $this->plural,
+            'pluralTranslations' => $this->pluralTranslations,
+            'disabled' => $this->disabled,
+            'references' => $this->getReferences()->toArray(),
+            'flags' => $this->getFlags()->toArray(),
+            'comments' => $this->getComments()->toArray(),
+            'extractedComments' => $this->getExtractedComments()->toArray(),
+        ];
     }
 
     public function getId(): string
@@ -170,25 +187,49 @@ class Translation
         return $this->extractedComments;
     }
 
-    public function mergeWith(Translation $translation): Translation
+    public function mergeWith(Translation $translation, int $strategy = 0): Translation
     {
         $merged = clone $this;
-        $merged->references = $merged->references->mergeWith($translation->references);
-        $merged->flags = $merged->flags->mergeWith($translation->flags);
-        $merged->comments = $merged->comments->mergeWith($translation->comments);
-        $merged->extractedComments = $merged->extractedComments->mergeWith($translation->extractedComments);
 
-        if (!$merged->translation) {
+        if ($strategy & Merge::COMMENTS_THEIRS) {
+            $merged->comments = clone $translation->comments;
+        } elseif (!($strategy & Merge::COMMENTS_OURS)) {
+            $merged->comments = $merged->comments->mergeWith($translation->comments);
+        }
+
+        if ($strategy & Merge::EXTRACTED_COMMENTS_THEIRS) {
+            $merged->extractedComments = clone $translation->extractedComments;
+        } elseif (!($strategy & Merge::EXTRACTED_COMMENTS_OURS)) {
+            $merged->extractedComments = $merged->extractedComments->mergeWith($translation->extractedComments);
+        }
+
+        if ($strategy & Merge::REFERENCES_THEIRS) {
+            $merged->references = clone $translation->references;
+        } elseif (!($strategy & Merge::REFERENCES_OURS)) {
+            $merged->references = $merged->references->mergeWith($translation->references);
+        }
+
+        if ($strategy & Merge::FLAGS_THEIRS) {
+            $merged->flags = clone $translation->flags;
+        } elseif (!($strategy & Merge::FLAGS_OURS)) {
+            $merged->flags = $merged->flags->mergeWith($translation->flags);
+        }
+
+        $override = (bool) ($strategy & Merge::TRANSLATIONS_OVERRIDE);
+
+        if (!$merged->translation || ($translation->translation && $override)) {
             $merged->translation = $translation->translation;
         }
 
-        if (!$merged->plural) {
+        if (!$merged->plural || ($translation->plural && $override)) {
             $merged->plural = $translation->plural;
         }
 
-        if (!$merged->pluralTranslations) {
+        if (!$merged->pluralTranslations || ($translation->getPluralTranslations && $override)) {
             $merged->pluralTranslations = $translation->pluralTranslations;
         }
+
+        $merged->disable($translation->isDisabled());
 
         return $merged;
     }

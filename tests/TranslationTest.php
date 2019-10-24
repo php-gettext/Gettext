@@ -95,5 +95,8 @@ class TranslationTest extends TestCase
 
         $this->assertCount(1, $merged->getExtractedComments());
         $this->assertSame(['Extracted 1'], $merged->getExtractedComments()->toArray());
+
+        $this->assertNotSame($merged, $translation1);
+        $this->assertNotSame($merged, $translation2);
     }
 }

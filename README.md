@@ -171,6 +171,61 @@ This package includes the following scanners:
 
 - `PhpScanner`
 
+## Merging translations
+
+You will want to update or merge translations. The function `mergeWith` create a new `Translations` instance with other translations merged:
+
+```php
+$translations3 = $translations1->mergeWith($translations2);
+```
+
+But sometimes this is not enough, and this is why we have merging options, allowing to configure how two translations will be merged. These options are defined as constants in the `Gettext\Merge` class, and are the following:
+
+Constant | Description
+--------- | -----------
+`Merge::TRANSLATIONS_OURS` | Use only the translations present in `$translations1`
+`Merge::TRANSLATIONS_THEIRS` | Use only the translations present in `$translations2`
+`Merge::TRANSLATION_OVERRIDE` | Override the translation and plural translations with the value of `$translation2`
+`Merge::HEADERS_OURS` | Use only the headers of `$translations1`
+`Merge::HEADERS_REMOVE` | Use only the headers of `$translations2`
+`Merge::HEADERS_OVERRIDE` | Overrides the headers with the values of `$translations2`
+`Merge::COMMENTS_OURS` | Use only the comments of `$translation1`
+`Merge::COMMENTS_THEIRS` | Use only the comments of `$translation2`
+`Merge::EXTRACTED_COMMENTS_OURS` | Use only the extracted comments of `$translation1`
+`Merge::EXTRACTED_COMMENTS_THEIRS` | Use only the extracted comments of `$translation2`
+`Merge::FLAGS_OURS` | Use only the flags of `$translation1`
+`Merge::FLAGS_THEIRS` | Use only the flags of `$translation2`
+`Merge::REFERENCES_OURS` | Use only the references of `$translation1`
+`Merge::REFERENCES_THEIRS` | Use only the references of `$translation2`
+
+Use the second argument to configure the merging strategy:
+
+```php
+$strategy = Merge::TRANSLATIONS_OURS | Merge::HEADERS_OURS;
+
+$translations3 = $translations1->mergeWith($translations2, $strategy);
+```
+
+There are some typical scenarios, one of the most common:
+
+- Scan php templates searching for entries to translate
+- Complete these entries with the translations stored in a .po file
+- You may want to add new entries to the .po file
+- And also remove those entries present in the .po file but not in the templates (because they were removed)
+- But you want to update some translations with new references and extracted comments
+- And keep the translations, comments and flags defined in .po file
+
+For this scenario, you can use the option `Merge::SCAN_AND_LOAD` with the combination of options to fit this needs (SCAN new entries and LOAD a .po file).
+
+```php
+$newEntries = $scanner->scanFile('template.php');
+$previousEntries = $loader->loadFile('translations.po');
+
+$updatedEntries = $newEntries->mergeWith($previousEntries);
+```
+
+More common scenarios may be added in a future.
+
 ## Contributors
 
 Thanks to all [contributors](https://github.com/oscarotero/Gettext/graphs/contributors) specially to [@mlocati](https://github.com/mlocati).

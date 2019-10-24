@@ -62,5 +62,8 @@ class ReferencesTest extends TestCase
             'filename2.php' => [10],
             'filename4.php' => [],
         ], $merged->toArray());
+
+        $this->assertNotSame($merged, $references1);
+        $this->assertNotSame($merged, $references2);
     }
 }

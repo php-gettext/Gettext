@@ -23,11 +23,13 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     public function __construct(array $headers = [])
     {
         $this->headers = $headers;
+        ksort($this->headers);
     }
     
     public function set(string $name, string $value): self
     {
         $this->headers[$name] = trim($value);
+        ksort($this->headers);
 
         return $this;
     }
@@ -47,13 +49,6 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     public function clear(): self
     {
         $this->headers = [];
-
-        return $this;
-    }
-
-    public function sort(): self
-    {
-        ksort($this->headers);
 
         return $this;
     }
@@ -129,7 +124,8 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     {
         $merged = clone $this;
         $merged->headers = $headers->headers + $merged->headers;
-        
+        ksort($merged->headers);
+
         return $merged;
     }
 }

@@ -16,7 +16,7 @@ class PoLoaderTest extends TestCase
         
         $this->assertCount(13, $translations);
         
-        $array = $translations->toArray();
+        $array = $translations->getTranslations();
 
         $this->translation1(array_shift($array));
         $this->translation2(array_shift($array));

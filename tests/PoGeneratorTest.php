@@ -42,10 +42,10 @@ class PoGeneratorTest extends TestCase
         $expected = <<<EOT
         msgid ""
         msgstr ""
-        "X-Domain: my-domain\\n"
+        "Content-Type: text/plain; charset=UTF-8\\n"
         "Language: gl_ES\\n"
         "Plural-Forms: nplurals=2; plural=n != 1;\\n"
-        "Content-Type: text/plain; charset=UTF-8\\n"
+        "X-Domain: my-domain\\n"
         "X-Generator: PHP-Gettext\\n"
 
         # This is a comment

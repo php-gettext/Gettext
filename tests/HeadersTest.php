@@ -92,7 +92,7 @@ class HeadersTest extends TestCase
         $this->assertSame('Oscar Otero', $merged->get('Translator'));
         $this->assertSame('ru', $merged->get('Language'));
 
-        $this->assertNotSame($headers1, $merged);
-        $this->assertNotSame($headers2, $merged);
+        $this->assertNotSame($merged, $headers1);
+        $this->assertNotSame($merged, $headers2);
     }
 }
