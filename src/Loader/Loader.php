@@ -26,7 +26,7 @@ abstract class Loader implements LoaderInterface
 
     protected function createTranslations(): Translations
     {
-        return new Translations();
+        return Translations::create();
     }
 
     protected function createTranslation(?string $context, string $original, string $plural = null): ?Translation

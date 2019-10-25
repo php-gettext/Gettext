@@ -18,13 +18,24 @@ class Translations implements Countable, IteratorAggregate
     protected $translations = [];
     protected $headers;
 
-    public function __construct(string $domain = null)
+    public static function create(string $domain = null, string $language = null): Translations
     {
-        $this->headers = new Headers();
+        $translations = new static($domain);
 
         if (isset($domain)) {
-            $this->setDomain($domain);
+            $translations->setDomain($domain);
         }
+
+        if (isset($language)) {
+            $translations->setLanguage($language);
+        }
+
+        return $translations;
+    }
+
+    protected function __construct()
+    {
+        $this->headers = new Headers();
     }
 
     public function __clone()
@@ -54,7 +65,7 @@ class Translations implements Countable, IteratorAggregate
         return new ArrayIterator($this->translations);
     }
 
-    public function getTranslations()
+    public function getTranslations(): array
     {
         return $this->translations;
     }

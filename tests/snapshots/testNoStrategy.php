@@ -82,8 +82,8 @@
                 ]
             ],
             'flags' => [
-                'c-code',
-                'a-code'
+                'a-code',
+                'c-code'
             ],
             'comments' => [
                 'This is a comment'

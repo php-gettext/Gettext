@@ -30,6 +30,8 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
             }
         }
 
+        sort($this->flags);
+
         return $this;
     }
 

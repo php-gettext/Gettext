@@ -15,7 +15,7 @@ class MoGeneratorTest extends TestCase
         $generator = new MoGenerator();
         $loader = new MoLoader();
 
-        $translations = new Translations('my-domain');
+        $translations = Translations::create('my-domain');
         $translations->setLanguage('gl_ES');
         $translations->getHeaders()
             ->set('Content-Type', 'text/plain; charset=UTF-8')

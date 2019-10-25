@@ -61,7 +61,8 @@ $generator->generateFile($translations, 'Locale/gl/LC_MESSAGES/messages.mo');
 The `Gettext\Translation` class stores all information about a translation: the original text, the translated text, source references, comments, etc.
 
 ```php
-// __construct($context, $original, $plural)
+use Gettext\Translation;
+
 $translation = Translation::create('comments', 'One comment', '%s comments');
 
 $translation->translate('Un comentario');
@@ -82,7 +83,9 @@ echo $translation->getTranslation(); // Un comentario
 The `Gettext\Translations` class stores a collection of translations:
 
 ```php
-$translations = new Gettext\Translations('my-domain');
+use Gettext\Translations;
+
+$translations = Translations::create('my-domain');
 
 //You can add new translations:
 $translation = Translation::create('comments', 'One comment', '%s comments');
@@ -101,7 +104,9 @@ $translations->setDomain('my-blog');
 The loaders allows to get gettext values from any format. For example, to load a .po file:
 
 ```php
-$loader = new Gettext\Loader\PoLoader();
+use Gettext\Loader\PoLoader;
+
+$loader = new PoLoader();
 
 //From a file
 $translations = $loader->loadFile('locales/en.po');
@@ -122,13 +127,17 @@ This package includes the following loaders:
 The generators export a `Gettext\Translations` instance to any format (po, mo, array, etc).
 
 ```php
-$poLoader = new Gettext\Loader\PoLoader();
-$moGenerator = new Gettext\Generator\MoGenerator();
+use Gettext\Loader\PoLoader;
+use Gettext\Generator\MoGenerator;
 
 //Load a PO file
+$poLoader = new PoLoader();
+
 $translations = $poLoader->loadFile('locales/en.po');
 
 //Save to MO file
+$moGenerator = new MoGenerator();
+
 $moGenerator->generateFile($translations, 'locales/en.mo');
 
 //Or return as a string
@@ -153,9 +162,9 @@ use Gettext\Translations;
 
 //Create a new scanner, adding a translation for each domain we want to get:
 $phpScanner = new PhpScanner(
-    new Translations('domain1'),
-    new Translations('domain2'),
-    new Translations('domain3')
+    Translations::create('domain1'),
+    Translations::create('domain2'),
+    Translations::create('domain3')
 );
 
 //Scan files

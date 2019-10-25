@@ -26,12 +26,12 @@ class FlagsTest extends TestCase
         
         $flags->add('bar');
 
-        $this->assertSame(['foo', 'bar'], $flags->toArray());
+        $this->assertSame(['bar', 'foo'], $flags->toArray());
         $this->assertCount(2, $flags);
         
         $flags->add('one', 'two', 'three');
 
-        $this->assertSame(['foo', 'bar', 'one', 'two', 'three'], $flags->toArray());
+        $this->assertSame(['bar', 'foo', 'one', 'three', 'two'], $flags->toArray());
         $this->assertCount(5, $flags);
     }
 
@@ -43,7 +43,13 @@ class FlagsTest extends TestCase
         $merged = $flags1->mergeWith($flags2);
 
         $this->assertCount(5, $merged);
-        $this->assertSame(['one', 'two', 'three', 'four', 'five'], $merged->toArray());
+        $this->assertSame([
+            'five',
+            'four',
+            'one',
+            'three',
+            'two',
+        ], $merged->toArray());
 
         $this->assertNotSame($merged, $flags1);
         $this->assertNotSame($merged, $flags2);

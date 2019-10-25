@@ -12,7 +12,7 @@ class MergeTest extends TestCase
 {
     private static function createPOT(): Translations
     {
-        $translations = new Translations('my-domain');
+        $translations = Translations::create('my-domain');
         $translations->getHeaders()
             ->set('POT-Creation-Date', '2019-10-10 10:10:10')
             ->set('Last-Translator', '')
@@ -47,7 +47,7 @@ class MergeTest extends TestCase
 
     private static function createPO(): Translations
     {
-        $translations = new Translations('my-domain');
+        $translations = Translations::create('my-domain');
         $translations->getHeaders()
             ->set('Last-Translator', 'Oscar')
             ->set('X-Generator', 'PHP Gettext scanner')

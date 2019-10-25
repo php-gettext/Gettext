@@ -11,7 +11,7 @@ class ArrayGeneratorTest extends TestCase
 {
     public function testArrayGenerator()
     {
-        $translations = new Translations('testingdomain');
+        $translations = Translations::create('testingdomain');
         $translations->setLanguage('ru');
         $translations->getHeaders()
             ->set('Content-Transfer-Encoding', '8bit')
