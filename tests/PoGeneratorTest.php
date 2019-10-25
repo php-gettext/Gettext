@@ -40,31 +40,31 @@ class PoGeneratorTest extends TestCase
         $result = $generator->generateString($translations);
 
         $expected = <<<EOT
-        msgid ""
-        msgstr ""
-        "Content-Type: text/plain; charset=UTF-8\\n"
-        "Language: gl_ES\\n"
-        "Plural-Forms: nplurals=2; plural=n != 1;\\n"
-        "X-Domain: my-domain\\n"
-        "X-Generator: PHP-Gettext\\n"
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\\n"
+"Language: gl_ES\\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\\n"
+"X-Domain: my-domain\\n"
+"X-Generator: PHP-Gettext\\n"
 
-        # This is a comment
-        #: /my/template.php:45
-        msgctxt "context-1"
-        msgid "Original"
-        msgstr ""
+# This is a comment
+#: /my/template.php:45
+msgctxt "context-1"
+msgid "Original"
+msgstr ""
 
-        #. Not sure about this
-        #, c-code
-        msgctxt "context-1"
-        msgid "Other comment"
-        msgstr "Outro comentario"
+#. Not sure about this
+#, c-code
+msgctxt "context-1"
+msgid "Other comment"
+msgstr "Outro comentario"
 
-        # This is a disabled comment
-        #~ msgid "Disabled comment"
-        #~ msgstr "Comentario deshabilitado"
+# This is a disabled comment
+#~ msgid "Disabled comment"
+#~ msgstr "Comentario deshabilitado"
 
-        EOT;
+EOT;
 
         $this->assertSame($expected, $result);
     }

@@ -54,16 +54,16 @@ class ParsedFunctionsAndCommentsTest extends TestCase
     public function testMultilineComment()
     {
         $text = <<<EOT
-        /**
-         * This is a multiline
-         * comment
-         */
-        EOT;
+/**
+ * This is a multiline
+ * comment
+ */
+EOT;
 
         $expectedText = <<<EOT
-        This is a multiline
-        comment
-        EOT;
+This is a multiline
+comment
+EOT;
 
         $comment = new ParsedComment($text, 'template.php', 44);
 
