@@ -6,7 +6,7 @@ namespace Gettext\Loader;
 use Gettext\Translations;
 
 /**
- * Trait to provide the functionality of parsing headers.
+ * Trait to provide the functionality to parsing headers.
  */
 trait HeadersLoaderTrait
 {

@@ -17,7 +17,10 @@ abstract class Scanner implements ScannerInterface
 
     public function __construct(Translations ...$allTranslations)
     {
-        $this->setTranslations(...$allTranslations);
+        foreach ($allTranslations as $translations) {
+            $domain = $translations->getDomain();
+            $this->translations[$domain] = $translations;
+        }
     }
 
     public function setDefaultDomain(string $defaultDomain): void
@@ -28,14 +31,6 @@ abstract class Scanner implements ScannerInterface
     public function getDefaultDomain(): string
     {
         return $this->defaultDomain;
-    }
-
-    public function setTranslations(Translations ...$allTranslations): void
-    {
-        foreach ($allTranslations as $translations) {
-            $domain = $translations->getDomain();
-            $this->translations[$domain] = $translations;
-        }
     }
 
     public function getTranslations(): array

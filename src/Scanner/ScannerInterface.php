@@ -11,8 +11,6 @@ interface ScannerInterface
 
     public function getDefaultDomain(): string;
 
-    public function setTranslations(Translations ...$translations): void;
-
     /**
      * @return Translations[]
      */
