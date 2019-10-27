@@ -11,13 +11,11 @@ use Gettext\Scanner\PhpFunctionsScanner;
 use Gettext\Scanner\FunctionsScannerInterface;
 
 /**
- * Class to scan php files and get gettext translations
+ * Class to scan files with code and get gettext translations
  */
-class PhpScanner extends Scanner
+abstract class CodeScanner extends Scanner
 {
-    protected $functionsScanner;
-
-    protected $functionsHandlers = [
+    protected $functions = [
         'gettext' => 'gettext',
         '__' => 'gettext',
         'ngettext' => 'ngettext',
@@ -48,34 +46,12 @@ class PhpScanner extends Scanner
         }
     }
 
-    public function setFunctionsScanner(FunctionsScannerInterface $functionsScanner): void
-    {
-        $this->functionsScanner = $functionsScanner;
-    }
-
-    public function getFunctionsScanner(): FunctionsScannerInterface
-    {
-        if (!isset($this->functionsScanner)) {
-            $this->functionsScanner = new PhpFunctionsScanner();
-        }
-
-        return $this->functionsScanner;
-    }
-
-    public function setFunctionsHandlers(array $functionsHandlers): void
-    {
-        $this->functionsHandlers = $functionsHandlers;
-    }
-
-    public function getFunctionsHandlers(): array
-    {
-        return $this->functionsHandlers;
-    }
+    abstract public function getFunctionsScanner(): FunctionsScannerInterface;
 
     protected function handleFunction(ParsedFunction $function)
     {
         $name = $function->getName();
-        $handler = $this->functionsHandlers[$name] ?? null;
+        $handler = $this->functions[$name] ?? null;
 
         if (is_null($handler)) {
             return;

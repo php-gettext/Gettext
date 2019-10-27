@@ -168,17 +168,13 @@ $phpScanner = new PhpScanner(
 );
 
 //Scan files
-foreach ($filesToScan as $file) {
+foreach (glob('*.php') as $file) {
     $phpScanner->scanFile($file);
 }
 
 //Get the translations
 list($domain1, $domain2, $domain3) = $phpScanner->getTranslations();
 ```
-
-This package includes the following scanners:
-
-- `PhpScanner`
 
 ## Merging translations
 

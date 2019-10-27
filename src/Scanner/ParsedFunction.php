@@ -14,13 +14,30 @@ final class ParsedFunction
     private $lastLine;
     private $arguments = [];
     private $comments = [];
-    private $argumentIsClosed = false;
 
-    public function __construct(string $name, string $filename, int $line)
+    public function __construct(string $name, string $filename, int $line, int $lastLine = null)
     {
         $this->name = $name;
         $this->filename = $filename;
-        $this->line = $this->lastLine = $line;
+        $this->line = $line;
+        $this->lastLine = isset($lastLine) ? $lastLine : $line;
+    }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'filename' => $this->filename,
+            'line' => $this->line,
+            'lastLine' => $this->lastLine,
+            'arguments' => $this->arguments,
+            'comments' => $this->comments,
+        ];
     }
 
     public function getName(): string
@@ -38,13 +55,6 @@ final class ParsedFunction
         return $this->lastLine;
     }
 
-    public function setLastLine(int $lastLine): self
-    {
-        $this->lastLine = $lastLine;
-
-        return $this;
-    }
-
     public function getFilename(): string
     {
         return $this->filename;
@@ -60,44 +70,19 @@ final class ParsedFunction
         return count($this->arguments);
     }
 
-    /**
-     * @return ParsedComments[]
-     */
     public function getComments(): array
     {
         return $this->comments;
     }
 
-    public function addArgument(string $argument = null): self
+    public function addArgument($argument = null): self
     {
         $this->arguments[] = $argument;
-        $this->argumentIsClosed = false;
 
         return $this;
     }
 
-    public function addArgumentChunk(string $chunk): self
-    {
-        if ($this->argumentIsClosed) {
-            return $this;
-        }
-
-        $value = end($this->arguments).$chunk;
-        $key = key($this->arguments) ?: 0;
-
-        $this->arguments[$key] = $value;
-
-        return $this;
-    }
-
-    public function closeArgument(): self
-    {
-        $this->argumentIsClosed = true;
-
-        return $this;
-    }
-
-    public function addComment(ParsedComment $comment): self
+    public function addComment(string $comment): self
     {
         $this->comments[] = $comment;
 
