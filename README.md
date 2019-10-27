@@ -118,13 +118,12 @@ $translations = $loader->loadString($string);
 
 This package includes the following loaders:
 
-- `ArrayLoader`
 - `MoLoader`
 - `PoLoader`
 
 ## Generators
 
-The generators export a `Gettext\Translations` instance to any format (po, mo, array, etc).
+The generators export a `Gettext\Translations` instance to any format (po, mo, etc).
 
 ```php
 use Gettext\Loader\PoLoader;
@@ -147,7 +146,6 @@ file_put_contents('locales/en.mo', $content);
 
 This package includes the following generators:
 
-- `ArrayGenerator`
 - `MoGenerator`
 - `PoGenerator`
 
