@@ -43,4 +43,13 @@ class CommentsTest extends TestCase
         $this->assertNotSame($merged, $comments1);
         $this->assertNotSame($merged, $comments2);
     }
+
+    public function testCreateFromState()
+    {
+        $state = ['comments' => ['First comment', 'Second comment']];
+        $comments = Comments::__set_state($state);
+
+        $this->assertCount(2, $comments);
+        $this->assertSame($state['comments'], $comments->toArray());
+    }
 }

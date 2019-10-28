@@ -15,11 +15,21 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
 {
     protected $comments = [];
 
+    public static function __set_state(array $state): Comments
+    {
+        return new static(...$state['comments']);
+    }
+
     public function __construct(string ...$comments)
     {
         if ($comments) {
             $this->add(...$comments);
         }
+    }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
     }
 
     public function add(string ...$comments): self

@@ -15,6 +15,19 @@ class References implements JsonSerializable, Countable, IteratorAggregate
 {
     protected $references = [];
 
+    public static function __set_state(array $state): References
+    {
+        $references = new static();
+        $references->references = $state['references'];
+
+        return $references;
+    }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
+    }
+
     public function add(string $filename, int $line = null): self
     {
         $fileReferences = $this->references[$filename] ?? [];

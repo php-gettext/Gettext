@@ -66,4 +66,17 @@ class ReferencesTest extends TestCase
         $this->assertNotSame($merged, $references1);
         $this->assertNotSame($merged, $references2);
     }
+
+    public function testCreateFromState()
+    {
+        $state = [
+            'references' => [
+                'filename.php' => [1, 2, 3]
+            ]
+        ];
+        $references = References::__set_state($state);
+
+        $this->assertCount(3, $references);
+        $this->assertSame($state['references'], $references->toArray());
+    }
 }

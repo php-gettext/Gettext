@@ -95,4 +95,13 @@ class HeadersTest extends TestCase
         $this->assertNotSame($merged, $headers1);
         $this->assertNotSame($merged, $headers2);
     }
+
+    public function testCreateFromState()
+    {
+        $state = ['headers' => ['X-Domain' => 'foo']];
+        $headers = Headers::__set_state($state);
+
+        $this->assertCount(1, $headers);
+        $this->assertSame('foo', $headers->get('X-Domain'));
+    }
 }

@@ -12,7 +12,7 @@ class MoGeneratorTest extends TestCase
 {
     public function testMoGenerator()
     {
-        $generator = new MoGenerator();
+        $generator = (new MoGenerator())->includeHeaders();
         $loader = new MoLoader();
 
         $translations = Translations::create('my-domain');

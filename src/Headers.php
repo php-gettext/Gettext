@@ -20,10 +20,20 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
 
     protected $headers = [];
 
+    public static function __set_state(array $state): Headers
+    {
+        return new static($state['headers']);
+    }
+
     public function __construct(array $headers = [])
     {
         $this->headers = $headers;
         ksort($this->headers);
+    }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
     }
     
     public function set(string $name, string $value): self

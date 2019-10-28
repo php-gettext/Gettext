@@ -15,11 +15,21 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
 {
     protected $flags = [];
 
+    public static function __set_state(array $state): Flags
+    {
+        return new static(...$state['flags']);
+    }
+
     public function __construct(string ...$flags)
     {
         if ($flags) {
             $this->add(...$flags);
         }
+    }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
     }
 
     public function add(string ...$flags): self

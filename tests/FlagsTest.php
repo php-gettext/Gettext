@@ -54,4 +54,13 @@ class FlagsTest extends TestCase
         $this->assertNotSame($merged, $flags1);
         $this->assertNotSame($merged, $flags2);
     }
+
+    public function testCreateFromState()
+    {
+        $state = ['flags' => ['one', 'two']];
+        $flags = Flags::__set_state($state);
+
+        $this->assertCount(2, $flags);
+        $this->assertSame($state['flags'], $flags->toArray());
+    }
 }
