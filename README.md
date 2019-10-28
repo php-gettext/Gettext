@@ -1,5 +1,4 @@
-Gettext
-=======
+# Gettext
 
 [![Build Status](https://travis-ci.org/oscarotero/Gettext.png?branch=master)](https://travis-ci.org/oscarotero/Gettext)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oscarotero/Gettext/?branch=master)
@@ -15,8 +14,6 @@ Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License
 Gettext is a PHP (^7.2) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
 
 ## Installation
-
-With composer:
 
 ```
 composer require gettext/gettext

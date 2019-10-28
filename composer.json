@@ -3,7 +3,7 @@
     "type": "library",
     "description": "PHP gettext manager",
     "keywords": ["js", "gettext", "i18n", "translation", "po", "mo"],
-    "homepage": "https://github.com/oscarotero/Gettext",
+    "homepage": "https://github.com/php-gettext/Gettext",
     "license": "MIT",
     "authors": [
         {
@@ -15,7 +15,7 @@
     ],
     "support": {
         "email": "oom@oscarotero.com",
-        "issues": "https://github.com/oscarotero/Gettext/issues"
+        "issues": "https://github.com/php-gettext/Gettext/issues"
     },
     "require": {
         "php": "^7.2",
