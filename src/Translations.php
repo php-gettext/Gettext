@@ -112,6 +112,8 @@ class Translations extends ArrayObject
             'MIME-Version' => '1.0',
             'Content-Type' => 'text/plain; charset=UTF-8',
             'Content-Transfer-Encoding' => '8bit',
+            'X-Target-Language' => '',
+            'X-Source-Language' => '',
         ],
         'headersSorting' => false,
         'defaultDateHeaders' => [

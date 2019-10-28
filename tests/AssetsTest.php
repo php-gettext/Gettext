@@ -13,7 +13,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('po/input', 'Po');
         $countTranslations = 3;
         $countTranslated = 3;
-        $countHeaders = 9;
+        $countHeaders = 11;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -55,7 +55,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('po2/input', 'Po');
         $countTranslations = 13;
         $countTranslated = 10;
-        $countHeaders = 13;
+        $countHeaders = 15;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -91,7 +91,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('po3/input', 'Po');
         $countTranslations = 8;
         $countTranslated = 8;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -127,7 +127,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('blade/input', 'Blade');
         $countTranslations = 11;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -163,7 +163,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('jed/input', 'Jed');
         $countTranslations = 13;
         $countTranslated = 10;
-        $countHeaders = 10;
+        $countHeaders = 12;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -199,7 +199,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('jscode/input', 'JsCode');
         $countTranslations = 7;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -235,7 +235,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('jscode2/input', 'JsCode');
         $countTranslations = 4;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -270,7 +270,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('phpcode/input', 'PhpCode');
         $countTranslations = 12;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -310,7 +310,7 @@ class AssetsTest extends AbstractTest
         ]);
         $countTranslations = 14;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -348,7 +348,7 @@ class AssetsTest extends AbstractTest
         ]);
         $countTranslations = 2;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -384,7 +384,7 @@ class AssetsTest extends AbstractTest
         $translations = static::get('twig/input', 'Twig');
         $countTranslations = 10;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -425,7 +425,7 @@ class AssetsTest extends AbstractTest
 
         $countTranslations = 34;
         $countTranslated = 0;
-        $countHeaders = 8;
+        $countHeaders = 10;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
@@ -469,7 +469,7 @@ class AssetsTest extends AbstractTest
             'domainOnly' => true,
         ]);
 
-        $countHeaders = 9;
+        $countHeaders = 11;
         $countTranslated = 0;
         $countTranslations = 4;
 

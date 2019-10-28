@@ -20,8 +20,8 @@ class Xliff extends Generator implements GeneratorInterface
         $xliff = $dom->appendChild($dom->createElement('xliff'));
         $xliff->setAttribute('xmlns', 'urn:oasis:names:tc:xliff:document:2.0');
         $xliff->setAttribute('version', '2.0');
-        $xliff->setAttribute('srcLang', $translations->getLanguage());
-        $xliff->setAttribute('trgLang', $translations->getLanguage());
+        $xliff->setAttribute('srcLang', $translations->getHeader('X-Source-Language')?: $translations->getLanguage());
+        $xliff->setAttribute('trgLang', $translations->getHeader('X-Target-Language')?: $translations->getLanguage());
         $file = $xliff->appendChild($dom->createElement('file'));
         $file->setAttribute('id', $translations->getDomain().'.'.$translations->getLanguage());
 
