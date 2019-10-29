@@ -35,7 +35,7 @@ abstract class Scanner implements ScannerInterface
 
     public function getTranslations(): array
     {
-        return array_values($this->translations);
+        return $this->translations;
     }
 
     public function scanFile(string $filename): void
