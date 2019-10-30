@@ -89,6 +89,17 @@ class Translations implements Countable, IteratorAggregate
         return $this;
     }
 
+    public function addOrMerge(Translation $translation, int $mergeStrategy = 0): Translation
+    {
+        $id = $translation->getId();
+
+        if (isset($this->translations[$id])) {
+            return $this->translations[$id] = $this->translations[$id]->mergeWith($translation, $mergeStrategy);
+        }
+
+        return $this->translations[$id] = $translation;
+    }
+
     public function remove(Translation $translation): self
     {
         $key = array_search($translation, $this->translations);

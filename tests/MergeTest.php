@@ -56,7 +56,9 @@ class MergeTest extends TestCase
             ->set('Language', 'gl_ES');
 
         $translation = Translation::create(null, 'title');
-        $translation->getReferences()->add('template.php', 2);
+        $translation->getReferences()
+            ->add('template.php', 2)
+            ->add('other-template.php', 2);
         $translation->translate('Título');
         $translations->add($translation);
 

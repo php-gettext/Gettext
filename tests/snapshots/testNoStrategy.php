@@ -21,6 +21,9 @@
                 'template.php' => [
                     3,
                     2
+                ],
+                'other-template.php' => [
+                    2
                 ]
             ],
             'flags' => [],

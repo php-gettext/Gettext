@@ -63,7 +63,7 @@ abstract class Scanner implements ScannerInterface
 
         $translation = Translation::create($context, $original);
 
-        $this->translations[$domain]->add($translation);
+        $this->translations[$domain]->addOrMerge($translation);
 
         if (isset($plural)) {
             $translation->setPlural($plural);
