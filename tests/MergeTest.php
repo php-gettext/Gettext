@@ -126,11 +126,11 @@ class MergeTest extends TestCase
 
     private function assertSnapshot(string $name, Translations $translations, bool $forceCreate = false)
     {
-        $file = __DIR__."/snapshots/{$name}";
+        $file = __DIR__."/snapshots/{$name}.php";
         $array = $translations->toArray();
 
         if (!is_file($file) || $forceCreate) {
-            $code = sprintf('<?php %s', VarExporter::export($array, true));
+            $code = sprintf('<?php %s', VarExporter::export($array, VarExporter::ADD_RETURN));
             file_put_contents($file, $code);
         }
 
