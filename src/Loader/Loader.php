@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Loader;
 
@@ -8,14 +7,14 @@ use Gettext\Translation;
 use Exception;
 
 /**
- * Base class with common funtions for all loaders
+ * Base class with common funtions for all loaders.
  */
 abstract class Loader implements LoaderInterface
 {
     public function loadFile(string $filename, Translations $translations = null): Translations
     {
         $string = static::readFile($filename);
-        
+
         return $this->loadString($string, $translations);
     }
 

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Generator;
 
@@ -81,6 +80,7 @@ final class PoGenerator extends Generator
 
         if ($total === 1) {
             $lines[] = sprintf('%s%s %s', $prefix, $name, self::encode($newLines[0]));
+
             return;
         }
 

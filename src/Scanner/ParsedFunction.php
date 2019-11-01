@@ -1,10 +1,9 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Scanner;
 
 /**
- * Class to handle the info of a parsed function
+ * Class to handle the info of a parsed function.
  */
 final class ParsedFunction
 {

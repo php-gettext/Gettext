@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -53,7 +53,6 @@ class TranslationTest extends TestCase
         $this->assertNotSame($translation->getExtractedComments(), $clone->getExtractedComments());
         $this->assertNotSame($translation->getFlags(), $clone->getFlags());
         $this->assertNotSame($translation->getReferences(), $clone->getReferences());
-
     }
 
     public function testMergeTranslation()
@@ -73,7 +72,7 @@ class TranslationTest extends TestCase
         $translation2->getReferences()
             ->add('template.php', 44)
             ->add('template2.php', 55);
-        
+
         $merged = $translation1->mergeWith($translation2);
 
         $this->assertSame('context', $merged->getContext());
@@ -90,7 +89,7 @@ class TranslationTest extends TestCase
         $this->assertCount(3, $merged->getReferences());
         $this->assertSame([
             'template.php' => [34, 44],
-            'template2.php' => [55]
+            'template2.php' => [55],
         ], $merged->getReferences()->toArray());
 
         $this->assertCount(1, $merged->getExtractedComments());

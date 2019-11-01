@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Loader;
 
@@ -7,7 +6,7 @@ use Gettext\Translations;
 use Gettext\Translation;
 
 /**
- * Class to load a PO file
+ * Class to load a PO file.
  */
 final class PoLoader extends Loader
 {
@@ -24,7 +23,7 @@ final class PoLoader extends Loader
         while ($line !== false) {
             $line = trim($line);
             $nextLine = next($lines);
-            
+
             //Multiline
             while (substr($line, -1, 1) === '"'
                 && $nextLine !== false

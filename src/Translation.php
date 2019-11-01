@@ -1,10 +1,9 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext;
 
 /**
- * Class to manage an individual translation
+ * Class to manage an individual translation.
  */
 class Translation
 {

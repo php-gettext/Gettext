@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext;
 
@@ -35,7 +34,7 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     {
         return $this->toArray();
     }
-    
+
     public function set(string $name, string $value): self
     {
         $this->headers[$name] = trim($value);
@@ -43,16 +42,16 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
 
         return $this;
     }
-    
+
     public function get(string $name): ?string
     {
         return $this->headers[$name] ?? null;
     }
-    
+
     public function delete(string $name): self
     {
         unset($this->headers[$name]);
-        
+
         return $this;
     }
 
@@ -110,7 +109,7 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     /**
      * Returns the parsed plural definition.
      *
-     * @param null|array [count, rule]
+     * @return array|null [count, rule]
      */
     public function getPluralForm(): ?array
     {

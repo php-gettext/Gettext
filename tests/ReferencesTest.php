@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -13,17 +13,17 @@ class ReferencesTest extends TestCase
 
         $this->assertSame([], $references->jsonSerialize());
         $this->assertCount(0, $references);
-        
+
         $references->add('filename.php', 34);
-        
+
         $this->assertSame(['filename.php' => [34]], $references->jsonSerialize());
         $this->assertCount(1, $references);
-        
+
         $references->add('filename.php', 34);
-        
+
         $this->assertSame(['filename.php' => [34]], $references->jsonSerialize());
         $this->assertCount(1, $references);
-        
+
         $references->add('filename.php', 44);
 
         $this->assertSame(['filename.php' => [34, 44]], $references->jsonSerialize());
@@ -52,7 +52,7 @@ class ReferencesTest extends TestCase
             ->add('filename2.php')
             ->add('filename4.php')
             ->add('filename3.php', 10);
-        
+
         $merged = $references1->mergeWith($references2);
 
         $this->assertCount(6, $merged);
@@ -71,8 +71,8 @@ class ReferencesTest extends TestCase
     {
         $state = [
             'references' => [
-                'filename.php' => [1, 2, 3]
-            ]
+                'filename.php' => [1, 2, 3],
+            ],
         ];
         $references = References::__set_state($state);
 

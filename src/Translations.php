@@ -1,10 +1,8 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext;
 
 use Gettext\Languages\Language;
-use BadMethodCallException;
 use InvalidArgumentException;
 use IteratorAggregate;
 use ArrayIterator;
@@ -56,7 +54,7 @@ class Translations implements Countable, IteratorAggregate
                     return $translation->toArray();
                 },
                 array_values($this->translations)
-            )
+            ),
         ];
     }
 

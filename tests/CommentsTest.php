@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -13,17 +13,17 @@ class CommentsTest extends TestCase
 
         $this->assertSame([], $comments->toArray());
         $this->assertCount(0, $comments);
-        
+
         $comments->add('foo');
-        
+
         $this->assertSame(['foo'], $comments->toArray());
         $this->assertCount(1, $comments);
-        
+
         $comments->add('foo');
-        
+
         $this->assertSame(['foo'], $comments->toArray());
         $this->assertCount(1, $comments);
-        
+
         $comments->add('bar');
 
         $this->assertSame(['foo', 'bar'], $comments->toArray());

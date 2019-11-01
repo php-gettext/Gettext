@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
 use Gettext\Translation;
-use Gettext\Translations;
 use Gettext\Loader\MoLoader;
 use PHPUnit\Framework\TestCase;
 
@@ -13,9 +12,9 @@ class MoLoaderTest extends TestCase
     {
         $loader = new MoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.mo');
-        
+
         $this->assertCount(10, $translations);
-        
+
         $array = $translations->getTranslations();
 
         $this->translation1(array_shift($array));

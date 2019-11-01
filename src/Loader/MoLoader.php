@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Loader;
 
@@ -8,7 +7,7 @@ use Gettext\Translation;
 use Exception;
 
 /**
- * Class to load a MO file
+ * Class to load a MO file.
  */
 final class MoLoader extends Loader
 {
@@ -99,10 +98,10 @@ final class MoLoader extends Loader
             $translation->translate(array_shift($v));
             $translation->translatePlural($v);
         }
-        
+
         return $translations;
     }
-    
+
     private function init(string $string): void
     {
         $this->string = $string;

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -17,13 +17,12 @@ class PoGeneratorTest extends TestCase
         $translations->getHeaders()
             ->set('Content-Type', 'text/plain; charset=UTF-8')
             ->set('X-Generator', 'PHP-Gettext');
-        
-        
+
         $translation = Translation::create('context-1', 'Original');
         $translation->getComments()->add('This is a comment');
         $translation->getReferences()->add('/my/template.php', 45);
         $translations->add($translation);
-        
+
         $translation = Translation::create('context-1', 'Other comment', 'Other comments');
         $translation->translate('Outro comentario');
         $translation->translatePlural('Outros comentarios');
@@ -36,7 +35,7 @@ class PoGeneratorTest extends TestCase
         $translation->translate('Comentario deshabilitado');
         $translation->getComments()->add('This is a disabled comment');
         $translations->add($translation);
-        
+
         $result = $generator->generateString($translations);
 
         $expected = <<<EOT

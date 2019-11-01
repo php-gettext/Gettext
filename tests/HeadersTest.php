@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -14,19 +14,19 @@ class HeadersTest extends TestCase
 
         $this->assertSame([], $headers->jsonSerialize());
         $this->assertCount(0, $headers);
-        
+
         $headers->set('foo', 'bar');
-        
+
         $this->assertSame(['foo' => 'bar'], $headers->jsonSerialize());
         $this->assertCount(1, $headers);
         $this->assertSame('bar', $headers->get('foo'));
-        
+
         $headers->set('foo', 'bar2');
 
         $this->assertSame(['foo' => 'bar2'], $headers->jsonSerialize());
         $this->assertCount(1, $headers);
         $this->assertSame('bar2', $headers->get('foo'));
-        
+
         $headers->set('foo2', 'bar2');
 
         $this->assertSame(['foo' => 'bar2', 'foo2' => 'bar2'], $headers->jsonSerialize());
@@ -61,7 +61,7 @@ class HeadersTest extends TestCase
         $this->assertSame('gl_ES', $headers->get(Headers::HEADER_LANGUAGE));
         $this->assertSame('gl_ES', $headers->getLanguage());
     }
-    
+
     public function testInvalidLanguage()
     {
         $this->expectException(InvalidArgumentException::class);

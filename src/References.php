@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext;
 
@@ -77,7 +76,7 @@ class References implements JsonSerializable, Countable, IteratorAggregate
                 $merged->add($filename, $line);
             }
         }
-        
+
         return $merged;
     }
 }

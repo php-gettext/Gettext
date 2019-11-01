@@ -1,17 +1,13 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Scanner;
 
 use Exception;
 use Gettext\Translations;
 use Gettext\Translation;
-use Gettext\Scanner\ParsedFunction;
-use Gettext\Scanner\PhpFunctionsScanner;
-use Gettext\Scanner\FunctionsScannerInterface;
 
 /**
- * Class to scan files with code and get gettext translations
+ * Class to scan files with code and get gettext translations.
  */
 abstract class CodeScanner extends Scanner
 {
@@ -76,7 +72,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 2);
         list($original, $plural) = $function->getArguments();
-        
+
         return $this->saveTranslation(null, null, $original, $plural);
     }
 
@@ -84,7 +80,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 2);
         list($context, $original) = $function->getArguments();
-        
+
         return $this->saveTranslation(null, $context, $original);
     }
 
@@ -92,7 +88,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 2);
         list($domain, $original) = $function->getArguments();
-        
+
         return $this->saveTranslation($domain, null, $original);
     }
 
@@ -100,7 +96,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 3);
         list($domain, $context, $original) = $function->getArguments();
-        
+
         return $this->saveTranslation($domain, $context, $original);
     }
 
@@ -108,7 +104,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 3);
         list($context, $original, $plural) = $function->getArguments();
-        
+
         return $this->saveTranslation(null, $context, $original, $plural);
     }
 
@@ -116,7 +112,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 3);
         list($domain, $original, $plural) = $function->getArguments();
-        
+
         return $this->saveTranslation($domain, null, $original, $plural);
     }
 
@@ -124,7 +120,7 @@ abstract class CodeScanner extends Scanner
     {
         static::checkArguments($function, 4);
         list($domain, $context, $original, $plural) = $function->getArguments();
-        
+
         return $this->saveTranslation($domain, $context, $original, $plural);
     }
 
@@ -140,7 +136,7 @@ abstract class CodeScanner extends Scanner
                 )
             );
         }
-        
+
         $arguments = array_slice($function->getArguments(), 0, $minLength);
 
         if (in_array(null, $arguments, true)) {

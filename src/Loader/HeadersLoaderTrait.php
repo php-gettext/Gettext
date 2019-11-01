@@ -1,9 +1,6 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Loader;
-
-use Gettext\Translations;
 
 /**
  * Trait to provide the functionality to parsing headers.

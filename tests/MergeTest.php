@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -101,7 +101,7 @@ class MergeTest extends TestCase
     }
 
     /**
-     * We want to use the scanner to fetch new entries and complete them with PO files
+     * We want to use the scanner to fetch new entries and complete them with PO files.
      */
     public function testScanAndLoadStrategy()
     {
@@ -125,7 +125,7 @@ class MergeTest extends TestCase
 
     private function assertSnapshot(string $name, Translations $translations, bool $forceCreate = false)
     {
-        $file = __DIR__."/snapshots/{$name}.php";
+        $file = __DIR__."/snapshots/{$name}";
         $array = $translations->toArray();
 
         if (!is_file($file) || $forceCreate) {

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Generator;
 
@@ -67,12 +66,12 @@ final class MoGenerator extends Generator
 
             $originalsIndex[] = [
                 'relativeOffset' => strlen($originalsTable),
-                'length' => strlen($originalString)
+                'length' => strlen($originalString),
             ];
             $originalsTable .= $originalString."\x00";
             $translationsIndex[] = [
                 'relativeOffset' => strlen($translationsTable),
-                'length' => strlen($translationString)
+                'length' => strlen($translationString),
             ];
             $translationsTable .= $translationString."\x00";
         }

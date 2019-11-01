@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext;
 
@@ -74,7 +73,7 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
     {
         $merged = clone $this;
         $merged->add(...$flags->flags);
-        
+
         return $merged;
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Gettext\Tests;
 
@@ -13,22 +13,22 @@ class FlagsTest extends TestCase
 
         $this->assertSame([], $flags->toArray());
         $this->assertCount(0, $flags);
-        
+
         $flags->add('foo');
-        
+
         $this->assertSame(['foo'], $flags->toArray());
         $this->assertCount(1, $flags);
-        
+
         $flags->add('foo');
-        
+
         $this->assertSame(['foo'], $flags->toArray());
         $this->assertCount(1, $flags);
-        
+
         $flags->add('bar');
 
         $this->assertSame(['bar', 'foo'], $flags->toArray());
         $this->assertCount(2, $flags);
-        
+
         $flags->add('one', 'two', 'three');
 
         $this->assertSame(['bar', 'foo', 'one', 'three', 'two'], $flags->toArray());

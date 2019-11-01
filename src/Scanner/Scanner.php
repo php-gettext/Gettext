@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Gettext\Scanner;
 
@@ -8,7 +7,7 @@ use Gettext\Translation;
 use Exception;
 
 /**
- * Base class with common funtions for all scanners
+ * Base class with common funtions for all scanners.
  */
 abstract class Scanner implements ScannerInterface
 {
