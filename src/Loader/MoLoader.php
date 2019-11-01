@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Loader;
 
-use Gettext\Translations;
-use Gettext\Translation;
 use Exception;
+use Gettext\Translation;
+use Gettext\Translations;
 
 /**
  * Class to load a MO file.

@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Gettext\Translation;
 use Gettext\Comments;
 use Gettext\Flags;
 use Gettext\References;
+use Gettext\Translation;
 use PHPUnit\Framework\TestCase;
 
 class TranslationTest extends TestCase

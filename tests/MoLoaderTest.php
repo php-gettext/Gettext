@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Gettext\Translation;
 use Gettext\Loader\MoLoader;
+use Gettext\Translation;
 use PHPUnit\Framework\TestCase;
 
 class MoLoaderTest extends TestCase

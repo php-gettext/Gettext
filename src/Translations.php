@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext;
 
+use ArrayIterator;
+use Countable;
 use Gettext\Languages\Language;
 use InvalidArgumentException;
 use IteratorAggregate;
-use ArrayIterator;
-use Countable;
 
 /**
  * Class to manage a collection of translations under the same domain.

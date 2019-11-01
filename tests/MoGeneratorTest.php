@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Gettext\Translation;
-use Gettext\Translations;
 use Gettext\Generator\MoGenerator;
 use Gettext\Loader\MoLoader;
+use Gettext\Translation;
+use Gettext\Translations;
 use PHPUnit\Framework\TestCase;
 
 class MoGeneratorTest extends TestCase

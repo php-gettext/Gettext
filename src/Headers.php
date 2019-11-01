@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext;
 
-use JsonSerializable;
-use IteratorAggregate;
 use ArrayIterator;
 use Countable;
 use InvalidArgumentException;
+use IteratorAggregate;
+use JsonSerializable;
 
 /**
  * Class to manage the headers of translations.

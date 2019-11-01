@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext;
 
-use JsonSerializable;
-use IteratorAggregate;
 use ArrayIterator;
 use Countable;
+use IteratorAggregate;
+use JsonSerializable;
 
 /**
  * Class to manage the comments of a translation.

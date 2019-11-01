@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Scanner;
 
 use Exception;
-use Gettext\Translations;
 use Gettext\Translation;
+use Gettext\Translations;
 
 /**
  * Class to scan files with code and get gettext translations.

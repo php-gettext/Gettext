@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Loader;
 
-use Gettext\Translations;
 use Gettext\Translation;
+use Gettext\Translations;
 
 /**
  * Class to load a PO file.
@@ -65,17 +66,14 @@ final class PoLoader extends Loader
                 case '#':
                     $translation->getComments()->add($data);
                     break;
-
                 case '#.':
                     $translation->getExtractedComments()->add($data);
                     break;
-
                 case '#,':
                     foreach (array_map('trim', explode(',', trim($data))) as $value) {
                         $translation->getFlags()->add($value);
                     }
                     break;
-
                 case '#:':
                     foreach (preg_split('/\s+/', trim($data)) as $value) {
                         if (preg_match('/^(.+)(:(\d*))?$/U', $value, $matches)) {
@@ -84,28 +82,22 @@ final class PoLoader extends Loader
                         }
                     }
                     break;
-
                 case 'msgctxt':
                     $translation = $translation->withContext(self::decode($data));
                     break;
-
                 case 'msgid':
                     $translation = $translation->withOriginal(self::decode($data));
                     break;
-
                 case 'msgid_plural':
                     $translation->setPlural(self::decode($data));
                     break;
-
                 case 'msgstr':
                 case 'msgstr[0]':
                     $translation->translate(self::decode($data));
                     break;
-
                 case 'msgstr[1]':
                     $translation->translatePlural(self::decode($data));
                     break;
-
                 default:
                     if (strpos($key, 'msgstr[') === 0) {
                         $p = $translation->getPluralTranslations();

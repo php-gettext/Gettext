@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
-use Gettext\Translation;
 use Gettext\Loader\PoLoader;
+use Gettext\Translation;
 use PHPUnit\Framework\TestCase;
 
 class PoLoaderTest extends TestCase
@@ -227,6 +228,8 @@ class PoLoaderTest extends TestCase
 
     /**
      * @dataProvider stringDecodeProvider
+     * @param mixed $source
+     * @param mixed $decoded
      */
     public function testStringDecode($source, $decoded)
     {

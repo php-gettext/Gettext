@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
+use Gettext\Generator\PoGenerator;
 use Gettext\Translation;
 use Gettext\Translations;
-use Gettext\Generator\PoGenerator;
 use PHPUnit\Framework\TestCase;
 
 class PoGeneratorTest extends TestCase
@@ -38,14 +39,14 @@ class PoGeneratorTest extends TestCase
 
         $result = $generator->generateString($translations);
 
-        $expected = <<<EOT
+        $expected = <<<'EOT'
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\\n"
-"Language: gl_ES\\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\\n"
-"X-Domain: my-domain\\n"
-"X-Generator: PHP-Gettext\\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: gl_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Domain: my-domain\n"
+"X-Generator: PHP-Gettext\n"
 
 # This is a comment
 #: /my/template.php:45
@@ -81,6 +82,8 @@ EOT;
 
     /**
      * @dataProvider stringEncodeProvider
+     * @param mixed $encoded
+     * @param mixed $decoded
      */
     public function testStringEncode($encoded, $decoded)
     {

@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Generator;
 
-use Gettext\Translations;
 use Gettext\Translation;
+use Gettext\Translations;
 
 final class MoGenerator extends Generator
 {

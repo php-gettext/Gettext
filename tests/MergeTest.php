@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
+use Brick\VarExporter\VarExporter;
+use Gettext\Merge;
 use Gettext\Translation;
 use Gettext\Translations;
-use Gettext\Merge;
 use PHPUnit\Framework\TestCase;
-use Brick\VarExporter\VarExporter;
 
 class MergeTest extends TestCase
 {
