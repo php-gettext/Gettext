@@ -90,7 +90,7 @@ class Translation
         return $clone;
     }
 
-    public function getOriginal(): ?string
+    public function getOriginal(): string
     {
         return $this->original;
     }
@@ -225,7 +225,7 @@ class Translation
             $merged->plural = $translation->plural;
         }
 
-        if (!$merged->pluralTranslations || ($translation->getPluralTranslations && $override)) {
+        if (empty($merged->pluralTranslations) || (!empty($translation->pluralTranslations) && $override)) {
             $merged->pluralTranslations = $translation->pluralTranslations;
         }
 

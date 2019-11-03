@@ -22,7 +22,7 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
 
     public function __construct(string ...$flags)
     {
-        if ($flags) {
+        if (!empty($flags)) {
             $this->add(...$flags);
         }
     }

@@ -8,8 +8,12 @@ namespace Gettext\Loader;
  */
 trait HeadersLoaderTrait
 {
-    private static function parseHeaders(string $string): array
+    private static function parseHeaders(?string $string): array
     {
+        if (empty($string)) {
+            return [];
+        }
+
         $headers = [];
         $lines = explode("\n", $string);
         $name = null;

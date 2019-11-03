@@ -22,7 +22,7 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
 
     public function __construct(string ...$comments)
     {
-        if ($comments) {
+        if (!empty($comments)) {
             $this->add(...$comments);
         }
     }
