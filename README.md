@@ -6,6 +6,8 @@
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+> Note: this is the documentation of the new 5.x version. Go to [4.x branch](https://github.com/php-gettext/Gettext/tree/4.x) if you're looking for the old 4.x version
+
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
 Gettext is a PHP (^7.2) library to import/export/edit gettext from PO, MO, PHP, JS files, etc.
@@ -260,7 +262,7 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/php-gettext/Gettext.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/gettext/Gettext.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/middlewares/utils
-[link-travis]: https://travis-ci.org/middlewares/utils
-[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/utils
-[link-downloads]: https://packagist.org/packages/middlewares/utils
+[link-packagist]: https://packagist.org/packages/gettext/Gettext
+[link-travis]: https://travis-ci.org/php-gettext/Gettext
+[link-scrutinizer]: https://scrutinizer-ci.com/g/php-gettext/Gettext
+[link-downloads]: https://packagist.org/packages/gettext/Gettext
