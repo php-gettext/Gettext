@@ -256,13 +256,13 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes a
 
 The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/gettext/Gettext.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/gettext/gettext.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/php-gettext/Gettext/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/php-gettext/Gettext.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/gettext/Gettext.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/gettext/gettext.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/gettext/Gettext
+[link-packagist]: https://packagist.org/packages/gettext/gettext
 [link-travis]: https://travis-ci.org/php-gettext/Gettext
 [link-scrutinizer]: https://scrutinizer-ci.com/g/php-gettext/Gettext
-[link-downloads]: https://packagist.org/packages/gettext/Gettext
+[link-downloads]: https://packagist.org/packages/gettext/gettext
