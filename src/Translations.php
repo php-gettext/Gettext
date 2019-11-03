@@ -179,4 +179,18 @@ class Translations implements Countable, IteratorAggregate
 
         return $merged;
     }
+
+    /**
+     * Create a new instance of a Translation object.
+     *
+     * @param string $context  The context of the translation
+     * @param string $original The original string
+     * @param string $plural   The original plural string
+     * @return Translation New Translation instance
+     */
+    public function createNewTranslation($context, $original, $plural = '')
+    {
+        $class = $this->translationClass;
+        return $class::create($context, $original, $plural);
+    }
 }
