@@ -1,13 +1,10 @@
 # Gettext
 
-[![Build Status](https://travis-ci.org/oscarotero/Gettext.png?branch=master)](https://travis-ci.org/oscarotero/Gettext)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oscarotero/Gettext/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oscarotero/Gettext/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/gettext/gettext/v/stable.svg)](https://packagist.org/packages/gettext/gettext)
-[![Total Downloads](https://poser.pugx.org/gettext/gettext/downloads.svg)](https://packagist.org/packages/gettext/gettext)
-[![Monthly Downloads](https://poser.pugx.org/gettext/gettext/d/monthly.png)](https://packagist.org/packages/gettext/gettext)
-[![License](https://poser.pugx.org/gettext/gettext/license.svg)](https://packagist.org/packages/gettext/gettext)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/496dc2a6-43be-4046-a283-f8370239dd47/big.png)](https://insight.sensiolabs.com/projects/496dc2a6-43be-4046-a283-f8370239dd47)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE)
+[![Build Status][ico-travis]][link-travis]
+[![Quality Score][ico-scrutinizer]][link-scrutinizer]
+[![Total Downloads][ico-downloads]][link-downloads]
 
 Created by Oscar Otero <http://oscarotero.com> <oom@oscarotero.com> (MIT License)
 
@@ -118,6 +115,10 @@ This package includes the following loaders:
 - `MoLoader`
 - `PoLoader`
 
+And you can install other formats with loaders and generators:
+
+- [Json](https://github.com/php-gettext/Json)
+
 ## Generators
 
 The generators export a `Gettext\Translations` instance to any format (po, mo, etc).
@@ -146,10 +147,14 @@ This package includes the following generators:
 - `MoGenerator`
 - `PoGenerator`
 
+And you can install other formats with loaders and generators:
+
+- [Json](https://github.com/php-gettext/Json)
+
 
 ## Scanners
 
-Scanners allow to search and extract new gettext entries from different sources like php files, twig templates, blade templates, etc. Unlike loaders, scanners allows to extract gettext entries with different domains:
+Scanners allow to search and extract new gettext entries from different sources like php files, twig templates, blade templates, etc. Unlike loaders, scanners allows to extract gettext entries with different domains at the same time:
 
 ```php
 use Gettext\Scanner\PhpScanner;
@@ -170,6 +175,11 @@ foreach (glob('*.php') as $file) {
 //Get the translations
 list($domain1, $domain2, $domain3) = $phpScanner->getTranslations();
 ```
+
+This package does not include any scanner by default. But there are some that you can install:
+
+- [PHP Scanner](https://github.com/php-gettext/PHP-Scanner)
+- [JS Scanner](https://github.com/php-gettext/JS-Scanner)
 
 ## Merging translations
 
@@ -237,3 +247,20 @@ If this library is useful for you, consider to donate to the author.
 [Buy me a beer :beer:](https://www.paypal.me/oscarotero)
 
 Thanks in advance!
+
+---
+
+Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
+
+The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/gettext/Gettext.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/php-gettext/Gettext/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/php-gettext/Gettext.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/gettext/Gettext.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/middlewares/utils
+[link-travis]: https://travis-ci.org/middlewares/utils
+[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/utils
+[link-downloads]: https://packagist.org/packages/middlewares/utils
