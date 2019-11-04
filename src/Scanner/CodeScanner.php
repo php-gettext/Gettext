@@ -51,7 +51,7 @@ abstract class CodeScanner extends Scanner
         return $this->functions;
     }
 
-    public function scanString(string $string, string $filename = null): void
+    public function scanString(string $string, string $filename): void
     {
         $functionsScanner = $this->getFunctionsScanner();
         $functions = $functionsScanner->scan($string, $filename);

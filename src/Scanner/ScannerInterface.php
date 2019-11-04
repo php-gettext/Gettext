@@ -18,5 +18,5 @@ interface ScannerInterface
 
     public function scanFile(string $filename): void;
 
-    public function scanString(string $string, string $filename = null): void;
+    public function scanString(string $string, string $filename): void;
 }
