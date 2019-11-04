@@ -26,6 +26,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 ### Removed
 - Extractors (now scanners and loaders), generators and translators were removed from this package and published as external packages, allowing to install only those that you need. Only Po and Mo formats are included by default.
 - Removed magic classes like `Translations::fromPoFile` or `$translation->toMoFile()`. Now, the scanners, loaders and generators are independent classes that have to be instantiated.
+- Removed `Merge::LANGUAGE_OVERRIDE` and `Merge::DOMAIN_OVERRIDE` contants
 
 ### Fixed
 - Improved code quality
