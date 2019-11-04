@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.0] - 2019-11-04
+### Changed
+- Many `private` properties and methods were changed to `protected` in order to improve the extensibility #231
+
+### Fixed
+- PHP 7.4 support #230
+
 ## [4.7.0] - 2019-10-07
 ### Added
 - Support for UnitID in Xliff [#221] [#224] [#225]
