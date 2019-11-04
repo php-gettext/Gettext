@@ -11,8 +11,6 @@ use Gettext\Translations;
  */
 final class PoLoader extends Loader
 {
-    use HeadersLoaderTrait;
-
     public function loadString(string $string, Translations $translations = null): Translations
     {
         $translations = parent::loadString($string, $translations);
@@ -131,6 +129,40 @@ final class PoLoader extends Loader
         }
 
         return $translations;
+    }
+
+    private static function parseHeaders(?string $string): array
+    {
+        if (empty($string)) {
+            return [];
+        }
+
+        $headers = [];
+        $lines = explode("\n", $string);
+        $name = null;
+
+        foreach ($lines as $line) {
+            $line = self::decode($line);
+
+            if ($line === '') {
+                continue;
+            }
+
+            // Checks if it is a header definition line.
+            // Useful for distinguishing between header definitions and possible continuations of a header entry.
+            if (preg_match('/^[\w-]+:/', $line)) {
+                $pieces = array_map('trim', explode(':', $line, 2));
+                list($name, $value) = $pieces;
+
+                $headers[$name] = $value;
+                continue;
+            }
+
+            $value = $headers[$name] ?? '';
+            $headers[$name] = $value.$line;
+        }
+
+        return $headers;
     }
 
     /**
