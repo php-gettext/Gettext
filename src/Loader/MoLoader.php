@@ -130,7 +130,7 @@ final class MoLoader extends Loader
             return 0;
         }
 
-        $read = unpack($byteOrder, $read);
+        $read = (array) unpack($byteOrder, $read);
 
         return (int) array_shift($read);
     }

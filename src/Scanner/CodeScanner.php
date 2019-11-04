@@ -8,7 +8,7 @@ use Gettext\Translation;
 use Gettext\Translations;
 
 /**
- * Class to scan files with code and get gettext translations.
+ * Base class with common functions to scan files with code and get gettext translations.
  */
 abstract class CodeScanner extends Scanner
 {
@@ -32,6 +32,24 @@ abstract class CodeScanner extends Scanner
         'noop' => 'gettext',
         'noop__' => 'gettext',
     ];
+
+    /**
+     * @param array $functions [fnName => handler]
+     */
+    public function setFunctions(array $functions): self
+    {
+        $this->functions = $functions;
+
+        return $this;
+    }
+
+    /**
+     * @return array [fnName => handler]
+     */
+    public function getFunctions(): array
+    {
+        return $this->functions;
+    }
 
     public function scanString(string $string, string $filename = null): void
     {
