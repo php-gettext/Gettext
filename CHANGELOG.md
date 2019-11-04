@@ -8,11 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
 ## [5.0.0] - Unreleased
-
 ### Added
 - New interfaces: `ScannerInterface` and `FunctionsScannerInterface`.
 
-### Change
+### Changed
 - Moved the package and all dependencies to [php-gettext](https://github.com/php-gettext) organization
 - Minimum PHP version supported is 7.2
 - Added strict typing supported by php 7.x
@@ -32,6 +31,13 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 - Improved code quality
 - The library is easier to extend
 - Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
+
+## [4.8.0] - 2019-11-04
+### Changed
+- Many `private` properties and methods were changed to `protected` in order to improve the extensibility [#231]
+
+### Fixed
+- PHP 7.4 support [#230]
 
 ## [4.7.0] - 2019-10-07
 ### Added
@@ -162,8 +168,12 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#224]: https://github.com/oscarotero/Gettext/issues/224
 [#225]: https://github.com/oscarotero/Gettext/issues/225
 [#226]: https://github.com/oscarotero/Gettext/issues/226
+[#230]: https://github.com/oscarotero/Gettext/issues/230
+[#231]: https://github.com/oscarotero/Gettext/issues/231
 
-[4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...HEAD
+[5.0.0]: https://github.com/oscarotero/Gettext/compare/v4.8.0...HEAD
+[4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
+[4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...v4.7.0
 [4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
 [4.6.2]: https://github.com/oscarotero/Gettext/compare/v4.6.1...v4.6.2
 [4.6.1]: https://github.com/oscarotero/Gettext/compare/v4.6.0...v4.6.1
