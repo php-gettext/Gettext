@@ -9,8 +9,29 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 
 ## [5.0.0] - Unreleased
 
+### Added
+- New interfaces: `ScannerInterface` and `FunctionsScannerInterface`.
+
 ### Change
+- Moved the package and all dependencies to [php-gettext](https://github.com/php-gettext) organization
 - Minimum PHP version supported is 7.2
+- Added strict typing supported by php 7.x
+- Extractors have been split into two different types of classes to import translations:
+  - Scanners: To scan code files (like php, javascript, twig, etc) in order to collect gettext entries from many domains at the same time.
+  - Loaders: To load a translation format such po, mo, xliff, etc
+- Split the `Translation` and `Translations` classes in different sub-classes to handle comments, flags, references, etc. For example, instead `$translation->addComment('foo')` now it's `$translation->getComments()->add('foo')`.
+- Simplified the options to merge translations with pre-configured options like `Merged::SCAN_AND_LOAD`.
+- The headers of translations are always sorted alphabetically.
+- Changed the signature of all classes and interfaces.
+
+### Removed
+- Extractors (now scanners and loaders), generators and translators were removed from this package and published as external packages, allowing to install only those that you need. Only Po and Mo formats are included by default.
+- Removed magic classes like `Translations::fromPoFile` or `$translation->toMoFile()`. Now, the scanners, loaders and generators are independent classes that have to be instantiated.
+
+### Fixed
+- Improved code quality
+- The library is easier to extend
+- Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
 
 ## [4.7.0] - 2019-10-07
 ### Added
