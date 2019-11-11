@@ -12,6 +12,8 @@ use Gettext\Translations;
  */
 abstract class CodeScanner extends Scanner
 {
+    protected $ignoreInvalidFunctions = false;
+
     protected $functions = [
         'gettext' => 'gettext',
         '__' => 'gettext',
@@ -51,6 +53,13 @@ abstract class CodeScanner extends Scanner
         return $this->functions;
     }
 
+    public function ignoreInvalidFunctions($ignore = true): self
+    {
+        $this->ignoreInvalidFunctions = $ignore;
+
+        return $this;
+    }
+
     public function scanString(string $string, string $filename): void
     {
         $functionsScanner = $this->getFunctionsScanner();
@@ -81,71 +90,83 @@ abstract class CodeScanner extends Scanner
 
     protected function gettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 1);
+        if (!$this->checkFunction($function, 1)) {
+            return null;
+        }
         list($original) = $function->getArguments();
-
         return $this->saveTranslation(null, null, $original);
     }
 
     protected function ngettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 2);
+        if (!$this->checkFunction($function, 2)) {
+            return null;
+        }
         list($original, $plural) = $function->getArguments();
-
         return $this->saveTranslation(null, null, $original, $plural);
     }
 
     protected function pgettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 2);
+        if (!$this->checkFunction($function, 2)) {
+            return null;
+        }
         list($context, $original) = $function->getArguments();
-
         return $this->saveTranslation(null, $context, $original);
     }
 
     protected function dgettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 2);
+        if (!$this->checkFunction($function, 2)) {
+            return null;
+        }
         list($domain, $original) = $function->getArguments();
-
         return $this->saveTranslation($domain, null, $original);
     }
 
     protected function dpgettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 3);
+        if (!$this->checkFunction($function, 3)) {
+            return null;
+        }
         list($domain, $context, $original) = $function->getArguments();
-
         return $this->saveTranslation($domain, $context, $original);
     }
 
     protected function npgettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 3);
+        if (!$this->checkFunction($function, 3)) {
+            return null;
+        }
         list($context, $original, $plural) = $function->getArguments();
-
         return $this->saveTranslation(null, $context, $original, $plural);
     }
 
     protected function dngettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 3);
+        if (!$this->checkFunction($function, 3)) {
+            return null;
+        }
         list($domain, $original, $plural) = $function->getArguments();
-
         return $this->saveTranslation($domain, null, $original, $plural);
     }
 
     protected function dnpgettext(ParsedFunction $function): ?Translation
     {
-        static::checkArguments($function, 4);
+        if (!$this->checkFunction($function, 4)) {
+            return null;
+        }
         list($domain, $context, $original, $plural) = $function->getArguments();
-
         return $this->saveTranslation($domain, $context, $original, $plural);
     }
 
-    protected static function checkArguments(ParsedFunction $function, int $minLength)
+    protected function checkFunction(ParsedFunction $function, int $minLength): bool
     {
         if ($function->countArguments() < $minLength) {
+            if ($this->ignoreInvalidFunctions) {
+                return false;
+            }
+
             throw new Exception(
                 sprintf(
                     'Invalid gettext function in %s:%d. At least %d arguments are required',
@@ -159,6 +180,10 @@ abstract class CodeScanner extends Scanner
         $arguments = array_slice($function->getArguments(), 0, $minLength);
 
         if (in_array(null, $arguments, true)) {
+            if ($this->ignoreInvalidFunctions) {
+                return false;
+            }
+
             throw new Exception(
                 sprintf(
                     'Invalid gettext function in %s:%d. Some required arguments are not valid',
@@ -167,5 +192,7 @@ abstract class CodeScanner extends Scanner
                 )
             );
         }
+
+        return true;
     }
 }
