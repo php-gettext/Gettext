@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.0.1] - Unreleased
+## [5.1.0] - 2019-11-11
 ### Added
 - New function `CodeScanner::ignoreInvalidFunctions()` to ignore invalid functions instead throw an exception
 
@@ -176,7 +176,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#230]: https://github.com/oscarotero/Gettext/issues/230
 [#231]: https://github.com/oscarotero/Gettext/issues/231
 
-[5.0.1]: https://github.com/oscarotero/Gettext/compare/v5.0.0...HEAD
+[5.1.0]: https://github.com/oscarotero/Gettext/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v5.0.0
 [4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
 [4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...v4.7.0
