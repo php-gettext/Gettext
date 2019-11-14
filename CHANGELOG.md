@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.1] - 2019-11-15
+### Fixed
+- Php error when scanning for a single domain but other string found [#238]
+
 ## [4.8.0] - 2019-11-04
 ### Changed
 - Many `private` properties and methods were changed to `protected` in order to improve the extensibility [#231]
@@ -145,7 +149,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#226]: https://github.com/oscarotero/Gettext/issues/226
 [#230]: https://github.com/oscarotero/Gettext/issues/230
 [#231]: https://github.com/oscarotero/Gettext/issues/231
+[#238]: https://github.com/oscarotero/Gettext/issues/238
 
+[4.8.1]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v4.8.1
 [4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
 [4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...v4.7.0
 [4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
