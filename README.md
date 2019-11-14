@@ -27,8 +27,6 @@ This package contains the following classes:
 * `Gettext\Scanner\*` - Scan files to extract translations (php, js, twig templates, ...)
 * `Gettext\Loader\*` - Load translations from different formats (po, mo, json, ...)
 * `Gettext\Generator\*` - Export translations to various formats (po, mo, json, ...)
-* `Gettext\Translator` - To use the translations in your php templates instead the [gettext extension](http://php.net/gettext)
-* `Gettext\GettextTranslator` - To use the [gettext extension](http://php.net/gettext)
 
 ## Usage example
 
@@ -175,7 +173,7 @@ foreach (glob('*.php') as $file) {
 }
 
 //Get the translations
-list($domain1, $domain2, $domain3) = $phpScanner->getTranslations();
+list('domain1' => $domain1, 'domain2' => $domain2, 'domain3' => $domain3) = $phpScanner->getTranslations();
 ```
 
 This package does not include any scanner by default. But there are some that you can install:
