@@ -167,6 +167,12 @@ $phpScanner = new PhpScanner(
     Translations::create('domain3')
 );
 
+//Set a default domain, so any translations with no domain specified, will be added to that domain
+$phpScanner->setDefaultDomain('domain1');
+
+//Extract all comments starting with 'i18n:' and 'Translators:'
+$phpScanner->extractCommentsStartingWith('i18n:', 'Translators:');
+
 //Scan files
 foreach (glob('*.php') as $file) {
     $phpScanner->scanFile($file);

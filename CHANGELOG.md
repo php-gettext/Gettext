@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.2.0] - Unreleased
+### Added
+- New function `CodeScanner::extractCommentsStartingWith()` to extract comments from the code.
+
 ## [5.1.0] - 2019-11-11
 ### Added
 - New function `CodeScanner::ignoreInvalidFunctions()` to ignore invalid functions instead throw an exception
@@ -37,4 +41,5 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 - The library is easier to extend
 - Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
 
+[5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...HEAD
 [5.1.0]: https://github.com/php-gettext/Gettext/compare/v5.0.0...v5.1.0

@@ -62,7 +62,7 @@ abstract class CodeScanner extends Scanner
         return $this;
     }
 
-    public function addCommentsStartingWith(string ...$prefixes): self
+    public function extractCommentsStartingWith(string ...$prefixes): self
     {
         $this->commentsPrefixes = $prefixes;
 
@@ -201,9 +201,9 @@ abstract class CodeScanner extends Scanner
         );
     }
 
-    protected function addComments(ParsedFunction $function, Translation $translation): Translation
+    protected function addComments(ParsedFunction $function, ?Translation $translation): ?Translation
     {
-        if (empty($this->commentsPrefixes)) {
+        if (empty($this->commentsPrefixes) || empty($translation)) {
             return $translation;
         }
 
@@ -255,7 +255,7 @@ abstract class CodeScanner extends Scanner
     protected function checkComment(string $comment): bool
     {
         foreach ($this->commentsPrefixes as $prefix) {
-            if (strpos($comment, $prefix) === 0) {
+            if ($prefix === '' || strpos($comment, $prefix) === 0) {
                 return true;
             }
         }
