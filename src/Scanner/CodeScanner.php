@@ -14,6 +14,8 @@ abstract class CodeScanner extends Scanner
 {
     protected $ignoreInvalidFunctions = false;
 
+    protected $commentsPrefixes = [];
+
     protected $functions = [
         'gettext' => 'gettext',
         '__' => 'gettext',
@@ -60,6 +62,13 @@ abstract class CodeScanner extends Scanner
         return $this;
     }
 
+    public function extractCommentsStartingWith(string ...$prefixes): self
+    {
+        $this->commentsPrefixes = $prefixes;
+
+        return $this;
+    }
+
     public function scanString(string $string, string $filename): void
     {
         $functionsScanner = $this->getFunctionsScanner();
@@ -94,7 +103,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($original) = $function->getArguments();
-        return $this->saveTranslation(null, null, $original);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation(null, null, $original)
+        );
     }
 
     protected function ngettext(ParsedFunction $function): ?Translation
@@ -103,7 +116,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($original, $plural) = $function->getArguments();
-        return $this->saveTranslation(null, null, $original, $plural);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation(null, null, $original, $plural)
+        );
     }
 
     protected function pgettext(ParsedFunction $function): ?Translation
@@ -112,7 +129,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($context, $original) = $function->getArguments();
-        return $this->saveTranslation(null, $context, $original);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation(null, $context, $original)
+        );
     }
 
     protected function dgettext(ParsedFunction $function): ?Translation
@@ -121,7 +142,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($domain, $original) = $function->getArguments();
-        return $this->saveTranslation($domain, null, $original);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation($domain, null, $original)
+        );
     }
 
     protected function dpgettext(ParsedFunction $function): ?Translation
@@ -130,7 +155,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($domain, $context, $original) = $function->getArguments();
-        return $this->saveTranslation($domain, $context, $original);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation($domain, $context, $original)
+        );
     }
 
     protected function npgettext(ParsedFunction $function): ?Translation
@@ -139,7 +168,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($context, $original, $plural) = $function->getArguments();
-        return $this->saveTranslation(null, $context, $original, $plural);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation(null, $context, $original, $plural)
+        );
     }
 
     protected function dngettext(ParsedFunction $function): ?Translation
@@ -148,7 +181,11 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($domain, $original, $plural) = $function->getArguments();
-        return $this->saveTranslation($domain, null, $original, $plural);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation($domain, null, $original, $plural)
+        );
     }
 
     protected function dnpgettext(ParsedFunction $function): ?Translation
@@ -157,7 +194,26 @@ abstract class CodeScanner extends Scanner
             return null;
         }
         list($domain, $context, $original, $plural) = $function->getArguments();
-        return $this->saveTranslation($domain, $context, $original, $plural);
+
+        return $this->addComments(
+            $function,
+            $this->saveTranslation($domain, $context, $original, $plural)
+        );
+    }
+
+    protected function addComments(ParsedFunction $function, Translation $translation): Translation
+    {
+        if (empty($this->commentsPrefixes)) {
+            return $translation;
+        }
+
+        foreach ($function->getComments() as $comment) {
+            if ($this->checkComment($comment)) {
+                $translation->getExtractedComments()->add($comment);
+            }
+        }
+
+        return $translation;
     }
 
     protected function checkFunction(ParsedFunction $function, int $minLength): bool
@@ -194,5 +250,16 @@ abstract class CodeScanner extends Scanner
         }
 
         return true;
+    }
+
+    protected function checkComment(string $comment): bool
+    {
+        foreach ($this->commentsPrefixes as $prefix) {
+            if (strpos($comment, $prefix) === 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
