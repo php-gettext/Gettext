@@ -62,7 +62,7 @@ abstract class CodeScanner extends Scanner
         return $this;
     }
 
-    public function extractCommentsStartingWith(string ...$prefixes): self
+    public function addCommentsStartingWith(string ...$prefixes): self
     {
         $this->commentsPrefixes = $prefixes;
 
