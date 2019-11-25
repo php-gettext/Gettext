@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.2.0] - Unreleased
+## [5.2.0] - 2019-11-25
 ### Added
 - New function `CodeScanner::extractCommentsStartingWith()` to extract comments from the code.
 
