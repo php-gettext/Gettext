@@ -8,6 +8,7 @@
     {{dgettext('domain2', 'domain2 text')}}
 
     <label :v-text="__('no domain 3')"></label>
+    <label :v-text="__('no domain 4 with diacritics čťľďáé')"></label>
 
 </template>
 

@@ -13,6 +13,10 @@ msgstr ""
 msgid "no domain 3"
 msgstr ""
 
+#: ./tests/assets/vuejs2/input.vue:11
+msgid "no domain 4 with diacritics čťľďáé"
+msgstr ""
+
 #: ./tests/assets/vuejs2/input.vue:2
 msgid "no domain 1"
 msgstr ""
