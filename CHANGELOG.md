@@ -2,10 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
+
+## [4.8.2] - 2019-12-02
+### Fixed
+- UTF-8 handling for VueJs extractor [#242]
 
 ## [4.8.1] - 2019-11-15
 ### Fixed
@@ -150,7 +154,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#230]: https://github.com/oscarotero/Gettext/issues/230
 [#231]: https://github.com/oscarotero/Gettext/issues/231
 [#238]: https://github.com/oscarotero/Gettext/issues/238
+[#242]: https://github.com/oscarotero/Gettext/issues/242
 
+[4.8.2]: https://github.com/oscarotero/Gettext/compare/v4.8.1...v4.8.2
 [4.8.1]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v4.8.1
 [4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
 [4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...v4.7.0
