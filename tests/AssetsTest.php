@@ -557,6 +557,18 @@ class AssetsTest extends AbstractTest
         self::assertCount(0, $translations);
     }
 
+    public function testVueJsUtf8Scanning()
+    {
+        $translations = new Translations();
+
+        VueJs::fromFile(static::asset('vuejs3/input.vue'), $translations);
+
+        self::assertCount(2, $translations);
+
+        self::assertNotFalse($translations->find('', 'Let’s test ā ūtf8 štriņģ 😎️'));
+        self::assertNotFalse($translations->find('', 'We’re happy to have you here, 愛'));
+    }
+
     public function testXliffUnitIds()
     {
         $translations = static::get('xliff/Xliff', 'Xliff', ['unitid_as_id' => true]);
