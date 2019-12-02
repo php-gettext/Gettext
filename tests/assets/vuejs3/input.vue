@@ -1,5 +1,5 @@
 <template>
-    {{ __('Let’s test ā ūtf8 štriņģ ❤️') }}
+    {{ __('Let’s test ā ūtf8 štriņģ 😎️') }}
 </template>
 
 <script>

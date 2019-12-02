@@ -565,7 +565,7 @@ class AssetsTest extends AbstractTest
 
         self::assertCount(2, $translations);
 
-        self::assertNotFalse($translations->find('', 'Let’s test ā ūtf8 štriņģ ❤️'));
+        self::assertNotFalse($translations->find('', 'Let’s test ā ūtf8 štriņģ 😎️'));
         self::assertNotFalse($translations->find('', 'We’re happy to have you here, 愛'));
     }
 
