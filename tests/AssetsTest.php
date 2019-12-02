@@ -548,6 +548,15 @@ class AssetsTest extends AbstractTest
         }
     }
 
+    public function testMissingDomainScanWithOtherStringsInFile()
+    {
+        $translations = (new Translations())->setDomain('unknown-domain');
+
+        PhpCode::fromFileMultiple(static::asset('phpcode6/input.php'), [$translations]);
+
+        self::assertCount(0, $translations);
+    }
+
     public function testVueJsUtf8Scanning()
     {
         $translations = new Translations();
@@ -592,6 +601,6 @@ class AssetsTest extends AbstractTest
 
         // Converting from an XLIFF that contains duplicate <source> elements
         // to a PO file will result in the loss of the duplicates.
-        $this->runTestFormat('xliff/Po', $countTranslations-1, $countTranslated-1, $countHeaders);
+        $this->runTestFormat('xliff/Po', $countTranslations - 1, $countTranslated - 1, $countHeaders);
     }
 }

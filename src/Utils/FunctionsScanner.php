@@ -70,7 +70,7 @@ abstract class FunctionsScanner
                 continue;
             }
 
-            if (!$isDefaultDomain && !$domainTranslations) {
+            if (!$domainTranslations) {
                 continue;
             }
 
