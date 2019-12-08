@@ -2,10 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
+
+## [5.2.1] - 2019-12-08
+### Fixed
+- Multiline string in PoGenerator [#244]
 
 ## [5.2.0] - 2019-11-25
 ### Added
@@ -41,5 +45,8 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 - The library is easier to extend
 - Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
 
-[5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...HEAD
+[#244]: https://github.com/php-gettext/Gettext/issues/244
+
+[5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
+[5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/php-gettext/Gettext/compare/v5.0.0...v5.1.0

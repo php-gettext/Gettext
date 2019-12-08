@@ -87,8 +87,9 @@ final class PoGenerator extends Generator
 
         $lines[] = sprintf('%s%s ""', $prefix, $name);
 
+        $last = $total - 1;
         foreach ($newLines as $k => $line) {
-            if ($k === $total - 1) {
+            if ($k < $last) {
                 $line .= "\n";
             }
 

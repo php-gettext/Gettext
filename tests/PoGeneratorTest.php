@@ -37,6 +37,11 @@ class PoGeneratorTest extends TestCase
         $translation->getComments()->add('This is a disabled comment');
         $translations->add($translation);
 
+        // https://github.com/php-gettext/Gettext/issues/244
+        $translation = Translation::create(null, "foo\nbar");
+        $translation->translate("bar\nbaz");
+        $translations->add($translation);
+
         $result = $generator->generateString($translations);
 
         $expected = <<<'EOT'
@@ -63,6 +68,13 @@ msgstr "Outro comentario"
 # This is a disabled comment
 #~ msgid "Disabled comment"
 #~ msgstr "Comentario deshabilitado"
+
+msgid ""
+"foo\n"
+"bar"
+msgstr ""
+"bar\n"
+"baz"
 
 EOT;
 
