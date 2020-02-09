@@ -97,7 +97,7 @@ final class MoLoader extends Loader
 
             $v = explode("\x00", $translated);
             $translation->translate(array_shift($v));
-            $translation->translatePlural($v);
+            $translation->translatePlural(...array_filter($v));
         }
 
         return $translations;

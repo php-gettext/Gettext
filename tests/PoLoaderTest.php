@@ -14,7 +14,7 @@ class PoLoaderTest extends TestCase
         $loader = new PoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.po');
 
-        $this->assertCount(13, $translations);
+        $this->assertCount(14, $translations);
 
         $array = $translations->getTranslations();
 
@@ -31,6 +31,7 @@ class PoLoaderTest extends TestCase
         $this->translation11(array_shift($array));
         $this->translation12(array_shift($array));
         $this->translation13(array_shift($array));
+        $this->translation14(array_shift($array));
 
         $headers = $translations->getHeaders()->toArray();
 
@@ -203,6 +204,16 @@ class PoLoaderTest extends TestCase
         $this->assertSame("FIELD\tFIELD", $translation->getTranslation());
         $this->assertCount(0, $translation->getPluralTranslations());
         $this->assertCount(0, $translation->getComments());
+        $this->assertCount(0, $translation->getReferences());
+    }
+
+    private function translation14(Translation $translation)
+    {
+        $this->assertSame('%s has been added to your cart.', $translation->getOriginal());
+        $this->assertSame('%s have been added to your cart.', $translation->getPlural());
+        $this->assertSame('%s has been added to your cart.', $translation->getTranslation());
+        $this->assertSame(['%s have been added to your cart.'], $translation->getPluralTranslations());
+        $this->assertCount(1, $translation->getComments());
         $this->assertCount(0, $translation->getReferences());
     }
 

@@ -78,3 +78,9 @@ msgstr "日本人は日本で話される言語です！"
 
 msgid "Tabulation test"
 msgstr "FIELD\tFIELD"
+
+# Issue https://github.com/php-gettext/Gettext/issues/246
+msgid "%s has been added to your cart."
+msgid_plural "%s have been added to your cart."
+msgstr[0] "%s has been added to your cart."
+msgstr[1] "%s have been added to your cart."

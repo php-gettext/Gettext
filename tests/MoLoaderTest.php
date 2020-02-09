@@ -14,10 +14,11 @@ class MoLoaderTest extends TestCase
         $loader = new MoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.mo');
 
-        $this->assertCount(10, $translations);
+        $this->assertCount(11, $translations);
 
         $array = $translations->getTranslations();
 
+        $this->translation0(array_shift($array));
         $this->translation1(array_shift($array));
         $this->translation2(array_shift($array));
         $this->translation3(array_shift($array));
@@ -31,7 +32,7 @@ class MoLoaderTest extends TestCase
 
         $headers = $translations->getHeaders()->toArray();
 
-        $this->assertCount(13, $headers);
+        $this->assertCount(12, $headers);
 
         $this->assertSame('text/plain; charset=UTF-8', $headers['Content-Type']);
         $this->assertSame('8bit', $headers['Content-Transfer-Encoding']);
@@ -39,7 +40,6 @@ class MoLoaderTest extends TestCase
         $this->assertSame('', $headers['PO-Revision-Date']);
         $this->assertSame('', $headers['Last-Translator']);
         $this->assertSame('', $headers['Language-Team']);
-        $this->assertSame('', $headers['Report-Msgid-Bugs-To']);
         $this->assertSame('1.0', $headers['MIME-Version']);
         $this->assertSame('bs', $headers['Language']);
         $this->assertSame(
@@ -52,6 +52,14 @@ class MoLoaderTest extends TestCase
 
         $this->assertSame('testingdomain', $translations->getDomain());
         $this->assertSame('bs', $translations->getLanguage());
+    }
+
+    private function translation0(Translation $translation)
+    {
+        $this->assertSame('%s has been added to your cart.', $translation->getOriginal());
+        $this->assertSame('%s have been added to your cart.', $translation->getPlural());
+        $this->assertSame('%s has been added to your cart.', $translation->getTranslation());
+        $this->assertCount(1, $translation->getPluralTranslations());
     }
 
     private function translation1(Translation $translation)
