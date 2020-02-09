@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.2.2] - 2020-02-09
+### Fixed
+- MoLoader with plurals [#246]
+
 ## [5.2.1] - 2019-12-08
 ### Fixed
 - Multiline string in PoGenerator [#244]
@@ -46,7 +50,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 - Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
 
 [#244]: https://github.com/php-gettext/Gettext/issues/244
+[#246]: https://github.com/php-gettext/Gettext/issues/246
 
+[5.2.2]: https://github.com/php-gettext/Gettext/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/php-gettext/Gettext/compare/v5.0.0...v5.1.0
