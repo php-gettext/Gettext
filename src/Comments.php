@@ -48,7 +48,7 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
         foreach ($comments as $comment) {
             $key = array_search($comment, $this->comments);
 
-            if ($key !== false) {
+            if (is_int($key)) {
                 array_splice($this->comments, $key, 1);
             }
         }

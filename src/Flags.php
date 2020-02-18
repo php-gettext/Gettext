@@ -50,7 +50,7 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
         foreach ($flags as $flag) {
             $key = array_search($flag, $this->flags);
 
-            if ($key !== false) {
+            if (is_int($key)) {
                 array_splice($this->flags, $key, 1);
             }
         }
