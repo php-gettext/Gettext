@@ -45,6 +45,19 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
         return $this;
     }
 
+    public function delete(string ...$flags): self
+    {
+        foreach ($flags as $flag) {
+            $key = array_search($flag, $this->flags);
+
+            if ($key !== false) {
+                array_splice($this->flags, $key, 1);
+            }
+        }
+
+        return $this;
+    }
+
     public function has(string $flag): bool
     {
         return in_array($flag, $this->flags, true);

@@ -43,6 +43,19 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
         return $this;
     }
 
+    public function delete(string ...$comments): self
+    {
+        foreach ($comments as $comment) {
+            $key = array_search($comment, $this->comments);
+
+            if ($key !== false) {
+                array_splice($this->comments, $key, 1);
+            }
+        }
+
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         return $this->toArray();

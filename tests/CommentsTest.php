@@ -29,6 +29,11 @@ class CommentsTest extends TestCase
 
         $this->assertSame(['foo', 'bar'], $comments->toArray());
         $this->assertCount(2, $comments);
+
+        $comments->delete('foo');
+
+        $this->assertSame(['bar'], $comments->toArray());
+        $this->assertCount(1, $comments);
     }
 
     public function testMergeComments()

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.3.0] - 2020-02-18
+### Added
+- `Comments::delete()` and `Flags::delete()` methods [#247]
+
 ## [5.2.2] - 2020-02-09
 ### Fixed
 - MoLoader with plurals [#246]
@@ -51,7 +55,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 
 [#244]: https://github.com/php-gettext/Gettext/issues/244
 [#246]: https://github.com/php-gettext/Gettext/issues/246
+[#247]: https://github.com/php-gettext/Gettext/issues/247
 
+[5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/php-gettext/Gettext/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...v5.2.0

@@ -34,6 +34,11 @@ class FlagsTest extends TestCase
 
         $this->assertSame(['bar', 'foo', 'one', 'three', 'two'], $flags->toArray());
         $this->assertCount(5, $flags);
+
+        $flags->delete('bar', 'one', 'two');
+
+        $this->assertSame(['foo', 'three'], $flags->toArray());
+        $this->assertCount(2, $flags);
     }
 
     public function testMergeFlags()
