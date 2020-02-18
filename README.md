@@ -42,7 +42,7 @@ $translations = $loader->loadFile('locales/gl.po');
 $translation = $translations->find(null, 'apple');
 
 if ($translation) {
-    $translation->setTranslation('Mazá');
+    $translation->translate('Mazá');
 }
 
 //export to a .mo file:
