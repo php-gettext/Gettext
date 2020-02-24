@@ -89,7 +89,7 @@ $translations->add($translation);
 $translation = $translations->find('comments', 'One comment');
 
 //Edit headers, domain, etc
-$translations->getHeaders()->add('Last-Translator', 'Oscar Otero');
+$translations->getHeaders()->set('Last-Translator', 'Oscar Otero');
 $translations->setDomain('my-blog');
 ```
 
