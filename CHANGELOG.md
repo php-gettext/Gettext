@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.4.0] - Unreleased
+### Added
+- Added `_` function to the list of functions scanned by default
+
 ## [5.3.0] - 2020-02-18
 ### Added
 - `Comments::delete()` and `Flags::delete()` methods [#247]

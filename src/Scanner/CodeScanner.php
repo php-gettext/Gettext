@@ -18,6 +18,7 @@ abstract class CodeScanner extends Scanner
 
     protected $functions = [
         'gettext' => 'gettext',
+        '_' => 'gettext',
         '__' => 'gettext',
         'ngettext' => 'ngettext',
         'n__' => 'ngettext',
