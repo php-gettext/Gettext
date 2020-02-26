@@ -14,8 +14,10 @@ use IteratorAggregate;
  */
 class Translations implements Countable, IteratorAggregate
 {
+    protected $description;
     protected $translations = [];
     protected $headers;
+    protected $flags;
 
     public static function create(string $domain = null, string $language = null): Translations
     {
@@ -35,6 +37,7 @@ class Translations implements Countable, IteratorAggregate
     protected function __construct()
     {
         $this->headers = new Headers();
+        $this->flags = new Flags();
     }
 
     public function __clone()
@@ -46,10 +49,29 @@ class Translations implements Countable, IteratorAggregate
         $this->headers = clone $this->headers;
     }
 
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function getFlags(): Flags
+    {
+        return $this->flags;
+    }
+
     public function toArray(): array
     {
         return [
+            'description' => $this->description,
             'headers' => $this->headers->toArray(),
+            'flags' => $this->flags->toArray(),
             'translations' => array_map(
                 function ($translation) {
                     return $translation->toArray();
@@ -161,6 +183,16 @@ class Translations implements Countable, IteratorAggregate
             $merged->headers = clone $translations->headers;
         } elseif (!($strategy & Merge::HEADERS_OURS)) {
             $merged->headers = $merged->headers->mergeWith($translations->headers);
+        }
+
+        if ($strategy & Merge::FLAGS_THEIRS) {
+            $merged->flags = clone $translations->flags;
+        } elseif (!($strategy & Merge::FLAGS_OURS)) {
+            $merged->flags = $merged->flags->mergeWith($translations->flags);
+        }
+
+        if (!$merged->description) {
+            $merged->description = $translations->description;
         }
 
         foreach ($translations as $id => $translation) {

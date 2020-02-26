@@ -1,5 +1,5 @@
-<?php
-return [
+<?php return [
+    'description' => 'This is a description',
     'headers' => [
         'Language' => 'gl_ES',
         'Language-Team' => 'My Team',
@@ -7,8 +7,9 @@ return [
         'POT-Creation-Date' => '2019-10-10 10:10:10',
         'X-Domain' => 'my-domain',
         'X-Foo' => 'bar',
-        'X-Generator' => 'PHP Gettext scanner',
+        'X-Generator' => 'PHP Gettext scanner'
     ],
+    'flags' => [],
     'translations' => [
         [
             'id' => 'title',
@@ -20,12 +21,12 @@ return [
             'disabled' => false,
             'references' => [
                 'template.php' => [
-                    3,
-                ],
+                    3
+                ]
             ],
             'flags' => [],
             'comments' => [],
-            'extractedComments' => [],
+            'extractedComments' => []
         ],
         [
             'id' => 'intro',
@@ -37,14 +38,14 @@ return [
             'disabled' => true,
             'references' => [
                 'template.php' => [
-                    4,
-                ],
+                    4
+                ]
             ],
             'flags' => [],
             'comments' => [
-                'Disabled comment',
+                'Disabled comment'
             ],
-            'extractedComments' => [],
+            'extractedComments' => []
         ],
         [
             'id' => 'one comment',
@@ -53,19 +54,19 @@ return [
             'translation' => 'Un comentario',
             'plural' => '%s comments',
             'pluralTranslations' => [
-                '%s comentarios',
+                '%s comentarios'
             ],
             'disabled' => false,
             'references' => [
                 'template.php' => [
-                    5,
-                ],
+                    5
+                ]
             ],
             'flags' => [],
             'comments' => [],
             'extractedComments' => [
-                'Number of comments of the article',
-            ],
+                'Number of comments of the article'
+            ]
         ],
         [
             'id' => 'This is a flagged element',
@@ -77,16 +78,16 @@ return [
             'disabled' => false,
             'references' => [
                 'template.php' => [
-                    10,
-                ],
+                    10
+                ]
             ],
             'flags' => [
-                'a-code',
+                'a-code'
             ],
             'comments' => [
-                'This is a comment',
+                'This is a comment'
             ],
-            'extractedComments' => [],
+            'extractedComments' => []
         ],
         [
             'id' => 'This is a new translation',
@@ -98,12 +99,12 @@ return [
             'disabled' => false,
             'references' => [
                 'template.php' => [
-                    11,
-                ],
+                    11
+                ]
             ],
             'flags' => [],
             'comments' => [],
-            'extractedComments' => [],
-        ],
-    ],
+            'extractedComments' => []
+        ]
+    ]
 ];

@@ -14,6 +14,16 @@ class PoLoaderTest extends TestCase
         $loader = new PoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.po');
 
+        $description = $translations->getDescription();
+        $this->assertSame(<<<'EOT'
+SOME DESCRIPTIVE TITLE
+Copyright (C) YEAR Free Software Foundation, Inc.
+This file is distributed under the same license as the PACKAGE package.
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+EOT, $description);
+
+        $this->assertSame(['fuzzy'], $translations->getFlags()->toArray());
+
         $this->assertCount(14, $translations);
 
         $array = $translations->getTranslations();

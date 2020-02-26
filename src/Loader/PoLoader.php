@@ -122,6 +122,19 @@ final class PoLoader extends Loader
         }
 
         $translations->remove($translation);
+
+        $description = $translation->getComments()->toArray();
+
+        if ($description) {
+            $translations->setDescription(implode("\n", $description));
+        }
+
+        $flags = $translation->getFlags()->toArray();
+
+        if ($flags) {
+            $translations->getFlags()->add(...$flags);
+        }
+
         $headers = $translations->getHeaders();
 
         foreach (self::parseHeaders($translation->getTranslation()) as $name => $value) {

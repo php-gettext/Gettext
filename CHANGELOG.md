@@ -10,6 +10,8 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 ## [5.4.0] - Unreleased
 ### Added
 - Added `_` function to the list of functions scanned by default
+- Added `Translations::setDescription()` and `Translations::getDescription()` methods [#251]
+- Added `Translations::getFlags()` that returns a `Flags` object to assign flags to the entire po file [#251]
 
 ## [5.3.0] - 2020-02-18
 ### Added
@@ -60,7 +62,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#244]: https://github.com/php-gettext/Gettext/issues/244
 [#246]: https://github.com/php-gettext/Gettext/issues/246
 [#247]: https://github.com/php-gettext/Gettext/issues/247
+[#251]: https://github.com/php-gettext/Gettext/issues/251
 
+[5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...HEAD
 [5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/php-gettext/Gettext/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1

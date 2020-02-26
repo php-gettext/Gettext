@@ -19,6 +19,7 @@ class MergeTest extends TestCase
             ->set('Last-Translator', '')
             ->set('X-Foo', 'foo')
             ->set('X-Generator', 'PHP Gettext scanner');
+        $translations->getFlags()->add('fuzzy');
 
         $translation = Translation::create(null, 'title');
         $translation->getReferences()->add('template.php', 3);
@@ -55,6 +56,7 @@ class MergeTest extends TestCase
             ->set('Language-Team', 'My Team')
             ->set('X-Foo', 'bar')
             ->set('Language', 'gl_ES');
+        $translations->setDescription('This is a description');
 
         $translation = Translation::create(null, 'title');
         $translation->getReferences()
