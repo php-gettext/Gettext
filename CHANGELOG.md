@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.4.0] - Unreleased
+## [5.4.0] - 2020-03-07
 ### Added
 - Added `_` function to the list of functions scanned by default
 - Added `Translations::setDescription()` and `Translations::getDescription()` methods [#251]
@@ -64,7 +64,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#247]: https://github.com/php-gettext/Gettext/issues/247
 [#251]: https://github.com/php-gettext/Gettext/issues/251
 
-[5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...HEAD
+[5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
 [5.2.2]: https://github.com/php-gettext/Gettext/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
