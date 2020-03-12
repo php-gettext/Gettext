@@ -11,9 +11,24 @@ final class PoGenerator extends Generator
     {
         $pluralForm = $translations->getHeaders()->getPluralForm();
         $pluralSize = is_array($pluralForm) ? ($pluralForm[0] - 1) : null;
+        $lines = [];
+
+        //Description and flags
+        if ($translations->getDescription()) {
+            $description = explode("\n", $translations->getDescription());
+
+            foreach ($description as $line) {
+                $lines[] = sprintf('# %s', $line);
+            }
+        }
+
+        if (count($translations->getFlags())) {
+            $lines[] = sprintf('#, %s', implode(',', $translations->getFlags()->toArray()));
+        }
 
         //Headers
-        $lines = ['msgid ""', 'msgstr ""'];
+        $lines[] = 'msgid ""';
+        $lines[] = 'msgstr ""';
 
         foreach ($translations->getHeaders() as $name => $value) {
             $lines[] = sprintf('"%s: %s\\n"', $name, $value);

@@ -14,6 +14,14 @@ class PoGeneratorTest extends TestCase
     {
         $generator = new PoGenerator();
         $translations = Translations::create('my-domain');
+        $translations->getFlags()->add('fuzzy');
+        $translations->setDescription(<<<'EOT'
+SOME DESCRIPTIVE TITLE
+Copyright (C) YEAR Free Software Foundation, Inc.
+This file is distributed under the same license as the PACKAGE package.
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+EOT
+        );
         $translations->setLanguage('gl_ES');
         $translations->getHeaders()
             ->set('Content-Type', 'text/plain; charset=UTF-8')
@@ -45,6 +53,11 @@ class PoGeneratorTest extends TestCase
         $result = $generator->generateString($translations);
 
         $expected = <<<'EOT'
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
