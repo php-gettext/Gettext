@@ -125,13 +125,13 @@ final class PoLoader extends Loader
 
         $description = $translation->getComments()->toArray();
 
-        if ($description) {
+        if (!empty($description)) {
             $translations->setDescription(implode("\n", $description));
         }
 
         $flags = $translation->getFlags()->toArray();
 
-        if ($flags) {
+        if (!empty($flags)) {
             $translations->getFlags()->add(...$flags);
         }
 
