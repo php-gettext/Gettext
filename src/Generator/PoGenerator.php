@@ -20,6 +20,8 @@ final class PoGenerator extends Generator
             foreach ($description as $line) {
                 $lines[] = sprintf('# %s', $line);
             }
+
+            $lines[] = '#';
         }
 
         if (count($translations->getFlags())) {
