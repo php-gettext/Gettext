@@ -100,7 +100,8 @@ abstract class CodeScanner extends Scanner
 
     abstract public function getFunctionsScanner(): FunctionsScannerInterface;
 
-    protected function getRelativePath(string $path): string {
+    protected function getRelativePath(string $path): string
+    {
         $to = explode(DIRECTORY_SEPARATOR, $this->relativeBasePath);
         $from = explode(DIRECTORY_SEPARATOR, realpath($path));
 
@@ -108,7 +109,7 @@ abstract class CodeScanner extends Scanner
             array_shift($to);
             array_shift($from);
         }
-        for ($i = 0; $i < count($to); $i++) { 
+        for ($i = 0; $i < count($to); $i++) {
             array_unshift($from, '..');
         }
 
