@@ -14,6 +14,8 @@ abstract class CodeScanner extends Scanner
 {
     protected $ignoreInvalidFunctions = false;
 
+    protected $relativeBasePath = null;
+
     protected $commentsPrefixes = [];
 
     protected $functions = [
@@ -63,6 +65,13 @@ abstract class CodeScanner extends Scanner
         return $this;
     }
 
+    public function setRelativeBasePath($basePath = null): self
+    {
+        $this->relativeBasePath = $basePath !== null ? (realpath($basePath) ?: null) : null;
+
+        return $this;
+    }
+
     public function extractCommentsStartingWith(string ...$prefixes): self
     {
         $this->commentsPrefixes = $prefixes;
@@ -82,6 +91,22 @@ abstract class CodeScanner extends Scanner
 
     abstract public function getFunctionsScanner(): FunctionsScannerInterface;
 
+    protected function getRelativePath(string $path): string
+    {
+        $to = explode(DIRECTORY_SEPARATOR, $this->relativeBasePath);
+        $from = explode(DIRECTORY_SEPARATOR, realpath($path));
+
+        while ($to && $from && ($to[0] === $from[0])) {
+            array_shift($to);
+            array_shift($from);
+        }
+        for ($i = 0; $i < count($to); $i++) {
+            array_unshift($from, '..');
+        }
+
+        return implode(DIRECTORY_SEPARATOR, $from);
+    }
+
     protected function handleFunction(ParsedFunction $function)
     {
         $name = $function->getName();
@@ -94,7 +119,11 @@ abstract class CodeScanner extends Scanner
         $translation = call_user_func([$this, $handler], $function);
 
         if ($translation) {
-            $translation->getReferences()->add($function->getFilename(), $function->getLine());
+            $path = $function->getFilename();
+            if ($this->relativeBasePath !== null) {
+                $path = $this->getRelativePath($path);
+            }
+            $translation->getReferences()->add($path, $function->getLine());
         }
     }
 
