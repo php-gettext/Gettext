@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.5.0] - Unreleased
+### Added
+- New option `addReferences()` to configure the code scanners whether add or not references [#258]
+
 ## [5.4.1] - 2020-03-15
 ### Fixed
 - PoGenerator includes the description and flags of the translations [#253]
@@ -68,7 +72,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#247]: https://github.com/php-gettext/Gettext/issues/247
 [#251]: https://github.com/php-gettext/Gettext/issues/251
 [#253]: https://github.com/php-gettext/Gettext/issues/253
+[#258]: https://github.com/php-gettext/Gettext/issues/258
 
+[5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...HEAD
 [5.4.1]: https://github.com/php-gettext/Gettext/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
