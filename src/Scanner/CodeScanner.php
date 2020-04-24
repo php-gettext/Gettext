@@ -14,6 +14,8 @@ abstract class CodeScanner extends Scanner
 {
     protected $ignoreInvalidFunctions = false;
 
+    protected $addReferences = true;
+
     protected $commentsPrefixes = [];
 
     protected $functions = [
@@ -63,6 +65,13 @@ abstract class CodeScanner extends Scanner
         return $this;
     }
 
+    public function addReferences($enabled = true): self
+    {
+        $this->addReferences = $enabled;
+
+        return $this;
+    }
+
     public function extractCommentsStartingWith(string ...$prefixes): self
     {
         $this->commentsPrefixes = $prefixes;
@@ -93,7 +102,7 @@ abstract class CodeScanner extends Scanner
 
         $translation = call_user_func([$this, $handler], $function);
 
-        if ($translation) {
+        if ($translation && $this->addReferences) {
             $translation->getReferences()->add($function->getFilename(), $function->getLine());
         }
     }
