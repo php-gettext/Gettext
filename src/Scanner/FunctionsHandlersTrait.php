@@ -118,5 +118,10 @@ trait FunctionsHandlersTrait
 
     abstract protected function checkFunction(ParsedFunction $function, int $minLength): bool;
 
-    abstract protected function saveTranslation(?string $domain, ?string $context, string $original, string $plural = null): ?Translation;
+    abstract protected function saveTranslation(
+        ?string $domain,
+        ?string $context,
+        string $original,
+        string $plural = null
+    ): ?Translation;
 }
