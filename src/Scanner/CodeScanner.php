@@ -18,27 +18,7 @@ abstract class CodeScanner extends Scanner
 
     protected $commentsPrefixes = [];
 
-    protected $functions = [
-        'gettext' => 'gettext',
-        '_' => 'gettext',
-        '__' => 'gettext',
-        'ngettext' => 'ngettext',
-        'n__' => 'ngettext',
-        'pgettext' => 'pgettext',
-        'p__' => 'pgettext',
-        'dgettext' => 'dgettext',
-        'd__' => 'dgettext',
-        'dngettext' => 'dngettext',
-        'dn__' => 'dngettext',
-        'dpgettext' => 'dpgettext',
-        'dp__' => 'dpgettext',
-        'npgettext' => 'npgettext',
-        'np__' => 'npgettext',
-        'dnpgettext' => 'dnpgettext',
-        'dnp__' => 'dnpgettext',
-        'noop' => 'gettext',
-        'noop__' => 'gettext',
-    ];
+    protected $functions = [];
 
     /**
      * @param array $functions [fnName => handler]
@@ -93,122 +73,25 @@ abstract class CodeScanner extends Scanner
 
     protected function handleFunction(ParsedFunction $function)
     {
-        $name = $function->getName();
-        $handler = $this->functions[$name] ?? null;
+        $handler = $this->getFunctionHandler($function);
 
         if (is_null($handler)) {
             return;
         }
 
-        $translation = call_user_func([$this, $handler], $function);
+        $translation = call_user_func($handler, $function);
 
         if ($translation && $this->addReferences) {
             $translation->getReferences()->add($function->getFilename(), $function->getLine());
         }
     }
 
-    protected function gettext(ParsedFunction $function): ?Translation
+    protected function getFunctionHandler(ParsedFunction $function): ?callable
     {
-        if (!$this->checkFunction($function, 1)) {
-            return null;
-        }
-        list($original) = $function->getArguments();
+        $name = $function->getName();
+        $handler = $this->functions[$name] ?? null;
 
-        return $this->addComments(
-            $function,
-            $this->saveTranslation(null, null, $original)
-        );
-    }
-
-    protected function ngettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 2)) {
-            return null;
-        }
-        list($original, $plural) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation(null, null, $original, $plural)
-        );
-    }
-
-    protected function pgettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 2)) {
-            return null;
-        }
-        list($context, $original) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation(null, $context, $original)
-        );
-    }
-
-    protected function dgettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 2)) {
-            return null;
-        }
-        list($domain, $original) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation($domain, null, $original)
-        );
-    }
-
-    protected function dpgettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 3)) {
-            return null;
-        }
-        list($domain, $context, $original) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation($domain, $context, $original)
-        );
-    }
-
-    protected function npgettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 3)) {
-            return null;
-        }
-        list($context, $original, $plural) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation(null, $context, $original, $plural)
-        );
-    }
-
-    protected function dngettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 3)) {
-            return null;
-        }
-        list($domain, $original, $plural) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation($domain, null, $original, $plural)
-        );
-    }
-
-    protected function dnpgettext(ParsedFunction $function): ?Translation
-    {
-        if (!$this->checkFunction($function, 4)) {
-            return null;
-        }
-        list($domain, $context, $original, $plural) = $function->getArguments();
-
-        return $this->addComments(
-            $function,
-            $this->saveTranslation($domain, $context, $original, $plural)
-        );
+        return is_null($handler) ? null : [$this, $handler];
     }
 
     protected function addComments(ParsedFunction $function, ?Translation $translation): ?Translation
