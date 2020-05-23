@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.5.0] - Unreleased
+## [5.5.0] - 2020-05-23
 ### Added
 - New option `addReferences()` to configure the code scanners whether add or not references [#258]
+
+### Changed
+- BREAKING: Moved some code from `CodeScanner` to the new `FunctionsHandlersTrait` in order to better reuse.
 
 ## [5.4.1] - 2020-03-15
 ### Fixed
@@ -74,7 +77,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#253]: https://github.com/php-gettext/Gettext/issues/253
 [#258]: https://github.com/php-gettext/Gettext/issues/258
 
-[5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...HEAD
+[5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...v5.5.0
 [5.4.1]: https://github.com/php-gettext/Gettext/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
