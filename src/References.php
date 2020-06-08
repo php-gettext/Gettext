@@ -69,9 +69,9 @@ class References implements JsonSerializable, Countable, IteratorAggregate
 
         foreach ($references as $filename => $lines) {
             //Set filename always to string
-			$filename = (string) $filename;
-			
-			if (empty($lines)) {
+            $filename = (string) $filename;
+
+            if (empty($lines)) {
                 $merged->add($filename);
                 continue;
             }
