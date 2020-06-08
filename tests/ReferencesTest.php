@@ -52,16 +52,20 @@ class ReferencesTest extends TestCase
             ->add('filename.php', 44)
             ->add('filename2.php')
             ->add('filename4.php')
-            ->add('filename3.php', 10);
+            ->add('filename3.php', 10)
+            ->add('5', 10)
+            ->add('6');
 
         $merged = $references1->mergeWith($references2);
 
-        $this->assertCount(6, $merged);
+        $this->assertCount(8, $merged);
         $this->assertSame([
             'filename.php' => [34, 56, 44],
             'filename3.php' => [10],
             'filename2.php' => [10],
             'filename4.php' => [],
+            '5' => [10],
+            '6' => [],
         ], $merged->toArray());
 
         $this->assertNotSame($merged, $references1);
