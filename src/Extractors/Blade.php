@@ -20,7 +20,7 @@ class Blade extends Extractor implements ExtractorInterface
             $cachePath = empty($options['cachePath']) ? sys_get_temp_dir() : $options['cachePath'];
             $bladeCompiler = new BladeCompiler(new Filesystem(), $cachePath);
 
-            if(method_exists($bladeCompiler, 'withoutComponentTags')) {
+            if (method_exists($bladeCompiler, 'withoutComponentTags')) {
                 $bladeCompiler->withoutComponentTags();
             }
 
