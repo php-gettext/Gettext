@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.5.2] - 2020-11-17
+### Fixed
+- Parse of multiline disabled translations [#262] [#263]
+
 ## [5.5.1] - 2020-06-08
 ### Fixed
 - Type error in which numeric filenames were converted to integers [#260]
@@ -81,7 +85,10 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#253]: https://github.com/php-gettext/Gettext/issues/253
 [#258]: https://github.com/php-gettext/Gettext/issues/258
 [#260]: https://github.com/php-gettext/Gettext/issues/260
+[#262]: https://github.com/php-gettext/Gettext/issues/262
+[#263]: https://github.com/php-gettext/Gettext/issues/263
 
+[5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2
 [5.5.1]: https://github.com/php-gettext/Gettext/compare/v5.5.0...v5.5.1
 [5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...v5.5.0
 [5.4.1]: https://github.com/php-gettext/Gettext/compare/v5.4.0...v5.4.1
