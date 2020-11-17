@@ -26,9 +26,13 @@ final class PoLoader extends Loader
             //Multiline
             while (substr($line, -1, 1) === '"'
                 && $nextLine !== false
-                && substr(trim($nextLine), 0, 1) === '"'
+                && (substr(trim($nextLine), 0, 1) === '"' || substr(trim($nextLine), 0, 4) === '#~ "')
             ) {
-                $line = substr($line, 0, -1).substr(trim($nextLine), 1);
+                if (substr(trim($nextLine), 0, 1) === '"') { // Normal multiline
+                    $line = substr($line, 0, -1).substr(trim($nextLine), 1);
+                } elseif (substr(trim($nextLine), 0, 4) === '#~ "') { // Disabled multiline
+                    $line = substr($line, 0, -1).substr(trim($nextLine), 4);
+                }
                 $nextLine = next($lines);
             }
 
