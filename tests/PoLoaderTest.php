@@ -258,4 +258,22 @@ EOT
     {
         $this->assertSame($decoded, PoLoader::decode($source));
     }
+
+    public function testMultilineDisabledTranslations() {
+        $po = <<<EOT
+#~ msgid "Last agent hours-description"
+#~ msgstr ""
+#~ "How many hours in the past can system look at finding the last agent? "
+#~ "This parameter is only used if 'Call Last Agent' is set to 'YES'."
+EOT;
+        $loader = new PoLoader();
+        $translations = $loader->loadString($po);
+        $translation = $translations->find(null, 'Last agent hours-description');
+
+        $this->assertTrue($translation->isDisabled());
+        $this->assertEquals(
+            "How many hours in the past can system look at finding the last agent? This parameter is only used if 'Call Last Agent' is set to 'YES'.",
+            $translation->getTranslation()
+        );
+    }
 }
