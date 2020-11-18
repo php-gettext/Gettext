@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.3] - 2020-11-18
+### Fixed
+- Blade extractor for Laravel8/Jetstream [#261]
+
 ## [4.8.2] - 2019-12-02
 ### Fixed
 - UTF-8 handling for VueJs extractor [#242]
@@ -155,7 +159,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#231]: https://github.com/oscarotero/Gettext/issues/231
 [#238]: https://github.com/oscarotero/Gettext/issues/238
 [#242]: https://github.com/oscarotero/Gettext/issues/242
+[#261]: https://github.com/oscarotero/Gettext/issues/261
 
+[4.8.3]: https://github.com/oscarotero/Gettext/compare/v4.8.2...v4.8.3
 [4.8.2]: https://github.com/oscarotero/Gettext/compare/v4.8.1...v4.8.2
 [4.8.1]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v4.8.1
 [4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
