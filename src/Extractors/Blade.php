@@ -19,6 +19,11 @@ class Blade extends Extractor implements ExtractorInterface
         if (empty($options['facade'])) {
             $cachePath = empty($options['cachePath']) ? sys_get_temp_dir() : $options['cachePath'];
             $bladeCompiler = new BladeCompiler(new Filesystem(), $cachePath);
+
+            if (method_exists($bladeCompiler, 'withoutComponentTags')) {
+                $bladeCompiler->withoutComponentTags();
+            }
+
             $string = $bladeCompiler->compileString($string);
         } else {
             $string = $options['facade']::compileString($string);
