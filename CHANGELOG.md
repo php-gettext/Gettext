@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.5.3] - 2020-12-01
+### Fixed
+- Add PHP 8 to composer.json
+
 ## [5.5.2] - 2020-11-17
 ### Fixed
 - Parse of multiline disabled translations [#262] [#263]
@@ -88,6 +92,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#262]: https://github.com/php-gettext/Gettext/issues/262
 [#263]: https://github.com/php-gettext/Gettext/issues/263
 
+[5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
 [5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2
 [5.5.1]: https://github.com/php-gettext/Gettext/compare/v5.5.0...v5.5.1
 [5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...v5.5.0
