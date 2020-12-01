@@ -18,7 +18,7 @@
         "issues": "https://github.com/php-gettext/Gettext/issues"
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8.0",
         "gettext/languages": "^2.3"
     },
     "require-dev": {
