@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.5.4] - 2020-12-20
+### Fixed
+- TypeError in which numeric entries were converted to integers [#265]
+
 ## [5.5.3] - 2020-12-01
 ### Fixed
 - Add PHP 8 to composer.json
@@ -91,7 +95,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#260]: https://github.com/php-gettext/Gettext/issues/260
 [#262]: https://github.com/php-gettext/Gettext/issues/262
 [#263]: https://github.com/php-gettext/Gettext/issues/263
+[#265]: https://github.com/php-gettext/Gettext/issues/265
 
+[5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
 [5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
 [5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2
 [5.5.1]: https://github.com/php-gettext/Gettext/compare/v5.5.0...v5.5.1
