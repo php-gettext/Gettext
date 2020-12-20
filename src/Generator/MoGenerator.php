@@ -67,7 +67,7 @@ final class MoGenerator extends Generator
 
             $originalsIndex[] = [
                 'relativeOffset' => strlen($originalsTable),
-                'length' => strlen($originalString),
+                'length' => strlen((string) $originalString),
             ];
             $originalsTable .= $originalString."\x00";
             $translationsIndex[] = [

@@ -23,7 +23,7 @@ class MoGeneratorTest extends TestCase
             ->set('X-Generator', 'PHP-Gettext');
 
         $translation = Translation::create('context-1', 'Original');
-        $translation->translate('Orixintal');
+        $translation->translate('Orixinal');
         $translations->add($translation);
 
         $translation = Translation::create('context-1', 'Other comment', 'Other comments');
@@ -36,6 +36,10 @@ class MoGeneratorTest extends TestCase
         $translation->translate('Comentario deshabilitado');
         $translations->add($translation);
 
+        $translation = Translation::create(null, '123456');
+        $translation->translate('12345');
+        $translations->add($translation);
+
         $mo = $generator->generateString($translations);
         $expected = file_get_contents(__DIR__.'/assets/mo-generator-result.mo');
 
@@ -43,7 +47,7 @@ class MoGeneratorTest extends TestCase
 
         $result = $loader->loadString($mo);
 
-        $this->assertCount(2, $result);
+        $this->assertCount(3, $result);
         $this->assertCount(5, $result->getHeaders());
     }
 }
