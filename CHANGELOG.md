@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.4] - 2021-03-10
+### Fixed
+- PHP 8 compatibilty [#266]
+
 ## [4.8.3] - 2020-11-18
 ### Fixed
 - Blade extractor for Laravel8/Jetstream [#261]
@@ -160,7 +164,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#238]: https://github.com/oscarotero/Gettext/issues/238
 [#242]: https://github.com/oscarotero/Gettext/issues/242
 [#261]: https://github.com/oscarotero/Gettext/issues/261
+[#266]: https://github.com/oscarotero/Gettext/issues/266
 
+[4.8.4]: https://github.com/oscarotero/Gettext/compare/v4.8.3...v4.8.4
 [4.8.3]: https://github.com/oscarotero/Gettext/compare/v4.8.2...v4.8.3
 [4.8.2]: https://github.com/oscarotero/Gettext/compare/v4.8.1...v4.8.2
 [4.8.1]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v4.8.1
