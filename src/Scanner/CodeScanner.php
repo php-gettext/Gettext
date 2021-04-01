@@ -111,6 +111,10 @@ abstract class CodeScanner extends Scanner
 
     protected function addFlags(ParsedFunction $function, ?Translation $translation): ?Translation
     {
+        if (empty($translation)) {
+            return $translation;
+        }
+
         foreach ($function->getFlags() as $flag) {
             $translation->getFlags()->add($flag);
         }
