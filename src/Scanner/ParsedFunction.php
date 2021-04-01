@@ -14,6 +14,7 @@ final class ParsedFunction
     private $lastLine;
     private $arguments = [];
     private $comments = [];
+    private $flags = [];
 
     public function __construct(string $name, string $filename, int $line, int $lastLine = null)
     {
@@ -37,6 +38,7 @@ final class ParsedFunction
             'lastLine' => $this->lastLine,
             'arguments' => $this->arguments,
             'comments' => $this->comments,
+            'flags' => $this->flags,
         ];
     }
 
@@ -75,6 +77,11 @@ final class ParsedFunction
         return $this->comments;
     }
 
+    public function getFlags(): array
+    {
+        return $this->flags;
+    }
+
     public function addArgument($argument = null): self
     {
         $this->arguments[] = $argument;
@@ -85,6 +92,13 @@ final class ParsedFunction
     public function addComment(string $comment): self
     {
         $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    public function addFlag(string $flag): self
+    {
+        $this->flags[] = $flag;
 
         return $this;
     }

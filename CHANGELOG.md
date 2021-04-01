@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.6.0] - Unreleased
+### Added
+- New method `addFlag` to `ParsedFunction`, that allows to assign flags by scanners.
+- The `FunctionsHandlersTrait` has an abstract `addFlags` method.
+
 ## [5.5.4] - 2020-12-20
 ### Fixed
 - TypeError in which numeric entries were converted to integers [#265]
@@ -97,6 +102,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#263]: https://github.com/php-gettext/Gettext/issues/263
 [#265]: https://github.com/php-gettext/Gettext/issues/265
 
+[5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...HEAD
 [5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
 [5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
 [5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2

@@ -28,5 +28,8 @@ class ParsedFunctionsAndCommentsTest extends TestCase
 
         $function->addComment('This is other comment');
         $this->assertSame(['This is a comment', 'This is other comment'], $function->getComments());
+
+        $function->addFlag('php-format');
+        $this->assertSame(['php-format'], $function->getFlags());
     }
 }

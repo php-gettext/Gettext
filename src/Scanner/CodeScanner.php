@@ -109,6 +109,15 @@ abstract class CodeScanner extends Scanner
         return $translation;
     }
 
+    protected function addFlags(ParsedFunction $function, ?Translation $translation): ?Translation
+    {
+        foreach ($function->getFlags() as $flag) {
+            $translation->getFlags()->add($flag);
+        }
+
+        return $translation;
+    }
+
     protected function checkFunction(ParsedFunction $function, int $minLength): bool
     {
         if ($function->countArguments() < $minLength) {

@@ -17,10 +17,11 @@ trait FunctionsHandlersTrait
         }
         list($original) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation(null, null, $original)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function ngettext(ParsedFunction $function): ?Translation
@@ -30,10 +31,11 @@ trait FunctionsHandlersTrait
         }
         list($original, $plural) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation(null, null, $original, $plural)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function pgettext(ParsedFunction $function): ?Translation
@@ -43,10 +45,11 @@ trait FunctionsHandlersTrait
         }
         list($context, $original) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation(null, $context, $original)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function dgettext(ParsedFunction $function): ?Translation
@@ -56,10 +59,11 @@ trait FunctionsHandlersTrait
         }
         list($domain, $original) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation($domain, null, $original)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function dpgettext(ParsedFunction $function): ?Translation
@@ -69,10 +73,11 @@ trait FunctionsHandlersTrait
         }
         list($domain, $context, $original) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation($domain, $context, $original)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function npgettext(ParsedFunction $function): ?Translation
@@ -82,10 +87,11 @@ trait FunctionsHandlersTrait
         }
         list($context, $original, $plural) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation(null, $context, $original, $plural)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function dngettext(ParsedFunction $function): ?Translation
@@ -95,10 +101,11 @@ trait FunctionsHandlersTrait
         }
         list($domain, $original, $plural) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation($domain, null, $original, $plural)
         );
+        return $this->addFlags($function, $translation);
     }
 
     protected function dnpgettext(ParsedFunction $function): ?Translation
@@ -108,13 +115,16 @@ trait FunctionsHandlersTrait
         }
         list($domain, $context, $original, $plural) = $function->getArguments();
 
-        return $this->addComments(
+        $translation = $this->addComments(
             $function,
             $this->saveTranslation($domain, $context, $original, $plural)
         );
+        return $this->addFlags($function, $translation);
     }
 
     abstract protected function addComments(ParsedFunction $function, ?Translation $translation): ?Translation;
+
+    abstract protected function addFlags(ParsedFunction $function, ?Translation $translation): ?Translation;
 
     abstract protected function checkFunction(ParsedFunction $function, int $minLength): bool;
 
