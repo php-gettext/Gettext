@@ -77,6 +77,12 @@ abstract class Scanner implements ScannerInterface
      */
     protected static function readFile(string $file): string
     {
+        // handled generated notice on php 7.4 if its not file
+        // by insuring it should be file
+        if(!is_file($file)) {
+            return '';
+        }
+        
         $length = filesize($file);
 
         if (!($fd = fopen($file, 'rb'))) {
