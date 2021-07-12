@@ -50,3 +50,8 @@ function foo() {
 	 */
 	__( 'foo bar' );
 }
+
+printf( /* translators: Hello */ __( 'World' ) );
+__( 'No comment' );
+
+printf( /* translators: Only used once */ __( 'Within printf: %s' ), __( 'placeholder' ) ); __( 'After printf' );

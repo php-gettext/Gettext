@@ -75,3 +75,25 @@ msgstr ""
 #: ./tests/assets/phpcode2/input.php:51
 msgid "foo bar"
 msgstr ""
+
+#. translators: Hello
+#: ./tests/assets/phpcode2/input.php:54
+msgid "World"
+msgstr ""
+
+#: ./tests/assets/phpcode2/input.php:55
+msgid "No comment"
+msgstr ""
+
+#. translators: Only used once
+#: ./tests/assets/phpcode2/input.php:57
+msgid "Within printf: %s"
+msgstr ""
+
+#: ./tests/assets/phpcode2/input.php:57
+msgid "placeholder"
+msgstr ""
+
+#: ./tests/assets/phpcode2/input.php:57
+msgid "After printf"
+msgstr ""

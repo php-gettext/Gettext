@@ -69,6 +69,26 @@ Report-Msgid-Bugs-To:
       array (
         0 => '',
       ),
+      'World' => 
+      array (
+        0 => '',
+      ),
+      'No comment' => 
+      array (
+        0 => '',
+      ),
+      'Within printf: %s' => 
+      array (
+        0 => '',
+      ),
+      'placeholder' => 
+      array (
+        0 => '',
+      ),
+      'After printf' => 
+      array (
+        0 => '',
+      ),
     ),
     'my-context' => 
     array (

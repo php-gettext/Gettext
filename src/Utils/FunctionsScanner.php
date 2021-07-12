@@ -38,6 +38,15 @@ abstract class FunctionsScanner
         $functions = $options['functions'];
         $file = $options['file'];
 
+        /**
+         * List of source code comments already associated with a function.
+         *
+         * Prevents associating the same comment to multiple functions.
+         *
+         * @var ParsedComment[] $commentsCache
+         */
+        $commentsCache = [];
+
         foreach ($this->getFunctions($options['constants']) as $function) {
             list($name, $line, $args) = $function;
 
@@ -78,8 +87,13 @@ abstract class FunctionsScanner
             $translation->addReference($file, $line);
 
             if (isset($function[3])) {
+                /* @var ParsedComment $extractedComment */
                 foreach ($function[3] as $extractedComment) {
-                    $translation->addExtractedComment($extractedComment);
+                    if (in_array($extractedComment, $commentsCache, true)) {
+                        continue;
+                    }
+                    $translation->addExtractedComment($extractedComment->getComment());
+                    $commentsCache[] = $extractedComment;
                 }
             }
         }

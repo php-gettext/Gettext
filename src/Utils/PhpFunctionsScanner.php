@@ -129,7 +129,7 @@ class PhpFunctionsScanner extends FunctionsScanner
                                 $comment = $bufferComments[0];
 
                                 if ($comment->isRelatedWith($newFunction)) {
-                                    $newFunction->addComment($comment->getComment());
+                                    $newFunction->addComment($comment);
                                 }
                             }
 
@@ -148,7 +148,7 @@ class PhpFunctionsScanner extends FunctionsScanner
 
                         // The comment is inside the function call.
                         if (isset($bufferFunctions[0])) {
-                            $bufferFunctions[0]->addComment($comment->getComment());
+                            $bufferFunctions[0]->addComment($comment);
                         }
                     }
                     break;
