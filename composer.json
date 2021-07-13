@@ -22,7 +22,7 @@
         "gettext/languages": "^2.3"
     },
     "require-dev": {
-        "illuminate/view": "*",
+        "illuminate/view": "^5.0.x-dev",
         "twig/twig": "^1.31|^2.0",
         "twig/extensions": "*",
         "symfony/yaml": "~2",

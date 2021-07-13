@@ -45,7 +45,7 @@ class ParsedFunction
     /**
      * Extracted comments.
      *
-     * @var string[]|null
+     * @var ParsedComment[]|null
      */
     protected $comments;
 
@@ -112,7 +112,7 @@ class ParsedFunction
     /**
      * Add a comment associated to this function.
      *
-     * @param string $comment
+     * @param ParsedComment $comment
      */
     public function addComment($comment)
     {

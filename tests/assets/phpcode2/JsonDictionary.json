@@ -12,5 +12,10 @@
     "i18n tagged %s": "",
     "foo": "",
     "bar": "",
-    "foo bar": ""
+    "foo bar": "",
+    "World": "",
+    "No comment": "",
+    "Within printf: %s": "",
+    "placeholder": "",
+    "After printf": ""
 }

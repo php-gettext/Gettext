@@ -44,6 +44,21 @@
             ],
             "foo bar": [
                 ""
+            ],
+            "World": [
+                ""
+            ],
+            "No comment": [
+                ""
+            ],
+            "Within printf: %s": [
+                ""
+            ],
+            "placeholder": [
+                ""
+            ],
+            "After printf": [
+                ""
             ]
         },
         "my-context": {

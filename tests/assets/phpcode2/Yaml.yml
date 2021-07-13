@@ -17,5 +17,10 @@ messages:
     foo: ''
     bar: ''
     'foo bar': ''
+    World: ''
+    'No comment': ''
+    'Within printf: %s': ''
+    placeholder: ''
+    'After printf': ''
   my-context:
     'All comments': ''

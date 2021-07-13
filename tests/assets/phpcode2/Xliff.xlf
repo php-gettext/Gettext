@@ -160,5 +160,57 @@
         <target></target>
       </segment>
     </unit>
+    <unit id="f5a7924e621e84c9280a9a27e1bcb7f6">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">translators: Hello</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:54</note>
+      </notes>
+      <segment>
+        <source>World</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="84ed1c865d4156e47b203fdca60efd4f">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/phpcode2/input.php:55</note>
+      </notes>
+      <segment>
+        <source>No comment</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="01ef55328bf7dc83a387cbdc0c34eb98">
+      <notes>
+        <note category="context"></note>
+        <note category="extracted-comment">translators: Only used once</note>
+        <note category="reference">./tests/assets/phpcode2/input.php:57</note>
+      </notes>
+      <segment>
+        <source>Within printf: %s</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="6a99c575ab87f8c7d1ed1e52e7e349ce">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/phpcode2/input.php:57</note>
+      </notes>
+      <segment>
+        <source>placeholder</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="bd557c72f14c06eaa44bd2f23836d90a">
+      <notes>
+        <note category="context"></note>
+        <note category="reference">./tests/assets/phpcode2/input.php:57</note>
+      </notes>
+      <segment>
+        <source>After printf</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
