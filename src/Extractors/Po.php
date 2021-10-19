@@ -162,15 +162,19 @@ class Po extends Extractor implements ExtractorInterface
     protected static function fixMultiLines($line, array $lines, &$i)
     {
         for ($j = $i, $t = count($lines); $j < $t; ++$j) {
-            if (substr($line, -1, 1) == '"'
-                && isset($lines[$j + 1])
-                && substr(trim($lines[$j + 1]), 0, 1) == '"'
-            ) {
-                $line = substr($line, 0, -1).substr(trim($lines[$j + 1]), 1);
-            } else {
-                $i = $j;
-                break;
+            if (substr($line, -1, 1) == '"' && isset($lines[$j + 1])) {
+                $nextLine = trim($lines[$j + 1]);
+                if (substr($nextLine, 0, 1) == '"') {
+                    $line = substr($line, 0, -1).substr($nextLine, 1);
+                    continue;
+                }
+                if (substr($nextLine, 0, 4) == '#~ "') {
+                    $line = substr($line, 0, -1).substr($nextLine, 4);
+                    continue;
+                }
             }
+            $i = $j;
+            break;
         }
 
         return $line;
