@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.6] - 2021-10-19
+### Fixed
+- Parse PO files with multiline disabled entries [#274]
+
 ## [4.8.5] - 2021-07-13
 ### Fixed
 - Prevent adding the same translator comment to multiple functions [#271]
@@ -170,7 +174,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#261]: https://github.com/oscarotero/Gettext/issues/261
 [#266]: https://github.com/oscarotero/Gettext/issues/266
 [#271]: https://github.com/oscarotero/Gettext/issues/271
+[#274]: https://github.com/oscarotero/Gettext/issues/274
 
+[4.8.6]: https://github.com/oscarotero/Gettext/compare/v4.8.5...v4.8.6
 [4.8.5]: https://github.com/oscarotero/Gettext/compare/v4.8.4...v4.8.5
 [4.8.4]: https://github.com/oscarotero/Gettext/compare/v4.8.3...v4.8.4
 [4.8.3]: https://github.com/oscarotero/Gettext/compare/v4.8.2...v4.8.3
