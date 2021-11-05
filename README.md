@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-![testing](ico-ga)
+![ico-ga]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 > Note: this is the documentation of the new 5.x version. Go to [4.x branch](https://github.com/php-gettext/Gettext/tree/4.x) if you're looking for the old 4.x version
