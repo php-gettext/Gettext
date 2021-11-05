@@ -14,9 +14,9 @@ use JsonSerializable;
  */
 class Headers implements JsonSerializable, Countable, IteratorAggregate
 {
-    const HEADER_LANGUAGE = 'Language';
-    const HEADER_PLURAL = 'Plural-Forms';
-    const HEADER_DOMAIN = 'X-Domain';
+    public const HEADER_LANGUAGE = 'Language';
+    public const HEADER_PLURAL = 'Plural-Forms';
+    public const HEADER_DOMAIN = 'X-Domain';
 
     protected $headers = [];
 

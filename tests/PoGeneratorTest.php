@@ -15,7 +15,8 @@ class PoGeneratorTest extends TestCase
         $generator = new PoGenerator();
         $translations = Translations::create('my-domain');
         $translations->getFlags()->add('fuzzy');
-        $translations->setDescription(<<<'EOT'
+        $translations->setDescription(
+            <<<'EOT'
 SOME DESCRIPTIVE TITLE
 Copyright (C) YEAR Free Software Foundation, Inc.
 This file is distributed under the same license as the PACKAGE package.

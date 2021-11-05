@@ -21,6 +21,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation(null, null, $original)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -35,6 +36,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation(null, null, $original, $plural)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -49,6 +51,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation(null, $context, $original)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -63,6 +66,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation($domain, null, $original)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -77,6 +81,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation($domain, $context, $original)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -91,6 +96,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation(null, $context, $original, $plural)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -105,6 +111,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation($domain, null, $original, $plural)
         );
+
         return $this->addFlags($function, $translation);
     }
 
@@ -119,6 +126,7 @@ trait FunctionsHandlersTrait
             $function,
             $this->saveTranslation($domain, $context, $original, $plural)
         );
+
         return $this->addFlags($function, $translation);
     }
 

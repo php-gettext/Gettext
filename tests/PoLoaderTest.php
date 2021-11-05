@@ -15,14 +15,16 @@ class PoLoaderTest extends TestCase
         $translations = $loader->loadFile(__DIR__.'/assets/translations.po');
 
         $description = $translations->getDescription();
-        $this->assertSame(<<<'EOT'
+        $this->assertSame(
+            <<<'EOT'
 SOME DESCRIPTIVE TITLE
 Copyright (C) YEAR Free Software Foundation, Inc.
 This file is distributed under the same license as the PACKAGE package.
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 EOT
         ,
-        $description);
+            $description
+        );
 
         $this->assertSame(['fuzzy'], $translations->getFlags()->toArray());
 
@@ -150,7 +152,8 @@ EOT
         $this->assertSame('Polje tipa: %ss', $translation->getTranslation());
         $this->assertCount(0, $translation->getPluralTranslations());
         $this->assertCount(2, $translation->getReferences());
-        $this->assertSame([
+        $this->assertSame(
+            [
                 'attributes/address/composer.php' => [8],
                 'attributes/address/form.php' => [7],
             ],
@@ -177,7 +180,8 @@ EOT
         $this->assertCount(0, $translation->getPluralTranslations());
         $this->assertCount(0, $translation->getComments());
         $this->assertCount(3, $translation->getReferences());
-        $this->assertSame([
+        $this->assertSame(
+            [
                 '/var/www/test/test.php' => [96, 97],
                 '/var/www/test/test2.php' => [98],
             ],
@@ -259,8 +263,9 @@ EOT
         $this->assertSame($decoded, PoLoader::decode($source));
     }
 
-    public function testMultilineDisabledTranslations() {
-        $po = <<<EOT
+    public function testMultilineDisabledTranslations()
+    {
+        $po = <<<'EOT'
 #~ msgid "Last agent hours-description"
 #~ msgstr ""
 #~ "How many hours in the past can system look at finding the last agent? "

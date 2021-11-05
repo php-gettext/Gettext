@@ -8,28 +8,28 @@ namespace Gettext;
  */
 final class Merge
 {
-    const TRANSLATIONS_OURS = 1 << 0;
-    const TRANSLATIONS_THEIRS = 1 << 1;
-    const TRANSLATIONS_OVERRIDE = 1 << 2;
+    public const TRANSLATIONS_OURS = 1 << 0;
+    public const TRANSLATIONS_THEIRS = 1 << 1;
+    public const TRANSLATIONS_OVERRIDE = 1 << 2;
 
-    const HEADERS_OURS = 1 << 3;
-    const HEADERS_THEIRS = 1 << 4;
-    const HEADERS_OVERRIDE = 1 << 5;
+    public const HEADERS_OURS = 1 << 3;
+    public const HEADERS_THEIRS = 1 << 4;
+    public const HEADERS_OVERRIDE = 1 << 5;
 
-    const COMMENTS_OURS = 1 << 6;
-    const COMMENTS_THEIRS = 1 << 7;
+    public const COMMENTS_OURS = 1 << 6;
+    public const COMMENTS_THEIRS = 1 << 7;
 
-    const EXTRACTED_COMMENTS_OURS = 1 << 8;
-    const EXTRACTED_COMMENTS_THEIRS = 1 << 9;
+    public const EXTRACTED_COMMENTS_OURS = 1 << 8;
+    public const EXTRACTED_COMMENTS_THEIRS = 1 << 9;
 
-    const FLAGS_OURS = 1 << 10;
-    const FLAGS_THEIRS = 1 << 11;
+    public const FLAGS_OURS = 1 << 10;
+    public const FLAGS_THEIRS = 1 << 11;
 
-    const REFERENCES_OURS = 1 << 12;
-    const REFERENCES_THEIRS = 1 << 13;
+    public const REFERENCES_OURS = 1 << 12;
+    public const REFERENCES_THEIRS = 1 << 13;
 
     //Merge strategies
-    const SCAN_AND_LOAD =
+    public const SCAN_AND_LOAD =
           Merge::HEADERS_OVERRIDE
         | Merge::TRANSLATIONS_OURS
         | Merge::TRANSLATIONS_OVERRIDE

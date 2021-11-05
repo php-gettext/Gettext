@@ -46,7 +46,7 @@ abstract class Loader implements LoaderInterface
     protected static function readFile(string $file): string
     {
         $content = @file_get_contents($file);
-        
+
         if (false === $content) {
             throw new Exception("Cannot read the file '$file', probably permissions");
         }

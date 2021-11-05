@@ -82,7 +82,7 @@ abstract class Scanner implements ScannerInterface
         if (false === $content) {
             throw new Exception("Cannot read the file '$file', probably permissions");
         }
-        
+
         return $content;
     }
 }
