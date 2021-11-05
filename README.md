@@ -3,7 +3,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 ![testing](ico-ga)
-[![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 > Note: this is the documentation of the new 5.x version. Go to [4.x branch](https://github.com/php-gettext/Gettext/tree/4.x) if you're looking for the old 4.x version
@@ -255,9 +254,7 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-version]: https://img.shields.io/packagist/v/gettext/gettext.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-ga]: https://github.com/php-gettext/Gettext/workflows/testing/badge.svg
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/php-gettext/Gettext.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/gettext/gettext.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/gettext/gettext
-[link-scrutinizer]: https://scrutinizer-ci.com/g/php-gettext/Gettext
 [link-downloads]: https://packagist.org/packages/gettext/gettext
