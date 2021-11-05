@@ -45,14 +45,11 @@ abstract class Loader implements LoaderInterface
      */
     protected static function readFile(string $file): string
     {
-        $length = filesize($file);
-
-        if (!($fd = fopen($file, 'rb'))) {
+        $content = @file_get_contents($file);
+        
+        if (false === $content) {
             throw new Exception("Cannot read the file '$file', probably permissions");
         }
-
-        $content = $length ? fread($fd, $length) : '';
-        fclose($fd);
 
         return $content;
     }
