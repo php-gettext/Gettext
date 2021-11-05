@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.6.0] - Unreleased
+## [5.6.0] - 2021-11-05
 ### Added
 - New method `addFlag` to `ParsedFunction`, that allows to assign flags by scanners.
 - The `FunctionsHandlersTrait` has an abstract `addFlags` method.
+
+### Fixed
+- Subsequent load file fails [#257] [#276]
+- Upgraded some dependencies in `dev`.
 
 ## [5.5.4] - 2020-12-20
 ### Fixed
@@ -96,13 +100,15 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#247]: https://github.com/php-gettext/Gettext/issues/247
 [#251]: https://github.com/php-gettext/Gettext/issues/251
 [#253]: https://github.com/php-gettext/Gettext/issues/253
+[#257]: https://github.com/php-gettext/Gettext/issues/257
 [#258]: https://github.com/php-gettext/Gettext/issues/258
 [#260]: https://github.com/php-gettext/Gettext/issues/260
 [#262]: https://github.com/php-gettext/Gettext/issues/262
 [#263]: https://github.com/php-gettext/Gettext/issues/263
 [#265]: https://github.com/php-gettext/Gettext/issues/265
+[#276]: https://github.com/php-gettext/Gettext/issues/276
 
-[5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...HEAD
+[5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...v5.6.0
 [5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
 [5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
 [5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2
