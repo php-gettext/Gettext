@@ -8,6 +8,7 @@ use Countable;
 use Gettext\Languages\Language;
 use InvalidArgumentException;
 use IteratorAggregate;
+use ReturnTypeWillChange;
 
 /**
  * Class to manage a collection of translations under the same domain.
@@ -81,6 +82,7 @@ class Translations implements Countable, IteratorAggregate
         ];
     }
 
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->translations);
