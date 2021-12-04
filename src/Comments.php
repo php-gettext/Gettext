@@ -7,6 +7,7 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 /**
  * Class to manage the comments of a translation.
@@ -56,11 +57,13 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
         return $this;
     }
 
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
     }
 
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->comments);
