@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.6.1] - 2021-12-04
+### Fixed
+- PHP 8.1 support [#278].
+
 ## [5.6.0] - 2021-11-05
 ### Added
 - New method `addFlag` to `ParsedFunction`, that allows to assign flags by scanners.
@@ -107,7 +111,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#263]: https://github.com/php-gettext/Gettext/issues/263
 [#265]: https://github.com/php-gettext/Gettext/issues/265
 [#276]: https://github.com/php-gettext/Gettext/issues/276
+[#278]: https://github.com/php-gettext/Gettext/issues/278
 
+[5.6.1]: https://github.com/php-gettext/Gettext/compare/v5.6.0...v5.6.1
 [5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...v5.6.0
 [5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
 [5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
