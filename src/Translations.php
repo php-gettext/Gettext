@@ -215,6 +215,7 @@ class Translations extends ArrayObject
      *
      * @return Translation
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($index, $value)
     {
         if (!($value instanceof Translation)) {
