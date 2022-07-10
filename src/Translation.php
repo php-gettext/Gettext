@@ -19,6 +19,9 @@ class Translation
     protected $flags;
     protected $comments;
     protected $extractedComments;
+    protected $previousContext;
+    protected $previousOriginal;
+    protected $previousPlural;
 
     public static function create(?string $context, string $original): Translation
     {
@@ -64,6 +67,9 @@ class Translation
             'plural' => $this->plural,
             'pluralTranslations' => $this->pluralTranslations,
             'disabled' => $this->disabled,
+            'previousContext' => $this->previousContext,
+            'previousOriginal' => $this->previousOriginal,
+            'previousPlural' => $this->previousPlural,
             'references' => $this->getReferences()->toArray(),
             'flags' => $this->getFlags()->toArray(),
             'comments' => $this->getComments()->toArray(),
@@ -114,6 +120,42 @@ class Translation
     public function getPlural(): ?string
     {
         return $this->plural;
+    }
+
+    public function setPreviousOriginal(?string $previousOriginal): self
+    {
+        $this->previousOriginal = $previousOriginal;
+
+        return $this;
+    }
+
+    public function getPreviousOriginal(): ?string
+    {
+        return $this->previousOriginal;
+    }
+
+    public function setPreviousContext(?string $previousContext): self
+    {
+        $this->previousContext = $previousContext;
+
+        return $this;
+    }
+
+    public function getPreviousContext(): ?string
+    {
+        return $this->previousContext;
+    }
+
+    public function setPreviousPlural(?string $previousPlural): self
+    {
+        $this->previousPlural = $previousPlural;
+
+        return $this;
+    }
+
+    public function getPreviousPlural(): ?string
+    {
+        return $this->previousPlural;
     }
 
     public function disable(bool $disabled = true): self
@@ -223,6 +265,18 @@ class Translation
 
         if (!$merged->plural || ($translation->plural && $override)) {
             $merged->plural = $translation->plural;
+        }
+
+        if (!$merged->previousContext || ($translation->previousContext && $override)) {
+            $merged->previousContext = $translation->previousContext;
+        }
+
+        if (!$merged->previousOriginal || ($translation->previousOriginal && $override)) {
+            $merged->previousOriginal = $translation->previousOriginal;
+        }
+
+        if (!$merged->previousPlural || ($translation->previousPlural && $override)) {
+            $merged->previousPlural = $translation->previousPlural;
         }
 
         if (empty($merged->pluralTranslations) || (!empty($translation->pluralTranslations) && $override)) {
