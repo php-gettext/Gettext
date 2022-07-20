@@ -8,7 +8,7 @@ use Gettext\Translation;
 use Gettext\Translations;
 
 /**
- * Class to load a PO file.
+ * Class to load a PO file following the same rules of the GNU tools.
  */
 final class StrictPoLoader extends Loader
 {
@@ -16,10 +16,16 @@ final class StrictPoLoader extends Loader
     private $translations;
     /** @var Translation */
     private $translation;
+    /** @var string */
     private $data;
+    /** @var int */
     private $position;
+    /** @var bool */
     private $inPreviousComment;
 
+    /**
+     * Generates a Translations object from a .po based string
+     */
     public function loadString(string $string, Translations $translations = null): Translations
     {
         $this->data = $string;
@@ -40,27 +46,42 @@ final class StrictPoLoader extends Loader
         return $this->translations;
     }
 
+    /**
+     * Prepares to parse a new translation
+     */
     private function newEntry(): void
     {
         $this->inPreviousComment = false;
         $this->translation = $this->createTranslation(null, '');
     }
 
+    /**
+     * Adds the current translation to the output list
+     */
     private function saveEntry(): void
     {
         $this->translations->add($this->translation);
     }
 
+    /**
+     * Attempts to read the prolog of a disabled comment
+     */
     private function readDisabledComment(): bool
     {
         return $this->translation->isDisabled() && $this->readString('#~');
     }
 
+    /**
+     * Attempts to read the prolog of a previous translation comment
+     */
     private function readPreviousTranslationComment(): bool
     {
         return $this->inPreviousComment && $this->readString('#|');
     }
 
+    /**
+     * Attempts to read whitespace characters, also might skip complex comment prologs when needed
+     */
     private function readWhiteSpace(): bool
     {
         $position = $this->position;
@@ -70,6 +91,9 @@ final class StrictPoLoader extends Loader
         return $position !== $this->position;
     }
 
+    /**
+     * Attempts to read the exact informed string
+     */
     private function readString(string $word): bool
     {
         return substr($this->data, $this->position, strlen($word)) === $word
@@ -77,6 +101,9 @@ final class StrictPoLoader extends Loader
             : false;
     }
 
+    /**
+     * Attempts to read the exact informed char
+     */
     private function readChar(string $char): bool
     {
         return $this->getChar() === $char
@@ -84,6 +111,9 @@ final class StrictPoLoader extends Loader
             : false;
     }
 
+    /**
+     * Retrieves the current char and advances the internal pointer
+     */
     private function nextChar(): ?string
     {
         $char = $this->getChar();
@@ -93,23 +123,35 @@ final class StrictPoLoader extends Loader
         return $char;
     }
 
+    /**
+     * Retrieves the current char without advancing the internal pointer
+     */
     private function getChar(): ?string
     {
         return $this->data[$this->position] ?? null;
     }
 
+    /**
+     * Attempts to read a numeric sequence
+     */
     private function readNumber(): string
     {
         for ($data = ''; ctype_digit($this->getChar() ?? ''); $data .= $this->nextChar());
         return $data;
     }
 
+    /**
+     * Attempts to read a standard comment string which ends on \n
+     */
     private function readCommentString(): string
     {
         for ($data = ''; ($this->getChar() ?? "\n") !== "\n"; $data .= $this->nextChar());
         return $data;
     }
 
+    /**
+     * Attempts to read a quoted string and unescape characters prefixed by \
+     */
     private function readQuotedString(): string
     {
         static $aliases = [
@@ -127,11 +169,13 @@ final class StrictPoLoader extends Loader
         $hasData = false;
         for ($data = '';;) {
             if (!$this->readChar('"')) {
+                // Perhaps the data is over, let the next parser decide
                 if ($hasData) {
                     break;
                 }
                 throw new Exception("Expected an opening quote at byte {$this->position}");
             }
+            // Collects chars until the end of the data/file
             for (; ($char = $this->getChar() ?? '"') !== '"'; $data .= $char) {
                 $this->nextChar();
                 if ($char === '\\') {
@@ -154,6 +198,9 @@ final class StrictPoLoader extends Loader
         return $data;
     }
 
+    /**
+     * Attempts to read and interpret a comment
+     */
     private function readComment(): bool
     {
         $this->readWhiteSpace();
@@ -208,6 +255,9 @@ final class StrictPoLoader extends Loader
         return true;
     }
 
+    /**
+     * Attempts to read an identifier
+     */
     private function readIdentifier(string $identifier, bool $isRequired = false): ?string
     {
         $this->readWhiteSpace();
@@ -221,6 +271,9 @@ final class StrictPoLoader extends Loader
         return $this->readQuotedString();
     }
 
+    /**
+     * Attempts to read the context
+     */
     private function readContext(): bool
     {
         if (($data = $this->readIdentifier('msgctxt')) === null) {
@@ -230,12 +283,18 @@ final class StrictPoLoader extends Loader
         return true;
     }
 
+    /**
+     * Reads the original message
+     */
     private function readId(): void
     {
         $data = $this->readIdentifier('msgid', true);
         $this->translation = $this->translation->withOriginal($data);
     }
 
+    /**
+     * Attempts to read the plural message
+     */
     private function readPlural(): bool
     {
         if (($data = $this->readIdentifier('msgid_plural')) === null) {
@@ -245,6 +304,9 @@ final class StrictPoLoader extends Loader
         return true;
     }
 
+    /**
+     * Reads the translation
+     */
     private function readTranslation(): void
     {
         $this->readWhiteSpace();
@@ -256,6 +318,9 @@ final class StrictPoLoader extends Loader
         $this->translation->translate($data);
     }
 
+    /**
+     * Attempts to read the pluralized translation
+     */
     private function readPluralTranslation(bool $isRequired = false): bool
     {
         $this->readWhiteSpace();
@@ -267,14 +332,14 @@ final class StrictPoLoader extends Loader
         }
         $this->readWhiteSpace();
         if (!$this->readChar('[')) {
-            throw new Exception("Expected [ character at byte {$this->position}");
+            throw new Exception("Expected character \"[\" at byte {$this->position}");
         }
         if (!strlen($index = $this->readNumber())) {
             throw new Exception("Expected msgstr index at byte {$this->position}");
         }
         $this->readWhiteSpace();
         if (!$this->readChar(']')) {
-            throw new Exception("Expected ] character at byte {$this->position}");
+            throw new Exception("Expected character \"]\" at byte {$this->position}");
         }
         $translations = $this->translation->getPluralTranslations();
         if (($translation = $this->translation->getTranslation()) !== null) {
@@ -291,6 +356,9 @@ final class StrictPoLoader extends Loader
         return true;
     }
 
+    /**
+     * Attempts to find and process the header translation
+     */
     private function processHeader(): void
     {
         $translations = $this->translations;
@@ -318,6 +386,9 @@ final class StrictPoLoader extends Loader
         }
     }
 
+    /**
+     * Parses the translation header data into an array
+     */
     private function readHeaders(?string $string): array
     {
         if (empty($string)) {
