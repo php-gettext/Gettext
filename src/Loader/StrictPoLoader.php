@@ -34,9 +34,9 @@ final class StrictPoLoader extends Loader
         for ($this->newEntry(); $this->getChar() !== null; $this->newEntry()) {
             while ($this->readComment());
             $this->readContext();
-            $this->readId();
-            if ($this->readPlural()) {
-                for ($isRequired = true; $this->readPluralTranslation($isRequired); $isRequired = false);
+            $this->readOriginal();
+            if ($this->readPlural() && $this->readPluralTranslation(true)) {
+                while ($this->readPluralTranslation());
             } else {
                 $this->readTranslation();
             }
@@ -106,9 +106,7 @@ final class StrictPoLoader extends Loader
      */
     private function readChar(string $char): bool
     {
-        return $this->getChar() === $char
-            ? !!++$this->position
-            : false;
+        return $this->getChar() === $char ? !!++$this->position : false;
     }
 
     /**
@@ -258,11 +256,11 @@ final class StrictPoLoader extends Loader
     /**
      * Attempts to read an identifier
      */
-    private function readIdentifier(string $identifier, bool $isRequired = false): ?string
+    private function readIdentifier(string $identifier, bool $throwIfNotFound = false): ?string
     {
         $this->readWhiteSpace();
         if (!$this->readString($identifier)) {
-            if ($isRequired) {
+            if ($throwIfNotFound) {
                 throw new Exception("Expected identifier $identifier at byte {$this->position}");
             }
             return null;
@@ -286,7 +284,7 @@ final class StrictPoLoader extends Loader
     /**
      * Reads the original message
      */
-    private function readId(): void
+    private function readOriginal(): void
     {
         $data = $this->readIdentifier('msgid', true);
         $this->translation = $this->translation->withOriginal($data);
@@ -321,11 +319,11 @@ final class StrictPoLoader extends Loader
     /**
      * Attempts to read the pluralized translation
      */
-    private function readPluralTranslation(bool $isRequired = false): bool
+    private function readPluralTranslation(bool $throwIfNotFound = false): bool
     {
         $this->readWhiteSpace();
         if (!$this->readString('msgstr')) {
-            if ($isRequired) {
+            if ($throwIfNotFound) {
                 throw new Exception("Expected indexed msgstr at byte {$this->position}");
             }
             return false;
