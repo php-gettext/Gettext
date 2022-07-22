@@ -143,7 +143,7 @@ final class StrictPoLoader extends Loader
      */
     private function readCommentString(): string
     {
-        for ($data = ''; ($this->getChar() ?? "\n") !== "\n"; $data .= $this->nextChar());
+        for ($data = ''; ($char = $this->getChar() ?? "\n") !== "\n" && $char !== "\r"; $data .= $this->nextChar());
         return $data;
     }
 
@@ -177,13 +177,13 @@ final class StrictPoLoader extends Loader
             for (; ($char = $this->getChar() ?? '"') !== '"'; $data .= $char) {
                 $this->nextChar();
                 if ($char === '\\') {
-                    if (($alias = $aliases[$this->nextChar()] ?? null) === null) {
+                    // Ensures the next char is a valid escape character
+                    if (($char = $aliases[$this->nextChar()] ?? null) === null) {
                         throw new Exception("Invalid quoted character at byte {$this->position}");
                     }
-                    $char = $alias;
                     continue;
                 }
-                if ($char === "\n") {
+                if ($char === "\n" || $char === "\r") {
                     throw new Exception("New line character must be encoded at byte {$this->position}");
                 }
             }
