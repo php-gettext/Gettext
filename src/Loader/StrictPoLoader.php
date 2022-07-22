@@ -8,7 +8,7 @@ use Gettext\Translation;
 use Gettext\Translations;
 
 /**
- * Class to load a PO file following the same rules of the GNU tools.
+ * Class to load a PO file following the same rules of the GNU gettext tools.
  */
 final class StrictPoLoader extends Loader
 {
@@ -139,7 +139,19 @@ final class StrictPoLoader extends Loader
     }
 
     /**
-     * Attempts to read a standard comment string which ends on \n
+     * Read at least one character from the given character set
+     */
+    private function readCharset(string $charset, int $maxLength): string
+    {
+        for ($data = ''; ($char = $this->getChar()) !== null && is_int(strpos($charset, $char)) && --$maxLength >= 0; $data .= $this->nextChar());
+        if ($data === '') {
+            throw new Exception("Expected at least one occurrence of the characters \"{$charset}\" at byte {$this->position}");
+        }
+        return $data;
+    }
+
+    /**
+     * Attempts to read a standard comment string which ends with a newline
      */
     private function readCommentString(): string
     {
@@ -152,46 +164,62 @@ final class StrictPoLoader extends Loader
      */
     private function readQuotedString(): string
     {
-        static $aliases = [
-            '\\' => '\\',
-            'a' => "\x07",
-            'b' => "\x08",
-            'e' => "\x1b",
-            'f' => "\x0c",
-            'n' => "\n",
-            'r' => "\r",
-            't' => "\t",
-            'v' => "\x0b",
-            '"' => '"',
-        ];
-        $hasData = false;
-        for ($data = '';;) {
+        static
+            $aliases = [
+                '\\' => '\\', 'a' => "\x07", 'b' => "\x08", 'e' => "\e", 'f' => "\f",
+                'n' => "\n", 'r' => "\r", 't' => "\t", 'v' => "\v", '"' => '"'
+            ],
+            $octalDigits = '01234567',
+            $hexDigits = '0123456789abcdefABCDEF';
+        for ($data = '', $pieces = 0;; ++$pieces) {
             if (!$this->readChar('"')) {
-                // Perhaps the data is over, let the next parser decide
-                if ($hasData) {
+                // Perhaps the data is over (e.g. beginning of an identifier), let the next parser decide
+                if ($pieces) {
                     break;
                 }
                 throw new Exception("Expected an opening quote at byte {$this->position}");
             }
-            // Collects chars until the end of the data/file
+            // Collects chars until the end of the sequence/file
             for (; ($char = $this->getChar() ?? '"') !== '"'; $data .= $char) {
-                $this->nextChar();
-                if ($char === '\\') {
-                    // Ensures the next char is a valid escape character
-                    if (($char = $aliases[$this->nextChar()] ?? null) === null) {
-                        throw new Exception("Invalid quoted character at byte {$this->position}");
-                    }
+                if ($char === "\n" || $char === "\r") {
+                    throw new Exception("Newline character must be escaped at byte {$this->position}");
+                }
+                if ($this->nextChar() !== '\\') {
                     continue;
                 }
-                if ($char === "\n" || $char === "\r") {
-                    throw new Exception("New line character must be encoded at byte {$this->position}");
+                switch ($escaped = $this->nextChar()) {
+                    case ($alias = $aliases[$escaped] ?? null) !== null ? $escaped : '--':
+                        $char = $alias;
+                        break;
+                    case $octalDigit = is_int(strpos($octalDigits, $escaped)) ? $escaped : '--':
+                        $data = $octalDigit . $this->readCharset($octalDigits, 2);
+                        // GNU gettext fails with octals above the signed char range
+                        if (($decimal = octdec($data)) > 127) {
+                            throw new Exception("Octal value out of range [0, 0177] at byte {$this->position}");
+                        }
+                        $char = chr($decimal);
+                        break;
+                    case 'U':
+                    case 'u':
+                        // The GNU gettext is supposed to follow the escaping sequences of C
+                        // Curiously it doesn't support the unicode escape
+                        $data = $this->readCharset($hexDigits, $escaped === 'u' ? 4 : 8);
+                        $data = str_pad($data, strlen($data) + (strlen($data) & 1), '0', STR_PAD_LEFT);
+                        $char = json_decode("\"\\u{$data}\"");
+                        break;
+                    case 'x':
+                        $data = $this->readCharset($hexDigits, PHP_INT_MAX);
+                        // GNU reads all valid hexadecimal chars, but only uses the last pair
+                        $char = chr(hexdec(substr($data, -2)));
+                        break;
+                    default:
+                        throw new Exception("Invalid quoted character at byte {$this->position}");
                 }
             }
             if (!$this->readChar('"')) {
                 throw new Exception("Expected an ending quote at byte {$this->position}");
             }
             $this->readWhiteSpace();
-            $hasData = true;
         }
         return $data;
     }
@@ -389,29 +417,21 @@ final class StrictPoLoader extends Loader
      */
     private function readHeaders(?string $string): array
     {
-        if (empty($string)) {
-            return [];
-        }
         $headers = [];
-        $lines = explode("\n", $string);
         $name = null;
-        foreach ($lines as $line) {
-            if ($line === '') {
-                continue;
-            }
+        foreach (array_filter(explode("\n", $string), 'strlen') as $line) {
             // Checks if it is a header definition line.
             // Useful for distinguishing between header definitions and possible continuations of a header entry.
             if (preg_match('/^[\w-]+:/', $line)) {
-                [$name, $value] = array_map('trim', explode(':', $line, 2));
-                $headers[$name] = $value;
+                [$name, $value] = explode(':', $line, 2);
+                $headers[$name] = trim($value);
                 continue;
             }
             // Data without a definition
             if ($name === null) {
                 throw new Exception("The header data is missing a definition at byte {$this->position}");
             }
-            $value = $headers[$name] ?? '';
-            $headers[$name] = $value . $line;
+            $headers[$name] .= $line;
         }
         return $headers;
     }
