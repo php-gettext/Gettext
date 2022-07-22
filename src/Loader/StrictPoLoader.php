@@ -43,6 +43,7 @@ final class StrictPoLoader extends Loader
             $this->saveEntry();
         }
         $this->processHeader();
+
         return $this->translations;
     }
 
@@ -88,6 +89,7 @@ final class StrictPoLoader extends Loader
         while ((ctype_space($this->getChar() ?? '') && $this->nextChar())
             || $this->readDisabledComment()
             || $this->readPreviousTranslationComment());
+
         return $position !== $this->position;
     }
 
@@ -97,7 +99,7 @@ final class StrictPoLoader extends Loader
     private function readString(string $word): bool
     {
         return substr($this->data, $this->position, strlen($word)) === $word
-            ? !!($this->position += strlen($word))
+            ? (bool) ($this->position += strlen($word))
             : false;
     }
 
@@ -106,7 +108,7 @@ final class StrictPoLoader extends Loader
      */
     private function readChar(string $char): bool
     {
-        return $this->getChar() === $char ? !!++$this->position : false;
+        return $this->getChar() === $char ? (bool) ++$this->position : false;
     }
 
     /**
@@ -118,6 +120,7 @@ final class StrictPoLoader extends Loader
         if ($char !== null) {
             ++$this->position;
         }
+
         return $char;
     }
 
@@ -135,6 +138,7 @@ final class StrictPoLoader extends Loader
     private function readNumber(): string
     {
         for ($data = ''; ctype_digit($this->getChar() ?? ''); $data .= $this->nextChar());
+
         return $data;
     }
 
@@ -143,10 +147,13 @@ final class StrictPoLoader extends Loader
      */
     private function readCharset(string $charset, int $maxLength): string
     {
-        for ($data = ''; ($char = $this->getChar()) !== null && is_int(strpos($charset, $char)) && --$maxLength >= 0; $data .= $this->nextChar());
+        for ($data = ''; ($char = $this->getChar()) !== null
+            && is_int(strpos($charset, $char))
+            && --$maxLength >= 0; $data .= $this->nextChar());
         if ($data === '') {
-            throw new Exception("Expected at least one occurrence of the characters \"{$charset}\" at byte {$this->position}");
+            throw new Exception("Expected at least one occurrence of \"{$charset}\" at byte {$this->position}");
         }
+
         return $data;
     }
 
@@ -156,6 +163,7 @@ final class StrictPoLoader extends Loader
     private function readCommentString(): string
     {
         for ($data = ''; ($char = $this->getChar() ?? "\n") !== "\n" && $char !== "\r"; $data .= $this->nextChar());
+
         return $data;
     }
 
@@ -221,6 +229,7 @@ final class StrictPoLoader extends Loader
             }
             $this->readWhiteSpace();
         }
+
         return $data;
     }
 
@@ -278,6 +287,7 @@ final class StrictPoLoader extends Loader
                 $this->translation->getExtractedComments()->add($data);
                 break;
         }
+
         return true;
     }
 
@@ -291,9 +301,11 @@ final class StrictPoLoader extends Loader
             if ($throwIfNotFound) {
                 throw new Exception("Expected identifier $identifier at byte {$this->position}");
             }
+
             return null;
         }
         $this->readWhiteSpace();
+
         return $this->readQuotedString();
     }
 
@@ -306,6 +318,7 @@ final class StrictPoLoader extends Loader
             return false;
         }
         $this->translation = $this->translation->withContext($data);
+
         return true;
     }
 
@@ -327,6 +340,7 @@ final class StrictPoLoader extends Loader
             return false;
         }
         $this->translation->setPlural($data);
+
         return true;
     }
 
@@ -354,6 +368,7 @@ final class StrictPoLoader extends Loader
             if ($throwIfNotFound) {
                 throw new Exception("Expected indexed msgstr at byte {$this->position}");
             }
+
             return false;
         }
         $this->readWhiteSpace();
@@ -379,6 +394,7 @@ final class StrictPoLoader extends Loader
         $translations[] = $data;
         $this->translation->translate(array_shift($translations));
         $this->translation->translatePlural(...$translations);
+
         return true;
     }
 
@@ -433,6 +449,7 @@ final class StrictPoLoader extends Loader
             }
             $headers[$name] .= $line;
         }
+
         return $headers;
     }
 }
