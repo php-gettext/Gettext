@@ -61,6 +61,9 @@ final class StrictPoLoader extends Loader
      */
     private function saveEntry(): void
     {
+        if ($this->translations->getTranslations()[$this->translation->getId()] ?? null) {
+            throw new Exception("Duplicated entry at byte {$this->position}");
+        }
         $this->translations->add($this->translation);
     }
 
@@ -328,6 +331,7 @@ final class StrictPoLoader extends Loader
     private function readOriginal(): void
     {
         $data = $this->readIdentifier('msgid', true);
+        $this->checkNewLine($data, 'msgid');
         $this->translation = $this->translation->withOriginal($data);
     }
 
@@ -339,6 +343,7 @@ final class StrictPoLoader extends Loader
         if (($data = $this->readIdentifier('msgid_plural')) === null) {
             return false;
         }
+        $this->checkNewLine($data, 'msgid_plural');
         $this->translation->setPlural($data);
 
         return true;
@@ -355,6 +360,10 @@ final class StrictPoLoader extends Loader
         }
         $this->readWhiteSpace();
         $data = $this->readQuotedString();
+        // The header might be surrounded by newlines
+        if ($this->translation->getOriginal() !== '') {
+            $this->checkNewLine($data, 'msgstr');
+        }
         $this->translation->translate($data);
     }
 
@@ -392,6 +401,7 @@ final class StrictPoLoader extends Loader
         $this->readWhiteSpace();
         $data = $this->readQuotedString();
         $translations[] = $data;
+        $this->checkNewLine($data, 'msgstr');
         $this->translation->translate(array_shift($translations));
         $this->translation->translatePlural(...$translations);
 
@@ -451,5 +461,16 @@ final class StrictPoLoader extends Loader
         }
 
         return $headers;
+    }
+
+    /**
+     * Ensures the data doesn't start nor end with a newline
+     */
+    private function checkNewLine(string $data, string $context): void
+    {
+        if (($first = substr($data, 0, 1)) === "\n" || $first === "\r"
+            || ($last = substr($data, -1)) === "\n" || $last === "\n") {
+            throw new Exception("$context cannot start nor end with a newline at byte {$this->position}");
+        }
     }
 }
