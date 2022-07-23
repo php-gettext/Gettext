@@ -35,6 +35,30 @@ class StrictPoLoaderTest extends BasePoLoaderTestCase
         $this->assertEquals($translations->find('ctx', 'original')->getComments()->toArray()[0], '  comment');
     }
 
+    public function testPreviousTranslation(): void
+    {
+        $po = '#| msgctxt "previous ctx"
+        #| msgid "previous original"
+        #| msgid_plural "previous plural"
+        msgctxt "ctx"
+        msgid "original"
+        msgid_plural "plural"
+        msgstr "translation"';
+        $translations = $this->createPoLoader()->loadString($po);
+
+        $translation = $translations->find('ctx', 'original');
+        $this->assertNotNull($translation);
+        $this->assertEquals($translation->getContext(), 'ctx');
+        $this->assertEquals($translation->getOriginal(), 'original');
+        $this->assertEquals($translation->getPlural(), 'plural');
+        $this->assertEquals($translation->getTranslation(), 'translation');
+
+        $this->assertEquals($translation->getPreviousContext(), 'previous ctx');
+        $this->assertEquals($translation->getPreviousOriginal(), 'previous original');
+        $this->assertEquals($translation->getPreviousPlural(), 'previous plural');
+
+    }
+
     public function badFormattedPoProvider(): array
     {
         return [
