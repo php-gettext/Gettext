@@ -46,8 +46,7 @@ final class StrictPoLoader extends Loader
         string $string,
         Translations $translations = null,
         bool $throwOnWarning = false
-    ): Translations
-    {
+    ): Translations {
         $this->data = $string;
         $this->position = 0;
         $this->translations = parent::loadString($string, $translations);

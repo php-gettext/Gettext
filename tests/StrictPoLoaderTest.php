@@ -3,11 +3,15 @@ declare(strict_types = 1);
 
 namespace Gettext\Tests;
 
+use Gettext\Loader\Loader;
 use Gettext\Loader\StrictPoLoader;
 
 class StrictPoLoaderTest extends BasePoLoaderTestCase
 {
-    protected function createPoLoader(): StrictPoLoader
+    /**
+     * @return StrictPoLoader
+     */
+    protected function createPoLoader(): Loader
     {
         return new StrictPoLoader();
     }
