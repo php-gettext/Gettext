@@ -12,9 +12,6 @@ use Gettext\Translations;
  */
 final class StrictPoLoader extends Loader
 {
-    /** @var string[] */
-    public $warnings = [];
-
     /** @var Translations */
     private $translations;
     /** @var Translation */
@@ -31,15 +28,26 @@ final class StrictPoLoader extends Loader
     private $inPreviousComment;
     /** @var bool */
     private $throwOnWarning;
+    /** @var string[] */
+    private $warnings = [];
 
     /**
      * Generates a Translations object from a .po based string
      */
-    public function loadString(
+    public function loadString(string $string, Translations $translations = null): Translations
+    {
+        return $this->loadStringExtended(...func_get_args());
+    }
+
+    /**
+     * Generates a Translations object from a .po based string with extra options
+     */
+    public function loadStringExtended(
         string $string,
         Translations $translations = null,
         bool $throwOnWarning = false
-    ): Translations {
+    ): Translations
+    {
         $this->data = $string;
         $this->position = 0;
         $this->translations = parent::loadString($string, $translations);
@@ -49,6 +57,9 @@ final class StrictPoLoader extends Loader
         $this->warnings = [];
         for ($this->newEntry(); $this->getChar() !== null; $this->newEntry()) {
             while ($this->readComment());
+            if ($this->getChar() === null) {
+                $this->addWarning("Comment ignored at the end of the string at byte {$this->position}");
+            }
             $this->readContext();
             $this->readOriginal();
             if ($this->readPlural() && $this->readPluralTranslation(true)) {
@@ -63,6 +74,15 @@ final class StrictPoLoader extends Loader
         }
 
         return $this->translations;
+    }
+
+    /**
+     * Retrieves the collected warnings
+     * @return string[]
+     */
+    public function getWarnings(): array
+    {
+        return $this->warnings;
     }
 
     /**
@@ -88,9 +108,9 @@ final class StrictPoLoader extends Loader
             throw new Exception("Duplicated entry at byte {$this->position}");
         }
         if ($this->pluralCount !== null && $this->translation->getPlural() !== null
-            && count($this->translation->getPluralTranslations()) < $this->pluralCount) {
-            $this->addWarning("The translation doesn't have all the {$this->pluralCount} "
-                . "plural forms at byte {$this->position}");
+            && ($translationCount = count($this->translation->getPluralTranslations())) !== ($this->pluralCount - 1)) {
+            $this->addWarning("The translation has {$translationCount} plural forms, "
+                ."while the header expects {$this->pluralCount} at byte {$this->position}");
         }
         $this->translations->add($this->translation);
     }
@@ -114,7 +134,7 @@ final class StrictPoLoader extends Loader
     /**
      * Attempts to read whitespace characters, also might skip complex comment prologs when needed
      */
-    private function readWhiteSpace(): bool
+    private function readWhitespace(): bool
     {
         $position = $this->position;
         while ((ctype_space($this->getChar() ?? '') && $this->nextChar())
@@ -258,11 +278,11 @@ final class StrictPoLoader extends Loader
                 }
             }
             if (!$this->readChar('"')) {
-                throw new Exception("Expected an ending quote at byte {$this->position}");
+                throw new Exception("Expected a closing quote at byte {$this->position}");
             }
             // Saves a checkpoint and attempts to read a new sequence
             $checkpoint = $this->position;
-            $this->readWhiteSpace();
+            $this->readWhitespace();
         }
 
         return $data;
@@ -273,7 +293,7 @@ final class StrictPoLoader extends Loader
      */
     private function readComment(): bool
     {
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readChar('#')) {
             return false;
         }
@@ -336,7 +356,7 @@ final class StrictPoLoader extends Loader
     private function readIdentifier(string $identifier, bool $throwIfNotFound = false): ?string
     {
         $checkpoint = $this->position;
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readString($identifier)) {
             if ($throwIfNotFound) {
                 throw new Exception("Expected $identifier at byte {$this->position}");
@@ -345,7 +365,7 @@ final class StrictPoLoader extends Loader
 
             return null;
         }
-        $this->readWhiteSpace();
+        $this->readWhitespace();
 
         return $this->readQuotedString();
     }
@@ -392,11 +412,11 @@ final class StrictPoLoader extends Loader
      */
     private function readTranslation(): void
     {
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readString('msgstr')) {
             throw new Exception("Expected msgstr at byte {$this->position}");
         }
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         $data = $this->readQuotedString();
         // The header might be surrounded by newlines
         if ($this->translation->getOriginal() !== '') {
@@ -410,7 +430,7 @@ final class StrictPoLoader extends Loader
      */
     private function readPluralTranslation(bool $throwIfNotFound = false): bool
     {
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readString('msgstr')) {
             if ($throwIfNotFound) {
                 throw new Exception("Expected indexed msgstr at byte {$this->position}");
@@ -418,14 +438,15 @@ final class StrictPoLoader extends Loader
 
             return false;
         }
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readChar('[')) {
             throw new Exception("Expected character \"[\" at byte {$this->position}");
         }
+        $this->readWhitespace();
         if (!strlen($index = $this->readNumber())) {
             throw new Exception("Expected msgstr index at byte {$this->position}");
         }
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         if (!$this->readChar(']')) {
             throw new Exception("Expected character \"]\" at byte {$this->position}");
         }
@@ -436,7 +457,7 @@ final class StrictPoLoader extends Loader
         if (count($translations) !== (int) $index) {
             throw new Exception("The msgstr has an invalid index at byte {$this->position}");
         }
-        $this->readWhiteSpace();
+        $this->readWhitespace();
         $data = $this->readQuotedString();
         $translations[] = $data;
         $this->checkNewLine($data, 'msgstr');
