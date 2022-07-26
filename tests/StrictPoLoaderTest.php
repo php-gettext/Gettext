@@ -184,7 +184,7 @@ class StrictPoLoaderTest extends BasePoLoaderTestCase
                 msgstr \"trans\rlation\"",
             ],
             'Encoding: Invalid octal digit' => [
-                '/Invalid quoted character/',
+                '/Invalid escaped character/',
                 'msgid "original"
                 msgstr "translation\8"',
             ],
@@ -194,12 +194,12 @@ class StrictPoLoaderTest extends BasePoLoaderTestCase
                 msgstr "translation\777"',
             ],
             'Encoding: Invalid hexadecimal digit' => [
-                '/Expected at least one occurrence of hexadecimal/',
+                '/Expected at least 1 occurrence of hexadecimal/',
                 'msgid "original"
                 msgstr "translation\xGG"',
             ],
             'Encoding: Invalid unicode digit' => [
-                '/Expected at least one occurrence of hexadecimal/',
+                '/Expected at least 1 occurrence of hexadecimal/',
                 'msgid "original"
                 msgstr "translation\uZZ"',
             ],
