@@ -294,8 +294,7 @@ class StrictPoLoaderTest extends BasePoLoaderTestCase
         string $po,
         bool $throwOnWarning = false,
         bool $displayErrorLine = false
-    ): void
-    {
+    ): void {
         $this->expectExceptionMessageMatches($exceptionPattern);
         $loader = $this->createPoLoader();
         $loader->throwOnWarning = $throwOnWarning;

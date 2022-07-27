@@ -475,11 +475,13 @@ final class StrictPoLoader extends Loader
     private function getErrorPosition(): string
     {
         if ($this->displayErrorLine) {
-            $pieces = preg_split("/\\r\\n|\\n\\r|\\n|\\r/", substr($this->data, 0, $this->position));
+            $pieces = preg_split('/\\r\\n|\\n\\r|\\n|\\r/', substr($this->data, 0, $this->position));
             $line = count($pieces);
             $column = strlen(end($pieces));
+
             return " at line {$line} column {$column}";
         }
+
         return " at byte {$this->position}";
     }
 }
