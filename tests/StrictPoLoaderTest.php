@@ -274,20 +274,32 @@ class StrictPoLoaderTest extends BasePoLoaderTestCase
                 # Dangling comment',
                 true,
             ],
+            'Dangling comment in the end of the data using error report with line/column' => [
+                '/Comment ignored at the end.*line 4 column 34/',
+                'msgid "original"
+                msgstr "translation"
+                
+                # Dangling comment',
+                true,
+                true,
+            ],
         ];
     }
 
     /**
      * @dataProvider badFormattedPoProvider
      */
-    public function testBadFormattedPo(string $exceptionPattern, string $po, bool $throwOnWarning = false): void
+    public function testBadFormattedPo(
+        string $exceptionPattern,
+        string $po,
+        bool $throwOnWarning = false,
+        bool $displayErrorLine = false
+    ): void
     {
         $this->expectExceptionMessageMatches($exceptionPattern);
         $loader = $this->createPoLoader();
-        if ($throwOnWarning) {
-            $loader->loadStringExtended($po, null, $throwOnWarning);
-        } else {
-            $loader->loadString($po);
-        }
+        $loader->throwOnWarning = $throwOnWarning;
+        $loader->displayErrorLine = $displayErrorLine;
+        $loader->loadString($po);
     }
 }

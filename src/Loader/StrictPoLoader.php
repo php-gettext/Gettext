@@ -12,6 +12,11 @@ use Gettext\Translations;
  */
 final class StrictPoLoader extends Loader
 {
+    /** @var bool */
+    public $throwOnWarning = false;
+    /** @var bool */
+    public $displayErrorLine = false;
+
     /** @var Translations */
     private $translations;
     /** @var Translation */
@@ -26,35 +31,23 @@ final class StrictPoLoader extends Loader
     private $pluralCount;
     /** @var bool */
     private $inPreviousPart;
-    /** @var bool */
-    private $throwOnWarning;
     /** @var string[] */
     private $warnings = [];
     /** @var bool */
     private $isDisabled;
+    /** @var bool */
+    private $displayLineColumn;
 
     /**
      * Generates a Translations object from a .po based string
      */
     public function loadString(string $data, Translations $translations = null): Translations
     {
-        return $this->loadStringExtended(...func_get_args());
-    }
-
-    /**
-     * Generates a Translations object from a .po based string with extra options
-     */
-    public function loadStringExtended(
-        string $data,
-        Translations $translations = null,
-        bool $throwOnWarning = false
-    ): Translations {
         $this->data = $data;
         $this->position = 0;
         $this->translations = parent::loadString($this->data, $translations);
         $this->header = $this->translations->find(null, '');
         $this->pluralCount = $this->translations->getHeaders()->getPluralForm()[0] ?? null;
-        $this->throwOnWarning = $throwOnWarning;
         $this->warnings = [];
         for ($length = strlen($this->data); $this->newEntry(); $this->saveEntry()) {
             for ($hasComment = false; $this->readComment(); $hasComment = true);
@@ -62,22 +55,25 @@ final class StrictPoLoader extends Loader
             // End of data
             if ($this->position >= $length) {
                 if ($hasComment) {
-                    $this->addWarning("Comment ignored at the end of the string at byte {$this->position}");
+                    $this->addWarning("Comment ignored at the end of the string{$this->getErrorPosition()}");
                 }
                 break;
             }
             $this->readContext();
             $this->readOriginal();
+            if ($this->translations->has($this->translation)) {
+                throw new Exception("Duplicated entry{$this->getErrorPosition()}");
+            }
             if (!$this->readPlural()) {
                 $this->readTranslation();
                 continue;
             }
             for ($count = 0; $this->readPluralTranslation(!$count); ++$count);
             $count !== ($this->pluralCount ?? $count) && $this->addWarning("The translation has {$count} plural "
-                . "forms, while the header expects {$this->pluralCount} at byte {$this->position}");
+                . "forms, while the header expects {$this->pluralCount}{$this->getErrorPosition()}");
         }
         if (!$this->header) {
-            $this->addWarning("The loaded string has no header translation at byte {$this->position}");
+            $this->addWarning("The loaded string has no header translation{$this->getErrorPosition()}");
         }
 
         return $this->translations;
@@ -111,9 +107,6 @@ final class StrictPoLoader extends Loader
             $this->processHeader();
 
             return;
-        }
-        if ($this->translations->has($this->translation)) {
-            throw new Exception("Duplicated entry at byte {$this->position}");
         }
         $this->translations->add($this->translation);
     }
@@ -154,7 +147,7 @@ final class StrictPoLoader extends Loader
     private function readCharset(string $charset, int $min, int $max, string $name): string
     {
         if (($length = strspn($this->data, $charset, $this->position, $max)) < $min) {
-            throw new Exception("Expected at least {$min} occurrence of {$name} characters at byte {$this->position}");
+            throw new Exception("Expected at least {$min} occurrence of {$name} characters{$this->getErrorPosition()}");
         }
 
         return substr($this->data, ($this->position += $length) - $length, $length);
@@ -184,7 +177,7 @@ final class StrictPoLoader extends Loader
                     $this->position = $checkpoint;
                     break;
                 }
-                throw new Exception("Expected an opening quote at byte {$this->position}");
+                throw new Exception("Expected an opening quote{$this->getErrorPosition()}");
             }
             $isNewPart = false;
             // Collects chars until an edge case is found
@@ -204,14 +197,14 @@ final class StrictPoLoader extends Loader
                 // Unexpected newline
                 case "\r":
                 case "\n":
-                    throw new Exception("Newline character must be escaped at byte {$this->position}");
+                    throw new Exception("Newline character must be escaped{$this->getErrorPosition()}");
                 // Unexpected end of file
                 case null:
-                    throw new Exception("Expected a closing quote at byte {$this->position}");
+                    throw new Exception("Expected a closing quote{$this->getErrorPosition()}");
             }
         }
         if ($context && strlen($data) && strpbrk($data[0] . $data[strlen($data) - 1], "\r\n") && !$this->isHeader()) {
-            $this->addWarning("$context cannot start nor end with a newline at byte {$this->position}");
+            $this->addWarning("$context cannot start nor end with a newline{$this->getErrorPosition()}");
         }
 
         return $data;
@@ -230,7 +223,7 @@ final class StrictPoLoader extends Loader
             case strpbrk($char, $octalDigits = '01234567'):
                 // GNU gettext fails with an octal above the signed char range
                 if (($decimal = octdec($char . $this->readCharset($octalDigits, 0, 2, 'octal'))) > 127) {
-                    throw new Exception("Octal value out of range [0, 0177] at byte {$this->position}");
+                    throw new Exception("Octal value out of range [0, 0177]{$this->getErrorPosition()}");
                 }
 
                 return chr($decimal);
@@ -247,7 +240,7 @@ final class StrictPoLoader extends Loader
 
                 return mb_convert_encoding(hex2bin($value), 'UTF-8', 'UTF-' . ($digits * 4));
         }
-        throw new Exception("Invalid escaped character at byte {$this->position}");
+        throw new Exception("Invalid escaped character{$this->getErrorPosition()}");
     }
 
     /**
@@ -270,7 +263,7 @@ final class StrictPoLoader extends Loader
                 break;
             case '~':
                 if ($this->translation->getPreviousOriginal() !== null) {
-                    throw new Exception("Inconsistent use of #~ at byte {$this->position}");
+                    throw new Exception("Inconsistent use of #~{$this->getErrorPosition()}");
                 }
                 $this->translation->disable();
                 $this->isDisabled = true;
@@ -278,7 +271,7 @@ final class StrictPoLoader extends Loader
             case '|':
                 if ($this->translation->getPreviousOriginal() !== null) {
                     throw new Exception('Cannot redeclare the previous comment #|, '
-                        . "ensure the definitions are in the right order at byte {$this->position}");
+                        . "ensure the definitions are in the right order{$this->getErrorPosition()}");
                 }
                 $this->inPreviousPart = true;
                 $this->translation->setPreviousContext($this->readIdentifier('msgctxt'));
@@ -320,7 +313,7 @@ final class StrictPoLoader extends Loader
             return $this->readQuotedString($identifier);
         }
         if ($throwIfNotFound) {
-            throw new Exception("Expected $identifier at byte {$this->position}");
+            throw new Exception("Expected $identifier{$this->getErrorPosition()}");
         }
         $this->position = $checkpoint;
 
@@ -359,7 +352,7 @@ final class StrictPoLoader extends Loader
     {
         $this->readWhitespace();
         if (!$this->readString('msgstr')) {
-            throw new Exception("Expected msgstr at byte {$this->position}");
+            throw new Exception("Expected msgstr{$this->getErrorPosition()}");
         }
         $this->translation->translate($this->readQuotedString('msgstr'));
     }
@@ -372,27 +365,27 @@ final class StrictPoLoader extends Loader
         $this->readWhitespace();
         if (!$this->readString('msgstr')) {
             if ($throwIfNotFound) {
-                throw new Exception("Expected indexed msgstr at byte {$this->position}");
+                throw new Exception("Expected indexed msgstr{$this->getErrorPosition()}");
             }
 
             return false;
         }
         $this->readWhitespace();
         if (!$this->readChar('[')) {
-            throw new Exception("Expected character \"[\" at byte {$this->position}");
+            throw new Exception("Expected character \"[\"{$this->getErrorPosition()}");
         }
         $this->readWhitespace();
         $index = (int) $this->readCharset('0123456789', 1, PHP_INT_MAX, 'numeric');
         $this->readWhitespace();
         if (!$this->readChar(']')) {
-            throw new Exception("Expected character \"]\" at byte {$this->position}");
+            throw new Exception("Expected character \"]\"{$this->getErrorPosition()}");
         }
         $translations = $this->translation->getPluralTranslations();
         if (($translation = $this->translation->getTranslation()) !== null) {
             array_unshift($translations, $translation);
         }
         if (count($translations) !== (int) $index) {
-            throw new Exception("The msgstr has an invalid index at byte {$this->position}");
+            throw new Exception("The msgstr has an invalid index{$this->getErrorPosition()}");
         }
         $data = $this->readQuotedString('msgstr');
         $translations[] = $data;
@@ -423,7 +416,7 @@ final class StrictPoLoader extends Loader
         $this->pluralCount = $headers->getPluralForm()[0] ?? null;
         foreach (['Language', 'Plural-Forms', 'Content-Type'] as $header) {
             if (($headers->get($header) ?? '') === '') {
-                $this->addWarning("$header header not declared or empty at byte {$this->position}");
+                $this->addWarning("$header header not declared or empty{$this->getErrorPosition()}");
             }
         }
     }
@@ -441,14 +434,14 @@ final class StrictPoLoader extends Loader
             if (preg_match('/^[\w-]+:/', $line)) {
                 [$name, $value] = explode(':', $line, 2);
                 if (isset($headers[$name])) {
-                    $this->addWarning("Header already defined at byte {$this->position}");
+                    $this->addWarning("Header already defined{$this->getErrorPosition()}");
                 }
                 $headers[$name] = trim($value);
                 continue;
             }
             // Data without a definition
             if ($name === null) {
-                $this->addWarning("Malformed header name at byte {$this->position}");
+                $this->addWarning("Malformed header name{$this->getErrorPosition()}");
                 continue;
             }
             $headers[$name] .= $line;
@@ -474,5 +467,19 @@ final class StrictPoLoader extends Loader
     private function isHeader(): bool
     {
         return $this->translation->getOriginal() === '' && $this->translation->getContext() === null;
+    }
+
+    /**
+     * Retrieves the position where an error was detected
+     */
+    private function getErrorPosition(): string
+    {
+        if ($this->displayErrorLine) {
+            $pieces = preg_split("/\\r\\n|\\n\\r|\\n|\\r/", substr($this->data, 0, $this->position));
+            $line = count($pieces);
+            $column = strlen(end($pieces));
+            return " at line {$line} column {$column}";
+        }
+        return " at byte {$this->position}";
     }
 }
