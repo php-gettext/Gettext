@@ -5,7 +5,6 @@ namespace Gettext\Scanner;
 
 use Exception;
 use Gettext\Translation;
-use Gettext\Translations;
 
 /**
  * Base class with common functions to scan files with code and get gettext translations.

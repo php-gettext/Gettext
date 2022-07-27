@@ -21,6 +21,9 @@
             'plural' => null,
             'pluralTranslations' => [],
             'disabled' => false,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     3,
@@ -42,6 +45,9 @@
             'plural' => null,
             'pluralTranslations' => [],
             'disabled' => true,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     4
@@ -63,6 +69,9 @@
                 '%s comentarios'
             ],
             'disabled' => false,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     5,
@@ -83,6 +92,9 @@
             'plural' => null,
             'pluralTranslations' => [],
             'disabled' => false,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     10
@@ -105,6 +117,9 @@
             'plural' => null,
             'pluralTranslations' => [],
             'disabled' => false,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     11
@@ -122,6 +137,9 @@
             'plural' => null,
             'pluralTranslations' => [],
             'disabled' => false,
+            'previousContext' => null,
+            'previousOriginal' => null,
+            'previousPlural' => null,
             'references' => [
                 'template.php' => [
                     2

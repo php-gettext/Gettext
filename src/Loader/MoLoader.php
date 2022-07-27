@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace Gettext\Loader;
 
 use Exception;
-use Gettext\Translation;
 use Gettext\Translations;
 
 /**

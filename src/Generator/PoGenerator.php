@@ -65,6 +65,18 @@ final class PoGenerator extends Generator
 
             $prefix = $translation->isDisabled() ? '#~ ' : '';
 
+            if ($context = $translation->getPreviousContext()) {
+                $lines[] = sprintf('%s#| msgctxt %s', $prefix, self::encode($context));
+            }
+
+            if ($original = $translation->getPreviousOriginal()) {
+                $lines[] = sprintf('%s#| msgid %s', $prefix, self::encode($original));
+            }
+
+            if ($plural = $translation->getPreviousPlural()) {
+                $lines[] = sprintf('%s#| msgid_plural %s', $prefix, self::encode($plural));
+            }
+
             if ($context = $translation->getContext()) {
                 $lines[] = sprintf('%smsgctxt %s', $prefix, self::encode($context));
             }

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.7.0] - 2021-07-27
+### Added
+- StrictPoLoader, a stricter PO loader more aligned with the syntax of the GNU gettext tooling [#282].
+- Previous attributes (msgctxt, msgid, msgid_plural) to the Translation class and the PO generator [#282].
+### Changed
+- Minor performance improvements to the Translations class [#282].
+
 ## [5.6.1] - 2021-12-04
 ### Fixed
 - PHP 8.1 support [#278].
@@ -112,7 +119,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#265]: https://github.com/php-gettext/Gettext/issues/265
 [#276]: https://github.com/php-gettext/Gettext/issues/276
 [#278]: https://github.com/php-gettext/Gettext/issues/278
+[#282]: https://github.com/php-gettext/Gettext/issues/282
 
+[5.7.0]: https://github.com/php-gettext/Gettext/compare/v5.6.1...v5.7.0
 [5.6.1]: https://github.com/php-gettext/Gettext/compare/v5.6.0...v5.6.1
 [5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...v5.6.0
 [5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
