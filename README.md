@@ -94,7 +94,7 @@ $translations->setDomain('my-blog');
 
 ## Loaders
 
-The loaders allows to get gettext values from any format. For example, to load a .po file:
+The loaders allow to get gettext values from multiple formats. For example, to load a .po file:
 
 ```php
 use Gettext\Loader\PoLoader;
@@ -109,10 +109,39 @@ $string = file_get_contents('locales2/en.po');
 $translations = $loader->loadString($string);
 ```
 
+As of version 5.7.0, a `StrictPoLoader` has been included, with a parser more aligned to the GNU gettext tooling with the same expectations and failures (see the tests for more details).
+- It will fail with an exception when there's anything wrong with the syntax, and display the reason together with the line/byte where it happened.
+- It might also emit useful warnings, e.g. when there are more/less plural translations than needed, missing translation header, dangling comments not associated with any translation, etc.
+- Due to its strictness and speed (about 50% slower than the `PoLoader`), it might be interesting to be used as a kind of `.po` linter in a build system.
+- It also implements the previous translation comment (e.g. `#| msgid "previous"`) and extra escapes (16-bit unicode `\u`, 32-bit unicode `\U`, hexadecimal `\xFF` and octal `\77`).
+
+The usage is basically the same as the `PoLoader`:
+
+```php
+use Gettext\Loader\StrictPoLoader;
+
+$loader = new StrictPoLoader();
+
+//From a file
+$translations = $loader->loadFile('locales/en.po');
+
+//From a string
+$string = file_get_contents('locales2/en.po');
+$translations = $loader->loadString($string);
+
+//Display error messages using "at line X column Y" instead of "at byte X"
+$loader->displayErrorLine = true;
+//Throw an exception when a warning happens
+$loader->throwOnWarning = true;
+//Retrieve the warnings
+$loader->getWarnings();
+```
+
 This package includes the following loaders:
 
 - `MoLoader`
 - `PoLoader`
+- `StrictPoLoader`
 
 And you can install other formats with loaders and generators:
 
