@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.7.0] - 2021-07-27
+## [5.7.0] - 2022-07-27
 ### Added
 - StrictPoLoader, a stricter PO loader more aligned with the syntax of the GNU gettext tooling [#282].
 - Previous attributes (msgctxt, msgid, msgid_plural) to the Translation class and the PO generator [#282].
+
 ### Changed
 - Minor performance improvements to the Translations class [#282].
 
@@ -80,7 +81,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 ### Added
 - New function `CodeScanner::ignoreInvalidFunctions()` to ignore invalid functions instead throw an exception
 
-## 5.0.0 - 2019-11-04
+## [5.0.0] - 2019-11-04
 ### Added
 - New interfaces: `ScannerInterface` and `FunctionsScannerInterface`.
 
@@ -136,3 +137,4 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/php-gettext/Gettext/compare/v5.0.0...v5.1.0
+[5.0.0]: https://github.com/php-gettext/Gettext/releases/tag/v5.0.0
