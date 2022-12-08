@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.8] - 2022-12-08
+### Fixed
+- PHP functions prefixed with a slash are being ignored [#284], [#288]
+
 ## [4.8.7] - 2022-08-02
 ### Fixed
 - Suppress deprecation error on PHP 8.1 [#280]
@@ -180,7 +184,10 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#271]: https://github.com/oscarotero/Gettext/issues/271
 [#274]: https://github.com/oscarotero/Gettext/issues/274
 [#280]: https://github.com/oscarotero/Gettext/issues/280
+[#284]: https://github.com/oscarotero/Gettext/issues/284
+[#288]: https://github.com/oscarotero/Gettext/issues/288
 
+[4.8.8]: https://github.com/oscarotero/Gettext/compare/v4.8.7...v4.8.8
 [4.8.7]: https://github.com/oscarotero/Gettext/compare/v4.8.6...v4.8.7
 [4.8.6]: https://github.com/oscarotero/Gettext/compare/v4.8.5...v4.8.6
 [4.8.5]: https://github.com/oscarotero/Gettext/compare/v4.8.4...v4.8.5
