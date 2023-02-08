@@ -270,6 +270,10 @@ $updatedEntries = $newEntries->mergeWith($previousEntries);
 
 More common scenarios may be added in a future.
 
+## Related projects
+
+- [gettext-wp-scanner](https://github.com/10quality/gettext-wp-scanner) WordPress code scanner to use with this library.
+
 ## Contributors
 
 Thanks to all [contributors](https://github.com/oscarotero/Gettext/graphs/contributors) specially to [@mlocati](https://github.com/mlocati).
