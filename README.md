@@ -229,7 +229,7 @@ Constant | Description
 --------- | -----------
 `Merge::TRANSLATIONS_OURS` | Use only the translations present in `$translations1`
 `Merge::TRANSLATIONS_THEIRS` | Use only the translations present in `$translations2`
-`Merge::TRANSLATION_OVERRIDE` | Override the translation and plural translations with the value of `$translation2`
+`Merge::TRANSLATIONS_OVERRIDE` | Override the translation and plural translations with the value of `$translation2`
 `Merge::HEADERS_OURS` | Use only the headers of `$translations1`
 `Merge::HEADERS_REMOVE` | Use only the headers of `$translations2`
 `Merge::HEADERS_OVERRIDE` | Overrides the headers with the values of `$translations2`
