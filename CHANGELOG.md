@@ -1,11 +1,14 @@
 # Change Log
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
+
+## [4.8.9] - 2023-08-10
+### Fixed
+- PHP 8.1 deprecation warning [#289]
 
 ## [4.8.8] - 2022-12-08
 ### Fixed
@@ -186,7 +189,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#280]: https://github.com/oscarotero/Gettext/issues/280
 [#284]: https://github.com/oscarotero/Gettext/issues/284
 [#288]: https://github.com/oscarotero/Gettext/issues/288
+[#289]: https://github.com/oscarotero/Gettext/issues/289
 
+[4.8.9]: https://github.com/oscarotero/Gettext/compare/v4.8.8...v4.8.9
 [4.8.8]: https://github.com/oscarotero/Gettext/compare/v4.8.7...v4.8.8
 [4.8.7]: https://github.com/oscarotero/Gettext/compare/v4.8.6...v4.8.7
 [4.8.6]: https://github.com/oscarotero/Gettext/compare/v4.8.5...v4.8.6
