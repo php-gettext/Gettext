@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.11] - 2023-08-14
+### Fixed
+- PHP 5.4 support [#289]
+
 ## [4.8.10] - 2023-08-10
 ### Fixed
 - Previous version was tagged with the incorrect branch.
@@ -195,6 +199,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#288]: https://github.com/oscarotero/Gettext/issues/288
 [#289]: https://github.com/oscarotero/Gettext/issues/289
 
+[4.8.11]: https://github.com/oscarotero/Gettext/compare/v4.8.10...v4.8.11
 [4.8.10]: https://github.com/oscarotero/Gettext/compare/v4.8.9...v4.8.10
 [4.8.9]: https://github.com/oscarotero/Gettext/compare/v4.8.8...v4.8.9
 [4.8.8]: https://github.com/oscarotero/Gettext/compare/v4.8.7...v4.8.8
