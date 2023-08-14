@@ -282,7 +282,7 @@ class Translations extends ArrayObject
     public function setHeader($name, $value)
     {
         $name = trim($name);
-        $this->headers[$name] = trim($value ?? '');
+        $this->headers[$name] = trim(isset($value) ? $value : '');
 
         return $this;
     }
