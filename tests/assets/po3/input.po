@@ -37,3 +37,9 @@ msgstr[1] ""
 
 msgid "1 star"
 msgstr "1 estrela"
+#
+msgid "1 world"
+msgstr "1 Welt"
+#
+msgid "1 sun"
+msgstr "1 Sonne"

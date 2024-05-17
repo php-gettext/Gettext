@@ -49,6 +49,14 @@ Report-Msgid-Bugs-To:
       array (
         0 => '1 estrela',
       ),
+      '1 world' => 
+      array (
+        0 => '1 Welt',
+      ),
+      '1 sun' => 
+      array (
+        0 => '1 Sonne',
+      ),
     ),
   ),
 );

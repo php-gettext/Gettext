@@ -52,9 +52,17 @@ class Po extends Extractor implements ExtractorInterface
                 $data = isset($splitLine[1]) ? $splitLine[1] : '';
             }
 
+            // If a translation is followed by a comment instead of a newline, create a new translation.
+            if ((0 === strpos($line, '#')) && $translation->hasOriginal() && ! $translation->isDisabled()) {
+                $translations[] = $translation;
+                $translation = $translations->createNewTranslation('', '');
+            }
+
             switch ($key) {
                 case '#':
-                    $translation->addComment($data);
+                    if ('' !== $data) {
+                        $translation->addComment($data);
+                    }
                     $append = null;
                     break;
 
