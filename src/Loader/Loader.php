@@ -8,7 +8,7 @@ use Gettext\Translation;
 use Gettext\Translations;
 
 /**
- * Base class with common funtions for all loaders.
+ * Base class with common functions for all loaders.
  */
 abstract class Loader implements LoaderInterface
 {

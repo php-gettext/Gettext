@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Gettext;
 
 /**
- * Merge contants.
+ * Merge constants.
  */
 final class Merge
 {
