@@ -29,6 +29,10 @@ class Po extends Extractor implements ExtractorInterface
             $line = trim($lines[$i]);
             $line = static::fixMultiLines($line, $lines, $i);
 
+            if ($line === "#") {
+                $line = "";
+            }
+
             if ($line === '') {
                 if ($translation->is('', '')) {
                     static::extractHeaders($translation->getTranslation(), $translations);
@@ -52,17 +56,9 @@ class Po extends Extractor implements ExtractorInterface
                 $data = isset($splitLine[1]) ? $splitLine[1] : '';
             }
 
-            // If a translation is followed by a comment instead of a newline, create a new translation.
-            if ((0 === strpos($line, '#')) && $translation->hasOriginal() && ! $translation->isDisabled()) {
-                $translations[] = $translation;
-                $translation = $translations->createNewTranslation('', '');
-            }
-
             switch ($key) {
                 case '#':
-                    if ('' !== $data) {
-                        $translation->addComment($data);
-                    }
+                    $translation->addComment($data);
                     $append = null;
                     break;
 
