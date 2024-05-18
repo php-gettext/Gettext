@@ -29,6 +29,10 @@ class Po extends Extractor implements ExtractorInterface
             $line = trim($lines[$i]);
             $line = static::fixMultiLines($line, $lines, $i);
 
+            if ($line === "#") {
+                $line = "";
+            }
+
             if ($line === '') {
                 if ($translation->is('', '')) {
                     static::extractHeaders($translation->getTranslation(), $translations);

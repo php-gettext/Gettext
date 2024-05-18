@@ -86,5 +86,23 @@
         <target>1 estrela</target>
       </segment>
     </unit>
+    <unit id="053956a6b44b2ec54e17b7a1b425c43b">
+      <notes>
+        <note category="context"></note>
+      </notes>
+      <segment>
+        <source>1 world</source>
+        <target>1 Welt</target>
+      </segment>
+    </unit>
+    <unit id="25b9c05aeb9c27e35a3b73f6dd5f6f2a">
+      <notes>
+        <note category="context"></note>
+      </notes>
+      <segment>
+        <source>1 sun</source>
+        <target>1 Sonne</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

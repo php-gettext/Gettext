@@ -89,13 +89,13 @@ class AssetsTest extends AbstractTest
     public function testPo3()
     {
         $translations = static::get('po3/input', 'Po');
-        $countTranslations = 8;
-        $countTranslated = 8;
+        $countTranslations = 10;
+        $countTranslated = 10;
         $countHeaders = 8;
 
         $this->assertCount($countTranslations, $translations);
         $this->assertCount($countHeaders, $translations->getHeaders());
-        $this->assertEquals(8, $translations->countTranslated());
+        $this->assertEquals(10, $translations->countTranslated());
 
         $this->assertContent($translations, 'po3/Po');
         $this->assertContent($translations, 'po3/Mo');
