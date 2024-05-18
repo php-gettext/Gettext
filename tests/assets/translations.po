@@ -54,7 +54,7 @@ msgstr "Ovo polje ne može ostati prazno."
 #: C:/Users/Me/Documents/foo1.php
 msgid "This field cannot be blank."
 msgstr "Ovo polje ne može biti prazno."
-
+#
 #: attributes/address/composer.php:8 attributes/address/form.php:7
 msgid "Field of type: %ss"
 msgstr "Polje tipa: %ss"

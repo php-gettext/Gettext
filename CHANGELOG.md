@@ -1,11 +1,14 @@
 # Change Log
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
+
+## [5.7.1] - Unreleased
+### Fixed
+- Parsing of PO files with empty comments instead of empty lines [#296]
 
 ## [5.7.0] - 2022-07-27
 ### Added
@@ -121,7 +124,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#276]: https://github.com/php-gettext/Gettext/issues/276
 [#278]: https://github.com/php-gettext/Gettext/issues/278
 [#282]: https://github.com/php-gettext/Gettext/issues/282
+[#296]: https://github.com/php-gettext/Gettext/issues/296
 
+[5.7.1]: https://github.com/php-gettext/Gettext/compare/v5.7.0...HEAD
 [5.7.0]: https://github.com/php-gettext/Gettext/compare/v5.6.1...v5.7.0
 [5.6.1]: https://github.com/php-gettext/Gettext/compare/v5.6.0...v5.6.1
 [5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...v5.6.0
