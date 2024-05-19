@@ -8,7 +8,7 @@ use Gettext\Translation;
 use Gettext\Translations;
 
 /**
- * Base class with common funtions for all scanners.
+ * Base class with common functions for all scanners.
  */
 abstract class Scanner implements ScannerInterface
 {
