@@ -36,6 +36,10 @@ class MoGeneratorTest extends TestCase
         $translation->translate('Comentario deshabilitado');
         $translations->add($translation);
 
+        $translation = Translation::create(null, '15');
+        $translation->translate('15');
+        $translations->add($translation);
+
         $translation = Translation::create(null, '123456');
         $translation->translate('12345');
         $translations->add($translation);
@@ -47,7 +51,7 @@ class MoGeneratorTest extends TestCase
 
         $result = $loader->loadString($mo);
 
-        $this->assertCount(3, $result);
+        $this->assertCount(4, $result);
         $this->assertCount(5, $result->getHeaders());
     }
 }

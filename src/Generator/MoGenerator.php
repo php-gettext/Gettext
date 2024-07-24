@@ -45,7 +45,7 @@ final class MoGenerator extends Generator
             $messages[$originalString] = $translation;
         }
 
-        ksort($messages);
+        ksort($messages, SORT_STRING);
         $numEntries = count($messages);
         $originalsTable = '';
         $translationsTable = '';
