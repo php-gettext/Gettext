@@ -194,7 +194,7 @@ class Translation
         return $this;
     }
 
-    public function getPluralTranslations(int $size = null): array
+    public function getPluralTranslations(?int $size = null): array
     {
         if ($size === null) {
             return $this->pluralTranslations;

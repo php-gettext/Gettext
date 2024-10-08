@@ -16,7 +16,7 @@ final class ParsedFunction
     private $comments = [];
     private $flags = [];
 
-    public function __construct(string $name, string $filename, int $line, int $lastLine = null)
+    public function __construct(string $name, string $filename, int $line, ?int $lastLine = null)
     {
         $this->name = $name;
         $this->filename = $filename;

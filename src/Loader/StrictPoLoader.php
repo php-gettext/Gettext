@@ -41,7 +41,7 @@ final class StrictPoLoader extends Loader
     /**
      * Generates a Translations object from a .po based string
      */
-    public function loadString(string $data, Translations $translations = null): Translations
+    public function loadString(string $data, ?Translations $translations = null): Translations
     {
         $this->data = $data;
         $this->position = 0;

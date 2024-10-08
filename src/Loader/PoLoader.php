@@ -11,7 +11,7 @@ use Gettext\Translations;
  */
 final class PoLoader extends Loader
 {
-    public function loadString(string $string, Translations $translations = null): Translations
+    public function loadString(string $string, ?Translations $translations = null): Translations
     {
         $translations = parent::loadString($string, $translations);
 

@@ -12,14 +12,14 @@ use Gettext\Translations;
  */
 abstract class Loader implements LoaderInterface
 {
-    public function loadFile(string $filename, Translations $translations = null): Translations
+    public function loadFile(string $filename, ?Translations $translations = null): Translations
     {
         $string = static::readFile($filename);
 
         return $this->loadString($string, $translations);
     }
 
-    public function loadString(string $string, Translations $translations = null): Translations
+    public function loadString(string $string, ?Translations $translations = null): Translations
     {
         return $translations ?: $this->createTranslations();
     }
@@ -29,7 +29,7 @@ abstract class Loader implements LoaderInterface
         return Translations::create();
     }
 
-    protected function createTranslation(?string $context, string $original, string $plural = null): ?Translation
+    protected function createTranslation(?string $context, string $original, ?string $plural = null): ?Translation
     {
         $translation = Translation::create($context, $original);
 
