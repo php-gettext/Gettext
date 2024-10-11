@@ -19,7 +19,7 @@ final class MoLoader extends Loader
     private const MAGIC2 = -569244523;
     private const MAGIC3 = 2500072158;
 
-    public function loadString(string $string, Translations $translations = null): Translations
+    public function loadString(string $string, ?Translations $translations = null): Translations
     {
         $translations = parent::loadString($string, $translations);
         $this->init($string);

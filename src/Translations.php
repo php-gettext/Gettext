@@ -20,7 +20,7 @@ class Translations implements Countable, IteratorAggregate
     protected $headers;
     protected $flags;
 
-    public static function create(string $domain = null, string $language = null): Translations
+    public static function create(?string $domain = null, ?string $language = null): Translations
     {
         $translations = new static();
 

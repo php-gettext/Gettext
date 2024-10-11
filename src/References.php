@@ -29,7 +29,7 @@ class References implements JsonSerializable, Countable, IteratorAggregate
         return $this->toArray();
     }
 
-    public function add(string $filename, int $line = null): self
+    public function add(string $filename, ?int $line = null): self
     {
         $fileReferences = $this->references[$filename] ?? [];
 
