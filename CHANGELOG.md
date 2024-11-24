@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [5.7.2] - 2024-11-24
+### Fixed
+- Php 8.4 support [#300].
+
 ## [5.7.1] - 2024-07-24
 ### Fixed
 - Parsing of PO files with empty comments instead of empty lines [#296]
@@ -127,7 +131,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#282]: https://github.com/php-gettext/Gettext/issues/282
 [#296]: https://github.com/php-gettext/Gettext/issues/296
 [#299]: https://github.com/php-gettext/Gettext/issues/299
+[#300]: https://github.com/php-gettext/Gettext/issues/300
 
+[5.7.2]: https://github.com/php-gettext/Gettext/compare/v5.7.1...v5.7.2
 [5.7.1]: https://github.com/php-gettext/Gettext/compare/v5.7.0...v5.7.1
 [5.7.0]: https://github.com/php-gettext/Gettext/compare/v5.6.1...v5.7.0
 [5.6.1]: https://github.com/php-gettext/Gettext/compare/v5.6.0...v5.6.1
