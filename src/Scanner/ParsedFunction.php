@@ -24,7 +24,7 @@ final class ParsedFunction
         $this->lastLine = isset($lastLine) ? $lastLine : $line;
     }
 
-    public function __debugInfo()
+    public function __debugInfo(): array
     {
         return $this->toArray();
     }
