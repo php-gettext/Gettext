@@ -26,7 +26,7 @@ class MoGeneratorTest extends TestCase
         $translation->translate('Orixinal');
         $translations->add($translation);
 
-        $translation = Translation::create('context-1', 'Other comment', 'Other comments');
+        $translation = Translation::create('context-1', 'Other comment');
         $translation->translate('Outro comentario');
         $translation->translatePlural('Outros comentarios');
         $translations->add($translation);
