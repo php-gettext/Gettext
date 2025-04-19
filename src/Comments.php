@@ -11,6 +11,8 @@ use ReturnTypeWillChange;
 
 /**
  * Class to manage the comments of a translation.
+ *
+ * @phpstan-consistent-constructor
  */
 class Comments implements JsonSerializable, Countable, IteratorAggregate
 {

@@ -11,6 +11,8 @@ use ReturnTypeWillChange;
 
 /**
  * Class to manage the references of a translation.
+ *
+ * @phpstan-consistent-constructor
  */
 class References implements JsonSerializable, Countable, IteratorAggregate
 {
@@ -22,6 +24,10 @@ class References implements JsonSerializable, Countable, IteratorAggregate
         $references->references = $state['references'];
 
         return $references;
+    }
+
+    public function __construct()
+    {
     }
 
     public function __debugInfo()

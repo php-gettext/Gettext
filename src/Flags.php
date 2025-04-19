@@ -11,6 +11,8 @@ use ReturnTypeWillChange;
 
 /**
  * Class to manage the flags of a translation.
+ *
+ * @phpstan-consistent-constructor
  */
 class Flags implements JsonSerializable, Countable, IteratorAggregate
 {

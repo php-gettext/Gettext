@@ -5,6 +5,8 @@ namespace Gettext;
 
 /**
  * Class to manage an individual translation.
+ *
+ * @phpstan-consistent-constructor
  */
 class Translation
 {
