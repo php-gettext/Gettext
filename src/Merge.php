@@ -30,7 +30,7 @@ final class Merge
 
     //Merge strategies
     public const SCAN_AND_LOAD =
-          Merge::HEADERS_OVERRIDE
+        Merge::HEADERS_OVERRIDE
         | Merge::TRANSLATIONS_OURS
         | Merge::TRANSLATIONS_OVERRIDE
         | Merge::EXTRACTED_COMMENTS_OURS

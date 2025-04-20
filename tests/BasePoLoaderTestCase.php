@@ -24,7 +24,7 @@ Copyright (C) YEAR Free Software Foundation, Inc.
 This file is distributed under the same license as the PACKAGE package.
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 EOT
-        ,
+            ,
             $description
         );
 
