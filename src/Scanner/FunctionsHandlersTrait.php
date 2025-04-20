@@ -7,6 +7,8 @@ use Gettext\Translation;
 
 /**
  * Trait with common gettext function handlers
+ *
+ * @phpstan-ignore trait.unused
  */
 trait FunctionsHandlersTrait
 {
