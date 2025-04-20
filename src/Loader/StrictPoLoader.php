@@ -35,8 +35,6 @@ final class StrictPoLoader extends Loader
     private $warnings = [];
     /** @var bool */
     private $isDisabled;
-    /** @var bool */
-    private $displayLineColumn;
 
     /**
      * Generates a Translations object from a .po based string
