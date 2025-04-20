@@ -63,7 +63,7 @@ final class MoLoader extends Loader
                     }
 
                     $headerChunks = preg_split('/:\s*/', $headerLine, 2);
-                    $translations->getHeaders()->set($headerChunks[0], isset($headerChunks[1]) ? $headerChunks[1] : '');
+                    $translations->getHeaders()->set($headerChunks[0], $headerChunks[1] ?? '');
                 }
 
                 continue;
@@ -73,13 +73,13 @@ final class MoLoader extends Loader
             $chunks = explode("\x04", $original, 2);
 
             if (isset($chunks[1])) {
-                list($context, $original) = $chunks;
+                [$context, $original] = $chunks;
             }
 
             $chunks = explode("\x00", $original, 2);
 
             if (isset($chunks[1])) {
-                list($original, $plural) = $chunks;
+                [$original, $plural] = $chunks;
             }
 
             $translation = $this->createTranslation($context, $original, $plural);

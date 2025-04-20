@@ -17,7 +17,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 1)) {
             return null;
         }
-        list($original) = $function->getArguments();
+        [$original] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -32,7 +32,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 2)) {
             return null;
         }
-        list($original, $plural) = $function->getArguments();
+        [$original, $plural] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -47,7 +47,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 2)) {
             return null;
         }
-        list($context, $original) = $function->getArguments();
+        [$context, $original] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -62,7 +62,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 2)) {
             return null;
         }
-        list($domain, $original) = $function->getArguments();
+        [$domain, $original] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -77,7 +77,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 3)) {
             return null;
         }
-        list($domain, $context, $original) = $function->getArguments();
+        [$domain, $context, $original] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -92,7 +92,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 3)) {
             return null;
         }
-        list($context, $original, $plural) = $function->getArguments();
+        [$context, $original, $plural] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -107,7 +107,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 3)) {
             return null;
         }
-        list($domain, $original, $plural) = $function->getArguments();
+        [$domain, $original, $plural] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,
@@ -122,7 +122,7 @@ trait FunctionsHandlersTrait
         if (!$this->checkFunction($function, 4)) {
             return null;
         }
-        list($domain, $context, $original, $plural) = $function->getArguments();
+        [$domain, $context, $original, $plural] = $function->getArguments();
 
         $translation = $this->addComments(
             $function,

@@ -398,7 +398,7 @@ final class StrictPoLoader extends Loader
         if (($translation = $this->translation->getTranslation()) !== null) {
             array_unshift($translations, $translation);
         }
-        if (count($translations) !== (int) $index) {
+        if (count($translations) !== $index) {
             throw new Exception("The msgstr has an invalid index{$this->getErrorPosition()}");
         }
         $data = $this->readQuotedString('msgstr');

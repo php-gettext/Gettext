@@ -21,7 +21,7 @@ final class ParsedFunction
         $this->name = $name;
         $this->filename = $filename;
         $this->line = $line;
-        $this->lastLine = isset($lastLine) ? $lastLine : $line;
+        $this->lastLine = $lastLine ?? $line;
     }
 
     public function __debugInfo(): array
