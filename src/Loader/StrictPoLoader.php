@@ -347,7 +347,15 @@ final class StrictPoLoader extends Loader
      */
     private function readPlural(): bool
     {
-        return ($data = $this->readIdentifier('msgid_plural')) !== null && $this->translation->setPlural($data);
+        $data = $this->readIdentifier('msgid_plural');
+
+        if ($data === null) {
+            return false;
+        }
+
+        $this->translation->setPlural($data);
+
+        return true;
     }
 
     /**
