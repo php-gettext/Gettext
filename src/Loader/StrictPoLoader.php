@@ -323,8 +323,15 @@ final class StrictPoLoader extends Loader
      */
     private function readContext(): bool
     {
-        return ($data = $this->readIdentifier('msgctxt')) !== null
-            && ($this->translation = $this->translation->withContext($data));
+        $data = $this->readIdentifier('msgctxt');
+
+        if ($data === null) {
+            return false;
+        }
+
+        $this->translation = $this->translation->withContext($data);
+
+        return true;
     }
 
     /**
