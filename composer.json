@@ -27,7 +27,7 @@
         "brick/varexporter": "^0.3.5",
         "friendsofphp/php-cs-fixer": "^3.2",
         "oscarotero/php-cs-fixer-config": "^2.0",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^1|^2"
     },
     "autoload": {
         "psr-4": {
