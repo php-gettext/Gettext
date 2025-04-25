@@ -35,8 +35,6 @@ final class StrictPoLoader extends Loader
     private $warnings = [];
     /** @var bool */
     private $isDisabled;
-    /** @var bool */
-    private $displayLineColumn;
 
     /**
      * Generates a Translations object from a .po based string
@@ -194,11 +192,11 @@ final class StrictPoLoader extends Loader
                 case '\\':
                     $data .= $this->readEscape();
                     break;
-                // Unexpected newline
+                    // Unexpected newline
                 case "\r":
                 case "\n":
                     throw new Exception("Newline character must be escaped{$this->getErrorPosition()}");
-                // Unexpected end of file
+                    // Unexpected end of file
                 case null:
                     throw new Exception("Expected a closing quote{$this->getErrorPosition()}");
             }
@@ -229,6 +227,7 @@ final class StrictPoLoader extends Loader
                 return chr($decimal);
             case 'x':
                 $value = $this->readCharset($hexDigits, 1, PHP_INT_MAX, 'hexadecimal');
+
                 // GNU reads all valid hexadecimal chars, but only uses the last pair
                 return hex2bin(str_pad(substr($value, -2), 2, '0', STR_PAD_LEFT));
             case 'U':
@@ -325,8 +324,15 @@ final class StrictPoLoader extends Loader
      */
     private function readContext(): bool
     {
-        return ($data = $this->readIdentifier('msgctxt')) !== null
-            && ($this->translation = $this->translation->withContext($data));
+        $data = $this->readIdentifier('msgctxt');
+
+        if ($data === null) {
+            return false;
+        }
+
+        $this->translation = $this->translation->withContext($data);
+
+        return true;
     }
 
     /**
@@ -342,7 +348,15 @@ final class StrictPoLoader extends Loader
      */
     private function readPlural(): bool
     {
-        return ($data = $this->readIdentifier('msgid_plural')) !== null && $this->translation->setPlural($data);
+        $data = $this->readIdentifier('msgid_plural');
+
+        if ($data === null) {
+            return false;
+        }
+
+        $this->translation->setPlural($data);
+
+        return true;
     }
 
     /**

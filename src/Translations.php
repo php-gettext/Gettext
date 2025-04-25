@@ -12,6 +12,8 @@ use ReturnTypeWillChange;
 
 /**
  * Class to manage a collection of translations under the same domain.
+ *
+ * @phpstan-consistent-constructor
  */
 class Translations implements Countable, IteratorAggregate
 {

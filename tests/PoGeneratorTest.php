@@ -33,7 +33,7 @@ EOT
         $translation->getReferences()->add('/my/template.php', 45);
         $translations->add($translation);
 
-        $translation = Translation::create('context-1', 'Other comment', 'Other comments');
+        $translation = Translation::create('context-1', 'Other comment');
         $translation->translate('Outro comentario');
         $translation->translatePlural('Outros comentarios');
         $translation->getExtractedComments()->add('Not sure about this');

@@ -24,8 +24,8 @@ final class PoLoader extends Loader
             $nextLine = next($lines);
 
             // Treat empty comments as empty lines https://github.com/php-gettext/Gettext/pull/296
-            if ($line === "#") {
-                $line = "";
+            if ($line === '#') {
+                $line = '';
             }
 
             //Multiline

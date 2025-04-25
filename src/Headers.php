@@ -12,6 +12,8 @@ use ReturnTypeWillChange;
 
 /**
  * Class to manage the headers of translations.
+ *
+ * @phpstan-consistent-constructor
  */
 class Headers implements JsonSerializable, Countable, IteratorAggregate
 {
