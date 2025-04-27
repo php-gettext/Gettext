@@ -11,7 +11,7 @@ abstract class BasePoLoaderTestCase extends TestCase
 {
     abstract protected function createPoLoader(): Loader;
 
-    public function testPoLoader()
+    public function testPoLoader(): void
     {
         $loader = $this->createPoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.po');
@@ -73,7 +73,7 @@ EOT
         $this->assertSame('bs', $translations->getLanguage());
     }
 
-    private function translation1(Translation $translation)
+    private function translation1(Translation $translation): void
     {
         $this->assertSame(
             'Ensure this value has at least %(limit_value)d character (it has %sd).',
@@ -87,7 +87,7 @@ EOT
         $this->assertSame(['', ''], $translation->getPluralTranslations());
     }
 
-    private function translation2(Translation $translation)
+    private function translation2(Translation $translation): void
     {
         $this->assertSame(
             'Ensure this value has at most %(limit_value)d character (it has %sd).',
@@ -101,7 +101,7 @@ EOT
         $this->assertSame(['', ''], $translation->getPluralTranslations());
     }
 
-    private function translation3(Translation $translation)
+    private function translation3(Translation $translation): void
     {
         $this->assertSame('%ss must be unique for %ss %ss.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -109,7 +109,7 @@ EOT
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation4(Translation $translation)
+    private function translation4(Translation $translation): void
     {
         $this->assertSame('and', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -118,7 +118,7 @@ EOT
         $this->assertSame(['c-format'], $translation->getFlags()->toArray());
     }
 
-    private function translation5(Translation $translation)
+    private function translation5(Translation $translation): void
     {
         $this->assertSame('Value %sr is not a valid choice.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -127,7 +127,7 @@ EOT
         $this->assertSame(['This is a extracted comment'], $translation->getExtractedComments()->toArray());
     }
 
-    private function translation6(Translation $translation)
+    private function translation6(Translation $translation): void
     {
         $this->assertSame('This field cannot be null.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -137,7 +137,7 @@ EOT
         $this->assertSame(['C:/Users/Me/Documents/foo2.php' => [1]], $translation->getReferences()->toArray());
     }
 
-    private function translation7(Translation $translation)
+    private function translation7(Translation $translation): void
     {
         $this->assertSame('This field cannot be blank.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -147,7 +147,7 @@ EOT
         $this->assertSame(['C:/Users/Me/Documents/foo1.php' => []], $translation->getReferences()->toArray());
     }
 
-    private function translation8(Translation $translation)
+    private function translation8(Translation $translation): void
     {
         $this->assertSame('Field of type: %ss', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -163,7 +163,7 @@ EOT
         );
     }
 
-    private function translation9(Translation $translation)
+    private function translation9(Translation $translation): void
     {
         $this->assertSame('Integer', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -174,7 +174,7 @@ EOT
         $this->assertSame(['a simple line comment is above'], $translation->getComments()->toArray());
     }
 
-    private function translation10(Translation $translation)
+    private function translation10(Translation $translation): void
     {
         $this->assertSame('{test1}', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -191,7 +191,7 @@ EOT
         );
     }
 
-    private function translation11(Translation $translation)
+    private function translation11(Translation $translation): void
     {
         $this->assertSame('{test2}', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -205,7 +205,7 @@ EOT
         );
     }
 
-    private function translation12(Translation $translation)
+    private function translation12(Translation $translation): void
     {
         $this->assertSame('Multibyte test', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -215,7 +215,7 @@ EOT
         $this->assertCount(0, $translation->getReferences());
     }
 
-    private function translation13(Translation $translation)
+    private function translation13(Translation $translation): void
     {
         $this->assertSame('Tabulation test', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -225,7 +225,7 @@ EOT
         $this->assertCount(0, $translation->getReferences());
     }
 
-    private function translation14(Translation $translation)
+    private function translation14(Translation $translation): void
     {
         $this->assertSame('%s has been added to your cart.', $translation->getOriginal());
         $this->assertSame('%s have been added to your cart.', $translation->getPlural());
@@ -257,10 +257,8 @@ EOT
 
     /**
      * @dataProvider stringDecodeProvider
-     * @param mixed $source
-     * @param mixed $decoded
      */
-    public function testStringDecode($source, $decoded)
+    public function testStringDecode(string $source, string $decoded): void
     {
         $po = <<<EOT
 msgid "source"
@@ -270,7 +268,7 @@ EOT;
         $this->assertSame($decoded, $translations->find(null, 'source')->getTranslation());
     }
 
-    public function testMultilineDisabledTranslations()
+    public function testMultilineDisabledTranslations(): void
     {
         $po = <<<'EOT'
 #~ msgid "Last agent hours-description"

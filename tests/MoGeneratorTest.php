@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class MoGeneratorTest extends TestCase
 {
-    public function testMoGenerator()
+    public function testMoGenerator(): void
     {
         $generator = (new MoGenerator())->includeHeaders();
         $loader = new MoLoader();

@@ -18,7 +18,7 @@ class PoLoaderTest extends BasePoLoaderTestCase
      * @param mixed $source
      * @param mixed $decoded
      */
-    public function testStringDecode($source, $decoded)
+    public function testStringDecode($source, $decoded): void
     {
         $this->assertSame($decoded, PoLoader::decode($source));
     }

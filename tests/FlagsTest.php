@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class FlagsTest extends TestCase
 {
-    public function testFlags()
+    public function testFlags(): void
     {
         $flags = new Flags();
 
@@ -41,7 +41,7 @@ class FlagsTest extends TestCase
         $this->assertCount(2, $flags);
     }
 
-    public function testMergeFlags()
+    public function testMergeFlags(): void
     {
         $flags1 = new Flags('one', 'two', 'three');
         $flags2 = new Flags('three', 'four', 'five');
@@ -61,7 +61,7 @@ class FlagsTest extends TestCase
         $this->assertNotSame($merged, $flags2);
     }
 
-    public function testCreateFromState()
+    public function testCreateFromState(): void
     {
         $state = ['flags' => ['one', 'two']];
         $flags = Flags::__set_state($state);

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ParsedFunctionsAndCommentsTest extends TestCase
 {
-    public function testParsedFunction()
+    public function testParsedFunction(): void
     {
         $function = new ParsedFunction('__', 'template.php', 45);
 

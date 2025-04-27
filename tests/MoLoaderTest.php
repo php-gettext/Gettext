@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MoLoaderTest extends TestCase
 {
-    public function testMoLoader()
+    public function testMoLoader(): void
     {
         $loader = new MoLoader();
         $translations = $loader->loadFile(__DIR__.'/assets/translations.mo');
@@ -54,7 +54,7 @@ class MoLoaderTest extends TestCase
         $this->assertSame('bs', $translations->getLanguage());
     }
 
-    private function translation0(Translation $translation)
+    private function translation0(Translation $translation): void
     {
         $this->assertSame('%s has been added to your cart.', $translation->getOriginal());
         $this->assertSame('%s have been added to your cart.', $translation->getPlural());
@@ -62,7 +62,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(1, $translation->getPluralTranslations());
     }
 
-    private function translation1(Translation $translation)
+    private function translation1(Translation $translation): void
     {
         $this->assertSame('%ss must be unique for %ss %ss.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -70,7 +70,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation2(Translation $translation)
+    private function translation2(Translation $translation): void
     {
         $this->assertSame('Field of type: %ss', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -78,7 +78,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation3(Translation $translation)
+    private function translation3(Translation $translation): void
     {
         $this->assertSame('Integer', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -86,7 +86,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation4(Translation $translation)
+    private function translation4(Translation $translation): void
     {
         $this->assertSame('Multibyte test', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -94,7 +94,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation5(Translation $translation)
+    private function translation5(Translation $translation): void
     {
         $this->assertSame('Tabulation test', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -102,7 +102,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation6(Translation $translation)
+    private function translation6(Translation $translation): void
     {
         $this->assertSame('This field cannot be blank.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -110,7 +110,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation7(Translation $translation)
+    private function translation7(Translation $translation): void
     {
         $this->assertSame('This field cannot be null.', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -118,7 +118,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation8(Translation $translation)
+    private function translation8(Translation $translation): void
     {
         $this->assertSame('and', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -126,7 +126,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation9(Translation $translation)
+    private function translation9(Translation $translation): void
     {
         $this->assertSame('{test1}', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
@@ -134,7 +134,7 @@ class MoLoaderTest extends TestCase
         $this->assertCount(0, $translation->getPluralTranslations());
     }
 
-    private function translation10(Translation $translation)
+    private function translation10(Translation $translation): void
     {
         $this->assertSame('{test2}', $translation->getOriginal());
         $this->assertNull($translation->getPlural());
