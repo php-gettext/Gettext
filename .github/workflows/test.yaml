@@ -45,3 +45,35 @@ jobs:
 
       - name: Tests
         run: composer test
+
+  rector:
+    name: Rector
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php:
+          - 8.4
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Cache PHP dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-php-${{ matrix.php }}-composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Tests
+        run: vendor/bin/rector process --dry-run
