@@ -14,6 +14,10 @@ use ReturnTypeWillChange;
  * Class to manage the headers of translations.
  *
  * @phpstan-consistent-constructor
+ *
+ * @phpstan-type HeadersType array<string, string>
+ *
+ * @implements IteratorAggregate<string, string>
  */
 class Headers implements JsonSerializable, Countable, IteratorAggregate
 {
@@ -21,13 +25,22 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     public const HEADER_PLURAL = 'Plural-Forms';
     public const HEADER_DOMAIN = 'X-Domain';
 
+    /**
+     * @var HeadersType
+     */
     protected $headers = [];
 
+    /**
+     * @param array{headers: HeadersType} $state
+     */
     public static function __set_state(array $state): Headers
     {
         return new static($state['headers']);
     }
 
+    /**
+     * @param HeadersType $headers
+     */
     public function __construct(array $headers = [])
     {
         $this->headers = $headers;
@@ -115,7 +128,7 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
     /**
      * Returns the parsed plural definition.
      *
-     * @return array|null [count, rule]
+     * @return array{int, string}|null [count, rule]
      */
     public function getPluralForm(): ?array
     {
@@ -130,6 +143,9 @@ class Headers implements JsonSerializable, Countable, IteratorAggregate
         return null;
     }
 
+    /**
+     * @return HeadersType
+     */
     public function toArray(): array
     {
         return $this->headers;
