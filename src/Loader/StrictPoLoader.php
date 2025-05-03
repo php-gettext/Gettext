@@ -167,7 +167,7 @@ final class StrictPoLoader extends Loader
     private function readQuotedString(?string $context = null): string
     {
         $this->readWhitespace();
-        for ($data = '', $isNewPart = true, $checkpoint = null;;) {
+        for ($data = '', $isNewPart = true, $checkpoint = null; ;) {
             if ($isNewPart && !$this->readChar('"')) {
                 // The data is over (e.g. beginning of an identifier) or perhaps there's an error
                 // Restore the checkpoint and let the next parser handle it
@@ -437,6 +437,8 @@ final class StrictPoLoader extends Loader
 
     /**
      * Parses the translation header data into an array
+     *
+     * @return array<string, string>
      */
     private function readHeaders(string $data): array
     {
