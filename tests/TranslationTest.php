@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TranslationTest extends TestCase
 {
-    public function testTranslation()
+    public function testTranslation(): void
     {
         $translation = Translation::create('foo', 'bar');
 
@@ -56,7 +56,7 @@ class TranslationTest extends TestCase
         $this->assertNotSame($translation->getReferences(), $clone->getReferences());
     }
 
-    public function testMergeTranslation()
+    public function testMergeTranslation(): void
     {
         $translation1 = Translation::create('context', 'Original');
         $translation1->translate('Orixinal');

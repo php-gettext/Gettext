@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PoGeneratorTest extends TestCase
 {
-    public function testPoLoader()
+    public function testPoLoader(): void
     {
         $generator = new PoGenerator();
         $translations = Translations::create('my-domain');
@@ -96,7 +96,7 @@ EOT;
         $this->assertSame($expected, $result);
     }
 
-    public function stringEncodeProvider()
+    public function stringEncodeProvider(): array
     {
         return [
             ['"test"', 'test'],
@@ -109,10 +109,8 @@ EOT;
 
     /**
      * @dataProvider stringEncodeProvider
-     * @param mixed $encoded
-     * @param mixed $decoded
      */
-    public function testStringEncode($encoded, $decoded)
+    public function testStringEncode(string $encoded, string $decoded): void
     {
         $this->assertSame($encoded, PoGenerator::encode($decoded));
     }

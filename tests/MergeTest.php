@@ -93,7 +93,7 @@ class MergeTest extends TestCase
         return $translations;
     }
 
-    public function testNoStrategy()
+    public function testNoStrategy(): void
     {
         $pot = self::createPOT();
         $po = self::createPO();
@@ -106,7 +106,7 @@ class MergeTest extends TestCase
     /**
      * We want to use the scanner to fetch new entries and complete them with PO files.
      */
-    public function testScanAndLoadStrategy()
+    public function testScanAndLoadStrategy(): void
     {
         $pot = self::createPOT();
         $po = self::createPO();
@@ -126,7 +126,7 @@ class MergeTest extends TestCase
         $this->assertSnapshot(__FUNCTION__, $merged);
     }
 
-    private function assertSnapshot(string $name, Translations $translations, bool $forceCreate = false)
+    private function assertSnapshot(string $name, Translations $translations, bool $forceCreate = false): void
     {
         $file = __DIR__."/snapshots/{$name}.php";
         $array = $translations->toArray();

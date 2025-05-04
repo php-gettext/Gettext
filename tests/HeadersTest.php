@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class HeadersTest extends TestCase
 {
-    public function testHeaders()
+    public function testHeaders(): void
     {
         $headers = new Headers();
 
@@ -41,7 +41,7 @@ class HeadersTest extends TestCase
         $this->assertCount(0, $headers);
     }
 
-    public function testDomain()
+    public function testDomain(): void
     {
         $headers = new Headers();
         $headers->setDomain('foo');
@@ -52,7 +52,7 @@ class HeadersTest extends TestCase
         $this->assertSame('foo', $headers->getDomain());
     }
 
-    public function testLanguage()
+    public function testLanguage(): void
     {
         $headers = new Headers();
         $headers->setLanguage('gl_ES');
@@ -63,7 +63,7 @@ class HeadersTest extends TestCase
         $this->assertSame('gl_ES', $headers->getLanguage());
     }
 
-    public function testInvalidLanguage()
+    public function testInvalidLanguage(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -71,7 +71,7 @@ class HeadersTest extends TestCase
         $headers->setPluralForm(1, 'foo');
     }
 
-    public function testPluralForm()
+    public function testPluralForm(): void
     {
         $headers = new Headers();
         $headers->setPluralForm(2, '(n=1)');
@@ -82,7 +82,7 @@ class HeadersTest extends TestCase
         $this->assertSame([2, '(n=1)'], $headers->getPluralForm());
     }
 
-    public function testMergeHeaders()
+    public function testMergeHeaders(): void
     {
         $headers1 = new Headers(['X-Domain' => 'foo', 'Language' => 'gl_ES']);
         $headers2 = new Headers(['Translator' => 'Oscar Otero', 'Language' => 'ru']);
@@ -97,7 +97,7 @@ class HeadersTest extends TestCase
         $this->assertNotSame($merged, $headers2);
     }
 
-    public function testCreateFromState()
+    public function testCreateFromState(): void
     {
         $state = ['headers' => ['X-Domain' => 'foo']];
         $headers = Headers::__set_state($state);

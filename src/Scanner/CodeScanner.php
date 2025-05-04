@@ -95,7 +95,7 @@ abstract class CodeScanner extends Scanner
 
     protected function addComments(ParsedFunction $function, ?Translation $translation): ?Translation
     {
-        if (empty($this->commentsPrefixes) || empty($translation)) {
+        if (empty($this->commentsPrefixes) || $translation === null) {
             return $translation;
         }
 
@@ -110,7 +110,7 @@ abstract class CodeScanner extends Scanner
 
     protected function addFlags(ParsedFunction $function, ?Translation $translation): ?Translation
     {
-        if (empty($translation)) {
+        if ($translation === null) {
             return $translation;
         }
 

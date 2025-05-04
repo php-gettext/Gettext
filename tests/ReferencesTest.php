@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReferencesTest extends TestCase
 {
-    public function testReferences()
+    public function testReferences(): void
     {
         $references = new References();
 
@@ -36,7 +36,7 @@ class ReferencesTest extends TestCase
         }
     }
 
-    public function testMergeReferences()
+    public function testMergeReferences(): void
     {
         $references1 = new References();
         $references2 = new References();
@@ -72,7 +72,7 @@ class ReferencesTest extends TestCase
         $this->assertNotSame($merged, $references2);
     }
 
-    public function testCreateFromState()
+    public function testCreateFromState(): void
     {
         $state = [
             'references' => [

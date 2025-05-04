@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommentsTest extends TestCase
 {
-    public function testComments()
+    public function testComments(): void
     {
         $comments = new Comments();
 
@@ -36,7 +36,7 @@ class CommentsTest extends TestCase
         $this->assertCount(1, $comments);
     }
 
-    public function testMergeComments()
+    public function testMergeComments(): void
     {
         $comments1 = new Comments('one', 'two', 'three');
         $comments2 = new Comments('three', 'four', 'five');
@@ -50,7 +50,7 @@ class CommentsTest extends TestCase
         $this->assertNotSame($merged, $comments2);
     }
 
-    public function testCreateFromState()
+    public function testCreateFromState(): void
     {
         $state = ['comments' => ['First comment', 'Second comment']];
         $comments = Comments::__set_state($state);
