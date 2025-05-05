@@ -437,6 +437,8 @@ final class StrictPoLoader extends Loader
 
     /**
      * Parses the translation header data into an array
+     *
+     * @return array<string, string>
      */
     private function readHeaders(string $data): array
     {
