@@ -19,6 +19,11 @@ abstract class Scanner implements ScannerInterface
     {
         foreach ($allTranslations as $translations) {
             $domain = $translations->getDomain();
+
+            if (is_null($domain)) {
+                $domain = '';
+            }
+
             $this->translations[$domain] = $translations;
         }
     }
@@ -55,6 +60,10 @@ abstract class Scanner implements ScannerInterface
     ): ?Translation {
         if (is_null($domain)) {
             $domain = $this->defaultDomain;
+        }
+
+        if (is_null($domain)) {
+            $domain = '';
         }
 
         if (!isset($this->translations[$domain])) {
