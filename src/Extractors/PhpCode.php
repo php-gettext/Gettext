@@ -127,9 +127,9 @@ class PhpCode extends Extractor implements ExtractorInterface, ExtractorMultiInt
                     case 'x':
                         return chr(hexdec(substr($match[1], 1)));
                     case 'u':
-                        return static::unicodeChar(hexdec(substr($match[1], 1)));
+                        return static::unicodeChar(hexdec(substr($match[1], 2, -1)));
                     default:
-                        return chr(octdec($match[1]));
+                        return chr(octdec($match[1]) % 256);
                 }
             },
             $value
