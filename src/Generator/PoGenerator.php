@@ -102,6 +102,8 @@ final class PoGenerator extends Generator
 
     /**
      * Add one or more lines depending whether the string is multiline or not.
+     *
+     * @param array<int, string> $lines
      */
     private static function appendLines(array &$lines, string $prefix, string $name, string $value): void
     {

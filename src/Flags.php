@@ -13,11 +13,21 @@ use ReturnTypeWillChange;
  * Class to manage the flags of a translation.
  *
  * @phpstan-consistent-constructor
+ *
+ * @phpstan-type FlagsType array<int, string>
+ *
+ * @implements IteratorAggregate<int, string>
  */
 class Flags implements JsonSerializable, Countable, IteratorAggregate
 {
+    /**
+     * @var FlagsType
+     */
     protected $flags = [];
 
+    /**
+     * @param array{flags: FlagsType} $state
+     */
     public static function __set_state(array $state): Flags
     {
         return new static(...$state['flags']);
@@ -83,6 +93,9 @@ class Flags implements JsonSerializable, Countable, IteratorAggregate
         return count($this->flags);
     }
 
+    /**
+     * @return FlagsType
+     */
     public function toArray(): array
     {
         return $this->flags;

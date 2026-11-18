@@ -13,11 +13,21 @@ use ReturnTypeWillChange;
  * Class to manage the comments of a translation.
  *
  * @phpstan-consistent-constructor
+ *
+ * @phpstan-type CommentsType array<int, string>
+ *
+ * @implements IteratorAggregate<int, string>
  */
 class Comments implements JsonSerializable, Countable, IteratorAggregate
 {
+    /**
+     * @var CommentsType
+     */
     protected $comments = [];
 
+    /**
+     * @param array{comments: CommentsType} $state
+     */
     public static function __set_state(array $state): Comments
     {
         return new static(...$state['comments']);
@@ -51,9 +61,7 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
         foreach ($comments as $comment) {
             $key = array_search($comment, $this->comments);
 
-            if (is_int($key)) {
-                array_splice($this->comments, $key, 1);
-            }
+            array_splice($this->comments, $key, 1);
         }
 
         return $this;
@@ -76,6 +84,9 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
         return count($this->comments);
     }
 
+    /**
+     * @return CommentsType
+     */
     public function toArray(): array
     {
         return $this->comments;

@@ -11,8 +11,19 @@ use Gettext\Translations;
  */
 final class MoLoader extends Loader
 {
+    /**
+     * @var string
+     */
     private $string;
+
+    /**
+     * @var int<0, max>
+     */
     private $position;
+
+    /**
+     * @var int<0, max>
+     */
     private $length;
 
     private const MAGIC1 = -1794895138;
@@ -132,6 +143,12 @@ final class MoLoader extends Loader
         return (int) array_shift($read);
     }
 
+    /**
+     * @param string $byteOrder
+     * @param int    $count
+     *
+     * @return array<int, int>
+     */
     private function readIntArray(string $byteOrder, int $count): array
     {
         return unpack($byteOrder.$count, $this->read(4 * $count)) ?: [];

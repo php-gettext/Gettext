@@ -153,6 +153,11 @@ final class PoLoader extends Loader
         return $translations;
     }
 
+    /**
+     * @param string|null $string
+     *
+     * @return array<string, string>
+     */
     private static function parseHeaders(?string $string): array
     {
         if (empty($string)) {
