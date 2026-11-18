@@ -54,4 +54,32 @@ class MoGeneratorTest extends TestCase
         $this->assertCount(4, $result);
         $this->assertCount(5, $result->getHeaders());
     }
+
+    public function testZeroStrings(): void
+    {
+        $translations = Translations::create();
+
+        $translation = Translation::create('0', '1');
+        $translation->translate('0');
+        $translations->add($translation);
+
+        $translation = Translation::create(null, 'One');
+        $translation->setPlural('0');
+        $translation->translate('Singular');
+        $translation->translatePlural('Plural');
+        $translations->add($translation);
+
+        $result = (new MoLoader())->loadString((new MoGenerator())->generateString($translations));
+
+        $this->assertCount(2, $result);
+
+        $translation = $result->find('0', '1');
+        $this->assertNotNull($translation);
+        $this->assertSame('0', $translation->getTranslation());
+
+        $translation = $result->find(null, 'One');
+        $this->assertNotNull($translation);
+        $this->assertSame('0', $translation->getPlural());
+        $this->assertSame(['Plural'], $translation->getPluralTranslations());
+    }
 }

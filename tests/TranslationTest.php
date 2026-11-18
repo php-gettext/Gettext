@@ -5,6 +5,7 @@ namespace Gettext\Tests;
 
 use Gettext\Comments;
 use Gettext\Flags;
+use Gettext\Merge;
 use Gettext\References;
 use Gettext\Translation;
 use PHPUnit\Framework\TestCase;
@@ -98,5 +99,30 @@ class TranslationTest extends TestCase
 
         $this->assertNotSame($merged, $translation1);
         $this->assertNotSame($merged, $translation2);
+    }
+
+    public function testMergeKeepsZeroStrings(): void
+    {
+        $translation1 = Translation::create(null, '1');
+        $translation1->setPlural('0');
+        $translation1->translate('0');
+
+        $translation2 = Translation::create(null, '1');
+        $translation2->setPlural('Plural');
+        $translation2->translate('One');
+
+        $merged = $translation1->mergeWith($translation2);
+
+        $this->assertSame('0', $merged->getTranslation());
+        $this->assertSame('0', $merged->getPlural());
+
+        $merged = $translation1->mergeWith(Translation::create(null, '1'), Merge::TRANSLATIONS_OVERRIDE);
+
+        $this->assertSame('0', $merged->getTranslation());
+
+        $merged = $translation2->mergeWith($translation1, Merge::TRANSLATIONS_OVERRIDE);
+
+        $this->assertSame('0', $merged->getTranslation());
+        $this->assertSame('0', $merged->getPlural());
     }
 }
