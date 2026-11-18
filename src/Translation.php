@@ -273,7 +273,9 @@ class Translation
             $merged->previousContext = $translation->previousContext;
         }
 
-        if (!self::hasValue($merged->previousOriginal) || (self::hasValue($translation->previousOriginal) && $override)) {
+        if (!self::hasValue($merged->previousOriginal)
+            || (self::hasValue($translation->previousOriginal) && $override)
+        ) {
             $merged->previousOriginal = $translation->previousOriginal;
         }
 
