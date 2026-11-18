@@ -24,7 +24,13 @@ final class PoLoader extends Loader
             $nextLine = next($lines);
 
             // Treat empty comments as empty lines https://github.com/php-gettext/Gettext/pull/296
+            // but only after an entry: before it, `#` is part of its comments (the header
+            // description is followed by one)
             if ($line === '#') {
+                if (self::isEmpty($translation)) {
+                    $line = $nextLine;
+                    continue;
+                }
                 $line = '';
             }
 
