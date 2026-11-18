@@ -121,7 +121,7 @@ final class Merge
      */
     public static function mergeTranslation(Translation $from, Translation $to, $options = self::DEFAULTS)
     {
-        $override = (boolean) ($options & self::TRANSLATION_OVERRIDE);
+        $override = (bool) ($options & self::TRANSLATION_OVERRIDE);
 
         if (!$to->hasTranslation() || ($from->hasTranslation() && $override)) {
             $to->setTranslation($from->getTranslation());
