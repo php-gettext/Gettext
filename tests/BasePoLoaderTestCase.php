@@ -286,4 +286,37 @@ EOT;
             $translation->getTranslation()
         );
     }
+
+    public function testZeroStrings(): void
+    {
+        $po = <<<'EOT'
+msgid ""
+msgstr ""
+"Language: gl\n"
+
+msgid "0"
+msgstr ""
+
+msgctxt "start of week"
+msgid "1"
+msgstr "0"
+
+msgctxt "0"
+msgid "Zero context"
+msgstr "Translated"
+EOT;
+        $translations = $this->createPoLoader()->loadString($po);
+
+        $this->assertCount(3, $translations);
+
+        $translation = $translations->find(null, '0');
+        $this->assertNotNull($translation);
+        $this->assertFalse($translation->isTranslated());
+
+        $translation = $translations->find('start of week', '1');
+        $this->assertNotNull($translation);
+        $this->assertSame('0', $translation->getTranslation());
+
+        $this->assertNotNull($translations->find('0', 'Zero context'));
+    }
 }

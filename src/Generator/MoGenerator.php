@@ -32,11 +32,13 @@ final class MoGenerator extends Generator
         }
 
         foreach ($translations as $translation) {
-            if (!$translation->getTranslation() || $translation->isDisabled()) {
+            if (!$translation->isTranslated() || $translation->isDisabled()) {
                 continue;
             }
 
-            if ($context = $translation->getContext()) {
+            $context = $translation->getContext();
+
+            if ($context !== null && $context !== '') {
                 $originalString = "{$context}\x04{$translation->getOriginal()}";
             } else {
                 $originalString = $translation->getOriginal();
@@ -142,7 +144,7 @@ final class MoGenerator extends Generator
 
     private static function hasPluralTranslations(Translation $translation): bool
     {
-        if (!$translation->getPlural()) {
+        if ($translation->getPlural() === null || $translation->getPlural() === '') {
             return false;
         }
 

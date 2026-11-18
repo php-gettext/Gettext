@@ -114,4 +114,40 @@ EOT;
     {
         $this->assertSame($encoded, PoGenerator::encode($decoded));
     }
+
+    public function testZeroStrings(): void
+    {
+        $translations = Translations::create();
+
+        $translation = Translation::create('0', '1');
+        $translation->translate('0');
+        $translation->setPreviousContext('0');
+        $translation->setPreviousOriginal('0');
+        $translations->add($translation);
+
+        $translation = Translation::create(null, 'One');
+        $translation->setPlural('0');
+        $translation->translate('0');
+        $translation->translatePlural('0');
+        $translations->add($translation);
+
+        $expected = <<<'EOT'
+msgid ""
+msgstr ""
+
+#| msgctxt "0"
+#| msgid "0"
+msgctxt "0"
+msgid "1"
+msgstr "0"
+
+msgid "One"
+msgid_plural "0"
+msgstr[0] "0"
+msgstr[1] "0"
+
+EOT;
+
+        $this->assertSame($expected, (new PoGenerator())->generateString($translations));
+    }
 }

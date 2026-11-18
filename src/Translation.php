@@ -261,23 +261,23 @@ class Translation
 
         $override = (bool) ($strategy & Merge::TRANSLATIONS_OVERRIDE);
 
-        if (!$merged->translation || ($translation->translation && $override)) {
+        if (!self::hasValue($merged->translation) || (self::hasValue($translation->translation) && $override)) {
             $merged->translation = $translation->translation;
         }
 
-        if (!$merged->plural || ($translation->plural && $override)) {
+        if (!self::hasValue($merged->plural) || (self::hasValue($translation->plural) && $override)) {
             $merged->plural = $translation->plural;
         }
 
-        if (!$merged->previousContext || ($translation->previousContext && $override)) {
+        if (!self::hasValue($merged->previousContext) || (self::hasValue($translation->previousContext) && $override)) {
             $merged->previousContext = $translation->previousContext;
         }
 
-        if (!$merged->previousOriginal || ($translation->previousOriginal && $override)) {
+        if (!self::hasValue($merged->previousOriginal) || (self::hasValue($translation->previousOriginal) && $override)) {
             $merged->previousOriginal = $translation->previousOriginal;
         }
 
-        if (!$merged->previousPlural || ($translation->previousPlural && $override)) {
+        if (!self::hasValue($merged->previousPlural) || (self::hasValue($translation->previousPlural) && $override)) {
             $merged->previousPlural = $translation->previousPlural;
         }
 
@@ -288,5 +288,13 @@ class Translation
         $merged->disable($translation->isDisabled());
 
         return $merged;
+    }
+
+    /**
+     * Checks whether a string is set and not empty. Unlike a truthiness check, "0" is a valid value.
+     */
+    private static function hasValue(?string $value): bool
+    {
+        return $value !== null && $value !== '';
     }
 }

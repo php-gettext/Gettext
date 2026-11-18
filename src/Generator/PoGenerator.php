@@ -65,39 +65,54 @@ final class PoGenerator extends Generator
 
             $prefix = $translation->isDisabled() ? '#~ ' : '';
 
-            if ($context = $translation->getPreviousContext()) {
-                $lines[] = sprintf('%s#| msgctxt %s', $prefix, self::encode($context));
+            $previousContext = $translation->getPreviousContext();
+            if (self::hasValue($previousContext)) {
+                $lines[] = sprintf('%s#| msgctxt %s', $prefix, self::encode($previousContext));
             }
 
-            if ($original = $translation->getPreviousOriginal()) {
-                $lines[] = sprintf('%s#| msgid %s', $prefix, self::encode($original));
+            $previousOriginal = $translation->getPreviousOriginal();
+            if (self::hasValue($previousOriginal)) {
+                $lines[] = sprintf('%s#| msgid %s', $prefix, self::encode($previousOriginal));
             }
 
-            if ($plural = $translation->getPreviousPlural()) {
-                $lines[] = sprintf('%s#| msgid_plural %s', $prefix, self::encode($plural));
+            $previousPlural = $translation->getPreviousPlural();
+            if (self::hasValue($previousPlural)) {
+                $lines[] = sprintf('%s#| msgid_plural %s', $prefix, self::encode($previousPlural));
             }
 
-            if ($context = $translation->getContext()) {
+            $context = $translation->getContext();
+            if (self::hasValue($context)) {
                 $lines[] = sprintf('%smsgctxt %s', $prefix, self::encode($context));
             }
 
             self::appendLines($lines, $prefix, 'msgid', $translation->getOriginal());
 
-            if ($plural = $translation->getPlural()) {
+            $plural = $translation->getPlural();
+            if (self::hasValue($plural)) {
                 self::appendLines($lines, $prefix, 'msgid_plural', $plural);
-                self::appendLines($lines, $prefix, 'msgstr[0]', $translation->getTranslation() ?: '');
+                self::appendLines($lines, $prefix, 'msgstr[0]', $translation->getTranslation() ?? '');
 
                 foreach ($translation->getPluralTranslations($pluralSize) as $k => $v) {
                     self::appendLines($lines, $prefix, sprintf('msgstr[%d]', $k + 1), $v);
                 }
             } else {
-                self::appendLines($lines, $prefix, 'msgstr', $translation->getTranslation() ?: '');
+                self::appendLines($lines, $prefix, 'msgstr', $translation->getTranslation() ?? '');
             }
 
             $lines[] = '';
         }
 
         return implode("\n", $lines);
+    }
+
+    /**
+     * Checks whether a string is set and not empty. Unlike a truthiness check, "0" is a valid value.
+     *
+     * @phpstan-assert-if-true string $value
+     */
+    private static function hasValue(?string $value): bool
+    {
+        return $value !== null && $value !== '';
     }
 
     /**

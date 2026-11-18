@@ -218,14 +218,10 @@ final class PoLoader extends Loader
 
     private static function isEmpty(Translation $translation): bool
     {
-        if (!empty($translation->getOriginal())) {
+        if ($translation->getOriginal() !== '') {
             return false;
         }
 
-        if (!empty($translation->getTranslation())) {
-            return false;
-        }
-
-        return true;
+        return !$translation->isTranslated();
     }
 }
