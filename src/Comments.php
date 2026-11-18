@@ -66,7 +66,7 @@ class Comments implements JsonSerializable, Countable, IteratorAggregate
     }
 
     #[ReturnTypeWillChange]
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->comments);
     }
