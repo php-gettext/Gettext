@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [4.8.13] - 2026-11-18
+### Fixed
+- Fix PHP 7.4+ and 8.5 deprecation warnings - [#310]
+
 ## [4.8.12] - 2024-05-18
 ### Fixed
 - Parsing of PO files with empty comments instead of empty lines [#296]
@@ -203,7 +207,9 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 [#288]: https://github.com/oscarotero/Gettext/issues/288
 [#289]: https://github.com/oscarotero/Gettext/issues/289
 [#296]: https://github.com/oscarotero/Gettext/issues/296
+[#310]: https://github.com/oscarotero/Gettext/issues/310
 
+[4.8.13]: https://github.com/oscarotero/Gettext/compare/v4.8.12...v4.8.13
 [4.8.12]: https://github.com/oscarotero/Gettext/compare/v4.8.11...v4.8.12
 [4.8.11]: https://github.com/oscarotero/Gettext/compare/v4.8.10...v4.8.11
 [4.8.10]: https://github.com/oscarotero/Gettext/compare/v4.8.9...v4.8.10
