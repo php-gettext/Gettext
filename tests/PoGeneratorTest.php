@@ -150,4 +150,19 @@ EOT;
 
         $this->assertSame($expected, (new PoGenerator())->generateString($translations));
     }
+
+    public function testHeaderValuesAreEscaped(): void
+    {
+        $translations = Translations::create();
+        $translations->getHeaders()->set('Last-Translator', '"Josep M. Ferrer" <txemaq@gmail.com>');
+
+        $expected = <<<'EOT'
+msgid ""
+msgstr ""
+"Last-Translator: \"Josep M. Ferrer\" <txemaq@gmail.com>\n"
+
+EOT;
+
+        $this->assertSame($expected, (new PoGenerator())->generateString($translations));
+    }
 }
