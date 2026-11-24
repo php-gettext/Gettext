@@ -33,7 +33,7 @@ final class PoGenerator extends Generator
         $lines[] = 'msgstr ""';
 
         foreach ($translations->getHeaders() as $name => $value) {
-            $lines[] = sprintf('"%s: %s\\n"', $name, $value);
+            $lines[] = self::encode(sprintf("%s: %s\n", $name, $value));
         }
 
         $lines[] = '';
