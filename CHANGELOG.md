@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
+## [Unreleased]
+### Changed
+- `MoGenerator` writes the header entry by default, so `.mo` files keep `Plural-Forms`. Use `includeHeaders(false)` to leave it out.
+
 ## [5.7.4] - 2026-11-20
 ### Fixed
 - Add PHPStan level 5 - [#304]

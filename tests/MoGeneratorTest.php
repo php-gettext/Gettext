@@ -55,6 +55,23 @@ class MoGeneratorTest extends TestCase
         $this->assertCount(5, $result->getHeaders());
     }
 
+    public function testPluralFormsAreWrittenByDefault(): void
+    {
+        $translations = Translations::create();
+        $translations->setLanguage('ru');
+        $translation = Translation::create(null, '%d file');
+        $translation->setPlural('%d files');
+        $translation->translate('%d файл');
+        $translation->translatePlural('%d файла', '%d файлов');
+        $translations->add($translation);
+
+        $mo = (new MoGenerator())->generateString($translations);
+        $result = (new MoLoader())->loadString($mo);
+
+        $this->assertSame($translations->getHeaders()->getPluralForm(), $result->getHeaders()->getPluralForm());
+        $this->assertSame(['%d файла', '%d файлов'], $result->find(null, '%d file')->getPluralTranslations());
+    }
+
     public function testZeroStrings(): void
     {
         $translations = Translations::create();
