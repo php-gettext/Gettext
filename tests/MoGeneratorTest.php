@@ -55,6 +55,20 @@ class MoGeneratorTest extends TestCase
         $this->assertCount(5, $result->getHeaders());
     }
 
+    public function testFuzzyTranslationsAreSkippedByDefault(): void
+    {
+        $translations = Translations::create();
+        $translation = Translation::create(null, 'New text');
+        $translation->translate('Texte ancien');
+        $translation->getFlags()->add('fuzzy');
+        $translations->add($translation);
+
+        $loader = new MoLoader();
+
+        $this->assertCount(0, $loader->loadString((new MoGenerator())->generateString($translations)));
+        $this->assertCount(1, $loader->loadString((new MoGenerator())->includeFuzzy()->generateString($translations)));
+    }
+
     public function testPluralFormsAreWrittenByDefault(): void
     {
         $translations = Translations::create();

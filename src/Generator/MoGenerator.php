@@ -9,10 +9,21 @@ use Gettext\Translations;
 final class MoGenerator extends Generator
 {
     private $includeHeaders = true;
+    private $includeFuzzy = false;
 
     public function includeHeaders(bool $includeHeaders = true): self
     {
         $this->includeHeaders = $includeHeaders;
+
+        return $this;
+    }
+
+    /**
+     * Include translations flagged as fuzzy, like msgfmt --use-fuzzy.
+     */
+    public function includeFuzzy(bool $includeFuzzy = true): self
+    {
+        $this->includeFuzzy = $includeFuzzy;
 
         return $this;
     }
@@ -33,6 +44,10 @@ final class MoGenerator extends Generator
 
         foreach ($translations as $translation) {
             if (!$translation->isTranslated() || $translation->isDisabled()) {
+                continue;
+            }
+
+            if (!$this->includeFuzzy && $translation->getFlags()->has('fuzzy')) {
                 continue;
             }
 

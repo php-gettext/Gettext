@@ -9,6 +9,7 @@ Previous releases are documented in [github releases](https://github.com/oscarot
 ## [Unreleased]
 ### Changed
 - `MoGenerator` writes the header entry by default, so `.mo` files keep `Plural-Forms`. Use `includeHeaders(false)` to leave it out.
+- `MoGenerator` leaves out translations flagged `fuzzy`, as `msgfmt` does. Use `includeFuzzy()` to keep them.
 
 ## [5.7.4] - 2026-11-20
 ### Fixed
