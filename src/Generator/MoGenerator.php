@@ -8,7 +8,7 @@ use Gettext\Translations;
 
 final class MoGenerator extends Generator
 {
-    private $includeHeaders = false;
+    private $includeHeaders = true;
 
     public function includeHeaders(bool $includeHeaders = true): self
     {
